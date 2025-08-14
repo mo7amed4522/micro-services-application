@@ -86,8 +86,6 @@ func (db *Database) GetTemplateByID(id string) (*pb.HistoryTemplate, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	// Convert timestamps
 	if publishedAt.Valid {
 		template.PublishedAt = timestamppb.New(publishedAt.Time)
 	}
@@ -97,8 +95,6 @@ func (db *Database) GetTemplateByID(id string) (*pb.HistoryTemplate, error) {
 	if updatedAt.Valid {
 		template.UpdatedAt = timestamppb.New(updatedAt.Time)
 	}
-
-	// Get sections for this template
 	sections, err := db.getTemplateSections(id)
 	if err != nil {
 		log.Printf("Warning: Failed to get sections for template %s: %v", id, err)
@@ -110,15 +106,12 @@ func (db *Database) GetTemplateByID(id string) (*pb.HistoryTemplate, error) {
 }
 
 func (db *Database) GetAllTemplates(page, limit int32, sortBy, order string) ([]*pb.HistoryTemplate, int32, error) {
-	// Count total templates
 	countQuery := "SELECT COUNT(*) FROM history_templates WHERE is_active = true"
 	var totalCount int32
 	err := db.conn.QueryRow(countQuery).Scan(&totalCount)
 	if err != nil {
 		return nil, 0, err
 	}
-
-	// Build query with pagination
 	offset := (page - 1) * limit
 	query := `
 		SELECT id, title, description, era, dynasty, pharaoh_id, difficulty, 
@@ -159,8 +152,6 @@ func (db *Database) GetAllTemplates(page, limit int32, sortBy, order string) ([]
 		if err != nil {
 			return nil, 0, err
 		}
-
-		// Convert timestamps
 		if publishedAt.Valid {
 			template.PublishedAt = timestamppb.New(publishedAt.Time)
 		}
@@ -264,15 +255,12 @@ func (db *Database) DeleteTemplate(id string) error {
 }
 
 func (db *Database) GetTemplatesByEra(era string, page, limit int32) ([]*pb.HistoryTemplate, int32, error) {
-	// Count total templates
 	countQuery := "SELECT COUNT(*) FROM history_templates WHERE era = $1 AND is_active = true"
 	var totalCount int32
 	err := db.conn.QueryRow(countQuery, era).Scan(&totalCount)
 	if err != nil {
 		return nil, 0, err
 	}
-
-	// Get templates with pagination
 	offset := (page - 1) * limit
 	query := `
 		SELECT id, title, description, era, dynasty, pharaoh_id, difficulty, 
@@ -313,8 +301,6 @@ func (db *Database) GetTemplatesByEra(era string, page, limit int32) ([]*pb.Hist
 		if err != nil {
 			return nil, 0, err
 		}
-
-		// Convert timestamps
 		if publishedAt.Valid {
 			template.PublishedAt = timestamppb.New(publishedAt.Time)
 		}
@@ -332,15 +318,12 @@ func (db *Database) GetTemplatesByEra(era string, page, limit int32) ([]*pb.Hist
 }
 
 func (db *Database) GetTemplatesByDynasty(dynasty int32, page, limit int32) ([]*pb.HistoryTemplate, int32, error) {
-	// Count total templates
 	countQuery := "SELECT COUNT(*) FROM history_templates WHERE dynasty = $1 AND is_active = true"
 	var totalCount int32
 	err := db.conn.QueryRow(countQuery, dynasty).Scan(&totalCount)
 	if err != nil {
 		return nil, 0, err
 	}
-
-	// Get templates with pagination
 	offset := (page - 1) * limit
 	query := `
 		SELECT id, title, description, era, dynasty, pharaoh_id, difficulty, 
@@ -381,8 +364,6 @@ func (db *Database) GetTemplatesByDynasty(dynasty int32, page, limit int32) ([]*
 		if err != nil {
 			return nil, 0, err
 		}
-
-		// Convert timestamps
 		if publishedAt.Valid {
 			template.PublishedAt = timestamppb.New(publishedAt.Time)
 		}
@@ -400,15 +381,12 @@ func (db *Database) GetTemplatesByDynasty(dynasty int32, page, limit int32) ([]*
 }
 
 func (db *Database) GetTemplatesByPharaoh(pharaohId string, page, limit int32) ([]*pb.HistoryTemplate, int32, error) {
-	// Count total templates
 	countQuery := "SELECT COUNT(*) FROM history_templates WHERE pharaoh_id = $1 AND is_active = true"
 	var totalCount int32
 	err := db.conn.QueryRow(countQuery, pharaohId).Scan(&totalCount)
 	if err != nil {
 		return nil, 0, err
 	}
-
-	// Get templates with pagination
 	offset := (page - 1) * limit
 	query := `
 		SELECT id, title, description, era, dynasty, pharaoh_id, difficulty, 
@@ -449,8 +427,6 @@ func (db *Database) GetTemplatesByPharaoh(pharaohId string, page, limit int32) (
 		if err != nil {
 			return nil, 0, err
 		}
-
-		// Convert timestamps
 		if publishedAt.Valid {
 			template.PublishedAt = timestamppb.New(publishedAt.Time)
 		}
@@ -468,15 +444,12 @@ func (db *Database) GetTemplatesByPharaoh(pharaohId string, page, limit int32) (
 }
 
 func (db *Database) GetTemplatesByDifficulty(difficulty string, page, limit int32) ([]*pb.HistoryTemplate, int32, error) {
-	// Count total templates
 	countQuery := "SELECT COUNT(*) FROM history_templates WHERE difficulty = $1 AND is_active = true"
 	var totalCount int32
 	err := db.conn.QueryRow(countQuery, difficulty).Scan(&totalCount)
 	if err != nil {
 		return nil, 0, err
 	}
-
-	// Get templates with pagination
 	offset := (page - 1) * limit
 	query := `
 		SELECT id, title, description, era, dynasty, pharaoh_id, difficulty, 
@@ -517,8 +490,6 @@ func (db *Database) GetTemplatesByDifficulty(difficulty string, page, limit int3
 		if err != nil {
 			return nil, 0, err
 		}
-
-		// Convert timestamps
 		if publishedAt.Valid {
 			template.PublishedAt = timestamppb.New(publishedAt.Time)
 		}
@@ -536,10 +507,7 @@ func (db *Database) GetTemplatesByDifficulty(difficulty string, page, limit int3
 }
 
 func (db *Database) SearchTemplates(query string, fields []string, page, limit int32) ([]*pb.HistoryTemplate, int32, error) {
-	// Build search query
 	searchQuery := "%" + query + "%"
-
-	// Count total templates
 	countQuery := `
 		SELECT COUNT(*) FROM history_templates 
 		WHERE (title ILIKE $1 OR description ILIKE $1 OR era ILIKE $1) 
@@ -550,8 +518,6 @@ func (db *Database) SearchTemplates(query string, fields []string, page, limit i
 	if err != nil {
 		return nil, 0, err
 	}
-
-	// Get templates with pagination
 	offset := (page - 1) * limit
 	sqlQuery := `
 		SELECT id, title, description, era, dynasty, pharaoh_id, difficulty, 
@@ -593,8 +559,6 @@ func (db *Database) SearchTemplates(query string, fields []string, page, limit i
 		if err != nil {
 			return nil, 0, err
 		}
-
-		// Convert timestamps
 		if publishedAt.Valid {
 			template.PublishedAt = timestamppb.New(publishedAt.Time)
 		}
@@ -612,7 +576,6 @@ func (db *Database) SearchTemplates(query string, fields []string, page, limit i
 }
 
 func (db *Database) GetTemplatesByTag(tag string, page, limit int32) ([]*pb.HistoryTemplate, int32, error) {
-	// Count total templates with the tag
 	countQuery := `
 		SELECT COUNT(*) FROM history_templates ht
 		JOIN template_tags tt ON ht.id = tt.template_id
@@ -623,8 +586,6 @@ func (db *Database) GetTemplatesByTag(tag string, page, limit int32) ([]*pb.Hist
 	if err != nil {
 		return nil, 0, err
 	}
-
-	// Get templates with pagination
 	offset := (page - 1) * limit
 	query := `
 		SELECT DISTINCT ht.id, ht.title, ht.description, ht.era, ht.dynasty, ht.pharaoh_id, 
@@ -667,8 +628,6 @@ func (db *Database) GetTemplatesByTag(tag string, page, limit int32) ([]*pb.Hist
 		if err != nil {
 			return nil, 0, err
 		}
-
-		// Convert timestamps
 		if publishedAt.Valid {
 			template.PublishedAt = timestamppb.New(publishedAt.Time)
 		}
@@ -686,7 +645,6 @@ func (db *Database) GetTemplatesByTag(tag string, page, limit int32) ([]*pb.Hist
 }
 
 func (db *Database) GetRelatedTemplates(templateId string, limit int32) ([]*pb.HistoryTemplate, int32, error) {
-	// Get related templates based on same era or pharaoh
 	query := `
 		SELECT id, title, description, era, dynasty, pharaoh_id, difficulty, 
 		       thumbnail_url, language, is_active, version, published_at, created_at, updated_at
@@ -728,8 +686,6 @@ func (db *Database) GetRelatedTemplates(templateId string, limit int32) ([]*pb.H
 		if err != nil {
 			return nil, 0, err
 		}
-
-		// Convert timestamps
 		if publishedAt.Valid {
 			template.PublishedAt = timestamppb.New(publishedAt.Time)
 		}

@@ -259,6 +259,58 @@ services:
       - user_network
     restart: unless-stopped
 
+  # Upload Service (GO)
+  upload-service:
+    build:
+      context: ./services/upload-services
+      dockerfile: Dockerfile
+    container_name: upload_service
+    env_file:
+      - ./services/upload-services/.env
+    ports:
+      - "50061:50061"
+    environment:
+      UPLOAD_SERVICE_ADDR: upload-service:50061
+    depends_on:
+      - postgres
+    networks:
+      - user_network
+    restart: unless-stopped
+
+  # Reals Service (GO) - NEW
+  reals-service:
+    build:
+      context: ./services/reals-services
+      dockerfile: Dockerfile
+    container_name: reals_service
+    env_file:
+      - ./services/reals-services/.env
+    ports:
+      - "50062:50062"
+    environment:
+      REALS_SERVICE_ADDR: reals-service:50062
+      UPLOAD_SERVICE_ADDR: upload-service:50061
+      USER_SERVICE_ADDR: user-service:50051
+      REDIS_ADDR: redis:6379
+    depends_on:
+      - postgres
+      - redis
+      - upload-service
+      - user-service
+    networks:
+      - user_network
+    restart: unless-stopped
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+    networks:
+      - user_network
+    restart: unless-stopped
+
 volumes:
   postgres_data:
 

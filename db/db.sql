@@ -1045,7 +1045,29 @@ CREATE TRIGGER update_notification_settings_updated_at BEFORE UPDATE ON notifica
 
 CREATE TRIGGER update_chat_analytics_updated_at BEFORE UPDATE ON chat_analytics
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+-- Reals table for 24-hour stories
+CREATE TABLE reals (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL,
+    media_urls JSONB NOT NULL, -- Array of media URLs
+    media_types JSONB NOT NULL, -- Array of media types (IMAGE/VIDEO)
+    view_count INTEGER DEFAULT 0,
+    viewer_ids JSONB DEFAULT '[]'::jsonb, -- Array of user IDs who viewed
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP NOT NULL,
+    deleted_at TIMESTAMP NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
 
+-- Indexes for reals table
+CREATE INDEX idx_reals_user_id ON reals (user_id);
+CREATE INDEX idx_reals_expires_at ON reals (expires_at);
+CREATE INDEX idx_reals_created_at ON reals (created_at);
+CREATE INDEX idx_reals_deleted_at ON reals (deleted_at);
+
+-- Index for active reals (not expired and not deleted)
+CREATE INDEX idx_reals_active ON reals (expires_at, deleted_at) 
+WHERE deleted_at IS NULL AND expires_at > CURRENT_TIMESTAMP;
 
 INSERT INTO pharaohs (
     id, name, birth_name, throne_name, epithet,
