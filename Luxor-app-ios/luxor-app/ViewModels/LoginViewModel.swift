@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 import Combine
 
 class LoginViewModel: ObservableObject {
@@ -6,16 +6,16 @@ class LoginViewModel: ObservableObject {
     @Published var password = ""
     @Published var isPasswordVisible = false
     @Published var emailValidation: ValidationState = .none
-    @Published var passwordValidation: PasswordValidation = PasswordValidation()
+    @Published var passwordValidation = PasswordValidation()
     @Published var isLoading = false
+    @Published var errorMessage: String?
+    @Published var isLoggedIn = false
     
     enum ValidationState: Equatable {
-        case none
-        case valid
-        case invalid
+        case none, valid, invalid
     }
     
-    struct PasswordValidation: Equatable {
+    struct PasswordValidation {
         var hasMinLength = false
         var hasUppercase = false
         var hasLowercase = false
@@ -31,6 +31,7 @@ class LoginViewModel: ObservableObject {
     }
     
     private var cancellables = Set<AnyCancellable>()
+    private let authService = AuthenticationService()
     
     init() {
         setupValidation()
@@ -38,13 +39,11 @@ class LoginViewModel: ObservableObject {
     
     private func setupValidation() {
         $email
-            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
-            .map { self.validateEmail($0) }
+            .map(validateEmail)
             .assign(to: &$emailValidation)
         
         $password
-            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
-            .map { self.validatePassword($0) }
+            .map(validatePassword)
             .assign(to: &$passwordValidation)
     }
     
@@ -56,26 +55,50 @@ class LoginViewModel: ObservableObject {
         guard isFormValid else { return }
         
         isLoading = true
+        errorMessage = nil
         
-        // Simulate API call
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.isLoading = false
-            // Handle login result
-        }
+        authService.login(email: email, password: password)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { [weak self] completion in
+                    self?.isLoading = false
+                    if case .failure(let error) = completion {
+                        self?.errorMessage = error.localizedDescription
+                    }
+                },
+                receiveValue: { [weak self] user in
+                    self?.isLoggedIn = true
+                    // Save user session or navigate to main app
+                    print("Login successful for user: \(user.fullName)")
+                }
+            )
+            .store(in: &cancellables)
     }
     
     func forgotPassword() {
-        // Handle forgot password
+        guard !email.isEmpty else { return }
+        
+        authService.forgotPassword(email: email)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        self?.errorMessage = error.localizedDescription
+                    }
+                },
+                receiveValue: { [weak self] _ in
+                    self?.errorMessage = "Password reset email sent!"
+                }
+            )
+            .store(in: &cancellables)
     }
     
     func signUp() {
-        // Handle sign up
+        // Implement sign up navigation
+        print("Navigate to sign up")
     }
     
     private func validateEmail(_ email: String) -> ValidationState {
-        if email.isEmpty {
-            return .none
-        }
         let emailRegex = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailPredicate.evaluate(with: email) ? .valid : .invalid

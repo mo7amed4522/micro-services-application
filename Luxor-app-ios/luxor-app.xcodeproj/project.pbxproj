@@ -213,6 +213,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				B71B96202E4E59BB00975D64 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				B7BAFB342E4FA13B001A92EC /* XCRemoteSwiftPackageReference "grpc-swift" */,
+				B7BAFB352E4FA16B001A92EC /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B78858782E43EE5400F0E55E /* Products */;
@@ -612,6 +614,22 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.21.1;
+			};
+		};
+		B7BAFB342E4FA13B001A92EC /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/grpc/grpc-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.3;
+			};
+		};
+		B7BAFB352E4FA16B001A92EC /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.30.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

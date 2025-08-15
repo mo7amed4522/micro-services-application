@@ -2,7 +2,7 @@
 syntax = "proto3";
 package wallet;
 
-import "proto/transaction.proto"; 
+import "transaction.proto"; 
 import "google/protobuf/timestamp.proto";
 
 service WalletService {
