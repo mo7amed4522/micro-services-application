@@ -80,7 +80,6 @@ func (s *ChatServer) SendMessage(ctx context.Context, req *pb.SendMessageRequest
 		}, nil
 	}
 
-	// Validate sender ID matches token
 	if req.SenderId != claims.UserID {
 		return &pb.SendMessageResponse{
 			StatusCode: 403,
@@ -96,7 +95,6 @@ func (s *ChatServer) SendMessage(ctx context.Context, req *pb.SendMessageRequest
 		}, nil
 	}
 
-	// Validate input
 	if !ValidateUserID(req.SenderId) {
 		return &pb.SendMessageResponse{
 			StatusCode: 400,
@@ -159,11 +157,8 @@ func (s *ChatServer) SendMessage(ctx context.Context, req *pb.SendMessageRequest
 		}
 	}
 
-	// Generate message ID
 	messageID := uuid.New().String()
 	now := time.Now()
-
-	// Insert message into database
 	query := `
 		INSERT INTO chat_messages (
 			id, sender_id, receiver_id, group_id, content, message_type, 
@@ -182,7 +177,7 @@ func (s *ChatServer) SendMessage(ctx context.Context, req *pb.SendMessageRequest
 		req.Content,
 		int32(req.Type),
 		req.IsGroup,
-		0, // SENT status
+		0,
 		now,
 		now,
 	).Scan(&savedID, &createdAt)
@@ -202,8 +197,6 @@ func (s *ChatServer) SendMessage(ctx context.Context, req *pb.SendMessageRequest
 			},
 		}, nil
 	}
-
-	// Create response message
 	savedMessage := &pb.ChatMessage{
 		MessageId:   savedID,
 		SenderId:    req.SenderId,
@@ -230,8 +223,6 @@ func (s *ChatServer) SendMessage(ctx context.Context, req *pb.SendMessageRequest
 }
 
 func (s *ChatServer) EditMessage(ctx context.Context, req *pb.EditMessageRequest) (*pb.EditMessageResponse, error) {
-	log.Printf("EditMessage called for message: %s by user: %s", req.MessageId, req.UserId)
-
 	claims, err := s.validateRequest(ctx)
 	if err != nil {
 		return &pb.EditMessageResponse{
@@ -277,8 +268,6 @@ func (s *ChatServer) EditMessage(ctx context.Context, req *pb.EditMessageRequest
 			},
 		}, nil
 	}
-
-	// Check if user owns the message
 	var senderID string
 	err = s.db.DB.QueryRow("SELECT sender_id FROM chat_messages WHERE id = $1", req.MessageId).Scan(&senderID)
 	if err != nil {
@@ -324,8 +313,6 @@ func (s *ChatServer) EditMessage(ctx context.Context, req *pb.EditMessageRequest
 			},
 		}, nil
 	}
-
-	// Update message
 	now := time.Now()
 	_, err = s.db.DB.Exec(
 		"UPDATE chat_messages SET content = $1, is_edited = true, edited_at = $2, updated_at = $3 WHERE id = $4",
@@ -345,8 +332,6 @@ func (s *ChatServer) EditMessage(ctx context.Context, req *pb.EditMessageRequest
 			},
 		}, nil
 	}
-
-	// Fetch updated message
 	updatedMessage, err := s.getMessageByID(req.MessageId)
 	if err != nil {
 		return &pb.EditMessageResponse{
@@ -373,8 +358,6 @@ func (s *ChatServer) EditMessage(ctx context.Context, req *pb.EditMessageRequest
 }
 
 func (s *ChatServer) DeleteMessage(ctx context.Context, req *pb.DeleteMessageRequest) (*pb.DeleteMessageResponse, error) {
-	log.Printf("DeleteMessage called for message: %s by user: %s", req.MessageId, req.UserId)
-
 	claims, err := s.validateRequest(ctx)
 	if err != nil {
 		return &pb.DeleteMessageResponse{
@@ -405,8 +388,6 @@ func (s *ChatServer) DeleteMessage(ctx context.Context, req *pb.DeleteMessageReq
 			},
 		}, nil
 	}
-
-	// Check if user owns the message
 	var senderID string
 	err = s.db.DB.QueryRow("SELECT sender_id FROM chat_messages WHERE id = $1", req.MessageId).Scan(&senderID)
 	if err != nil {
@@ -452,8 +433,6 @@ func (s *ChatServer) DeleteMessage(ctx context.Context, req *pb.DeleteMessageReq
 			},
 		}, nil
 	}
-
-	// Soft delete message
 	_, err = s.db.DB.Exec(
 		"UPDATE chat_messages SET content = '[Message deleted]', updated_at = $1 WHERE id = $2",
 		time.Now(), req.MessageId,
@@ -487,8 +466,6 @@ func (s *ChatServer) DeleteMessage(ctx context.Context, req *pb.DeleteMessageReq
 }
 
 func (s *ChatServer) GetChatHistory(ctx context.Context, req *pb.GetChatHistoryRequest) (*pb.GetChatHistoryResponse, error) {
-	log.Printf("GetChatHistory called by user: %s", req.UserId)
-
 	claims, err := s.validateRequest(ctx)
 	if err != nil {
 		return &pb.GetChatHistoryResponse{
@@ -599,8 +576,6 @@ func (s *ChatServer) GetChatHistory(ctx context.Context, req *pb.GetChatHistoryR
 }
 
 func (s *ChatServer) MarkAsRead(ctx context.Context, req *pb.ReadReceiptRequest) (*pb.ReadReceiptResponse, error) {
-	log.Printf("MarkAsRead called by user: %s", req.UserId)
-
 	claims, err := s.validateRequest(ctx)
 	if err != nil {
 		return &pb.ReadReceiptResponse{

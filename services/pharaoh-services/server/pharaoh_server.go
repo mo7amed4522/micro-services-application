@@ -20,7 +20,6 @@ type PharaohServer struct {
 	db *sql.DB
 }
 
-// NewPharaohServer creates a new pharaoh server instance
 func NewPharaohServer() (*PharaohServer, error) {
 	db, err := NewDatabaseConnection()
 	if err != nil {
@@ -32,7 +31,6 @@ func NewPharaohServer() (*PharaohServer, error) {
 	}, nil
 }
 
-// Close closes the database connection
 func (s *PharaohServer) Close() error {
 	if s.db != nil {
 		return s.db.Close()
@@ -40,7 +38,6 @@ func (s *PharaohServer) Close() error {
 	return nil
 }
 
-// GetPharaohByID retrieves a pharaoh by ID
 func (s *PharaohServer) GetPharaohByID(ctx context.Context, req *pb.GetPharaohByIDRequest) (*pb.GetPharaohByIDResponse, error) {
 	log.Printf("Getting pharaoh by ID: %s", req.Id)
 
@@ -116,8 +113,6 @@ func (s *PharaohServer) GetPharaohByID(ctx context.Context, req *pb.GetPharaohBy
 		}
 		return nil, status.Errorf(codes.Internal, "Database error: %v", err)
 	}
-
-	// Handle nullable fields
 	if birthName.Valid {
 		pharaoh.BirthName = birthName.String
 	}
@@ -224,7 +219,6 @@ func (s *PharaohServer) GetPharaohByID(ctx context.Context, req *pb.GetPharaohBy
 		pharaoh.Language = language.String
 	}
 
-	// Parse JSON fields
 	if len(consorts) > 0 {
 		var consortsList []string
 		if err := json.Unmarshal(consorts, &consortsList); err == nil {
@@ -327,11 +321,7 @@ func (s *PharaohServer) GetPharaohByID(ctx context.Context, req *pb.GetPharaohBy
 	}, nil
 }
 
-// GetAllPharaohs retrieves all pharaohs with pagination
 func (s *PharaohServer) GetAllPharaohs(ctx context.Context, req *pb.GetAllPharaohsRequest) (*pb.GetAllPharaohsResponse, error) {
-	log.Printf("Getting all pharaohs with page: %d, limit: %d", req.Page, req.Limit)
-
-	// Set defaults
 	page := req.Page
 	if page <= 0 {
 		page = 1
@@ -341,7 +331,7 @@ func (s *PharaohServer) GetAllPharaohs(ctx context.Context, req *pb.GetAllPharao
 		limit = 10
 	}
 	if limit > 100 {
-		limit = 100 // Max limit
+		limit = 100
 	}
 
 	sortBy := req.SortBy
@@ -353,8 +343,6 @@ func (s *PharaohServer) GetAllPharaohs(ctx context.Context, req *pb.GetAllPharao
 	if order == "" {
 		order = "asc"
 	}
-
-	// Validate sort fields
 	allowedSortFields := map[string]bool{
 		"dynasty":          true,
 		"reign_start":      true,
@@ -372,16 +360,12 @@ func (s *PharaohServer) GetAllPharaohs(ctx context.Context, req *pb.GetAllPharao
 	}
 
 	offset := (page - 1) * limit
-
-	// Count total records
 	countQuery := "SELECT COUNT(*) FROM pharaohs"
 	var totalCount int32
 	err := s.db.QueryRowContext(ctx, countQuery).Scan(&totalCount)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Failed to count pharaohs: %v", err)
 	}
-
-	// Get pharaohs with pagination
 	query := fmt.Sprintf(`
 		SELECT id, name, birth_name, throne_name, epithet, dynasty, period,
 		       reign_start, reign_end, length_of_reign_years, popularity_score, user_rating,
@@ -416,8 +400,6 @@ func (s *PharaohServer) GetAllPharaohs(ctx context.Context, req *pb.GetAllPharao
 		if err != nil {
 			return nil, status.Errorf(codes.Internal, "Failed to scan pharaoh: %v", err)
 		}
-
-		// Handle nullable fields
 		if birthName.Valid {
 			pharaoh.BirthName = birthName.String
 		}
@@ -482,10 +464,7 @@ func (s *PharaohServer) GetAllPharaohs(ctx context.Context, req *pb.GetAllPharao
 	}, nil
 }
 
-// GetPharaohsByDynasty retrieves pharaohs by dynasty
 func (s *PharaohServer) GetPharaohsByDynasty(ctx context.Context, req *pb.GetPharaohsByDynastyRequest) (*pb.GetPharaohsByDynastyResponse, error) {
-	log.Printf("Getting pharaohs by dynasty: %d", req.Dynasty)
-
 	if req.Dynasty <= 0 {
 		return &pb.GetPharaohsByDynastyResponse{
 			StatusCode: 400,
@@ -534,8 +513,6 @@ func (s *PharaohServer) GetPharaohsByDynasty(ctx context.Context, req *pb.GetPha
 		if err != nil {
 			return nil, status.Errorf(codes.Internal, "Failed to scan pharaoh: %v", err)
 		}
-
-		// Handle nullable fields
 		if birthName.Valid {
 			pharaoh.BirthName = birthName.String
 		}
@@ -599,11 +576,7 @@ func (s *PharaohServer) GetPharaohsByDynasty(ctx context.Context, req *pb.GetPha
 		},
 	}, nil
 }
-
-// GetPharaohsByPeriod retrieves pharaohs by historical period
 func (s *PharaohServer) GetPharaohsByPeriod(ctx context.Context, req *pb.GetPharaohsByPeriodRequest) (*pb.GetPharaohsByPeriodResponse, error) {
-	log.Printf("Getting pharaohs by period: %s", req.Period)
-
 	if req.Period == "" {
 		return &pb.GetPharaohsByPeriodResponse{
 			StatusCode: 400,
@@ -652,8 +625,6 @@ func (s *PharaohServer) GetPharaohsByPeriod(ctx context.Context, req *pb.GetPhar
 		if err != nil {
 			return nil, status.Errorf(codes.Internal, "Failed to scan pharaoh: %v", err)
 		}
-
-		// Handle nullable fields (same as above)
 		if birthName.Valid {
 			pharaoh.BirthName = birthName.String
 		}
@@ -718,10 +689,7 @@ func (s *PharaohServer) GetPharaohsByPeriod(ctx context.Context, req *pb.GetPhar
 	}, nil
 }
 
-// SearchPharaohs searches pharaohs by query across specified fields
 func (s *PharaohServer) SearchPharaohs(ctx context.Context, req *pb.SearchPharaohsRequest) (*pb.SearchPharaohsResponse, error) {
-	log.Printf("Searching pharaohs with query: %s", req.Query)
-
 	if req.Query == "" {
 		return &pb.SearchPharaohsResponse{
 			StatusCode: 400,
@@ -735,14 +703,10 @@ func (s *PharaohServer) SearchPharaohs(ctx context.Context, req *pb.SearchPharao
 			},
 		}, nil
 	}
-
-	// Default search fields if none specified
 	searchFields := req.Fields
 	if len(searchFields) == 0 {
 		searchFields = []string{"name", "epithet", "major_achievements"}
 	}
-
-	// Build dynamic WHERE clause based on fields
 	var whereClauses []string
 	var args []interface{}
 	argIndex := 1
@@ -820,8 +784,6 @@ func (s *PharaohServer) SearchPharaohs(ctx context.Context, req *pb.SearchPharao
 		if err != nil {
 			return nil, status.Errorf(codes.Internal, "Failed to scan pharaoh: %v", err)
 		}
-
-		// Handle nullable fields (same pattern as above)
 		if birthName.Valid {
 			pharaoh.BirthName = birthName.String
 		}
@@ -885,8 +847,6 @@ func (s *PharaohServer) SearchPharaohs(ctx context.Context, req *pb.SearchPharao
 		},
 	}, nil
 }
-
-// CreatePharaoh creates a new pharaoh record
 func (s *PharaohServer) CreatePharaoh(ctx context.Context, req *pb.CreatePharaohRequest) (*pb.CreatePharaohResponse, error) {
 	log.Printf("Creating new pharaoh: %s", req.Pharaoh.Name)
 
@@ -917,8 +877,6 @@ func (s *PharaohServer) CreatePharaoh(ctx context.Context, req *pb.CreatePharaoh
 			},
 		}, nil
 	}
-
-	// Check if pharaoh already exists
 	var exists bool
 	err := s.db.QueryRowContext(ctx, "SELECT EXISTS(SELECT 1 FROM pharaohs WHERE id = $1)", req.Pharaoh.Id).Scan(&exists)
 	if err != nil {
@@ -938,8 +896,6 @@ func (s *PharaohServer) CreatePharaoh(ctx context.Context, req *pb.CreatePharaoh
 			},
 		}, nil
 	}
-
-	// Prepare JSON fields
 	consorts, _ := json.Marshal(req.Pharaoh.Consorts)
 	notableChildren, _ := json.Marshal(req.Pharaoh.NotableChildren)
 	majorAchievements, _ := json.Marshal(req.Pharaoh.MajorAchievements)
@@ -947,8 +903,6 @@ func (s *PharaohServer) CreatePharaoh(ctx context.Context, req *pb.CreatePharaoh
 	buildingProjects, _ := json.Marshal(req.Pharaoh.BuildingProjects)
 	divineAssociation, _ := json.Marshal(req.Pharaoh.DivineAssociation)
 	templeAffiliations, _ := json.Marshal(req.Pharaoh.TempleAffiliations)
-
-	// Handle artifacts
 	var artifactsJSON []byte
 	if len(req.Pharaoh.FamousArtifacts) > 0 {
 		artifactsList := make([]map[string]string, len(req.Pharaoh.FamousArtifacts))
@@ -961,8 +915,6 @@ func (s *PharaohServer) CreatePharaoh(ctx context.Context, req *pb.CreatePharaoh
 		}
 		artifactsJSON, _ = json.Marshal(artifactsList)
 	}
-
-	// Handle traits
 	var traitsJSON []byte
 	if req.Pharaoh.Traits != nil {
 		traitsMap := map[string]int32{
@@ -1010,8 +962,6 @@ func (s *PharaohServer) CreatePharaoh(ctx context.Context, req *pb.CreatePharaoh
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Failed to create pharaoh: %v", err)
 	}
-
-	// Update timestamps in response
 	req.Pharaoh.CreatedAt = createdAt.Format(time.RFC3339)
 	req.Pharaoh.UpdatedAt = updatedAt.Format(time.RFC3339)
 
@@ -1023,8 +973,6 @@ func (s *PharaohServer) CreatePharaoh(ctx context.Context, req *pb.CreatePharaoh
 		},
 	}, nil
 }
-
-// UpdatePharaoh updates an existing pharaoh record
 func (s *PharaohServer) UpdatePharaoh(ctx context.Context, req *pb.UpdatePharaohRequest) (*pb.UpdatePharaohResponse, error) {
 	log.Printf("Updating pharaoh: %s", req.Id)
 
@@ -1055,8 +1003,6 @@ func (s *PharaohServer) UpdatePharaoh(ctx context.Context, req *pb.UpdatePharaoh
 			},
 		}, nil
 	}
-
-	// Check if pharaoh exists
 	var exists bool
 	err := s.db.QueryRowContext(ctx, "SELECT EXISTS(SELECT 1 FROM pharaohs WHERE id = $1)", req.Id).Scan(&exists)
 	if err != nil {
@@ -1076,8 +1022,6 @@ func (s *PharaohServer) UpdatePharaoh(ctx context.Context, req *pb.UpdatePharaoh
 			},
 		}, nil
 	}
-
-	// Prepare JSON fields
 	consorts, _ := json.Marshal(req.Pharaoh.Consorts)
 	notableChildren, _ := json.Marshal(req.Pharaoh.NotableChildren)
 	majorAchievements, _ := json.Marshal(req.Pharaoh.MajorAchievements)
@@ -1085,8 +1029,6 @@ func (s *PharaohServer) UpdatePharaoh(ctx context.Context, req *pb.UpdatePharaoh
 	buildingProjects, _ := json.Marshal(req.Pharaoh.BuildingProjects)
 	divineAssociation, _ := json.Marshal(req.Pharaoh.DivineAssociation)
 	templeAffiliations, _ := json.Marshal(req.Pharaoh.TempleAffiliations)
-
-	// Handle artifacts
 	var artifactsJSON []byte
 	if len(req.Pharaoh.FamousArtifacts) > 0 {
 		artifactsList := make([]map[string]string, len(req.Pharaoh.FamousArtifacts))
@@ -1099,8 +1041,6 @@ func (s *PharaohServer) UpdatePharaoh(ctx context.Context, req *pb.UpdatePharaoh
 		}
 		artifactsJSON, _ = json.Marshal(artifactsList)
 	}
-
-	// Handle traits
 	var traitsJSON []byte
 	if req.Pharaoh.Traits != nil {
 		traitsMap := map[string]int32{
@@ -1146,8 +1086,6 @@ func (s *PharaohServer) UpdatePharaoh(ctx context.Context, req *pb.UpdatePharaoh
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Failed to update pharaoh: %v", err)
 	}
-
-	// Update timestamp in response
 	req.Pharaoh.Id = req.Id
 	req.Pharaoh.UpdatedAt = updatedAt.Format(time.RFC3339)
 
@@ -1159,8 +1097,6 @@ func (s *PharaohServer) UpdatePharaoh(ctx context.Context, req *pb.UpdatePharaoh
 		},
 	}, nil
 }
-
-// DeletePharaoh deletes a pharaoh record
 func (s *PharaohServer) DeletePharaoh(ctx context.Context, req *pb.DeletePharaohRequest) (*pb.DeletePharaohResponse, error) {
 	log.Printf("Deleting pharaoh: %s", req.Id)
 
@@ -1177,8 +1113,6 @@ func (s *PharaohServer) DeletePharaoh(ctx context.Context, req *pb.DeletePharaoh
 			},
 		}, nil
 	}
-
-	// Check if pharaoh exists
 	var exists bool
 	err := s.db.QueryRowContext(ctx, "SELECT EXISTS(SELECT 1 FROM pharaohs WHERE id = $1)", req.Id).Scan(&exists)
 	if err != nil {
@@ -1198,8 +1132,6 @@ func (s *PharaohServer) DeletePharaoh(ctx context.Context, req *pb.DeletePharaoh
 			},
 		}, nil
 	}
-
-	// Delete the pharaoh
 	result, err := s.db.ExecContext(ctx, "DELETE FROM pharaohs WHERE id = $1", req.Id)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Failed to delete pharaoh: %v", err)
@@ -1232,8 +1164,6 @@ func (s *PharaohServer) DeletePharaoh(ctx context.Context, req *pb.DeletePharaoh
 		},
 	}, nil
 }
-
-// GetPharaohsByRarity retrieves pharaohs by rarity level
 func (s *PharaohServer) GetPharaohsByRarity(ctx context.Context, req *pb.GetPharaohsByRarityRequest) (*pb.GetPharaohsByRarityResponse, error) {
 	log.Printf("Getting pharaohs by rarity: %s", req.Rarity)
 
@@ -1250,8 +1180,6 @@ func (s *PharaohServer) GetPharaohsByRarity(ctx context.Context, req *pb.GetPhar
 			},
 		}, nil
 	}
-
-	// Validate rarity values
 	validRarities := map[string]bool{
 		"Common":    true,
 		"Rare":      true,
@@ -1307,8 +1235,6 @@ func (s *PharaohServer) GetPharaohsByRarity(ctx context.Context, req *pb.GetPhar
 		if err != nil {
 			return nil, status.Errorf(codes.Internal, "Failed to scan pharaoh: %v", err)
 		}
-
-		// Handle nullable fields
 		if birthName.Valid {
 			pharaoh.BirthName = birthName.String
 		}
@@ -1372,8 +1298,6 @@ func (s *PharaohServer) GetPharaohsByRarity(ctx context.Context, req *pb.GetPhar
 		},
 	}, nil
 }
-
-// UpdatePharaohRating updates the user rating for a specific pharaoh
 func (s *PharaohServer) UpdatePharaohRating(ctx context.Context, req *pb.UpdatePharaohRatingRequest) (*pb.UpdatePharaohRatingResponse, error) {
 	log.Printf("Updating pharaoh rating for ID: %s, new rating: %f", req.Id, req.Rating)
 
@@ -1404,8 +1328,6 @@ func (s *PharaohServer) UpdatePharaohRating(ctx context.Context, req *pb.UpdateP
 			},
 		}, nil
 	}
-
-	// Check if pharaoh exists
 	var exists bool
 	err := s.db.QueryRowContext(ctx, "SELECT EXISTS(SELECT 1 FROM pharaohs WHERE id = $1)", req.Id).Scan(&exists)
 	if err != nil {
@@ -1425,8 +1347,6 @@ func (s *PharaohServer) UpdatePharaohRating(ctx context.Context, req *pb.UpdateP
 			},
 		}, nil
 	}
-
-	// Update the rating
 	query := `
 		UPDATE pharaohs 
 		SET user_rating = $1, updated_at = CURRENT_TIMESTAMP 
@@ -1455,8 +1375,6 @@ func (s *PharaohServer) UpdatePharaohRating(ctx context.Context, req *pb.UpdateP
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "Failed to update pharaoh rating: %v", err)
 	}
-
-	// Handle nullable fields
 	if birthName.Valid {
 		pharaoh.BirthName = birthName.String
 	}

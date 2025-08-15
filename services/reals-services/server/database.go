@@ -16,14 +16,14 @@ type Database struct {
 }
 
 type Real struct {
-	ID         string    `gorm:"type:uuid;primary_key;default:gen_random_uuid()" json:"id"`
-	UserID     string    `gorm:"type:uuid;not null;index" json:"user_id"`
-	MediaURLs  []string  `gorm:"type:jsonb;not null" json:"media_urls"`
-	MediaTypes []string  `gorm:"type:jsonb;not null" json:"media_types"`
-	ViewCount  int       `gorm:"default:0" json:"view_count"`
-	ViewerIDs  []string  `gorm:"type:jsonb;default:'[]'" json:"viewer_ids"`
-	CreatedAt  time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	ExpiresAt  time.Time `gorm:"not null;index" json:"expires_at"`
+	ID         string     `gorm:"type:uuid;primary_key;default:gen_random_uuid()" json:"id"`
+	UserID     string     `gorm:"type:uuid;not null;index" json:"user_id"`
+	MediaURLs  []string   `gorm:"type:jsonb;not null" json:"media_urls"`
+	MediaTypes []string   `gorm:"type:jsonb;not null" json:"media_types"`
+	ViewCount  int        `gorm:"default:0" json:"view_count"`
+	ViewerIDs  []string   `gorm:"type:jsonb;default:'[]'" json:"viewer_ids"`
+	CreatedAt  time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
+	ExpiresAt  time.Time  `gorm:"not null;index" json:"expires_at"`
 	DeletedAt  *time.Time `gorm:"index" json:"deleted_at,omitempty"`
 }
 
@@ -60,8 +60,6 @@ func NewDatabase() *Database {
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
-
-	// Auto migrate the schema
 	if err := db.AutoMigrate(&Real{}); err != nil {
 		log.Fatalf("Failed to migrate database: %v", err)
 	}
@@ -69,39 +67,31 @@ func NewDatabase() *Database {
 	log.Println("Database connected successfully")
 	return &Database{DB: db}
 }
-
-// GetActiveReals fetches active reals (not expired and not deleted)
 func (d *Database) GetActiveReals(limit, offset int) ([]Real, error) {
 	var reals []Real
 	now := time.Now()
-	
+
 	err := d.DB.Where("expires_at > ? AND deleted_at IS NULL", now).
 		Order("created_at DESC").
 		Limit(limit).
 		Offset(offset).
 		Find(&reals).Error
-	
+
 	return reals, err
 }
-
-// GetUserReals fetches reals for a specific user
 func (d *Database) GetUserReals(userID string) ([]Real, error) {
 	var reals []Real
 	now := time.Now()
-	
+
 	err := d.DB.Where("user_id = ? AND expires_at > ? AND deleted_at IS NULL", userID, now).
 		Order("created_at DESC").
 		Find(&reals).Error
-	
+
 	return reals, err
 }
-
-// CreateReal creates a new real
 func (d *Database) CreateReal(real *Real) error {
 	return d.DB.Create(real).Error
 }
-
-// GetRealByID fetches a real by ID
 func (d *Database) GetRealByID(realID string) (*Real, error) {
 	var real Real
 	err := d.DB.Where("id = ? AND deleted_at IS NULL", realID).First(&real).Error
@@ -110,19 +100,13 @@ func (d *Database) GetRealByID(realID string) (*Real, error) {
 	}
 	return &real, nil
 }
-
-// UpdateReal updates a real
 func (d *Database) UpdateReal(real *Real) error {
 	return d.DB.Save(real).Error
 }
-
-// SoftDeleteReal soft deletes a real
 func (d *Database) SoftDeleteReal(realID string) error {
 	now := time.Now()
 	return d.DB.Model(&Real{}).Where("id = ?", realID).Update("deleted_at", now).Error
 }
-
-// CleanupExpiredReals deletes expired reals
 func (d *Database) CleanupExpiredReals() error {
 	now := time.Now()
 	return d.DB.Model(&Real{}).Where("expires_at <= ? AND deleted_at IS NULL", now).Update("deleted_at", now).Error

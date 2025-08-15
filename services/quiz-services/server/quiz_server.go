@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"log"
 	"time"
 
 	pb "quiz-services/proto"
@@ -24,10 +23,7 @@ func NewQuizServer() *QuizServer {
 	}
 }
 
-// GetQuizzesBySection retrieves quizzes for a specific section
 func (s *QuizServer) GetQuizzesBySection(ctx context.Context, req *pb.GetQuizzesBySectionRequest) (*pb.GetQuizzesBySectionResponse, error) {
-	log.Printf("GetQuizzesBySection called with section ID: %s", req.SectionId)
-
 	if req.SectionId == "" {
 		return &pb.GetQuizzesBySectionResponse{
 			StatusCode: 400,
@@ -70,10 +66,7 @@ func (s *QuizServer) GetQuizzesBySection(ctx context.Context, req *pb.GetQuizzes
 	}, nil
 }
 
-// GetQuizByID retrieves a quiz by its ID
 func (s *QuizServer) GetQuizByID(ctx context.Context, req *pb.GetQuizByIDRequest) (*pb.GetQuizByIDResponse, error) {
-	log.Printf("GetQuizByID called with ID: %s", req.Id)
-
 	if req.Id == "" {
 		return &pb.GetQuizByIDResponse{
 			StatusCode: 400,
@@ -129,10 +122,7 @@ func (s *QuizServer) GetQuizByID(ctx context.Context, req *pb.GetQuizByIDRequest
 	}, nil
 }
 
-// CreateQuiz creates a new quiz
 func (s *QuizServer) CreateQuiz(ctx context.Context, req *pb.CreateQuizRequest) (*pb.CreateQuizResponse, error) {
-	log.Printf("CreateQuiz called for section: %s", req.Quiz.SectionId)
-
 	if req.Quiz.SectionId == "" || req.Quiz.Question == "" {
 		return &pb.CreateQuizResponse{
 			StatusCode: 400,
@@ -184,10 +174,7 @@ func (s *QuizServer) CreateQuiz(ctx context.Context, req *pb.CreateQuizRequest) 
 	}, nil
 }
 
-// UpdateQuiz updates an existing quiz
 func (s *QuizServer) UpdateQuiz(ctx context.Context, req *pb.UpdateQuizRequest) (*pb.UpdateQuizResponse, error) {
-	log.Printf("UpdateQuiz called with ID: %s", req.Id)
-
 	if req.Id == "" {
 		return &pb.UpdateQuizResponse{
 			StatusCode: 400,
@@ -243,10 +230,7 @@ func (s *QuizServer) UpdateQuiz(ctx context.Context, req *pb.UpdateQuizRequest) 
 	}, nil
 }
 
-// DeleteQuiz deletes a quiz
 func (s *QuizServer) DeleteQuiz(ctx context.Context, req *pb.DeleteQuizRequest) (*pb.DeleteQuizResponse, error) {
-	log.Printf("DeleteQuiz called with ID: %s", req.Id)
-
 	if req.Id == "" {
 		return &pb.DeleteQuizResponse{
 			StatusCode: 400,
@@ -302,10 +286,7 @@ func (s *QuizServer) DeleteQuiz(ctx context.Context, req *pb.DeleteQuizRequest) 
 	}, nil
 }
 
-// SubmitQuizAnswer submits an answer for a quiz
 func (s *QuizServer) SubmitQuizAnswer(ctx context.Context, req *pb.SubmitQuizAnswerRequest) (*pb.SubmitQuizAnswerResponse, error) {
-	log.Printf("SubmitQuizAnswer called for quiz: %s by user: %s", req.QuizId, req.UserId)
-
 	if req.UserId == "" || req.QuizId == "" || req.SelectedOption == "" {
 		return &pb.SubmitQuizAnswerResponse{
 			StatusCode: 400,
@@ -346,10 +327,7 @@ func (s *QuizServer) SubmitQuizAnswer(ctx context.Context, req *pb.SubmitQuizAns
 	}, nil
 }
 
-// GetUserQuizHistory retrieves quiz history for a user
 func (s *QuizServer) GetUserQuizHistory(ctx context.Context, req *pb.GetUserQuizHistoryRequest) (*pb.GetUserQuizHistoryResponse, error) {
-	log.Printf("GetUserQuizHistory called for user: %s", req.UserId)
-
 	if req.UserId == "" {
 		return &pb.GetUserQuizHistoryResponse{
 			StatusCode: 400,
@@ -395,10 +373,7 @@ func (s *QuizServer) GetUserQuizHistory(ctx context.Context, req *pb.GetUserQuiz
 	}, nil
 }
 
-// GetQuizStatistics retrieves statistics for a quiz
 func (s *QuizServer) GetQuizStatistics(ctx context.Context, req *pb.GetQuizStatisticsRequest) (*pb.GetQuizStatisticsResponse, error) {
-	log.Printf("GetQuizStatistics called for quiz: %s", req.QuizId)
-
 	if req.QuizId == "" {
 		return &pb.GetQuizStatisticsResponse{
 			StatusCode: 400,

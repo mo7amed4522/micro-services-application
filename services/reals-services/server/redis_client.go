@@ -32,12 +32,10 @@ func NewRedisClient() *RedisClient {
 	})
 
 	ctx := context.Background()
-
-	// Test connection
 	_, err := rdb.Ping(ctx).Result()
 	if err != nil {
 		log.Printf("Warning: Redis connection failed: %v", err)
-		// Continue without Redis for now
+		return nil
 	}
 
 	log.Println("Redis client initialized")

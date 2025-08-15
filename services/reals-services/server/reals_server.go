@@ -27,13 +27,10 @@ func NewRealsServer() *RealsServer {
 		grpcClients: NewGRPCClients(),
 	}
 
-	// Start background cleanup job
 	go server.startCleanupJob()
-
 	return server
 }
 
-// CreateReal handles real creation with media upload
 func (s *RealsServer) CreateReal(ctx context.Context, req *pb.CreateRealRequest) (*pb.CreateRealResponse, error) {
 	if req.UserId == "" {
 		return s.errorResponse(400, "User ID is required"), nil
@@ -47,12 +44,10 @@ func (s *RealsServer) CreateReal(ctx context.Context, req *pb.CreateRealRequest)
 		return s.errorResponse(400, "Maximum 10 media items allowed"), nil
 	}
 
-	// Upload media files via gRPC
 	var mediaURLs []string
 	var mediaTypes []string
 
 	for _, item := range req.MediaItems {
-		// Convert media type
 		var fileTypeStr string
 		switch item.MediaType {
 		case pb.MediaType_IMAGE:
@@ -64,8 +59,6 @@ func (s *RealsServer) CreateReal(ctx context.Context, req *pb.CreateRealRequest)
 		default:
 			return s.errorResponse(400, "Invalid media type"), nil
 		}
-
-		// Upload file via gRPC
 		fileURL, err := s.grpcClients.UploadMedia(ctx, req.UserId, item.FileData, item.FileName, item.ContentType, fileTypeStr)
 		if err != nil {
 			log.Printf("Failed to upload media: %v", err)
@@ -74,8 +67,6 @@ func (s *RealsServer) CreateReal(ctx context.Context, req *pb.CreateRealRequest)
 
 		mediaURLs = append(mediaURLs, fileURL)
 	}
-
-	// Create real record
 	realID := uuid.New().String()
 	expiresAt := time.Now().Add(24 * time.Hour)
 
@@ -93,7 +84,6 @@ func (s *RealsServer) CreateReal(ctx context.Context, req *pb.CreateRealRequest)
 		return s.errorResponse(500, "Failed to create real"), nil
 	}
 
-	// Invalidate cache
 	s.redis.InvalidateCache("reals:*")
 
 	return &pb.CreateRealResponse{
@@ -109,7 +99,6 @@ func (s *RealsServer) CreateReal(ctx context.Context, req *pb.CreateRealRequest)
 	}, nil
 }
 
-// GetAllActiveReals implements two-thread fetching strategy
 func (s *RealsServer) GetAllActiveReals(ctx context.Context, req *pb.GetAllActiveRealsRequest) (*pb.GetAllActiveRealsResponse, error) {
 	limit := int(req.Limit)
 	offset := int(req.Offset)
@@ -127,7 +116,7 @@ func (s *RealsServer) GetAllActiveReals(ctx context.Context, req *pb.GetAllActiv
 	case pb.FetchStrategy_CACHED_FETCH:
 		return s.cachedFetch(ctx, limit, offset)
 	default:
-		// Default to fast fetch for first 3, then cached
+
 		if offset < 3 {
 			return s.fastFetch(ctx, limit, offset)
 		}
@@ -135,7 +124,6 @@ func (s *RealsServer) GetAllActiveReals(ctx context.Context, req *pb.GetAllActiv
 	}
 }
 
-// fastFetch - Direct database fetch for immediate results
 func (s *RealsServer) fastFetch(ctx context.Context, limit, offset int) (*pb.GetAllActiveRealsResponse, error) {
 	reals, err := s.db.GetActiveReals(limit, offset)
 	if err != nil {
@@ -143,14 +131,12 @@ func (s *RealsServer) fastFetch(ctx context.Context, limit, offset int) (*pb.Get
 		return s.errorResponseAll(500, "Failed to fetch reals"), nil
 	}
 
-	// Convert to proto and enrich with user data
 	protoReals, err := s.enrichRealsWithUserData(ctx, reals)
 	if err != nil {
 		log.Printf("Failed to enrich reals: %v", err)
 		return s.errorResponseAll(500, "Failed to process reals"), nil
 	}
 
-	// Cache the results for future use
 	go func() {
 		cacheKey := fmt.Sprintf("reals:fast:%d:%d", limit, offset)
 		s.redis.CacheReals(cacheKey, reals, 5*time.Minute)
@@ -169,11 +155,9 @@ func (s *RealsServer) fastFetch(ctx context.Context, limit, offset int) (*pb.Get
 	}, nil
 }
 
-// cachedFetch - Redis cache fetch for faster subsequent requests
 func (s *RealsServer) cachedFetch(ctx context.Context, limit, offset int) (*pb.GetAllActiveRealsResponse, error) {
 	cacheKey := fmt.Sprintf("reals:cached:%d:%d", limit, offset)
 
-	// Try cache first
 	cachedReals, err := s.redis.GetCachedReals(cacheKey)
 	if err == nil && len(cachedReals) > 0 {
 		protoReals, err := s.enrichRealsWithUserData(ctx, cachedReals)
@@ -192,7 +176,6 @@ func (s *RealsServer) cachedFetch(ctx context.Context, limit, offset int) (*pb.G
 		}
 	}
 
-	// Fallback to database
 	reals, err := s.db.GetActiveReals(limit, offset)
 	if err != nil {
 		log.Printf("Failed to fetch reals: %v", err)
@@ -204,8 +187,6 @@ func (s *RealsServer) cachedFetch(ctx context.Context, limit, offset int) (*pb.G
 		log.Printf("Failed to enrich reals: %v", err)
 		return s.errorResponseAll(500, "Failed to process reals"), nil
 	}
-
-	// Cache for next time
 	go func() {
 		s.redis.CacheReals(cacheKey, reals, 10*time.Minute)
 	}()
@@ -223,20 +204,16 @@ func (s *RealsServer) cachedFetch(ctx context.Context, limit, offset int) (*pb.G
 	}, nil
 }
 
-// Helper functions
 func (s *RealsServer) enrichRealsWithUserData(ctx context.Context, reals []Real) ([]*pb.Real, error) {
 	var protoReals []*pb.Real
 
 	for _, real := range reals {
-		// Get user info via gRPC
 		userName, userAvatar, err := s.grpcClients.GetUserInfo(ctx, real.UserID)
 		if err != nil {
 			log.Printf("Failed to get user info: %v", err)
 			userName = "Unknown User"
 			userAvatar = ""
 		}
-
-		// Convert media types
 		var protoMediaTypes []pb.MediaType
 		for _, mediaType := range real.MediaTypes {
 			switch mediaType {
@@ -338,7 +315,6 @@ func (s *RealsServer) errorResponseDelete(code int, message string) *pb.DeleteRe
 	}
 }
 
-// Background cleanup job
 func (s *RealsServer) startCleanupJob() {
 	ticker := time.NewTicker(1 * time.Hour)
 	defer ticker.Stop()
@@ -350,7 +326,6 @@ func (s *RealsServer) startCleanupJob() {
 				log.Printf("Failed to cleanup expired reals: %v", err)
 			} else {
 				log.Println("Expired reals cleaned up successfully")
-				// Invalidate cache after cleanup
 				s.redis.InvalidateCache("reals:*")
 			}
 		}
@@ -360,15 +335,11 @@ func (s *RealsServer) GetUserReals(ctx context.Context, req *pb.GetUserRealsRequ
 	if req.UserId == "" {
 		return s.errorResponseUser(400, "User ID is required"), nil
 	}
-
-	// Get user's reals from database
 	reals, err := s.db.GetUserReals(req.UserId)
 	if err != nil {
 		log.Printf("Failed to get user reals: %v", err)
 		return s.errorResponseUser(500, "Failed to retrieve user reals"), nil
 	}
-
-	// Enrich with user data
 	enrichedReals, err := s.enrichRealsWithUserData(ctx, reals)
 	if err != nil {
 		log.Printf("Failed to enrich reals with user data: %v", err)
@@ -396,42 +367,30 @@ func (s *RealsServer) ViewReal(ctx context.Context, req *pb.ViewRealRequest) (*p
 		return s.errorResponseView(400, "Viewer ID is required"), nil
 	}
 
-	// Check if user has already viewed this real
 	hasViewed, err := s.redis.HasUserViewedReal(req.RealId, req.ViewerUserId)
 	if err != nil {
 		log.Printf("Failed to check view status: %v", err)
 	}
-
-	// Get the real from database
 	real, err := s.db.GetRealByID(req.RealId)
 	if err != nil {
 		log.Printf("Failed to get real: %v", err)
 		return s.errorResponseView(404, "Real not found"), nil
 	}
-
-	// Check if real has expired
 	if time.Now().After(real.ExpiresAt) {
 		return s.errorResponseView(410, "Real has expired"), nil
 	}
 
-	// If user hasn't viewed this real before, increment view count
 	if !hasViewed {
-		// Update view count in database
 		real.ViewCount++
 		if err := s.db.UpdateReal(real); err != nil {
 			log.Printf("Failed to update view count: %v", err)
 		}
-
-		// Mark user as having viewed this real in Redis
 		if err := s.redis.SetUserViewedReal(req.RealId, req.ViewerUserId); err != nil {
 			log.Printf("Failed to set view status: %v", err)
 		}
-
-		// Invalidate cache for this real
 		s.redis.InvalidateCache(fmt.Sprintf("reals:%s", req.RealId))
 	}
 
-	// Enrich with user data
 	enrichedReals, err := s.enrichRealsWithUserData(ctx, []Real{*real})
 	if err != nil {
 		log.Printf("Failed to enrich real with user data: %v", err)
@@ -460,25 +419,18 @@ func (s *RealsServer) DeleteReal(ctx context.Context, req *pb.DeleteRealRequest)
 		return s.errorResponseDelete(400, "User ID is required"), nil
 	}
 
-	// Get the real to verify ownership
 	real, err := s.db.GetRealByID(req.RealId)
 	if err != nil {
 		log.Printf("Failed to get real: %v", err)
 		return s.errorResponseDelete(404, "Real not found"), nil
 	}
-
-	// Verify ownership
 	if real.UserID != req.UserId {
 		return s.errorResponseDelete(403, "You can only delete your own reals"), nil
 	}
-
-	// Perform soft delete
 	if err := s.db.SoftDeleteReal(req.RealId); err != nil {
 		log.Printf("Failed to delete real: %v", err)
 		return s.errorResponseDelete(500, "Failed to delete real"), nil
 	}
-
-	// Invalidate cache
 	s.redis.InvalidateCache(fmt.Sprintf("reals:%s", req.RealId))
 	s.redis.InvalidateCache("reals:all:*")
 	s.redis.InvalidateCache(fmt.Sprintf("reals:user:%s", req.UserId))

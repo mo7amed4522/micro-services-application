@@ -15,7 +15,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
 	}
-
 	s := grpc.NewServer()
 	transactionServer := server.NewTransactionServer()
 	pb.RegisterTransactionServiceServer(s, transactionServer)
