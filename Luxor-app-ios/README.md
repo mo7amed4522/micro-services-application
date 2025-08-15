@@ -1,6 +1,6 @@
 # Luxor App - Your Ultimate Guide to Ancient Egypt 🏺
 
-![Luxor Logo](luxor-app/Assets.xcassets/logo-nobg.imageset/luxor-logo.jpg)
+![Luxor Logo](luxor-app/Assets.xcassets/logo-nobg.imageset/Unknown-removebg-preview.png)
 
 ## Overview
 
