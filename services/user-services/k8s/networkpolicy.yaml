@@ -1,0 +1,52 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: user-services-netpol
+  namespace: microservices
+  labels:
+    app: user-services
+spec:
+  podSelector:
+    matchLabels:
+      app: user-services
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: microservices
+    - podSelector:
+        matchLabels:
+          app: auth-services
+    - podSelector:
+        matchLabels:
+          app: card-services
+    - podSelector:
+        matchLabels:
+          app: wallet-services
+    ports:
+    - protocol: TCP
+      port: 50051
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: microservices
+    - podSelector:
+        matchLabels:
+          app: postgres
+    ports:
+    - protocol: TCP
+      port: 5432
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443

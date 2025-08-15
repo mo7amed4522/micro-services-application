@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: wallet-service-monitor
+  namespace: default
+  labels:
+    app: wallet-service
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: wallet-service
+  endpoints:
+  - port: grpc
+    interval: 30s
+    path: /metrics
+    scheme: http
+  namespaceSelector:
+    matchNames:
+    - default

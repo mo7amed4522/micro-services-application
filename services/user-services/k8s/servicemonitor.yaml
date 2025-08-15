@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: user-services-monitor
+  namespace: microservices
+  labels:
+    app: user-services
+spec:
+  selector:
+    matchLabels:
+      app: user-services
+  endpoints:
+  - port: grpc
+    interval: 30s
+    path: /metrics
