@@ -1,0 +1,93 @@
+
+## Customization
+
+### Tailwind Configuration
+
+The Tailwind configuration includes custom colors and utilities for the Luxor brand:
+
+- **Primary Colors**: Purple gradient
+- **Secondary Colors**: Blue gradient  
+- **Luxor Colors**: Gold, bronze, sand theme
+- **Custom Components**: Buttons, cards, forms
+- **Custom Utilities**: Gradients, animations
+
+### Adding New Pages
+
+1. Create a new Vue component in `src/views/`
+2. Add the route in `src/router/index.js`
+3. Update the sidebar navigation in `src/components/layout/Sidebar.vue`
+
+### Styling Guidelines
+
+- Use Tailwind utility classes for styling
+- Custom components are defined in `src/assets/css/main.css`
+- Follow the established color scheme and spacing
+- Use the provided component classes (`.btn-primary`, `.card`, etc.)
+
+## Integration with Microservices
+
+This dashboard is designed to work with the Luxor microservices:
+
+- **User Service**: User management and authentication
+- **Card Service**: Card operations and management
+- **Wallet Service**: Wallet and transaction management
+- **Auth Service**: Firebase authentication
+
+### API Integration
+
+Add API service files in `src/services/` to connect with your microservices:
+
+```javascript
+// src/services/api.js
+import axios from 'axios'
+
+const api = axios.create({
+  baseURL: process.env.VUE_APP_API_URL || 'http://localhost:3000'
+})
+
+export default api
+```
+
+## Deployment
+
+### Development
+
+```bash
+npm run serve
+```
+
+### Production Build
+
+```bash
+npm run build
+```
+
+### Docker Deployment
+
+Create a `Dockerfile` for containerized deployment:
+
+```dockerfile
+FROM node:16-alpine as build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is part of the Luxor microservices platform.
