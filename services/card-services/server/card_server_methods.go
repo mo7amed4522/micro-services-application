@@ -16,7 +16,6 @@ import (
 )
 
 func (s *CardServer) UpdateCardData(ctx context.Context, req *pb.UpdateCardDataRequest) (*pb.UpdateCardDataResponse, error) {
-	log.Printf("UpdateCardData called for card ID: %s", req.Id)
 	claims, err := s.validateRequest(ctx)
 	if err != nil {
 		return &pb.UpdateCardDataResponse{
