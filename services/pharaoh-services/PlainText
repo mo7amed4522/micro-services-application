@@ -1,0 +1,373 @@
+
+## Database Schema
+
+The service uses a comprehensive pharaoh data model with the following key fields:
+
+### Core Identity
+- `id`: Unique identifier
+- `name`: Common name
+- `birth_name`: Original birth name
+- `throne_name`: Royal throne name
+- `epithet`: Royal epithet or title
+
+### Historical Context
+- `dynasty`: Egyptian dynasty number
+- `period`: Historical period (Old Kingdom, Middle Kingdom, etc.)
+- `reign_start`/`reign_end`: Reign dates
+- `predecessor_id`/`successor_id`: Succession chain
+
+### Family & Lineage
+- `father`/`mother`: Parental information
+- `consorts`: List of royal consorts
+- `children_count`: Number of children
+- `notable_children`: Important offspring
+
+### Religious & Cultural
+- `divine_association`: Associated deities
+- `temple_affiliations`: Religious institutions
+- `religious_reforms`: Religious changes implemented
+- `pharaoh_as_god`: Deification status
+
+### Archaeological Data
+- `burial_site`: Tomb location
+- `tomb_discovered`: Discovery status
+- `discovery_year`: Year of archaeological discovery
+- `famous_artifacts`: Associated artifacts and treasures
+
+### Gaming Elements
+- `rarity`: Rarity classification
+- `traits`: Character statistics
+- `popularity_score`: User engagement metrics
+- `user_rating`: Community ratings
+- `unlock_in_game`: Game progression status
+
+## API Documentation
+
+### gRPC Service Methods
+
+#### GetPharaohByID
+Retrieve detailed information about a specific pharaoh.
+```protobuf
+rpc GetPharaohByID(GetPharaohByIDRequest) returns (GetPharaohByIDResponse);
+```
+
+#### GetAllPharaohs
+Retrieve paginated list of all pharaohs with sorting options.
+```protobuf
+rpc GetAllPharaohs(GetAllPharaohsRequest) returns (GetAllPharaohsResponse);
+```
+**Parameters:**
+- `page`: Page number for pagination
+- `limit`: Number of results per page
+- `sort_by`: Sort field (dynasty, reign_start, popularity_score)
+- `order`: Sort order (asc, desc)
+
+#### GetPharaohsByDynasty
+Retrieve pharaohs from a specific dynasty.
+```protobuf
+rpc GetPharaohsByDynasty(GetPharaohsByDynastyRequest) returns (GetPharaohsByDynastyResponse);
+```
+
+#### GetPharaohsByPeriod
+Retrieve pharaohs from a specific historical period.
+```protobuf
+rpc GetPharaohsByPeriod(GetPharaohsByPeriodRequest) returns (GetPharaohsByPeriodResponse);
+```
+
+#### SearchPharaohs
+Perform advanced search across multiple pharaoh fields.
+```protobuf
+rpc SearchPharaohs(SearchPharaohsRequest) returns (SearchPharaohsResponse);
+```
+**Parameters:**
+- `query`: Search term
+- `fields`: Fields to search (name, epithet, achievements)
+
+#### CreatePharaoh
+Add a new pharaoh to the database.
+```protobuf
+rpc CreatePharaoh(CreatePharaohRequest) returns (CreatePharaohResponse);
+```
+
+#### UpdatePharaoh
+Update existing pharaoh information.
+```protobuf
+rpc UpdatePharaoh(UpdatePharaohRequest) returns (UpdatePharaohResponse);
+```
+
+#### DeletePharaoh
+Remove a pharaoh from the database.
+```protobuf
+rpc DeletePharaoh(DeletePharaohRequest) returns (DeletePharaohResponse);
+```
+
+#### GetPharaohsByRarity
+Retrieve pharaohs by rarity classification.
+```protobuf
+rpc GetPharaohsByRarity(GetPharaohsByRarityRequest) returns (GetPharaohsByRarityResponse);
+```
+**Rarity Levels:** Common, Rare, Epic, Legendary
+
+#### UpdatePharaohRating
+Update user rating for a pharaoh.
+```protobuf
+rpc UpdatePharaohRating(UpdatePharaohRatingRequest) returns (UpdatePharaohRatingResponse);
+```
+
+## Data Models
+
+### Pharaoh
+Comprehensive pharaoh data structure with 48 fields covering historical, religious, archaeological, and gaming aspects.
+
+### Artifact
+Artifact information including:
+- `name`: Artifact name
+- `museum`: Current location
+- `description`: Detailed description
+
+### Traits
+Character statistics for gaming:
+- `leadership`: Leadership ability (1-100)
+- `military`: Military prowess (1-100)
+- `diplomacy`: Diplomatic skills (1-100)
+- `wisdom`: Wisdom and intelligence (1-100)
+- `charisma`: Personal charisma (1-100)
+
+### ErrorDetails
+Standardized error response structure with:
+- `code`: Error code
+- `message`: Error message
+- `details`: Additional error information
+- `timestamp`: Error occurrence time
+
+## Setup and Installation
+
+### Prerequisites
+- Go 1.23 or higher
+- PostgreSQL database
+- Protocol Buffers compiler (protoc)
+
+### Environment Variables
+Create a `.env` file with the following configuration:
+```env
+PHARAOH_SERVICE_PORT=50056
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_NAME=userdb
+JWT_SECRET=your_jwt_secret
+```
+
+### Database Setup
+1. Create PostgreSQL database:
+```sql
+CREATE DATABASE userdb;
+```
+
+2. Set up pharaoh tables with appropriate schema for storing comprehensive pharaoh data.
+
+### Local Development
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd services/pharaoh-services
+```
+
+2. Install dependencies:
+```bash
+go mod download
+```
+
+3. Generate protobuf files:
+```bash
+protoc --go_out=. --go-grpc_out=. proto/pharaoh.proto
+```
+
+4. Run the service:
+```bash
+go run main.go
+```
+
+### Docker Deployment
+1. Build the Docker image:
+```bash
+docker build -t pharaoh-service .
+```
+
+2. Run the container:
+```bash
+docker run -p 50056:50056 --env-file .env pharaoh-service
+```
+
+## Historical Periods
+
+The service supports the following Egyptian historical periods:
+- **Early Dynastic Period** (c. 3100-2686 BCE)
+- **Old Kingdom** (c. 2686-2181 BCE)
+- **First Intermediate Period** (c. 2181-2055 BCE)
+- **Middle Kingdom** (c. 2055-1650 BCE)
+- **Second Intermediate Period** (c. 1650-1550 BCE)
+- **New Kingdom** (c. 1550-1077 BCE)
+- **Third Intermediate Period** (c. 1077-332 BCE)
+- **Late Period** (c. 664-332 BCE)
+- **Ptolemaic Period** (332-30 BCE)
+
+## Gaming Integration
+
+### Rarity System
+- **Common**: Well-documented pharaohs with standard historical significance
+- **Rare**: Notable rulers with significant achievements or unique characteristics
+- **Epic**: Legendary pharaohs with major historical impact
+- **Legendary**: Iconic rulers like Tutankhamun, Ramesses II, Cleopatra
+
+### Character Progression
+- Unlock pharaohs through educational achievements
+- Rate and review pharaoh profiles
+- Collect artifacts and build virtual museums
+- Compare pharaoh statistics and traits
+
+## Error Handling
+
+The service implements comprehensive error handling:
+- **Validation Errors**: Invalid input parameters
+- **Database Errors**: Connection and query failures
+- **Not Found Errors**: Requested pharaoh doesn't exist
+- **Authentication Errors**: Invalid JWT tokens
+- **Rate Limiting**: Request throttling protection
+
+## Performance Optimization
+
+- **Database Indexing**: Optimized queries for dynasty, period, and name searches
+- **Pagination**: Efficient handling of large pharaoh datasets
+- **Connection Pooling**: Optimized database connection management
+- **Response Caching**: Strategic caching for frequently accessed data
+
+## Integration Points
+
+### Educational Platforms
+- History learning applications
+- Museum digital exhibits
+- Archaeological research tools
+- Cultural heritage platforms
+
+### Gaming Systems
+- Historical strategy games
+- Educational gaming platforms
+- Virtual museum experiences
+- Achievement and progression systems
+
+### Research Applications
+- Academic research databases
+- Historical timeline applications
+- Genealogical research tools
+- Archaeological documentation systems
+
+## Monitoring and Logging
+
+- **Health Checks**: Service availability monitoring
+- **Performance Metrics**: Response time and throughput tracking
+- **Error Tracking**: Comprehensive error logging and alerting
+- **Usage Analytics**: API endpoint usage statistics
+
+## Security Considerations
+
+- **Input Validation**: Comprehensive request parameter validation
+- **SQL Injection Protection**: Parameterized database queries
+- **Rate Limiting**: Protection against abuse and DoS attacks
+- **Authentication**: JWT-based authentication support
+- **Data Encryption**: Secure data transmission and storage
+
+## Testing
+
+### Unit Tests
+```bash
+go test ./...
+```
+
+### Integration Tests
+```bash
+go test -tags=integration ./...
+```
+
+### Load Testing
+Use tools like `ghz` for gRPC load testing:
+```bash
+ghz --insecure --proto proto/pharaoh.proto --call pharaohs.PharaohService.GetAllPharaohs -d '{"page": 1, "limit": 10}' localhost:50056
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Add comprehensive tests for new functionality
+4. Ensure all tests pass
+5. Update documentation as needed
+6. Submit a pull request
+
+### Code Standards
+- Follow Go coding conventions
+- Add comprehensive comments for complex logic
+- Maintain backward compatibility for API changes
+- Include unit tests for all new features
+
+## Troubleshooting
+
+### Common Issues
+
+**Service won't start:**
+- Check database connection parameters
+- Verify PostgreSQL is running
+- Ensure port 50056 is available
+
+**Database connection errors:**
+- Verify database credentials in .env file
+- Check network connectivity to database
+- Ensure database exists and is accessible
+
+**gRPC connection issues:**
+- Verify service is running on correct port
+- Check firewall settings
+- Ensure protobuf definitions are up to date
+
+**Performance issues:**
+- Monitor database query performance
+- Check for proper indexing on search fields
+- Review pagination parameters for large datasets
+
+### Logs Location
+- Application logs: stdout/stderr
+- Database logs: PostgreSQL log directory
+- Error logs: Application error output
+
+## Educational Use Cases
+
+### History Education
+- Interactive pharaoh timelines
+- Dynasty comparison tools
+- Archaeological discovery simulations
+- Cultural achievement showcases
+
+### Museum Applications
+- Digital exhibit companions
+- Audio tour integration
+- Artifact relationship mapping
+- Visitor engagement tracking
+
+### Research Tools
+- Historical data analysis
+- Genealogical research
+- Archaeological documentation
+- Cultural heritage preservation
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support and questions:
+- Create an issue in the repository
+- Check the troubleshooting section
+- Review the API documentation
+- Contact the development team

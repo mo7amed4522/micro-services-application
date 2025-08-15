@@ -153,9 +153,7 @@ func (db *Database) CreateQuiz(quiz *pb.Quiz) (*pb.Quiz, error) {
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 		RETURNING id, section_id, question, options, correct_answer, explanation, difficulty, created_at
 	`
-
-	// Convert options map to JSON
-	optionsJSON := "{}" // You would need to implement JSON marshaling here
+	optionsJSON := "{}"
 
 	var createdQuiz pb.Quiz
 	var createdAt sql.NullTime
@@ -184,8 +182,6 @@ func (db *Database) CreateQuiz(quiz *pb.Quiz) (*pb.Quiz, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	// Parse options JSON
 	if createdQuiz.Options == nil {
 		createdQuiz.Options = make(map[string]string)
 	}
@@ -204,9 +200,7 @@ func (db *Database) UpdateQuiz(id string, quiz *pb.Quiz) (*pb.Quiz, error) {
 		WHERE id = $1
 		RETURNING id, section_id, question, options, correct_answer, explanation, difficulty, created_at
 	`
-
-	// Convert options map to JSON
-	optionsJSON := "{}" // You would need to implement JSON marshaling here
+	optionsJSON := "{}"
 
 	var updatedQuiz pb.Quiz
 	var createdAt sql.NullTime
@@ -233,8 +227,6 @@ func (db *Database) UpdateQuiz(id string, quiz *pb.Quiz) (*pb.Quiz, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	// Parse options JSON
 	if updatedQuiz.Options == nil {
 		updatedQuiz.Options = make(map[string]string)
 	}
@@ -267,16 +259,12 @@ func (db *Database) DeleteQuiz(id string) error {
 }
 
 func (db *Database) SubmitQuizAnswer(userId, quizId, selectedOption string) (*pb.QuizResponse, error) {
-	// First, get the correct answer
 	var correctAnswer string
 	err := db.conn.QueryRow("SELECT correct_answer FROM quizzes WHERE id = $1", quizId).Scan(&correctAnswer)
 	if err != nil {
 		return nil, err
 	}
-
 	isCorrect := selectedOption == correctAnswer
-
-	// Insert the response
 	response := &pb.QuizResponse{
 		Id:             uuid.New().String(),
 		UserId:         userId,
@@ -376,7 +364,6 @@ func (db *Database) GetQuizStatistics(quizId string) (*pb.QuizStatistics, error)
 	return &stats, nil
 }
 
-// Helper function to convert options map to JSON
 func optionsToJSON(options map[string]string) (string, error) {
 	if options == nil {
 		return "{}", nil
@@ -388,7 +375,6 @@ func optionsToJSON(options map[string]string) (string, error) {
 	return string(jsonBytes), nil
 }
 
-// Helper function to convert JSON to options map
 func jsonToOptions(jsonStr string) (map[string]string, error) {
 	var options map[string]string
 	err := json.Unmarshal([]byte(jsonStr), &options)

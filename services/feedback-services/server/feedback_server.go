@@ -19,10 +19,7 @@ func NewFeedbackServer() *FeedbackServer {
 		db: NewDatabase(),
 	}
 }
-
-// SubmitFeedback handles feedback submission
 func (s *FeedbackServer) SubmitFeedback(ctx context.Context, req *pb.SubmitFeedbackRequest) (*pb.SubmitFeedbackResponse, error) {
-	log.Printf("SubmitFeedback called for user: %s, template: %s", req.UserId, req.TemplateId)
 	if req.UserId == "" {
 		return &pb.SubmitFeedbackResponse{
 			StatusCode: 400,
@@ -98,10 +95,7 @@ func (s *FeedbackServer) SubmitFeedback(ctx context.Context, req *pb.SubmitFeedb
 	}, nil
 }
 
-// GetTemplateFeedback retrieves feedback for a template
 func (s *FeedbackServer) GetTemplateFeedback(ctx context.Context, req *pb.GetTemplateFeedbackRequest) (*pb.GetTemplateFeedbackResponse, error) {
-	log.Printf("GetTemplateFeedback called for template: %s", req.TemplateId)
-
 	if req.TemplateId == "" {
 		return &pb.GetTemplateFeedbackResponse{
 			StatusCode: 400,
@@ -160,9 +154,7 @@ func (s *FeedbackServer) GetTemplateFeedback(ctx context.Context, req *pb.GetTem
 	}, nil
 }
 
-// GetFeedbackStatistics calculates feedback statistics
 func (s *FeedbackServer) GetFeedbackStatistics(ctx context.Context, req *pb.GetFeedbackStatisticsRequest) (*pb.GetFeedbackStatisticsResponse, error) {
-	log.Printf("GetFeedbackStatistics called for template: %s", req.TemplateId)
 	if req.TemplateId == "" {
 		return &pb.GetFeedbackStatisticsResponse{
 			StatusCode: 400,
@@ -204,10 +196,7 @@ func (s *FeedbackServer) GetFeedbackStatistics(ctx context.Context, req *pb.GetF
 	}, nil
 }
 
-// UpdateFeedback updates existing feedback
 func (s *FeedbackServer) UpdateFeedback(ctx context.Context, req *pb.UpdateFeedbackRequest) (*pb.UpdateFeedbackResponse, error) {
-	log.Printf("UpdateFeedback called for feedback ID: %s", req.Id)
-
 	if req.Id == "" {
 		return &pb.UpdateFeedbackResponse{
 			StatusCode: 400,
@@ -254,8 +243,6 @@ func (s *FeedbackServer) UpdateFeedback(ctx context.Context, req *pb.UpdateFeedb
 				},
 			}, nil
 		}
-
-		log.Printf("Error updating feedback: %v", err)
 		return &pb.UpdateFeedbackResponse{
 			StatusCode: 500,
 			Message:    "Failed to update feedback",
@@ -279,10 +266,7 @@ func (s *FeedbackServer) UpdateFeedback(ctx context.Context, req *pb.UpdateFeedb
 	}, nil
 }
 
-// DeleteFeedback removes feedback
 func (s *FeedbackServer) DeleteFeedback(ctx context.Context, req *pb.DeleteFeedbackRequest) (*pb.DeleteFeedbackResponse, error) {
-	log.Printf("DeleteFeedback called for feedback ID: %s", req.Id)
-
 	if req.Id == "" {
 		return &pb.DeleteFeedbackResponse{
 			StatusCode: 400,
@@ -315,7 +299,6 @@ func (s *FeedbackServer) DeleteFeedback(ctx context.Context, req *pb.DeleteFeedb
 			}, nil
 		}
 
-		log.Printf("Error deleting feedback: %v", err)
 		return &pb.DeleteFeedbackResponse{
 			StatusCode: 500,
 			Message:    "Failed to delete feedback",

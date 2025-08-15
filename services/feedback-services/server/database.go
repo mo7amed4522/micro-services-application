@@ -57,7 +57,6 @@ func NewDatabase() *Database {
 	return &Database{conn: db}
 }
 
-// SubmitFeedback creates a new feedback entry
 func (db *Database) SubmitFeedback(userID, templateID string, rating float32, comment, language string) (*pb.Feedback, error) {
 	id := uuid.New().String()
 	createdAt := time.Now()
@@ -89,19 +88,14 @@ func (db *Database) SubmitFeedback(userID, templateID string, rating float32, co
 	return &feedback, nil
 }
 
-// GetTemplateFeedback retrieves feedback for a specific template with pagination
 func (db *Database) GetTemplateFeedback(templateID string, page, limit int32) ([]*pb.Feedback, int32, error) {
 	offset := (page - 1) * limit
-
-	// Get total count
 	countQuery := "SELECT COUNT(*) FROM template_feedback WHERE template_id = $1"
 	var totalCount int32
 	err := db.conn.QueryRow(countQuery, templateID).Scan(&totalCount)
 	if err != nil {
 		return nil, 0, err
 	}
-
-	// Get feedback with pagination
 	query := `
 		SELECT id, user_id, template_id, rating, comment, language, created_at
 		FROM template_feedback 
@@ -140,8 +134,6 @@ func (db *Database) GetTemplateFeedback(templateID string, page, limit int32) ([
 
 	return feedbacks, totalCount, nil
 }
-
-// GetFeedbackStatistics calculates statistics for a template
 func (db *Database) GetFeedbackStatistics(templateID string) (*pb.FeedbackStatistics, error) {
 	query := `
 		SELECT 
@@ -188,8 +180,6 @@ func (db *Database) GetFeedbackStatistics(templateID string) (*pb.FeedbackStatis
 		RatingDistribution: ratingDistribution,
 	}, nil
 }
-
-// UpdateFeedback updates an existing feedback entry
 func (db *Database) UpdateFeedback(id string, rating float32, comment string) (*pb.Feedback, error) {
 	query := `
 		UPDATE template_feedback 
@@ -218,8 +208,6 @@ func (db *Database) UpdateFeedback(id string, rating float32, comment string) (*
 	feedback.CreatedAt = timestamppb.New(createdAt)
 	return &feedback, nil
 }
-
-// DeleteFeedback removes a feedback entry
 func (db *Database) DeleteFeedback(id string) error {
 	query := "DELETE FROM template_feedback WHERE id = $1"
 	result, err := db.conn.Exec(query, id)

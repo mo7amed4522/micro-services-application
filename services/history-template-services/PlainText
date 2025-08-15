@@ -1,0 +1,452 @@
+
+## Database Schema
+
+The service uses a comprehensive template data model with the following structure:
+
+### HistoryTemplate
+- `id`: Unique template identifier
+- `title`: Template title (3-200 characters)
+- `description`: Detailed template description
+- `era`: Historical era classification
+- `dynasty`: Egyptian dynasty number
+- `pharaoh_id`: Associated pharaoh identifier
+- `difficulty`: Content difficulty level
+- `thumbnail_url`: Template preview image
+- `language`: Content language (ISO format)
+- `is_active`: Publication status
+- `version`: Template version number
+- `published_at`: Publication timestamp
+- `created_at`/`updated_at`: Audit timestamps
+- `sections`: Template content sections
+- `tags`: Content classification tags
+
+### TemplateSection
+- `id`: Section identifier
+- `template_id`: Parent template reference
+- `title`/`subtitle`: Section headings
+- `content_type`: Content format specification
+- `content`: Section content data
+- `metadata`: Additional section metadata
+- `order_index`: Section ordering
+- `optional`: Optional section flag
+- `created_at`: Section creation timestamp
+
+## API Documentation
+
+### gRPC Service Methods
+
+#### GetTemplateByID
+Retrieve a specific template by its unique identifier.
+```protobuf
+rpc GetTemplateByID(GetTemplateByIDRequest) returns (GetTemplateByIDResponse);
+```
+
+#### GetAllTemplates
+Retrieve paginated list of all templates with sorting options.
+```protobuf
+rpc GetAllTemplates(GetAllTemplatesRequest) returns (GetAllTemplatesResponse);
+```
+**Parameters:**
+- `page`: Page number for pagination
+- `limit`: Number of results per page
+- `sort_by`: Sort field (title, created_at, updated_at)
+- `order`: Sort order (asc, desc)
+
+#### GetTemplatesByEra
+Retrieve templates from a specific historical era.
+```protobuf
+rpc GetTemplatesByEra(GetTemplatesByEraRequest) returns (GetTemplatesByEraResponse);
+```
+**Supported Eras:**
+- Old Kingdom
+- Middle Kingdom
+- New Kingdom
+- Late Period
+- Ptolemaic Period
+
+#### GetTemplatesByDynasty
+Retrieve templates associated with a specific Egyptian dynasty.
+```protobuf
+rpc GetTemplatesByDynasty(GetTemplatesByDynastyRequest) returns (GetTemplatesByDynastyResponse);
+```
+
+#### GetTemplatesByPharaoh
+Retrieve templates associated with a specific pharaoh.
+```protobuf
+rpc GetTemplatesByPharaoh(GetTemplatesByPharaohRequest) returns (GetTemplatesByPharaohResponse);
+```
+
+#### GetTemplatesByDifficulty
+Retrieve templates by difficulty level.
+```protobuf
+rpc GetTemplatesByDifficulty(GetTemplatesByDifficultyRequest) returns (GetTemplatesByDifficultyResponse);
+```
+**Difficulty Levels:**
+- beginner: Basic historical concepts
+- intermediate: Moderate complexity content
+- advanced: Complex historical analysis
+
+#### SearchTemplates
+Perform advanced search across template content.
+```protobuf
+rpc SearchTemplates(SearchTemplatesRequest) returns (SearchTemplatesResponse);
+```
+**Parameters:**
+- `query`: Search term
+- `fields`: Fields to search (title, description, content)
+- `page`/`limit`: Pagination parameters
+
+#### CreateTemplate
+Create a new historical template.
+```protobuf
+rpc CreateTemplate(CreateTemplateRequest) returns (CreateTemplateResponse);
+```
+
+#### UpdateTemplate
+Update existing template information.
+```protobuf
+rpc UpdateTemplate(UpdateTemplateRequest) returns (UpdateTemplateResponse);
+```
+
+#### DeleteTemplate
+Remove a template from the system.
+```protobuf
+rpc DeleteTemplate(DeleteTemplateRequest) returns (DeleteTemplateResponse);
+```
+
+#### GetTemplatesByTag
+Retrieve templates by specific tags.
+```protobuf
+rpc GetTemplatesByTag(GetTemplatesByTagRequest) returns (GetTemplatesByTagResponse);
+```
+
+#### GetRelatedTemplates
+Find templates related to a specific template.
+```protobuf
+rpc GetRelatedTemplates(GetRelatedTemplatesRequest) returns (GetRelatedTemplatesResponse);
+```
+
+## Data Models
+
+### HistoryTemplate
+Comprehensive template structure with:
+- Historical metadata (era, dynasty, pharaoh)
+- Content organization (sections, tags)
+- Publication workflow (versioning, status)
+- Multilingual support
+- Rich media integration
+
+### TemplateSection
+Flexible content sections supporting:
+- Various content types (text, media, interactive)
+- Hierarchical organization
+- Optional content blocks
+- Custom metadata
+
+### ErrorDetails
+Standardized error response with:
+- `code`: HTTP-style error codes
+- `message`: Human-readable error message
+- `details`: Additional error information
+- `timestamp`: Error occurrence time
+
+## Setup and Installation
+
+### Prerequisites
+- Go 1.23 or higher
+- PostgreSQL database
+- Protocol Buffers compiler (protoc)
+
+### Environment Variables
+Create a `.env` file with the following configuration:
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_NAME=userdb
+GRPC_PORT=50057
+```
+
+### Database Setup
+1. Create PostgreSQL database:
+```sql
+CREATE DATABASE userdb;
+```
+
+2. Set up template tables:
+```sql
+-- History templates table
+CREATE TABLE history_templates (
+    id UUID PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description TEXT,
+    era VARCHAR(50),
+    dynasty INTEGER,
+    pharaoh_id UUID,
+    difficulty VARCHAR(20),
+    thumbnail_url TEXT,
+    language VARCHAR(10),
+    is_active BOOLEAN DEFAULT false,
+    version INTEGER DEFAULT 1,
+    published_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Template sections table
+CREATE TABLE template_sections (
+    id UUID PRIMARY KEY,
+    template_id UUID REFERENCES history_templates(id),
+    title VARCHAR(200),
+    subtitle VARCHAR(200),
+    content_type VARCHAR(50),
+    content TEXT,
+    metadata JSONB,
+    order_index INTEGER,
+    optional BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Template tags table
+CREATE TABLE template_tags (
+    template_id UUID REFERENCES history_templates(id),
+    tag VARCHAR(50),
+    PRIMARY KEY (template_id, tag)
+);
+```
+
+### Local Development
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd services/history-template-services
+```
+
+2. Install dependencies:
+```bash
+go mod download
+```
+
+3. Generate protobuf files:
+```bash
+protoc --go_out=. --go-grpc_out=. proto/history_template.proto
+```
+
+4. Run the service:
+```bash
+go run main.go
+```
+
+### Docker Deployment
+1. Build the Docker image:
+```bash
+docker build -t history-template-service .
+```
+
+2. Run the container:
+```bash
+docker run -p 50055:50055 --env-file .env history-template-service
+```
+
+## Content Management Workflows
+
+### Template Creation
+1. **Draft Creation**: Create template with basic metadata
+2. **Section Development**: Add structured content sections
+3. **Review Process**: Validate content and historical accuracy
+4. **Publication**: Activate template for public access
+5. **Version Management**: Track template evolution over time
+
+### Content Organization
+1. **Era Classification**: Organize by historical periods
+2. **Dynasty Association**: Link to specific ruling dynasties
+3. **Pharaoh Connection**: Associate with individual rulers
+4. **Difficulty Assignment**: Set appropriate complexity level
+5. **Tag Management**: Apply relevant content tags
+
+## Validation System
+
+The service implements comprehensive validation:
+
+### Template Validation
+- **Title**: 3-200 characters, required
+- **Era**: Must be valid Egyptian historical period
+- **Difficulty**: beginner, intermediate, or advanced
+- **Language**: ISO language code format (e.g., en, en-US)
+- **UUID**: Proper UUID format validation
+
+### Content Validation
+- Section content type validation
+- Metadata format verification
+- Tag format and length validation
+- Timestamp format validation
+
+## Error Handling
+
+Comprehensive error handling system:
+- **Validation Errors**: Invalid input parameters and formats
+- **Database Errors**: Connection failures and query errors
+- **Not Found Errors**: Requested templates don't exist
+- **Constraint Violations**: Database integrity violations
+- **Service Errors**: Internal processing failures
+
+## Performance Optimization
+
+- **Database Indexing**: Optimized queries for era, dynasty, and pharaoh searches
+- **Pagination**: Efficient handling of large template collections
+- **Connection Pooling**: Optimized database connection management
+- **Query Optimization**: Efficient joins and filtering
+- **Caching Strategy**: Template metadata caching for frequent access
+
+## Integration Points
+
+### Educational Platforms
+- Learning management systems
+- Museum digital exhibits
+- Historical timeline applications
+- Interactive educational games
+
+### Content Management
+- Template authoring tools
+- Content review workflows
+- Publication management systems
+- Version control integration
+
+### External Services
+- Pharaoh Services (for pharaoh data)
+- Media Services (for rich content)
+- User Services (for personalization)
+- Analytics Services (for usage tracking)
+
+## Monitoring and Logging
+
+- **Health Checks**: Service availability monitoring
+- **Performance Metrics**: Response time and throughput tracking
+- **Error Tracking**: Comprehensive error logging and alerting
+- **Usage Analytics**: Template access and usage statistics
+- **Database Monitoring**: Query performance and connection health
+
+## Security Considerations
+
+- **Input Validation**: Comprehensive request parameter validation
+- **SQL Injection Protection**: Parameterized database queries
+- **Content Sanitization**: Safe handling of user-generated content
+- **Access Control**: Template visibility and modification permissions
+- **Data Encryption**: Secure data transmission and storage
+
+## Testing
+
+### Unit Tests
+```bash
+go test ./...
+```
+
+### Integration Tests
+```bash
+go test -tags=integration ./...
+```
+
+### Load Testing
+Use tools like `ghz` for gRPC load testing:
+```bash
+ghz --insecure --proto proto/history_template.proto --call history_templates.HistoryTemplateService.GetAllTemplates -d '{"page": 1, "limit": 10}' localhost:50055
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Add comprehensive tests for new functionality
+4. Ensure all tests pass
+5. Update documentation as needed
+6. Submit a pull request
+
+### Code Standards
+- Follow Go coding conventions
+- Add comprehensive comments for complex logic
+- Maintain backward compatibility for API changes
+- Include unit tests for all new features
+- Validate historical accuracy of content
+
+## Troubleshooting
+
+### Common Issues
+
+**Service won't start:**
+- Check database connection parameters
+- Verify PostgreSQL is running
+- Ensure port 50055 is available
+- Validate .env file configuration
+
+**Database connection errors:**
+- Verify database credentials in .env file
+- Check network connectivity to database
+- Ensure database exists and is accessible
+- Validate database schema is properly set up
+
+**Template validation errors:**
+- Check era names against supported values
+- Verify difficulty levels are valid
+- Ensure language codes follow ISO format
+- Validate UUID formats for references
+
+**Performance issues:**
+- Monitor database query performance
+- Check for proper indexing on search fields
+- Review pagination parameters for large datasets
+- Analyze template section complexity
+
+### Logs Location
+- Application logs: stdout/stderr
+- Database logs: PostgreSQL log directory
+- Error logs: Application error output
+
+## Educational Use Cases
+
+### History Education
+- Interactive lesson plans
+- Historical timeline templates
+- Dynasty comparison frameworks
+- Cultural achievement showcases
+
+### Museum Applications
+- Exhibit content templates
+- Audio tour script frameworks
+- Interactive display content
+- Educational activity templates
+
+### Research Tools
+- Historical analysis frameworks
+- Content organization templates
+- Research methodology guides
+- Academic presentation templates
+
+## Content Types
+
+### Supported Template Types
+- **Biographical**: Pharaoh and historical figure profiles
+- **Event-Based**: Historical events and milestones
+- **Cultural**: Art, architecture, and cultural practices
+- **Religious**: Beliefs, rituals, and religious practices
+- **Archaeological**: Discoveries and excavations
+- **Comparative**: Cross-dynasty and cross-era analysis
+
+### Section Types
+- **Text Content**: Rich text with formatting
+- **Media Galleries**: Image and video collections
+- **Interactive Elements**: Quizzes and activities
+- **Timeline Components**: Chronological presentations
+- **Map Integration**: Geographic and archaeological sites
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support and questions:
+- Create an issue in the repository
+- Check the troubleshooting section
+- Review the API documentation
+- Contact the development team
