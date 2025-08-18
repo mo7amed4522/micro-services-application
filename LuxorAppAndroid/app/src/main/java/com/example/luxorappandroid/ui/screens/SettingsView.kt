@@ -9,11 +9,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -77,7 +77,7 @@ fun SettingsView(
                 )
                 
                 SettingsRow(
-                    icon = Icons.Default.Security,
+                    icon = Icons.Default.Lock,
                     title = "Privacy",
                     subtitle = "Control your privacy settings",
                     onClick = { /* Privacy */ },
@@ -85,7 +85,7 @@ fun SettingsView(
                 )
                 
                 SettingsRow(
-                    icon = Icons.Default.CreditCard,
+                    icon = Icons.Default.Star,
                     title = "Payment Methods",
                     subtitle = "Manage your payment options",
                     onClick = { /* Payment Methods */ },
@@ -101,7 +101,7 @@ fun SettingsView(
                 isDarkMode = isDarkMode
             ) {
                 SettingsToggleRow(
-                    icon = Icons.Default.DarkMode,
+                    icon = Icons.Outlined.MoreVert,
                     title = "Dark Mode",
                     subtitle = "Switch between light and dark themes",
                     isOn = darkModeEnabled,
@@ -131,7 +131,7 @@ fun SettingsView(
                 )
                 
                 SettingsPickerRow(
-                    icon = Icons.Default.Language,
+                    icon = Icons.Default.Info,
                     title = "Language",
                     subtitle = "Choose your preferred language",
                     selection = selectedLanguage,

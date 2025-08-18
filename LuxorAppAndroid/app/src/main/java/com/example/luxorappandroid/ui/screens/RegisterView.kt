@@ -23,6 +23,9 @@ import androidx.compose.ui.unit.sp
 import com.example.luxorappandroid.ui.components.LuxorEmailTextField
 import com.example.luxorappandroid.ui.components.LuxorPasswordTextField
 import com.example.luxorappandroid.ui.theme.*
+import androidx.compose.foundation.border
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 
 @Composable
 fun RegisterView(
@@ -37,6 +40,7 @@ fun RegisterView(
     var isLoading by remember { mutableStateOf(false) }
     var showImagePicker by remember { mutableStateOf(false) }
     var profileImage by remember { mutableStateOf<String?>(null) }
+    val coroutineScope = rememberCoroutineScope()
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -74,8 +78,8 @@ fun RegisterView(
                 onRegister = {
                     isLoading = true
                     // Simulate registration
-                    kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.Main).launch {
-                        kotlinx.coroutines.delay(2000)
+                    coroutineScope.launch {
+                        delay(2000)
                         isLoading = false
                         onRegisterSuccess()
                     }
@@ -516,10 +520,13 @@ fun FullNameTextField(
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
                             unfocusedContainerColor = Color.Transparent,
+                            disabledContainerColor = Color.Transparent,
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
+                            disabledIndicatorColor = Color.Transparent,
                             cursorColor = LuxorTeal,
-                            textColor = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                            focusedTextColor = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary,
+                            unfocusedTextColor = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
                         ),
                         textStyle = MaterialTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Medium
@@ -684,9 +691,9 @@ fun PhoneNumberTextField(
                     
                     TextField(
                         value = phoneNumber,
-                        onValueChange = { 
-                            onPhoneNumberChange(it)
-                            isValid = it.isEmpty() || isValidPhoneNumber(it)
+                        onValueChange = { newValue -> 
+                            onPhoneNumberChange(newValue)
+                            isValid = newValue.isEmpty() || isValidPhoneNumber(newValue)
                         },
                         modifier = Modifier.fillMaxWidth(),
                         colors = TextFieldDefaults.colors(
@@ -694,6 +701,7 @@ fun PhoneNumberTextField(
                             unfocusedContainerColor = Color.Transparent,
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
+                            disabledIndicatorColor = Color.Transparent,
                             cursorColor = LuxorTeal,
                             textColor = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
                         ),

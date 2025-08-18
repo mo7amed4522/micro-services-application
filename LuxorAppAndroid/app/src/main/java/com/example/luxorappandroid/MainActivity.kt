@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.example.luxorappandroid.ui.screens.LoginView
 import com.example.luxorappandroid.ui.screens.MainTabView
+import com.example.luxorappandroid.ui.screens.RegisterView
 import com.example.luxorappandroid.ui.theme.LuxorAppAndroidTheme
 import com.example.luxorappandroid.ui.theme.ThemeManager
 

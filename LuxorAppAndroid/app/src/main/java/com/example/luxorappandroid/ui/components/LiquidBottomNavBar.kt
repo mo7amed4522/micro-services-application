@@ -22,6 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.luxorappandroid.ui.theme.*
+import com.google.ai.client.generativeai.Chat
+import com.google.firebase.annotations.concurrent.Background
 
 data class TabItem(
     val icon: androidx.compose.ui.graphics.vector.ImageVector,
