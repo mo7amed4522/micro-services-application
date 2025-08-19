@@ -10,12 +10,13 @@ import SwiftUI
 @main
 struct Luxor_AppApp: App {
     @StateObject private var themeManager = ThemeManager()
+    @StateObject private var languageManager = LanguageManager()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(themeManager)
-                .preferredColorScheme(themeManager.isDarkMode ? .dark : .light)
+                .environmentObject(languageManager)
         }
     }
 }

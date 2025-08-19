@@ -28,21 +28,14 @@ struct PlacesView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
-                // Search Bar Section
                 searchSection
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
-                
-                // Categories Horizontal Scroll
                 categoriesSection
                     .padding(.top, 25)
-                
-                // Dynamic Text Section
                 dynamicTextSection
                     .padding(.horizontal, 20)
                     .padding(.top, 30)
-                
-                // Places Grid
                 placesGridSection
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
@@ -282,8 +275,6 @@ struct PlaceCard: View {
                 .frame(height: 140)
                 .clipped()
                 .cornerRadius(16, corners: [.topLeft, .topRight])
-                
-                // Like Button
                 Button(action: {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
                         isLiked.toggle()
@@ -302,10 +293,7 @@ struct PlaceCard: View {
                 .padding(12)
                 .scaleEffect(isLiked ? 1.2 : 1.0)
             }
-            
-            // Content Section
             VStack(alignment: .leading, spacing: 8) {
-                // Likes Section
                 HStack {
                     Image(systemName: "heart.fill")
                         .font(.system(size: 12, weight: .medium))
@@ -327,8 +315,6 @@ struct PlaceCard: View {
                             .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                     }
                 }
-                
-                // Place Name
                 Text(place.name)
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)

@@ -185,4 +185,5 @@ struct Chat: Identifiable {
         isScrolling: .constant(false)
     )
     .environmentObject(ThemeManager())
+    .environmentObject(LanguageManager())
 }

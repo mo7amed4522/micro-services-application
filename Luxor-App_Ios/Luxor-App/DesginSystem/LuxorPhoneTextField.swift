@@ -32,8 +32,8 @@ struct LuxorPhoneTextField: View {
         if themeManager.isDarkMode {
             return LinearGradient(
                 colors: [
-                    LuxorColors.Dark.inputBackground,
-                    LuxorColors.Dark.cardBackground
+                    LuxorColors.sandstone.opacity(0.1),
+                    LuxorColors.hieroglyphBrown.opacity(0.05)
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -41,8 +41,8 @@ struct LuxorPhoneTextField: View {
         } else {
             return LinearGradient(
                 colors: [
-                    Color.white,
-                    Color(UIColor.systemGray6)
+                    LuxorColors.papyrusBeige,
+                    LuxorColors.sandstone.opacity(0.3)
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -53,7 +53,7 @@ struct LuxorPhoneTextField: View {
     private var borderGradient: LinearGradient {
         if isEditing {
             return LinearGradient(
-                colors: [LuxorColors.luxorTeal, LuxorColors.luxorGold],
+                colors: [LuxorColors.pureGold, LuxorColors.richGold],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -65,13 +65,13 @@ struct LuxorPhoneTextField: View {
             )
         } else if themeManager.isDarkMode {
             return LinearGradient(
-                colors: [LuxorColors.Dark.border, LuxorColors.Dark.border.opacity(0.5)],
+                colors: [LuxorColors.bronzeGold.opacity(0.3), LuxorColors.deepGold.opacity(0.2)],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
         } else {
             return LinearGradient(
-                colors: [Color.gray.opacity(0.2), Color.gray.opacity(0.1)],
+                colors: [LuxorColors.hieroglyphBrown.opacity(0.2), LuxorColors.sandstone.opacity(0.3)],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )

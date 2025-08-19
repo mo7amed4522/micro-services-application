@@ -11,8 +11,8 @@ struct LuxorFullNameTextField: View {
         if themeManager.isDarkMode {
             return LinearGradient(
                 colors: [
-                    LuxorColors.Dark.inputBackground,
-                    LuxorColors.Dark.cardBackground
+                    LuxorColors.sandstone.opacity(0.1),
+                    LuxorColors.hieroglyphBrown.opacity(0.05)
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -20,8 +20,8 @@ struct LuxorFullNameTextField: View {
         } else {
             return LinearGradient(
                 colors: [
-                    Color.white,
-                    Color(UIColor.systemGray6)
+                    LuxorColors.papyrusBeige,
+                    LuxorColors.sandstone.opacity(0.3)
                 ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
@@ -32,7 +32,7 @@ struct LuxorFullNameTextField: View {
     private var borderGradient: LinearGradient {
         if isEditing {
             return LinearGradient(
-                colors: [LuxorColors.luxorTeal, LuxorColors.luxorGold],
+                colors: [LuxorColors.pureGold, LuxorColors.richGold],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -44,13 +44,13 @@ struct LuxorFullNameTextField: View {
             )
         } else if themeManager.isDarkMode {
             return LinearGradient(
-                colors: [LuxorColors.Dark.border, LuxorColors.Dark.border.opacity(0.5)],
+                colors: [LuxorColors.bronzeGold.opacity(0.3), LuxorColors.deepGold.opacity(0.2)],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
         } else {
             return LinearGradient(
-                colors: [Color.gray.opacity(0.2), Color.gray.opacity(0.1)],
+                colors: [LuxorColors.hieroglyphBrown.opacity(0.2), LuxorColors.sandstone.opacity(0.3)],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -60,7 +60,7 @@ struct LuxorFullNameTextField: View {
     private var iconBackgroundGradient: LinearGradient {
         if isEditing {
             return LinearGradient(
-                colors: [LuxorColors.luxorTeal.opacity(0.2), LuxorColors.luxorGold.opacity(0.2)],
+                colors: [LuxorColors.pureGold.opacity(0.2), LuxorColors.richGold.opacity(0.1)],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -75,34 +75,34 @@ struct LuxorFullNameTextField: View {
     
     private var iconColor: Color {
         if isEditing {
-            return LuxorColors.luxorTeal
+            return LuxorColors.deepGold
         } else if !isValid {
             return Color.red
         } else if themeManager.isDarkMode {
-            return LuxorColors.Dark.textSecondary
+            return LuxorColors.bronzeGold
         } else {
-            return Color.gray
+            return LuxorColors.hieroglyphBrown
         }
     }
     
     private var labelColor: Color {
         if isEditing {
-            return LuxorColors.luxorTeal
+            return LuxorColors.deepGold
         } else if !isValid {
             return Color.red
         } else if themeManager.isDarkMode {
-            return LuxorColors.Dark.textSecondary
+            return LuxorColors.papyrusBeige
         } else {
-            return Color.gray
+            return LuxorColors.hieroglyphBrown
         }
     }
     
     private var textColor: Color {
-        return themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary
+        return themeManager.isDarkMode ? LuxorColors.papyrusBeige : LuxorColors.hieroglyphBrown
     }
     
     private var shadowColor: Color {
-        return themeManager.isDarkMode ? LuxorColors.Dark.shadow : LuxorColors.Light.shadow
+        return LuxorColors.hieroglyphBrown.opacity(0.2)
     }
     
     private var validationIconGradient: LinearGradient {
@@ -110,7 +110,7 @@ struct LuxorFullNameTextField: View {
             return LinearGradient(colors: [Color.clear], startPoint: .top, endPoint: .bottom)
         } else if isValid {
             return LinearGradient(
-                colors: [Color.green.opacity(0.2), Color.green.opacity(0.1)],
+                colors: [LuxorColors.egyptianBlue.opacity(0.2), LuxorColors.egyptianBlue.opacity(0.1)],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )

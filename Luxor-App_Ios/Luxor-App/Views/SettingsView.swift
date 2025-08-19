@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var languageManager: LanguageManager
     @Binding var isNavBarVisible: Bool
     @Binding var isAppBarVisible: Bool
     @Binding var lastScrollOffset: CGFloat
@@ -14,34 +15,19 @@ struct SettingsView: View {
     @State private var biometricEnabled = false
     @State private var autoPlayVideos = true
     @State private var dataSaver = false
-    @State private var selectedLanguage = "English"
     @State private var selectedCurrency = "USD"
     
-    private let languages = ["English", "Spanish", "French", "German", "Arabic", "Chinese"]
     private let currencies = ["USD", "EUR", "GBP", "JPY", "CAD", "AUD"]
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 24) {
-                // Header Section
                 headerSection
-                
-                // Account Section
                 accountSection
-                
-                // Preferences Section
                 preferencesSection
-                
-                // Privacy & Security Section
                 privacySecuritySection
-                
-                // App Settings Section
                 appSettingsSection
-                
-                // Support Section
                 supportSection
-                
-                // Bottom Spacing
                 Spacer(minLength: 100)
             }
             .padding(.horizontal, 20)
@@ -61,6 +47,7 @@ struct SettingsView: View {
             handleInstagramStyleScroll(currentOffset: currentOffset)
         }
         .luxorThemedBackground(themeManager)
+        .localizedEnvironment(languageManager)
         .onAppear {
             darkModeEnabled = themeManager.isDarkMode
         }
@@ -100,7 +87,7 @@ struct SettingsView: View {
     
     // MARK: - Account Section
     private var accountSection: some View {
-        SettingsSection(title: "Account") {
+        SettingsSection(title: LocalizedStrings.settings(languageManager.currentLanguage)) {
             SettingsRow(
                 icon: "person.circle",
                 title: "Edit Profile",
@@ -110,7 +97,7 @@ struct SettingsView: View {
             
             SettingsRow(
                 icon: "bell",
-                title: "Notifications",
+                title: LocalizedStrings.notifications(languageManager.currentLanguage),
                 subtitle: "Manage your notification preferences",
                 action: { /* Notifications */ }
             )
@@ -136,7 +123,7 @@ struct SettingsView: View {
         SettingsSection(title: "Preferences") {
             SettingsToggleRow(
                 icon: "moon.fill",
-                title: "Dark Mode",
+                title: LocalizedStrings.darkMode(languageManager.currentLanguage),
                 subtitle: "Switch between light and dark themes",
                 isOn: $darkModeEnabled
             ) {
@@ -157,12 +144,12 @@ struct SettingsView: View {
                 isOn: $biometricEnabled
             ) {}
             
-            SettingsPickerRow(
+            // Language Picker Row
+            LanguagePickerRow(
                 icon: "globe",
-                title: "Language",
+                title: LocalizedStrings.language(languageManager.currentLanguage),
                 subtitle: "Choose your preferred language",
-                selection: $selectedLanguage,
-                options: languages
+                languageManager: languageManager
             )
             
             SettingsPickerRow(
@@ -560,6 +547,114 @@ struct PickerView: View {
     }
 }
 
+// MARK: - Language Picker Row Component
+struct LanguagePickerRow: View {
+    let icon: String
+    let title: String
+    let subtitle: String
+    @ObservedObject var languageManager: LanguageManager
+    @EnvironmentObject var themeManager: ThemeManager
+    @State private var showLanguagePicker = false
+    
+    var body: some View {
+        Button(action: { showLanguagePicker.toggle() }) {
+            HStack(spacing: 16) {
+                ZStack {
+                    Circle()
+                        .fill(LuxorColors.luxorTeal.opacity(0.1))
+                        .frame(width: 40, height: 40)
+                    
+                    Image(systemName: icon)
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(LuxorColors.luxorTeal)
+                }
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
+                    
+                    Text(subtitle)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
+                }
+                
+                Spacer()
+                
+                HStack(spacing: 8) {
+                    Text("\(languageManager.currentLanguage.flag) \(languageManager.currentLanguage.displayName)")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(LuxorColors.luxorTeal)
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .sheet(isPresented: $showLanguagePicker) {
+            LanguagePickerView(languageManager: languageManager)
+        }
+        
+        Divider()
+            .background(themeManager.isDarkMode ? LuxorColors.Dark.border : Color.gray.opacity(0.1))
+            .padding(.horizontal, 16)
+    }
+}
+
+// MARK: - Language Picker View Component
+struct LanguagePickerView: View {
+    @ObservedObject var languageManager: LanguageManager
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var themeManager: ThemeManager
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                List {
+                    ForEach(SupportedLanguage.allCases, id: \.self) { language in
+                        Button(action: {
+                            languageManager.changeLanguage(to: language)
+                            dismiss()
+                        }) {
+                            HStack {
+                                Text("\(language.flag) \(language.displayName)")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
+                                
+                                Spacer()
+                                
+                                if languageManager.currentLanguage == language {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(LuxorColors.luxorTeal)
+                                        .font(.system(size: 16, weight: .medium))
+                                }
+                            }
+                        }
+                        .listRowBackground(themeManager.isDarkMode ? LuxorColors.Dark.cardBackground : LuxorColors.Light.cardBackground)
+                    }
+                }
+                .listStyle(PlainListStyle())
+            }
+            .navigationTitle(LocalizedStrings.language(languageManager.currentLanguage))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                    .foregroundColor(LuxorColors.luxorTeal)
+                }
+            }
+        }
+        .luxorThemedBackground(themeManager)
+        .localizedEnvironment(languageManager)
+    }
+}
+
 #Preview {
     SettingsView(
         isNavBarVisible: .constant(true),
@@ -569,4 +664,5 @@ struct PickerView: View {
         isScrolling: .constant(false)
     )
     .environmentObject(ThemeManager())
+    .environmentObject(LanguageManager())
 }

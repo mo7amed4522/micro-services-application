@@ -2,51 +2,74 @@ import SwiftUI
 
 // MARK: - Theme Manager
 class ThemeManager: ObservableObject {
-    @Published var isDarkMode: Bool = false
+    @Published var isDarkMode: Bool {
+        didSet {
+            UserDefaults.standard.set(isDarkMode, forKey: "isDarkMode")
+        }
+    }
+    
+    init() {
+        self.isDarkMode = UserDefaults.standard.bool(forKey: "isDarkMode")
+    }
     
     func toggleTheme() {
         isDarkMode.toggle()
     }
 }
 
-// MARK: - Luxor Colors
+// MARK: - Historical Luxor Colors
 struct LuxorColors {
-    // Primary Luxor brand colors (from logo)
-    static let luxorTeal = Color(red: 0.0, green: 0.5, blue: 0.5)
-    static let luxorGold = Color(red: 0.8, green: 0.6, blue: 0.2)
-    static let luxorDarkTeal = Color(red: 0.0, green: 0.3, blue: 0.3)
+    // Pure Gold (Mica Powder) - Primary historical colors
+    static let pureGold = Color(red: 1.0, green: 0.84, blue: 0.0) // Pure gold
+    static let richGold = Color(red: 0.85, green: 0.65, blue: 0.13) // Rich gold
+    static let deepGold = Color(red: 0.72, green: 0.53, blue: 0.04) // Deep gold
+    static let bronzeGold = Color(red: 0.8, green: 0.5, blue: 0.2) // Bronze gold
     
-    // Light mode colors
+    // Historical Egyptian colors
+    static let egyptianBlue = Color(red: 0.06, green: 0.32, blue: 0.73) // Lapis lazuli blue
+    static let papyrusBeige = Color(red: 0.96, green: 0.87, blue: 0.70) // Papyrus color
+    static let sandstone = Color(red: 0.93, green: 0.84, blue: 0.68) // Sandstone
+    static let hieroglyphBrown = Color(red: 0.4, green: 0.26, blue: 0.13) // Dark brown
+    
+    // Legacy colors (keeping for compatibility)
+    static let luxorTeal = egyptianBlue
+    static let luxorGold = pureGold
+    static let luxorDarkTeal = Color(red: 0.04, green: 0.24, blue: 0.55)
+    
+    // Light mode colors - Historical theme
     struct Light {
-        static let background = Color.white
-        static let secondaryBackground = Color(UIColor.systemGray6)
-        static let textPrimary = Color.black
-        static let textSecondary = Color.gray
-        static let cardBackground = Color.white
-        static let shadow = Color.black.opacity(0.1)
+        static let background = Color(red: 0.98, green: 0.95, blue: 0.88) // Warm papyrus background
+        static let secondaryBackground = papyrusBeige
+        static let textPrimary = hieroglyphBrown
+        static let textSecondary = Color(red: 0.5, green: 0.4, blue: 0.3)
+        static let cardBackground = Color(red: 0.99, green: 0.96, blue: 0.90)
+        static let shadow = hieroglyphBrown.opacity(0.15)
+        static let accent = pureGold
+        static let border = richGold.opacity(0.3)
     }
     
-    // Enhanced Dark mode colors - Much more visible!
+    // Dark mode colors - Historical night theme
     struct Dark {
-        static let background = Color(red: 0.08, green: 0.08, blue: 0.12) // Dark blue-gray instead of pure black
-        static let secondaryBackground = Color(red: 0.12, green: 0.12, blue: 0.18) // Lighter secondary
-        static let textPrimary = Color.white
-        static let textSecondary = Color(red: 0.8, green: 0.8, blue: 0.85) // Much lighter gray
-        static let cardBackground = Color(red: 0.15, green: 0.15, blue: 0.22) // Visible card background
-        static let shadow = Color.black.opacity(0.4) // Stronger shadow for depth
-        static let border = Color(red: 0.25, green: 0.25, blue: 0.35) // Visible borders
-        static let inputBackground = Color(red: 0.18, green: 0.18, blue: 0.25) // Input field background
+        static let background = Color(red: 0.08, green: 0.06, blue: 0.04) // Dark stone
+        static let secondaryBackground = Color(red: 0.12, green: 0.10, blue: 0.08)
+        static let textPrimary = pureGold
+        static let textSecondary = Color(red: 0.85, green: 0.75, blue: 0.55) // Warm gold text
+        static let cardBackground = Color(red: 0.15, green: 0.12, blue: 0.08)
+        static let shadow = Color.black.opacity(0.6)
+        static let accent = richGold
+        static let border = deepGold.opacity(0.4)
+        static let inputBackground = Color(red: 0.18, green: 0.15, blue: 0.10)
     }
 }
 
-// MARK: - Theme Extension
+// MARK: - Historical Theme Extensions
 extension View {
     func luxorThemedBackground(_ themeManager: ThemeManager) -> some View {
         self.background(
             LinearGradient(
                 colors: themeManager.isDarkMode ? 
                     [LuxorColors.Dark.background, LuxorColors.Dark.secondaryBackground] :
-                    [LuxorColors.Light.background, LuxorColors.luxorTeal.opacity(0.05)],
+                    [LuxorColors.Light.background, LuxorColors.Light.secondaryBackground],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -56,20 +79,67 @@ extension View {
     func luxorCard(_ themeManager: ThemeManager) -> some View {
         self
             .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(themeManager.isDarkMode ? LuxorColors.Dark.cardBackground : LuxorColors.Light.cardBackground)
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(
+                        themeManager.isDarkMode ? 
+                        LuxorColors.Dark.cardBackground : 
+                        LuxorColors.Light.cardBackground
+                    )
                     .overlay(
-                        RoundedRectangle(cornerRadius: 16)
+                        RoundedRectangle(cornerRadius: 12)
                             .stroke(
-                                themeManager.isDarkMode ? LuxorColors.Dark.border : Color.clear,
+                                LinearGradient(
+                                    colors: [
+                                        LuxorColors.pureGold.opacity(0.3),
+                                        LuxorColors.richGold.opacity(0.2)
+                                    ],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
                                 lineWidth: 1
                             )
                     )
                     .shadow(
-                        color: themeManager.isDarkMode ? LuxorColors.Dark.shadow : LuxorColors.Light.shadow,
-                        radius: 10,
+                        color: themeManager.isDarkMode ? 
+                        LuxorColors.Dark.shadow : 
+                        LuxorColors.Light.shadow,
+                        radius: 8,
                         x: 0,
-                        y: 5
+                        y: 4
+                    )
+            )
+    }
+    
+    func historicalButton(_ themeManager: ThemeManager, isEnabled: Bool = true) -> some View {
+        self
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(
+                        LinearGradient(
+                            colors: isEnabled ? [
+                                LuxorColors.pureGold,
+                                LuxorColors.richGold,
+                                LuxorColors.deepGold
+                            ] : [
+                                Color.gray.opacity(0.3),
+                                Color.gray.opacity(0.2)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(
+                                LuxorColors.hieroglyphBrown.opacity(0.3),
+                                lineWidth: 1
+                            )
+                    )
+                    .shadow(
+                        color: LuxorColors.hieroglyphBrown.opacity(0.3),
+                        radius: 4,
+                        x: 0,
+                        y: 2
                     )
             )
     }

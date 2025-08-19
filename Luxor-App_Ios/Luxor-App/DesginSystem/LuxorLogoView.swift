@@ -143,7 +143,7 @@ struct LuxorLogoView: View {
                                 .stroke(
                                     LinearGradient(
                                         colors: [
-                                            Color.white.opacity(themeManager.isDarkMode ? 0.1 : 0.3),
+                                            Color.white.opacity(themeManager.isDarkMode ? 0.4 : 0.4),
                                             Color.clear
                                         ],
                                         startPoint: .topLeading,
@@ -167,8 +167,6 @@ struct LuxorLogoView: View {
                 .easeInOut(duration: 3.0).repeatForever(autoreverses: true),
                 value: isAnimating
             )
-            
-            // Highlight Effect
             Circle()
                 .fill(
                     LinearGradient(

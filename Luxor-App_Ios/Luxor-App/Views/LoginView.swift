@@ -66,10 +66,7 @@ struct LoginView: View {
                 }
             }
             .padding(.top, -8)
-            
-            // Main Login Button
             Button(action: {
-                // Simulate login success and navigate to MainTabView
                 isLoggedIn = true
             }) {
                 HStack {
@@ -122,7 +119,6 @@ struct LoginView: View {
                 .environmentObject(themeManager)
             
             VStack(spacing: 16) {
-                // Divider
                 Rectangle()
                     .fill(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary.opacity(0.2) : LuxorColors.Light.textSecondary.opacity(0.2))
                     .frame(height: 1)

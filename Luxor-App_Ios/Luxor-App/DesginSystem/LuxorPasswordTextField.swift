@@ -21,22 +21,22 @@ struct LuxorPasswordTextField: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             ZStack {
-                // Enhanced Background with Glassmorphism Effect
+                // Enhanced Background with Historical Theme
                 RoundedRectangle(cornerRadius: 16)
                     .fill(
                         themeManager.isDarkMode ?
                         LinearGradient(
                             colors: [
-                                Color.white.opacity(0.05),
-                                Color.white.opacity(0.02)
+                                LuxorColors.hieroglyphBrown.opacity(0.1),
+                                LuxorColors.sandstone.opacity(0.05)
                             ],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         ) :
                         LinearGradient(
                             colors: [
-                                Color.white,
-                                Color(UIColor.systemGray6)
+                                LuxorColors.papyrusBeige.opacity(0.3),
+                                Color.white
                             ],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
@@ -45,12 +45,16 @@ struct LuxorPasswordTextField: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(
+                                isEditing ?
                                 LinearGradient(
-                                    colors: isEditing ? 
-                                        [LuxorColors.luxorTeal, LuxorColors.luxorGold] :
-                                        themeManager.isDarkMode ?
-                                            [Color.white.opacity(0.1), Color.white.opacity(0.05)] :
-                                            [Color.gray.opacity(0.2), Color.gray.opacity(0.1)],
+                                    colors: [LuxorColors.pureGold, LuxorColors.richGold, LuxorColors.deepGold],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ) :
+                                LinearGradient(
+                                    colors: themeManager.isDarkMode ? 
+                                    [LuxorColors.bronzeGold.opacity(0.4), LuxorColors.sandstone.opacity(0.2)] :
+                                    [LuxorColors.sandstone.opacity(0.4), LuxorColors.papyrusBeige.opacity(0.3)],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ),
@@ -58,9 +62,7 @@ struct LuxorPasswordTextField: View {
                             )
                     )
                     .shadow(
-                        color: themeManager.isDarkMode ? 
-                            Color.black.opacity(0.3) : 
-                            Color.black.opacity(0.08),
+                        color: LuxorColors.hieroglyphBrown.opacity(0.2),
                         radius: isEditing ? 12 : 6,
                         x: 0,
                         y: isEditing ? 6 : 3
@@ -68,32 +70,36 @@ struct LuxorPasswordTextField: View {
                     .frame(height: 64)
                 
                 HStack(spacing: 16) {
-                    // Enhanced Lock Icon with Animation
+                    // Lock Icon with Historical Styling
                     ZStack {
                         Circle()
                             .fill(
+                                isEditing ?
                                 LinearGradient(
-                                    colors: isEditing ? 
-                                        [LuxorColors.luxorTeal.opacity(0.2), LuxorColors.luxorGold.opacity(0.2)] :
-                                        [Color.clear],
+                                    colors: [LuxorColors.pureGold.opacity(0.2), LuxorColors.richGold.opacity(0.1)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ) :
+                                LinearGradient(
+                                    colors: [LuxorColors.sandstone.opacity(0.1)],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
                             )
                             .frame(width: 36, height: 36)
                         
-                        Image(systemName: isEditing ? "lock.open.fill" : "lock.fill")
+                        Image(systemName: isSecure ? "lock.fill" : "lock.open.fill")
                             .foregroundColor(
-                                isEditing ? LuxorColors.luxorTeal : 
-                                themeManager.isDarkMode ? Color.white.opacity(0.7) : Color.gray
+                                isEditing ? LuxorColors.deepGold :
+                                themeManager.isDarkMode ? LuxorColors.bronzeGold : LuxorColors.hieroglyphBrown
                             )
                             .font(.system(size: 18, weight: .medium))
                             .scaleEffect(isEditing ? 1.1 : 1.0)
                     }
                     .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isEditing)
+                    .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSecure)
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        // Floating Label with Better Animation
                         HStack {
                             Text("Password")
                                 .font(.system(
@@ -101,8 +107,8 @@ struct LuxorPasswordTextField: View {
                                     weight: .medium
                                 ))
                                 .foregroundColor(
-                                    isEditing ? LuxorColors.luxorTeal :
-                                    themeManager.isDarkMode ? Color.white.opacity(0.6) : Color.gray
+                                    isEditing ? LuxorColors.deepGold :
+                                    themeManager.isDarkMode ? LuxorColors.papyrusBeige : LuxorColors.hieroglyphBrown
                                 )
                                 .offset(y: (isEditing || !password.isEmpty) ? -8 : 8)
                                 .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isEditing || !password.isEmpty)
@@ -120,7 +126,7 @@ struct LuxorPasswordTextField: View {
                             }
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(
-                                themeManager.isDarkMode ? Color.white : Color.black
+                                themeManager.isDarkMode ? LuxorColors.papyrusBeige : LuxorColors.hieroglyphBrown
                             )
                             .onTapGesture {
                                 withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
@@ -136,7 +142,7 @@ struct LuxorPasswordTextField: View {
                         }
                     }
                     
-                    // Enhanced Eye Toggle with Better Animation
+                    // Enhanced Eye Toggle with Historical Styling
                     Button(action: {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                             isSecure.toggle()
@@ -145,21 +151,20 @@ struct LuxorPasswordTextField: View {
                         ZStack {
                             Circle()
                                 .fill(
-                                    themeManager.isDarkMode ?
-                                    Color.white.opacity(0.1) :
-                                    Color.gray.opacity(0.1)
+                                    LinearGradient(
+                                        colors: [LuxorColors.sandstone.opacity(0.1)],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
                                 )
                                 .frame(width: 32, height: 32)
                             
                             Image(systemName: isSecure ? "eye.slash.fill" : "eye.fill")
-                                .foregroundColor(
-                                    themeManager.isDarkMode ? Color.white.opacity(0.7) : Color.gray
-                                )
+                                .foregroundColor(LuxorColors.bronzeGold)
                                 .font(.system(size: 16, weight: .medium))
                                 .scaleEffect(isSecure ? 1.0 : 1.1)
                         }
                     }
-                    .scaleEffect(1.0)
                     .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isSecure)
                 }
                 .padding(.horizontal, 20)
