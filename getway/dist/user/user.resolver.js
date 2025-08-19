@@ -21,6 +21,9 @@ let UserResolver = class UserResolver {
     constructor(userService) {
         this.userService = userService;
     }
+    async getUserByID(Id) {
+        return await this.userService.getUserByID(Id);
+    }
     async getUserByEmail(email) {
         return await this.userService.getUserByEmail(email);
     }
@@ -41,14 +44,14 @@ let UserResolver = class UserResolver {
     }
     async updateUser(input, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.userService.updateUserData(input, token);
     }
     async deleteUser(userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.userService.deleteUserData(userId, token);
@@ -60,53 +63,60 @@ let UserResolver = class UserResolver {
 exports.UserResolver = UserResolver;
 __decorate([
     (0, graphql_1.Query)(() => user_types_1.UserResponse),
-    __param(0, (0, graphql_1.Args)('email')),
+    __param(0, (0, graphql_1.Args)("Id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "getUserByID", null);
+__decorate([
+    (0, graphql_1.Query)(() => user_types_1.UserResponse),
+    __param(0, (0, graphql_1.Args)("email")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "getUserByEmail", null);
 __decorate([
     (0, graphql_1.Mutation)(() => user_types_1.UserResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_types_1.CreateUserInput]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "createUser", null);
 __decorate([
     (0, graphql_1.Mutation)(() => user_types_1.UserResponse),
-    __param(0, (0, graphql_1.Args)('email')),
-    __param(1, (0, graphql_1.Args)('password')),
+    __param(0, (0, graphql_1.Args)("email")),
+    __param(1, (0, graphql_1.Args)("password")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "loginUser", null);
 __decorate([
     (0, graphql_1.Mutation)(() => user_types_1.UserResponse),
-    __param(0, (0, graphql_1.Args)('email')),
-    __param(1, (0, graphql_1.Args)('type')),
+    __param(0, (0, graphql_1.Args)("email")),
+    __param(1, (0, graphql_1.Args)("type")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "forgetPassword", null);
 __decorate([
     (0, graphql_1.Mutation)(() => user_types_1.UserResponse),
-    __param(0, (0, graphql_1.Args)('email')),
-    __param(1, (0, graphql_1.Args)('verifyCode')),
+    __param(0, (0, graphql_1.Args)("email")),
+    __param(1, (0, graphql_1.Args)("verifyCode")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "verifyCode", null);
 __decorate([
     (0, graphql_1.Mutation)(() => user_types_1.UserResponse),
-    __param(0, (0, graphql_1.Args)('email')),
-    __param(1, (0, graphql_1.Args)('password')),
+    __param(0, (0, graphql_1.Args)("email")),
+    __param(1, (0, graphql_1.Args)("password")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "resetPassword", null);
 __decorate([
     (0, graphql_1.Mutation)(() => user_types_1.UserResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_types_1.UpdateUserInput, Object]),
@@ -114,7 +124,7 @@ __decorate([
 ], UserResolver.prototype, "updateUser", null);
 __decorate([
     (0, graphql_1.Mutation)(() => user_types_1.UserResponse),
-    __param(0, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("userId")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
@@ -122,7 +132,7 @@ __decorate([
 ], UserResolver.prototype, "deleteUser", null);
 __decorate([
     (0, graphql_1.Query)(() => user_types_1.TokenValidationResponse),
-    __param(0, (0, graphql_1.Args)('token')),
+    __param(0, (0, graphql_1.Args)("token")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

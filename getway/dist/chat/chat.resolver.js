@@ -23,42 +23,42 @@ let ChatResolver = class ChatResolver {
     }
     async sendMessage(input, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.sendMessage(input, token);
     }
     async editMessage(input, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.editMessage(input, token);
     }
     async deleteMessage(input, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.deleteMessage(input, token);
     }
     async getChatHistory(input, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getChatHistory(input, token);
     }
     async markAsRead(userId, peerId, isGroup, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.markAsRead({ userId, peerId, isGroup }, token);
     }
     async searchMessages(userId, query, peerId, groupId, isGroup, limit, offset, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.searchMessages({
@@ -73,7 +73,7 @@ let ChatResolver = class ChatResolver {
     }
     async forwardMessage(messageId, senderId, receiverIds, groupIds, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.forwardMessage({
@@ -85,7 +85,7 @@ let ChatResolver = class ChatResolver {
     }
     async pinMessage(messageId, userId, chatId, isGroup, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.pinMessage({
@@ -97,7 +97,7 @@ let ChatResolver = class ChatResolver {
     }
     async unpinMessage(messageId, userId, chatId, isGroup, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.unpinMessage({
@@ -109,21 +109,21 @@ let ChatResolver = class ChatResolver {
     }
     async getPinnedMessages(chatId, isGroup, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getPinnedMessages({ chatId, isGroup }, token);
     }
     async addLikeMessage(messageId, userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.addLikeMessage({ messageId, userId }, token);
     }
     async updateLikedMessage(messageId, userId, reactionType, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.updateLikedMessage({
@@ -134,161 +134,161 @@ let ChatResolver = class ChatResolver {
     }
     async getLikedMessages(userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getLikedMessages({ userId }, token);
     }
     async getLastMessages(userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getLastMessages({ userId }, token);
     }
     async getUsersByUserEmail(userEmails, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getUsersByUserEmail({ userEmail: userEmails }, token);
     }
     async getUsersInGroup(groupId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getUsersInGroup({ groupId }, token);
     }
     async createGroup(input, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.createGroup(input, token);
     }
     async joinGroup(userId, groupId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.joinGroup({ userId, groupId }, token);
     }
     async leaveGroup(userId, groupId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.leaveGroup({ userId, groupId }, token);
     }
     async updateGroup(input, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.updateGroup(input, token);
     }
     async getAllGroupsByUserEmail(userEmail, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getAllGroupsByUserEmail({ userEmail }, token);
     }
     async initiateCall(input, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.initiateCall(input, token);
     }
     async acceptCall(callId, userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.acceptCall({ callId, userId }, token);
     }
     async rejectCall(callId, userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.rejectCall({ callId, userId }, token);
     }
     async endCall(callId, userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.endCall({ callId, userId }, token);
     }
     async getCallHistory(userId, limit, offset, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getCallHistory({ userId, limit, offset }, token);
     }
     async addNotification(notification, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.addNotification({ notification }, token);
     }
     async updateNotification(notification, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.updateNotification({ notification }, token);
     }
     async getNotification(notificationId, userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getNotification({ notificationId, userId }, token);
     }
     async markNotificationAsRead(notificationId, userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.markNotificationAsRead({ notificationId, userId }, token);
     }
     async getUnreadNotificationCount(userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getUnreadNotificationCount({ userId }, token);
     }
     async addScheduleMessage(input, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.addScheduleMessage(input, token);
     }
     async updateScheduleMessage(input, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.updateScheduleMessage(input, token);
     }
     async cancelScheduledMessage(scheduledMessageId, userId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.cancelScheduledMessage({ scheduledMessageId, userId }, token);
     }
     async getScheduledMessages(userId, chatId, context) {
         const authHeader = context.req?.headers?.authorization;
-        const token = authHeader?.startsWith('Bearer ')
+        const token = authHeader?.startsWith("Bearer ")
             ? authHeader.substring(7)
             : authHeader;
         return await this.chatService.getScheduledMessages({ userId, chatId }, token);
@@ -297,7 +297,7 @@ let ChatResolver = class ChatResolver {
 exports.ChatResolver = ChatResolver;
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.SendMessageResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.SendMessageInput, Object]),
@@ -305,7 +305,7 @@ __decorate([
 ], ChatResolver.prototype, "sendMessage", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.EditMessageInput, Object]),
@@ -313,7 +313,7 @@ __decorate([
 ], ChatResolver.prototype, "editMessage", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.DeleteMessageInput, Object]),
@@ -321,7 +321,7 @@ __decorate([
 ], ChatResolver.prototype, "deleteMessage", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetChatHistoryResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.GetChatHistoryInput, Object]),
@@ -329,9 +329,9 @@ __decorate([
 ], ChatResolver.prototype, "getChatHistory", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('userId')),
-    __param(1, (0, graphql_1.Args)('peerId')),
-    __param(2, (0, graphql_1.Args)('isGroup')),
+    __param(0, (0, graphql_1.Args)("userId")),
+    __param(1, (0, graphql_1.Args)("peerId")),
+    __param(2, (0, graphql_1.Args)("isGroup")),
     __param(3, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Boolean, Object]),
@@ -339,13 +339,13 @@ __decorate([
 ], ChatResolver.prototype, "markAsRead", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetChatHistoryResponse),
-    __param(0, (0, graphql_1.Args)('userId')),
-    __param(1, (0, graphql_1.Args)('query')),
-    __param(2, (0, graphql_1.Args)('peerId', { nullable: true })),
-    __param(3, (0, graphql_1.Args)('groupId', { nullable: true })),
-    __param(4, (0, graphql_1.Args)('isGroup', { defaultValue: false })),
-    __param(5, (0, graphql_1.Args)('limit', { nullable: true })),
-    __param(6, (0, graphql_1.Args)('offset', { nullable: true })),
+    __param(0, (0, graphql_1.Args)("userId")),
+    __param(1, (0, graphql_1.Args)("query")),
+    __param(2, (0, graphql_1.Args)("peerId", { nullable: true })),
+    __param(3, (0, graphql_1.Args)("groupId", { nullable: true })),
+    __param(4, (0, graphql_1.Args)("isGroup", { defaultValue: false })),
+    __param(5, (0, graphql_1.Args)("limit", { nullable: true })),
+    __param(6, (0, graphql_1.Args)("offset", { nullable: true })),
     __param(7, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, String, String, Boolean, Number, Number, Object]),
@@ -353,10 +353,10 @@ __decorate([
 ], ChatResolver.prototype, "searchMessages", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.GetChatHistoryResponse),
-    __param(0, (0, graphql_1.Args)('messageId')),
-    __param(1, (0, graphql_1.Args)('senderId')),
-    __param(2, (0, graphql_1.Args)('receiverIds', { type: () => [String] })),
-    __param(3, (0, graphql_1.Args)('groupIds', { type: () => [String] })),
+    __param(0, (0, graphql_1.Args)("messageId")),
+    __param(1, (0, graphql_1.Args)("senderId")),
+    __param(2, (0, graphql_1.Args)("receiverIds", { type: () => [String] })),
+    __param(3, (0, graphql_1.Args)("groupIds", { type: () => [String] })),
     __param(4, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Array, Array, Object]),
@@ -364,10 +364,10 @@ __decorate([
 ], ChatResolver.prototype, "forwardMessage", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('messageId')),
-    __param(1, (0, graphql_1.Args)('userId')),
-    __param(2, (0, graphql_1.Args)('chatId')),
-    __param(3, (0, graphql_1.Args)('isGroup')),
+    __param(0, (0, graphql_1.Args)("messageId")),
+    __param(1, (0, graphql_1.Args)("userId")),
+    __param(2, (0, graphql_1.Args)("chatId")),
+    __param(3, (0, graphql_1.Args)("isGroup")),
     __param(4, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, String, Boolean, Object]),
@@ -375,10 +375,10 @@ __decorate([
 ], ChatResolver.prototype, "pinMessage", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('messageId')),
-    __param(1, (0, graphql_1.Args)('userId')),
-    __param(2, (0, graphql_1.Args)('chatId')),
-    __param(3, (0, graphql_1.Args)('isGroup')),
+    __param(0, (0, graphql_1.Args)("messageId")),
+    __param(1, (0, graphql_1.Args)("userId")),
+    __param(2, (0, graphql_1.Args)("chatId")),
+    __param(3, (0, graphql_1.Args)("isGroup")),
     __param(4, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, String, Boolean, Object]),
@@ -386,8 +386,8 @@ __decorate([
 ], ChatResolver.prototype, "unpinMessage", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetChatHistoryResponse),
-    __param(0, (0, graphql_1.Args)('chatId')),
-    __param(1, (0, graphql_1.Args)('isGroup')),
+    __param(0, (0, graphql_1.Args)("chatId")),
+    __param(1, (0, graphql_1.Args)("isGroup")),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Boolean, Object]),
@@ -395,8 +395,8 @@ __decorate([
 ], ChatResolver.prototype, "getPinnedMessages", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('messageId')),
-    __param(1, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("messageId")),
+    __param(1, (0, graphql_1.Args)("userId")),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
@@ -404,9 +404,9 @@ __decorate([
 ], ChatResolver.prototype, "addLikeMessage", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('messageId')),
-    __param(1, (0, graphql_1.Args)('userId')),
-    __param(2, (0, graphql_1.Args)('reactionType', { type: () => chat_types_1.ReactionType })),
+    __param(0, (0, graphql_1.Args)("messageId")),
+    __param(1, (0, graphql_1.Args)("userId")),
+    __param(2, (0, graphql_1.Args)("reactionType", { type: () => chat_types_1.ReactionType })),
     __param(3, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, String, Object]),
@@ -414,7 +414,7 @@ __decorate([
 ], ChatResolver.prototype, "updateLikedMessage", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetChatHistoryResponse),
-    __param(0, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("userId")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
@@ -422,7 +422,7 @@ __decorate([
 ], ChatResolver.prototype, "getLikedMessages", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetChatHistoryResponse),
-    __param(0, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("userId")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
@@ -430,7 +430,7 @@ __decorate([
 ], ChatResolver.prototype, "getLastMessages", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetUsersByUserEmailResponse),
-    __param(0, (0, graphql_1.Args)('userEmails', { type: () => [String] })),
+    __param(0, (0, graphql_1.Args)("userEmails", { type: () => [String] })),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Array, Object]),
@@ -438,7 +438,7 @@ __decorate([
 ], ChatResolver.prototype, "getUsersByUserEmail", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetUsersByUserEmailResponse),
-    __param(0, (0, graphql_1.Args)('groupId')),
+    __param(0, (0, graphql_1.Args)("groupId")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
@@ -446,7 +446,7 @@ __decorate([
 ], ChatResolver.prototype, "getUsersInGroup", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.CreateGroupResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.CreateGroupInput, Object]),
@@ -454,8 +454,8 @@ __decorate([
 ], ChatResolver.prototype, "createGroup", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('userId')),
-    __param(1, (0, graphql_1.Args)('groupId')),
+    __param(0, (0, graphql_1.Args)("userId")),
+    __param(1, (0, graphql_1.Args)("groupId")),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
@@ -463,8 +463,8 @@ __decorate([
 ], ChatResolver.prototype, "joinGroup", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('userId')),
-    __param(1, (0, graphql_1.Args)('groupId')),
+    __param(0, (0, graphql_1.Args)("userId")),
+    __param(1, (0, graphql_1.Args)("groupId")),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
@@ -472,7 +472,7 @@ __decorate([
 ], ChatResolver.prototype, "leaveGroup", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.CreateGroupResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.UpdateGroupInput, Object]),
@@ -480,7 +480,7 @@ __decorate([
 ], ChatResolver.prototype, "updateGroup", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetAllGroupsByUserEmailResponse),
-    __param(0, (0, graphql_1.Args)('userEmail')),
+    __param(0, (0, graphql_1.Args)("userEmail")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
@@ -488,7 +488,7 @@ __decorate([
 ], ChatResolver.prototype, "getAllGroupsByUserEmail", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.InitiateCallResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.InitiateCallInput, Object]),
@@ -496,8 +496,8 @@ __decorate([
 ], ChatResolver.prototype, "initiateCall", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.InitiateCallResponse),
-    __param(0, (0, graphql_1.Args)('callId')),
-    __param(1, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("callId")),
+    __param(1, (0, graphql_1.Args)("userId")),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
@@ -505,8 +505,8 @@ __decorate([
 ], ChatResolver.prototype, "acceptCall", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('callId')),
-    __param(1, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("callId")),
+    __param(1, (0, graphql_1.Args)("userId")),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
@@ -514,8 +514,8 @@ __decorate([
 ], ChatResolver.prototype, "rejectCall", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.InitiateCallResponse),
-    __param(0, (0, graphql_1.Args)('callId')),
-    __param(1, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("callId")),
+    __param(1, (0, graphql_1.Args)("userId")),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
@@ -523,9 +523,9 @@ __decorate([
 ], ChatResolver.prototype, "endCall", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetCallHistoryResponse),
-    __param(0, (0, graphql_1.Args)('userId')),
-    __param(1, (0, graphql_1.Args)('limit', { nullable: true })),
-    __param(2, (0, graphql_1.Args)('offset', { nullable: true })),
+    __param(0, (0, graphql_1.Args)("userId")),
+    __param(1, (0, graphql_1.Args)("limit", { nullable: true })),
+    __param(2, (0, graphql_1.Args)("offset", { nullable: true })),
     __param(3, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Number, Number, Object]),
@@ -533,7 +533,7 @@ __decorate([
 ], ChatResolver.prototype, "getCallHistory", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.AddNotificationResponse),
-    __param(0, (0, graphql_1.Args)('notification')),
+    __param(0, (0, graphql_1.Args)("notification")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.NotificationInput, Object]),
@@ -541,7 +541,7 @@ __decorate([
 ], ChatResolver.prototype, "addNotification", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.AddNotificationResponse),
-    __param(0, (0, graphql_1.Args)('notification')),
+    __param(0, (0, graphql_1.Args)("notification")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.NotificationInput, Object]),
@@ -549,8 +549,8 @@ __decorate([
 ], ChatResolver.prototype, "updateNotification", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.AddNotificationResponse),
-    __param(0, (0, graphql_1.Args)('notificationId')),
-    __param(1, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("notificationId")),
+    __param(1, (0, graphql_1.Args)("userId")),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
@@ -558,8 +558,8 @@ __decorate([
 ], ChatResolver.prototype, "getNotification", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('notificationId')),
-    __param(1, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("notificationId")),
+    __param(1, (0, graphql_1.Args)("userId")),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
@@ -567,7 +567,7 @@ __decorate([
 ], ChatResolver.prototype, "markNotificationAsRead", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetUnreadNotificationCountResponse),
-    __param(0, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("userId")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
@@ -575,7 +575,7 @@ __decorate([
 ], ChatResolver.prototype, "getUnreadNotificationCount", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.AddScheduleMessageResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.AddScheduleMessageInput, Object]),
@@ -583,7 +583,7 @@ __decorate([
 ], ChatResolver.prototype, "addScheduleMessage", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('input')),
+    __param(0, (0, graphql_1.Args)("input")),
     __param(1, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [chat_types_1.UpdateScheduleMessageInput, Object]),
@@ -591,8 +591,8 @@ __decorate([
 ], ChatResolver.prototype, "updateScheduleMessage", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_types_1.StandardResponse),
-    __param(0, (0, graphql_1.Args)('scheduledMessageId')),
-    __param(1, (0, graphql_1.Args)('userId')),
+    __param(0, (0, graphql_1.Args)("scheduledMessageId")),
+    __param(1, (0, graphql_1.Args)("userId")),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
@@ -600,8 +600,8 @@ __decorate([
 ], ChatResolver.prototype, "cancelScheduledMessage", null);
 __decorate([
     (0, graphql_1.Query)(() => chat_types_1.GetScheduledMessagesResponse),
-    __param(0, (0, graphql_1.Args)('userId')),
-    __param(1, (0, graphql_1.Args)('chatId', { nullable: true })),
+    __param(0, (0, graphql_1.Args)("userId")),
+    __param(1, (0, graphql_1.Args)("chatId", { nullable: true })),
     __param(2, (0, graphql_1.Context)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),

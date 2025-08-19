@@ -14,7 +14,7 @@ const path_1 = require("path");
 let UserService = class UserService {
     userServiceClient;
     async onModuleInit() {
-        const PROTO_PATH = (0, path_1.join)(__dirname, '../../proto/user.proto');
+        const PROTO_PATH = (0, path_1.join)(__dirname, "../../proto/user.proto");
         const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
             keepCase: true,
             longs: String,
@@ -23,8 +23,20 @@ let UserService = class UserService {
             oneofs: true,
         });
         const userProto = grpc.loadPackageDefinition(packageDefinition);
-        const serviceUrl = process.env.USER_SERVICE_URL || 'localhost:50051';
+        const serviceUrl = process.env.USER_SERVICE_URL || "localhost:50051";
         this.userServiceClient = new userProto.users.UserService(serviceUrl, grpc.credentials.createInsecure());
+    }
+    async getUserByID(id) {
+        return new Promise((resolve, reject) => {
+            this.userServiceClient.getUserByID({ id }, (error, response) => {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(response);
+                }
+            });
+        });
     }
     async getUserByEmail(email) {
         return new Promise((resolve, reject) => {
@@ -105,7 +117,7 @@ let UserService = class UserService {
         return new Promise((resolve, reject) => {
             const metadata = new grpc.Metadata();
             if (token) {
-                metadata.add('authorization', `Bearer ${token}`);
+                metadata.add("authorization", `Bearer ${token}`);
             }
             this.userServiceClient.UpdateUserData(userData, metadata, (error, response) => {
                 if (error) {
@@ -121,7 +133,7 @@ let UserService = class UserService {
         return new Promise((resolve, reject) => {
             const metadata = new grpc.Metadata();
             if (token) {
-                metadata.add('authorization', `Bearer ${token}`);
+                metadata.add("authorization", `Bearer ${token}`);
             }
             this.userServiceClient.DeleteUserData({ id: userId }, metadata, (error, response) => {
                 if (error) {

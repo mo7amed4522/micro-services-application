@@ -1,4 +1,4 @@
-import { AuthTokens } from '../auth/auth.types';
+import { AuthTokens } from "../auth/auth.types";
 export declare class User {
     id: string;
     fullName: string;

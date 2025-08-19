@@ -1,7 +1,8 @@
-import { OnModuleInit } from '@nestjs/common';
+import { OnModuleInit } from "@nestjs/common";
 export declare class UserService implements OnModuleInit {
     private userServiceClient;
     onModuleInit(): Promise<void>;
+    getUserByID(id: string): Promise<any>;
     getUserByEmail(email: string): Promise<any>;
     createNewUser(userData: any): Promise<any>;
     loginUser(email: string, password: string): Promise<any>;

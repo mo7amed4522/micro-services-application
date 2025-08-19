@@ -1,8 +1,9 @@
-import { UserService } from './user.service';
-import { UserResponse, CreateUserInput, UpdateUserInput, TokenValidationResponse } from './user.types';
+import { UserService } from "./user.service";
+import { UserResponse, CreateUserInput, UpdateUserInput, TokenValidationResponse } from "./user.types";
 export declare class UserResolver {
     private readonly userService;
     constructor(userService: UserService);
+    getUserByID(Id: string): Promise<UserResponse>;
     getUserByEmail(email: string): Promise<UserResponse>;
     createUser(input: CreateUserInput): Promise<UserResponse>;
     loginUser(email: string, password: string): Promise<UserResponse>;

@@ -12,13 +12,6 @@ RUN go mod download
 # Copy proto files from main directory
 COPY ../../proto ./proto
 
-# Install protoc-gen-go
-RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-
-# Generate proto files
-RUN mkdir -p proto/generated
-RUN protoc --go_out=proto/generated --go-grpc_out=proto/generated --proto_path=proto proto/reals.proto
 
 # Copy source code
 COPY . .

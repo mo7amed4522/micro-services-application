@@ -158,7 +158,7 @@ services:
       dockerfile: Dockerfile
     container_name: quiz_service
     env_file:
-      - .services/quiz-services/.env
+      - ./services/quiz-services/.env
     ports:
       - "50058:50058"
     environment:
@@ -175,7 +175,7 @@ services:
       dockerfile: Dockerfile
     container_name: feedback_service
     env_file:
-      - .services/feedback-services/.env
+      - ./services/feedback-services/.env
     ports:
       - "50059:50059"
     environment:

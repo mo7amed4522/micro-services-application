@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateScheduleMessageInput = exports.AddScheduleMessageInput = exports.NotificationInput = exports.InitiateCallInput = exports.UpdateGroupInput = exports.CreateGroupInput = exports.GetChatHistoryInput = exports.DeleteMessageInput = exports.EditMessageInput = exports.SendMessageInput = exports.GetScheduledMessagesResponse = exports.AddScheduleMessageResponse = exports.GetUnreadNotificationCountResponse = exports.AddNotificationResponse = exports.GetCallHistoryResponse = exports.InitiateCallResponse = exports.GetAllGroupsByUserEmailResponse = exports.CreateGroupResponse = exports.GetUsersByUserEmailResponse = exports.StandardResponse = exports.GetChatHistoryResponse = exports.SendMessageResponse = exports.ErrorMessage = exports.StateMessage = exports.ScheduledMessageList = exports.ScheduledMessage = exports.NotificationUpdate = exports.CallInfoList = exports.CallInfo = exports.GroupInfoList = exports.GroupInfo = exports.GroupMember = exports.UserInfoList = exports.UserInfo = exports.ChatMessageList = exports.ChatMessage = exports.MessageReaction = exports.PollData = exports.PollOption = exports.LocationData = exports.FileMetadata = exports.MessageStatus = exports.GroupRole = exports.NotificationType = exports.ReactionType = exports.CallStatus = exports.CallType = exports.MessageType = void 0;
+exports.UpdateScheduleMessageInput = exports.AddScheduleMessageInput = exports.NotificationInput = exports.InitiateCallInput = exports.UpdateGroupInput = exports.CreateGroupInput = exports.GetChatHistoryInput = exports.DeleteMessageInput = exports.EditMessageInput = exports.SendMessageInput = exports.GetScheduledMessagesResponse = exports.AddScheduleMessageResponse = exports.GetUnreadNotificationCountResponse = exports.AddNotificationResponse = exports.GetCallHistoryResponse = exports.InitiateCallResponse = exports.GetAllGroupsByUserEmailResponse = exports.CreateGroupResponse = exports.GetUsersByUserEmailResponse = exports.StandardResponse = exports.GetChatHistoryResponse = exports.SendMessageResponse = exports.ErrorMessage = exports.StateMessage = exports.ScheduledMessageList = exports.ScheduledMessage = exports.NotificationUpdate = exports.CallInfoList = exports.CallInfo = exports.GroupInfoList = exports.GroupInfo = exports.GroupMember = exports.UserInfoList = exports.ChatUserInfo = exports.ChatMessageList = exports.ChatMessage = exports.MessageReaction = exports.PollData = exports.PollOption = exports.LocationData = exports.FileMetadata = exports.MessageStatus = exports.GroupRole = exports.NotificationType = exports.ReactionType = exports.CallStatus = exports.CallType = exports.MessageType = void 0;
 const graphql_1 = require("@nestjs/graphql");
 var MessageType;
 (function (MessageType) {
@@ -443,43 +443,43 @@ __decorate([
 exports.ChatMessageList = ChatMessageList = __decorate([
     (0, graphql_1.ObjectType)()
 ], ChatMessageList);
-let UserInfo = class UserInfo {
+let ChatUserInfo = class ChatUserInfo {
     id;
     fullName;
     email;
     avatarUrl;
     isOnline;
 };
-exports.UserInfo = UserInfo;
+exports.ChatUserInfo = ChatUserInfo;
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
-], UserInfo.prototype, "id", void 0);
+], ChatUserInfo.prototype, "id", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
-], UserInfo.prototype, "fullName", void 0);
+], ChatUserInfo.prototype, "fullName", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
-], UserInfo.prototype, "email", void 0);
+], ChatUserInfo.prototype, "email", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     __metadata("design:type", String)
-], UserInfo.prototype, "avatarUrl", void 0);
+], ChatUserInfo.prototype, "avatarUrl", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     __metadata("design:type", Boolean)
-], UserInfo.prototype, "isOnline", void 0);
-exports.UserInfo = UserInfo = __decorate([
+], ChatUserInfo.prototype, "isOnline", void 0);
+exports.ChatUserInfo = ChatUserInfo = __decorate([
     (0, graphql_1.ObjectType)()
-], UserInfo);
+], ChatUserInfo);
 let UserInfoList = class UserInfoList {
     users;
 };
 exports.UserInfoList = UserInfoList;
 __decorate([
-    (0, graphql_1.Field)(() => [UserInfo]),
+    (0, graphql_1.Field)(() => [ChatUserInfo]),
     __metadata("design:type", Array)
 ], UserInfoList.prototype, "users", void 0);
 exports.UserInfoList = UserInfoList = __decorate([

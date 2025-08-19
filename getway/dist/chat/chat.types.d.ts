@@ -132,7 +132,7 @@ export declare class ChatMessage {
 export declare class ChatMessageList {
     messages: ChatMessage[];
 }
-export declare class UserInfo {
+export declare class ChatUserInfo {
     id: string;
     fullName: string;
     email: string;
@@ -140,7 +140,7 @@ export declare class UserInfo {
     isOnline: boolean;
 }
 export declare class UserInfoList {
-    users: UserInfo[];
+    users: ChatUserInfo[];
 }
 export declare class GroupMember {
     userId: string;
