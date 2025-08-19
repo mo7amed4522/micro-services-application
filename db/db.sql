@@ -1,3 +1,4 @@
+SET DateStyle = 'ISO';
 -- users table
 CREATE TABLE
     users (
@@ -1067,7 +1068,7 @@ CREATE INDEX idx_reals_deleted_at ON reals (deleted_at);
 
 -- Index for active reals (not expired and not deleted)
 CREATE INDEX idx_reals_active ON reals (expires_at, deleted_at) 
-WHERE deleted_at IS NULL AND expires_at > CURRENT_TIMESTAMP;
+WHERE deleted_at IS NULL;
 
 INSERT INTO pharaohs (
     id, name, birth_name, throne_name, epithet,
@@ -1276,9 +1277,9 @@ VALUES
   ('00000000-0000-0000-0000-000000000101', 'The Rise of the Old Kingdom', 'Overview of early royal establishment.', 'Old Kingdom', 3, 'ph_004', 'Intermediate', 'https://example.com/thumb1.jpg', 'en', true, 1, NOW(), NOW()),
   ('00000000-0000-0000-0000-000000000102', 'Building the Pyramids', 'Engineering marvels and labor.', 'Old Kingdom', 4, 'ph_004', 'Intermediate', 'https://example.com/thumb2.jpg', 'en', true, 1, NOW(), NOW()),
   ('00000000-0000-0000-0000-000000000103', 'Life in the New Kingdom', 'Daily life and society.', 'New Kingdom', 18, 'ph_001', 'Intermediate', 'https://example.com/thumb3.jpg', 'en', true, 1, NOW(), NOW()),
-  ('00000000-0000-0000-0000-000000000104', 'The Decline of the Pharaohs', 'Late period challenges.', 'Late Period', 25, NULL, 'Intermediate', 'https://example.com/thumb4.jpg', 'en', true, 1, NOW(), NOW()),
+  ('00000000-0000-0000-0000-000000000104', 'The Decline of the Pharaohs', 'Late period challenges.', 'Late Period', 25, 'ph_006', 'Intermediate', 'https://example.com/thumb4.jpg', 'en', true, 1, NOW(), NOW()),
   ('00000000-0000-0000-0000-000000000105', 'Gods and Rituals of Ancient Egypt', 'Religious beliefs and practices.', 'New Kingdom', 18, 'ph_005', 'Intermediate', 'https://example.com/thumb5.jpg', 'en', true, 1, NOW(), NOW()),
-  ('00000000-0000-0000-0000-000000000106', 'Trade and Warfare in the Middle Kingdom', 'Economics and conflict.', 'Middle Kingdom', 12, NULL, 'Intermediate', 'https://example.com/thumb6.jpg', 'en', true, 1, NOW(), NOW());
+  ('00000000-0000-0000-0000-000000000106', 'Trade and Warfare in the Middle Kingdom', 'Economics and conflict.', 'Middle Kingdom', 12, 'ph_007', 'Intermediate', 'https://example.com/thumb6.jpg', 'en', true, 1, NOW(), NOW());
 
 -- === TEMPLATE SECTIONS, QUIZZES, TIMELINES, CONTENT SOURCES ===
 INSERT INTO template_sections (id, template_id, title, subtitle, content_type, content, metadata, order_index, optional, created_at)
@@ -1347,7 +1348,7 @@ VALUES
 -- TEMPLATE VERSIONS
 INSERT INTO template_versions (id, template_id, version, change_log, created_at)
 VALUES
-  ('60000000-0000-0000-0000-000000000101', '00000000-0000-0000-0000-000000000101', 1, 'Initial version', NOW()),
+  ('60000000-0000-0000-0000-000000000101', '00000000-0000-0000-0000-000000000101', 1, 'Initial version', NOW());
   -- repeat for each template...
 
 -- TEMPLATE TAGS
@@ -1364,20 +1365,19 @@ VALUES
 INSERT INTO template_references (id, template_id, related_template_id, relation_type, created_at)
 VALUES
   ('80000000-0000-0000-0000-000000000102', '00000000-0000-0000-0000-000000000102', '00000000-0000-0000-0000-000000000101', 'Prequel', NOW()),
-  ('80000000-0000-0000-0000-000000000103', '00000000-0000-0000-0000-000000000103', '00000000-0000-0000-0000-000000000102', 'See Also', NOW()),
-
+  ('80000000-0000-0000-0000-000000000103', '00000000-0000-0000-0000-000000000103', '00000000-0000-0000-0000-000000000102', 'See Also', NOW());
 
 -- === SIX NEW HISTORY TEMPLATES ===
 INSERT INTO history_templates (id, title, description, era, dynasty, pharaoh_id, difficulty, thumbnail_url, language, is_active, version, published_at, created_at)
 VALUES
   -- Template 7
-  ('00000000-0000-0000-0000-000000000107', 'Queen Hatshepsut’s Reign', 'Her life and projects.', 'New Kingdom', 18, 'PHARAOH7', 'Intermediate', 'https://example.com/thumb7.jpg', 'en', true, 1, NOW(), NOW()),
+  ('00000000-0000-0000-0000-000000000107', 'Queen Hatshepsut’s Reign', 'Her life and projects.', 'New Kingdom', 18, 'ph_007', 'Intermediate', 'https://example.com/thumb7.jpg', 'en', true, 1, NOW(), NOW()),
   -- Template 8
-  ('00000000-0000-0000-0000-000000000108', 'Tutankhamun’s Tomb Discovery', 'Discovery and legacy.', 'New Kingdom', 18, 'PHARAOH8', 'Intermediate', 'https://example.com/thumb8.jpg', 'en', true, 1, NOW(), NOW()),
+  ('00000000-0000-0000-0000-000000000108', 'Tutankhamun’s Tomb Discovery', 'Discovery and legacy.', 'New Kingdom', 18, 'ph_001', 'Intermediate', 'https://example.com/thumb8.jpg', 'en', true, 1, NOW(), NOW()),
   -- Template 9
-  ('00000000-0000-0000-0000-000000000109', 'Hyksos Period & Innovations', 'Foreign rulers and technology.', 'Second Intermediate Period', 15, 'PHARAOH9', 'Intermediate', 'https://example.com/thumb9.jpg', 'en', true, 1, NOW(), NOW()),
+  ('00000000-0000-0000-0000-000000000109', 'Hyksos Period & Innovations', 'Foreign rulers and technology.', 'Second Intermediate Period', 15, 'ph_004', 'Intermediate', 'https://example.com/thumb9.jpg', 'en', true, 1, NOW(), NOW()),
   -- Template 10
-  ('00000000-0000-0000-0000-00000000010A', 'Akhenaten & Aten Worship', 'Religious revolution.', 'Amarna Period', 18, 'PHARAOH10', 'Intermediate', 'https://example.com/thumb10.jpg', 'en', true, 1, NOW(), NOW()),
+  ('00000000-0000-0000-0000-00000000010A', 'Akhenaten & Aten Worship', 'Religious revolution.', 'Amarna Period', 18, 'ph_007', 'Intermediate', 'https://example.com/thumb10.jpg', 'en', true, 1, NOW(), NOW());
 
 
 -- === SECTIONS FOR EACH TEMPLATE (2 each) ===
@@ -1400,12 +1400,12 @@ VALUES
   ('10000000-0000-0000-0000-0000000001A2', '00000000-0000-0000-0000-00000000010A', 'Art Style Changes', 'Amarna art revolution.', 'TEXT', 'Style of depictions.', '{"caption":"Amarna portrait","source":"Art history"}', 2, false, NOW()),
 
   -- Template 11 sections
-  ('10000000-0000-0000-0000-0000000001B1', '00000000-0000-0000-0000-00000000010B', 'Political Alliances', 'Rome and Egypt.', 'TEXT', 'Cleopatra and Caesar.', '{"caption":"Bust of Cleopatra","source":"Numismatic"}', 1, false, NOW()),
-  ('10000000-0000-0000-0000-0000000001B2', '00000000-0000-0000-0000-00000000010B', 'Cultural Syncretism', 'Greek‑Egyptian fusion.', 'TEXT', 'Ptolemaic blending.', '{"caption":"Temple relief","source":"Hellenistic art"}', 2, false, NOW()),
+  ('10000000-0000-0000-0000-0000000001B1', '00000000-0000-0000-0000-000000000109', 'Political Alliances', 'Rome and Egypt.', 'TEXT', 'Cleopatra and Caesar.', '{"caption":"Bust of Cleopatra","source":"Numismatic"}', 1, false, NOW()),
+  ('10000000-0000-0000-0000-0000000001B2', '00000000-0000-0000-0000-000000000109', 'Cultural Syncretism', 'Greek‑Egyptian fusion.', 'TEXT', 'Ptolemaic blending.', '{"caption":"Temple relief","source":"Hellenistic art"}', 2, false, NOW()),
 
   -- Template 12 sections
-  ('10000000-0000-0000-0000-0000000001C1', '00000000-0000-0000-0000-00000000010C', 'Discovery Context', 'Napoleon to British expeditions.', 'TEXT', 'How Rosetta was found.', '{"caption":"Rosetta Stone","source":"British Museum"}', 1, false, NOW()),
-  ('10000000-0000-0000-0000-0000000001C2', '00000000-0000-0000-0000-00000000010C', 'Decipherment', 'Champollion’s breakthrough.', 'TEXT', 'Decoding hieroglyphs.', '{"caption":"Champollion","source":"Linguistic history"}', 2, false, NOW());
+  ('10000000-0000-0000-0000-0000000001C1', '00000000-0000-0000-0000-000000000108', 'Discovery Context', 'Napoleon to British expeditions.', 'TEXT', 'How Rosetta was found.', '{"caption":"Rosetta Stone","source":"British Museum"}', 1, false, NOW()),
+  ('10000000-0000-0000-0000-0000000001C2', '00000000-0000-0000-0000-000000000108', 'Decipherment', 'Champollion’s breakthrough.', 'TEXT', 'Decoding hieroglyphs.', '{"caption":"Champollion","source":"Linguistic history"}', 2, false, NOW());
 
 -- === QUIZZES (one per section) ===
 INSERT INTO template_quizzes (id, section_id, question, options, correct_answer, explanation, difficulty, created_at)
@@ -1445,8 +1445,8 @@ VALUES
   ('30000000-0000-0000-0000-0000000001A1', '10000000-0000-0000-0000-0000000001A1', '1353-01-01', 'Akhenaten reign begins', 'Introduced Aten worship.', NOW()),
   ('30000000-0000-0000-0000-0000000001A2', '10000000-0000-0000-0000-0000000001A2', '1336-01-01', 'Amarna city rises', 'New capital built.', NOW()),
   -- template 11
-  ('30000000-0000-0000-0000-0000000001B1', '10000000-0000-0000-0000-0000000001B1', '51 BC-01-01', 'Cleopatra ascends', 'Begins sole rule.', NOW()),
-  ('30000000-0000-0000-0000-0000000001B2', '30000000-0000-0000-0000-0000000001B2', '30 BC-01-01', 'Death & Egypt annexed', 'Rome annexes Egypt.', NOW()),
+  ('30000000-0000-0000-0000-0000000001B1', '10000000-0000-0000-0000-0000000001B1', '0050-01-01 BC'::DATE, 'Cleopatra ascends', 'Begins sole rule.', NOW()),
+  ('30000000-0000-0000-0000-0000000001B2', '10000000-0000-0000-0000-0000000001B2', '0030-01-01 BC'::DATE, 'Death & Egypt annexed', 'Rome annexes Egypt.', NOW()),
   -- template 12
   ('30000000-0000-0000-0000-0000000001C1', '10000000-0000-0000-0000-0000000001C1', '1799-07-15', 'Rosetta Stone found', 'Napoleon’s Egyptian campaign.', NOW()),
-  ('30000000-0000-0000-0000-0000000001C2', '30000000-0000-0000-0000-0000000001C2', '1822-09-14', 'Champollion deciphers', 'Published decipherment.', NOW());
+  ('30000000-0000-0000-0000-0000000001C2', '10000000-0000-0000-0000-0000000001C2', '1822-09-14', 'Champollion deciphers', 'Published decipherment.', NOW());

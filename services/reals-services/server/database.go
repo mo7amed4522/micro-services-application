@@ -16,15 +16,15 @@ type Database struct {
 }
 
 type Real struct {
-	ID         string     `gorm:"type:uuid;primary_key;default:gen_random_uuid()" json:"id"`
-	UserID     string     `gorm:"type:uuid;not null;index" json:"user_id"`
-	MediaURLs  []string   `gorm:"type:jsonb;not null" json:"media_urls"`
-	MediaTypes []string   `gorm:"type:jsonb;not null" json:"media_types"`
-	ViewCount  int        `gorm:"default:0" json:"view_count"`
-	ViewerIDs  []string   `gorm:"type:jsonb;default:'[]'" json:"viewer_ids"`
-	CreatedAt  time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
-	ExpiresAt  time.Time  `gorm:"not null;index" json:"expires_at"`
-	DeletedAt  *time.Time `gorm:"index" json:"deleted_at,omitempty"`
+	ID         string
+	UserID     string
+	MediaURLs  []string
+	MediaTypes []string
+	ViewCount  int
+	ViewerIDs  []string
+	CreatedAt  time.Time
+	ExpiresAt  time.Time
+	DeletedAt  *time.Time
 }
 
 func (Real) TableName() string {
@@ -32,24 +32,11 @@ func (Real) TableName() string {
 }
 
 func NewDatabase() *Database {
-	host := os.Getenv("DB_HOST")
-	port := os.Getenv("DB_PORT")
-	user := os.Getenv("DB_USER")
-	password := os.Getenv("DB_PASSWORD")
-	dbname := os.Getenv("DB_NAME")
-
-	if host == "" {
-		host = "localhost"
-	}
-	if port == "" {
-		port = "5432"
-	}
-	if user == "" {
-		user = "postgres"
-	}
-	if dbname == "" {
-		dbname = "userdb"
-	}
+	host := getEnv("DB_HOST", "localhost")
+	port := getEnv("DB_PORT", "5432")
+	user := getEnv("DB_USER", "postgres")
+	password := getEnv("DB_PASSWORD", "2521")
+	dbname := getEnv("DB_NAME", "userdb")
 
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=UTC",
 		host, user, password, dbname, port)
@@ -110,4 +97,11 @@ func (d *Database) SoftDeleteReal(realID string) error {
 func (d *Database) CleanupExpiredReals() error {
 	now := time.Now()
 	return d.DB.Model(&Real{}).Where("expires_at <= ? AND deleted_at IS NULL", now).Update("deleted_at", now).Error
+}
+
+func getEnv(key, defaultValue string) string {
+	if value := os.Getenv(key); value != "" {
+		return value
+	}
+	return defaultValue
 }

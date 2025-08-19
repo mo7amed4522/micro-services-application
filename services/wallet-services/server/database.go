@@ -14,30 +14,14 @@ type Database struct {
 }
 
 func NewDatabase() *Database {
-	dbHost := os.Getenv("DB_HOST")
-	dbPort := os.Getenv("DB_PORT")
-	dbUser := os.Getenv("DB_USER")
-	dbPassword := os.Getenv("DB_PASSWORD")
-	dbName := os.Getenv("DB_NAME")
-
-	if dbHost == "" {
-		dbHost = "localhost"
-	}
-	if dbPort == "" {
-		dbPort = "5420"
-	}
-	if dbUser == "" {
-		dbUser = "postgres"
-	}
-	if dbPassword == "" {
-		dbPassword = "2521"
-	}
-	if dbName == "" {
-		dbName = "userdb"
-	}
+	host := getEnv("DB_HOST", "localhost")
+	port := getEnv("DB_PORT", "5432")
+	user := getEnv("DB_USER", "postgres")
+	password := getEnv("DB_PASSWORD", "2521")
+	dbname := getEnv("DB_NAME", "userdb")
 
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		dbHost, dbPort, dbUser, dbPassword, dbName)
+		host, port, user, password, dbname)
 
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
@@ -56,4 +40,10 @@ func (d *Database) Close() {
 	if d.DB != nil {
 		d.DB.Close()
 	}
+}
+func getEnv(key, defaultValue string) string {
+	if value := os.Getenv(key); value != "" {
+		return value
+	}
+	return defaultValue
 }
