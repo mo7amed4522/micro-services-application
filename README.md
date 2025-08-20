@@ -1,4 +1,4 @@
-# 🏦 My-App - Microservices Banking Platform
+# 🏦 Luxor-System - Microservices Banking Platform
 
 ![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)
 ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
