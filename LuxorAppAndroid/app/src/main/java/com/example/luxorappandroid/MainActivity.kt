@@ -5,51 +5,109 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.example.luxorappandroid.ui.screens.LoginView
-import com.example.luxorappandroid.ui.screens.MainTabView
-import com.example.luxorappandroid.ui.screens.RegisterView
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.luxorappandroid.ui.screens.*
 import com.example.luxorappandroid.ui.theme.LuxorAppAndroidTheme
-import com.example.luxorappandroid.ui.theme.ThemeManager
-import com.example.luxorappandroid.ui.theme.LanguageManager
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Install splash screen
+        installSplashScreen()
+        
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        
         setContent {
-            val themeManager = remember { ThemeManager() }
-            val languageManager = remember { LanguageManager() }
-            
-            LuxorAppAndroidTheme(
-                darkTheme = themeManager.isDarkMode
-            ) {
-                                        var isLoggedIn by remember { mutableStateOf(false) }
-                        var showRegister by remember { mutableStateOf(false) }
-                        
-                        if (isLoggedIn) {
-                            MainTabView(
-                                isDarkMode = themeManager.isDarkMode,
-                                onThemeToggle = { themeManager.toggleTheme() }
-                            )
-                        } else if (showRegister) {
-                            RegisterView(
-                                themeManager = themeManager,
-                                languageManager = languageManager,
-                                onBackPressed = { showRegister = false },
-                                onRegisterSuccess = { isLoggedIn = true }
-                            )
-                        } else {
-                            LoginView(
-                                themeManager = themeManager,
-                                languageManager = languageManager,
-                                onLoginSuccess = { isLoggedIn = true },
-                                onNavigateToRegister = { showRegister = true }
-                            )
+            LuxorAppAndroidTheme {
+                LuxorApp()
+            }
+        }
+    }
+}
+
+@Composable
+fun LuxorApp() {
+    val navController = rememberNavController()
+    var showSplash by remember { mutableStateOf(true) }
+    
+    // Handle splash screen timing
+    LaunchedEffect(Unit) {
+        delay(100) // Small delay to ensure smooth transition
+        showSplash = false
+    }
+    
+    if (showSplash) {
+        SplashScreen(
+            onSplashComplete = {
+                showSplash = false
+            }
+        )
+    } else {
+        NavHost(
+            navController = navController,
+            startDestination = "welcome",
+            modifier = Modifier.fillMaxSize()
+        ) {
+            composable("welcome") {
+                WelcomeScreen(
+                    onGetStartedClick = {
+                        navController.navigate("login") {
+                            popUpTo("welcome") { inclusive = true }
                         }
+                    },
+                    onSignInClick = {
+                        navController.navigate("login") {
+                            popUpTo("welcome") { inclusive = true }
+                        }
+                    }
+                )
+            }
+            
+            composable("login") {
+                LoginScreen(
+                    onBackClick = {
+                        navController.navigate("welcome") {
+                            popUpTo("login") { inclusive = true }
+                        }
+                    },
+                    onLoginSuccess = {
+                        navController.navigate("main") {
+                            popUpTo("login") { inclusive = true }
+                        }
+                    },
+                    onCreateAccountClick = {
+                        navController.navigate("create_account")
+                    },
+                    onForgotPasswordClick = {
+                        // Handle forgot password
+                    }
+                )
+            }
+            
+            composable("create_account") {
+                CreateAccountScreen(
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onCreateSuccess = {
+                        navController.navigate("main") {
+                            popUpTo("create_account") { inclusive = true }
+                        }
+                    },
+                    onSignInClick = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+            
+            composable("main") {
+                MainScreen()
             }
         }
     }

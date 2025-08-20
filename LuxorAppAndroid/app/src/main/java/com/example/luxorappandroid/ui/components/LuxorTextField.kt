@@ -1,225 +1,151 @@
 package com.example.luxorappandroid.ui.components
 
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.luxorappandroid.ui.theme.*
+import com.example.luxorappandroid.ui.theme.LuxorColors
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LuxorTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    modifier: Modifier = Modifier,
+    leadingIcon: ImageVector? = null,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    isError: Boolean = false,
+    errorMessage: String = "",
+    enabled: Boolean = true
+) {
+    val isDarkTheme = isSystemInDarkTheme()
+    
+    val backgroundColor = if (isDarkTheme) {
+        LuxorColors.Dark.inputBackground
+    } else {
+        LuxorColors.Light.cardBackground
+    }
+    
+    val borderColor = if (isError) {
+        Color.Red
+    } else if (isDarkTheme) {
+        LuxorColors.Dark.border
+    } else {
+        LuxorColors.Light.border
+    }
+    
+    val textColor = if (isDarkTheme) {
+        LuxorColors.Dark.textPrimary
+    } else {
+        LuxorColors.Light.textPrimary
+    }
+    
+    Column(modifier = modifier) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            label = {
+                Text(
+                    text = label,
+                    color = if (isDarkTheme) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
+                    fontSize = 14.sp
+                )
+            },
+            leadingIcon = leadingIcon?.let { icon ->
+                {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = if (isDarkTheme) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
+                    )
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(backgroundColor)
+                .border(
+                    width = 1.dp,
+                    color = borderColor,
+                    shape = RoundedCornerShape(12.dp)
+                ),
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+            keyboardActions = keyboardActions,
+            isError = isError,
+            enabled = enabled,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedTextColor = textColor,
+                unfocusedTextColor = textColor,
+                disabledTextColor = textColor.copy(alpha = 0.6f),
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent,
+                disabledBorderColor = Color.Transparent,
+                errorBorderColor = Color.Transparent,
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent,
+                errorContainerColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(12.dp)
+        )
+        
+        if (isError && errorMessage.isNotEmpty()) {
+            Text(
+                text = errorMessage,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+            )
+        }
+    }
+}
 
 @Composable
 fun LuxorEmailTextField(
     email: String,
     onEmailChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    themeManager: ThemeManager,
-    languageManager: LanguageManager
+    isError: Boolean = false,
+    errorMessage: String = ""
 ) {
-    var isEditing by remember { mutableStateOf(false) }
-    var isValid by remember { mutableStateOf(true) }
-    
-    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
-    val currentLanguage = languageManager.currentLanguage
-    
-    val borderGradient = when {
-        isEditing -> Brush.linearGradient(listOf(LuxorColors.luxorTeal, LuxorColors.luxorGold))
-        !isValid -> Brush.linearGradient(listOf(Color.Red.copy(alpha = 0.6f), Color.Red.copy(alpha = 0.3f)))
-        else -> Brush.linearGradient(listOf(colors.border, colors.border.copy(alpha = 0.5f)))
-    }
-    
-    val iconColor = when {
-        isEditing -> LuxorColors.luxorTeal
-        !isValid -> Color.Red
-        else -> colors.textSecondary
-    }
-    
-    Column(
+    LuxorTextField(
+        value = email,
+        onValueChange = onEmailChange,
+        label = "Email",
+        leadingIcon = Icons.Default.Email,
+        keyboardType = KeyboardType.Email,
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .background(
-                    brush = Brush.linearGradient(
-                        colors = if (themeManager.isDarkMode) {
-                            listOf(colors.inputBackground, colors.cardBackground)
-                        } else {
-                            listOf(colors.inputBackground, colors.secondaryBackground)
-                        }
-                    )
-                )
-                .border(
-                    width = if (isEditing) 2.dp else 1.dp,
-                    brush = borderGradient,
-                    shape = RoundedCornerShape(16.dp)
-                )
-                .clickable { isEditing = true }
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                // Icon
-                Box(
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clip(CircleShape)
-                        .background(
-                            brush = if (isEditing) {
-                                Brush.linearGradient(
-                                    listOf(
-                                        LuxorColors.luxorTeal.copy(alpha = 0.2f),
-                                        LuxorColors.luxorGold.copy(alpha = 0.2f)
-                                    )
-                                )
-                            } else {
-                                Brush.linearGradient(listOf(Color.Transparent))
-                            }
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = if (isEditing) {
-                            Icons.Default.Email
-                        } else {
-                            Icons.Default.Email
-                        },
-                        contentDescription = "Email",
-                        tint = iconColor,
-                        modifier = Modifier
-                            .size(18.dp)
-                            .scale(if (isEditing) 1.1f else 1.0f)
-                    )
-                }
-                
-                // Text field
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(
-                        text = LocalizedStrings.email(currentLanguage),
-                        fontSize = if (isEditing || email.isNotEmpty()) 11.sp else 16.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = iconColor,
-                        modifier = Modifier.offset(y = if (isEditing || email.isNotEmpty()) (-8).dp else 8.dp)
-                    )
-                    
-                    TextField(
-                        value = email,
-                        onValueChange = { 
-                            onEmailChange(it)
-                            validateEmail(it)
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .onFocusChanged { isEditing = it.isFocused },
-                        textStyle = LocalTextStyle.current.copy(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = colors.textPrimary
-                        ),
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Email,
-                            imeAction = ImeAction.Done
-                        ),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color.Transparent,
-                            unfocusedContainerColor = Color.Transparent,
-                            disabledContainerColor = Color.Transparent,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent
-                        )
-                    )
-                }
-                
-                // Validation icon
-                if (email.isNotEmpty()) {
-                    Box(
-                        modifier = Modifier
-                            .size(32.dp)
-                            .clip(CircleShape)
-                            .background(
-                                brush = Brush.linearGradient(
-                                    colors = if (isValid) {
-                                        listOf(Color.Green.copy(alpha = 0.2f), Color.Green.copy(alpha = 0.1f))
-                                    } else {
-                                        listOf(Color.Red.copy(alpha = 0.2f), Color.Red.copy(alpha = 0.1f))
-                                    }
-                                )
-                            ),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            imageVector = if (isValid) {
-                                Icons.Default.CheckCircle
-                            } else {
-                                Icons.Default.Cancel
-                            },
-                            contentDescription = "Validation",
-                            tint = if (isValid) Color.Green else Color.Red,
-                            modifier = Modifier
-                                .size(16.dp)
-                                .scale(if (isValid) 1.1f else 1.0f)
-                        )
-                    }
-                }
-            }
-        }
-        
-        // Error message
-        if (!isValid && email.isNotEmpty()) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Warning,
-                    contentDescription = "Error",
-                    tint = Color.Red,
-                    modifier = Modifier.size(12.dp)
-                )
-                Text(
-                    text = LocalizedStrings.invalidEmail(currentLanguage),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color.Red
-                )
-            }
-        }
-    }
-    
-    fun validateEmail(email: String) {
-        val emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}".toRegex()
-        isValid = email.isEmpty() || email.matches(emailRegex)
-    }
+        isError = isError,
+        errorMessage = errorMessage
+    )
 }
 
 @Composable
@@ -227,247 +153,136 @@ fun LuxorPasswordTextField(
     password: String,
     onPasswordChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    themeManager: ThemeManager,
-    languageManager: LanguageManager
+    label: String = "Password",
+    isError: Boolean = false,
+    errorMessage: String = ""
 ) {
-    var isEditing by remember { mutableStateOf(false) }
-    var isSecure by remember { mutableStateOf(true) }
-    var showValidation by remember { mutableStateOf(false) }
+    var passwordVisible by remember { mutableStateOf(false) }
+    val isDarkTheme = isSystemInDarkTheme()
     
-    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
-    val currentLanguage = languageManager.currentLanguage
-    
-    val borderGradient = when {
-        isEditing -> Brush.linearGradient(listOf(LuxorColors.luxorTeal, LuxorColors.luxorGold))
-        else -> Brush.linearGradient(listOf(colors.border, colors.border.copy(alpha = 0.5f)))
+    val backgroundColor = if (isDarkTheme) {
+        LuxorColors.Dark.inputBackground
+    } else {
+        LuxorColors.Light.cardBackground
     }
     
-    val iconColor = when {
-        isEditing -> LuxorColors.luxorTeal
-        else -> colors.textSecondary
+    val borderColor = if (isError) {
+        Color.Red
+    } else if (isDarkTheme) {
+        LuxorColors.Dark.border
+    } else {
+        LuxorColors.Light.border
     }
     
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Box(
+    val textColor = if (isDarkTheme) {
+        LuxorColors.Dark.textPrimary
+    } else {
+        LuxorColors.Light.textPrimary
+    }
+    
+    Column(modifier = modifier) {
+        OutlinedTextField(
+            value = password,
+            onValueChange = onPasswordChange,
+            label = {
+                Text(
+                    text = label,
+                    color = if (isDarkTheme) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
+                    fontSize = 14.sp
+                )
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Lock,
+                    contentDescription = null,
+                    tint = if (isDarkTheme) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
+                )
+            },
+            trailingIcon = {
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Icon(
+                        imageVector = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                        contentDescription = if (passwordVisible) "Hide password" else "Show password",
+                        tint = if (isDarkTheme) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
+                    )
+                }
+            },
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(64.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .background(
-                    brush = Brush.linearGradient(
-                        colors = if (isDarkMode) {
-                            listOf(Color.White.copy(alpha = 0.05f), Color.White.copy(alpha = 0.02f))
-                        } else {
-                            listOf(Color.White, Color(0xFFF2F2F7))
-                        }
-                    )
-                )
+                .height(56.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(backgroundColor)
                 .border(
-                    width = if (isEditing) 2.dp else 1.dp,
-                    brush = borderGradient,
-                    shape = RoundedCornerShape(16.dp)
-                )
-                .clickable { isEditing = true }
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                // Icon
-                Box(
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clip(CircleShape)
-                        .background(
-                            brush = if (isEditing) {
-                                Brush.linearGradient(
-                                    listOf(
-                                        LuxorColors.Dark.accent.copy(alpha = 0.2f),
-                                        LuxorGold.copy(alpha = 0.2f)
-                                    )
-                                )
-                            } else {
-                                Brush.linearGradient(listOf(Color.Transparent))
-                            }
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = if (isEditing) {
-                            Icons.Default.LockOpen
-                        } else {
-                            Icons.Default.Lock
-                        },
-                        contentDescription = "Password",
-                        tint = iconColor,
-                        modifier = Modifier
-                            .size(18.dp)
-                            .scale(if (isEditing) 1.1f else 1.0f)
-                    )
-                }
-                
-                // Text field
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(
-                        text = "Password",
-                        fontSize = if (isEditing || password.isNotEmpty()) 11.sp else 16.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = iconColor,
-                        modifier = Modifier.offset(y = if (isEditing || password.isNotEmpty()) (-8).dp else 8.dp)
-                    )
-                    
-                    TextField(
-                        value = password,
-                        onValueChange = { 
-                            onPasswordChange(it)
-                            showValidation = it.isNotEmpty()
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .onFocusChanged { isEditing = it.isFocused },
-                        textStyle = LocalTextStyle.current.copy(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = colors.TextPrimary
-                        ),
-                        visualTransformation = if (isSecure) PasswordVisualTransformation() else VisualTransformation.None,
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Password,
-                            imeAction = ImeAction.Done
-                        ),
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color.Transparent,
-                            unfocusedContainerColor = Color.Transparent,
-                            disabledContainerColor = Color.Transparent,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent
-                        )
-                    )
-                }
-                
-                // Eye toggle
-                IconButton(
-                    onClick = { isSecure = !isSecure }
-                ) {
-                    Icon(
-                        imageVector = if (isSecure) {
-                            Icons.Default.VisibilityOff
-                        } else {
-                            Icons.Default.Visibility
-                        },
-                        contentDescription = "Toggle password visibility",
-                        tint = colors.TextSecondary,
-                        modifier = Modifier.size(16.dp)
-                    )
-                }
-            }
-        }
-        
-        // Password validation
-        if (showValidation) {
-            PasswordValidationSection(password = password, isDarkMode = isDarkMode)
-        }
-    }
-}
-
-@Composable
-private fun PasswordValidationSection(
-    password: String,
-    isDarkMode: Boolean
-) {
-    val colors = if (isDarkMode) DarkColors else LightColors
-    
-    val hasCapitalLetter = password.any { it.isUpperCase() }
-    val hasMinimumLength = password.length >= 8
-    val hasSpecialCharacter = password.any { !it.isLetterOrDigit() }
-    
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(
-                brush = Brush.linearGradient(
-                    colors = if (isDarkMode) {
-                        listOf(Color.White.copy(alpha = 0.03f), Color.White.copy(alpha = 0.01f))
-                    } else {
-                        listOf(Color(0xFFF2F2F7), Color.White.copy(alpha = 0.8f))
-                    }
-                )
-            )
-            .border(
-                width = 1.dp,
-                color = colors.Border,
-                shape = RoundedCornerShape(12.dp)
-            )
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        Text(
-            text = "Password Requirements",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = colors.TextPrimary
-        )
-        
-        ValidationRow("At least one capital letter", hasCapitalLetter, isDarkMode)
-        ValidationRow("At least 8 characters", hasMinimumLength, isDarkMode)
-        ValidationRow("At least one special character", hasSpecialCharacter, isDarkMode)
-    }
-}
-
-@Composable
-private fun ValidationRow(
-    text: String,
-    isValid: Boolean,
-    isDarkMode: Boolean
-) {
-    val colors = if (isDarkMode) DarkColors else LightColors
-    
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Box(
-            modifier = Modifier
-                .size(20.dp)
-                .clip(CircleShape)
-                .background(
-                    brush = if (isValid) {
-                        Brush.linearGradient(listOf(Color.Green, Color.Green.copy(alpha = 0.8f)))
-                    } else {
-                        Brush.linearGradient(
-                            listOf(
-                                colors.TextSecondary.copy(alpha = 0.2f),
-                                colors.TextSecondary.copy(alpha = 0.1f)
-                            )
-                        )
-                    }
+                    width = 1.dp,
+                    color = borderColor,
+                    shape = RoundedCornerShape(12.dp)
                 ),
-            contentAlignment = Alignment.Center
-        ) {
-            if (isValid) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "Valid",
-                    tint = Color.White,
-                    modifier = Modifier.size(10.dp)
-                )
-            }
-        }
-        
-        Text(
-            text = text,
-            fontSize = 13.sp,
-            fontWeight = FontWeight.Medium,
-            color = if (isValid) Color.Green else colors.TextSecondary
+            isError = isError,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedTextColor = textColor,
+                unfocusedTextColor = textColor,
+                disabledTextColor = textColor.copy(alpha = 0.6f),
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent,
+                disabledBorderColor = Color.Transparent,
+                errorBorderColor = Color.Transparent,
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent,
+                errorContainerColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(12.dp)
         )
+        
+        if (isError && errorMessage.isNotEmpty()) {
+            Text(
+                text = errorMessage,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 16.dp, top = 4.dp)
+            )
+        }
     }
+}
+
+@Composable
+fun LuxorFullNameTextField(
+    fullName: String,
+    onFullNameChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    isError: Boolean = false,
+    errorMessage: String = ""
+) {
+    LuxorTextField(
+        value = fullName,
+        onValueChange = onFullNameChange,
+        label = "Full Name",
+        leadingIcon = Icons.Default.Person,
+        keyboardType = KeyboardType.Text,
+        modifier = modifier,
+        isError = isError,
+        errorMessage = errorMessage
+    )
+}
+
+@Composable
+fun LuxorPhoneTextField(
+    phone: String,
+    onPhoneChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    isError: Boolean = false,
+    errorMessage: String = ""
+) {
+    LuxorTextField(
+        value = phone,
+        onValueChange = onPhoneChange,
+        label = "Phone Number",
+        leadingIcon = Icons.Default.Phone,
+        keyboardType = KeyboardType.Phone,
+        modifier = modifier,
+        isError = isError,
+        errorMessage = errorMessage
+    )
 }

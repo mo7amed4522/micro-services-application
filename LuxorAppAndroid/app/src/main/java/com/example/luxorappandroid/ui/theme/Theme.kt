@@ -15,64 +15,47 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-
-// Custom Luxor color schemes with historical Egyptian colors
-private val LuxorLightColorScheme = lightColorScheme(
-    primary = LuxorColors.luxorTeal,
-    secondary = LuxorColors.luxorGold,
-    tertiary = LuxorColors.luxorDarkTeal,
-    background = LuxorColors.Light.background,
-    surface = LuxorColors.Light.cardBackground,
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = LuxorColors.Light.textPrimary,
-    onSurface = LuxorColors.Light.textPrimary,
-    surfaceVariant = LuxorColors.Light.secondaryBackground,
-    onSurfaceVariant = LuxorColors.Light.textSecondary,
-    primaryContainer = LuxorColors.pureGold.copy(alpha = 0.2f),
-    onPrimaryContainer = LuxorColors.hieroglyphBrown,
-    secondaryContainer = LuxorColors.papyrusBeige,
-    onSecondaryContainer = LuxorColors.hieroglyphBrown
-)
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LuxorDarkColorScheme = darkColorScheme(
     primary = LuxorColors.luxorTeal,
-    secondary = LuxorColors.luxorGold,
-    tertiary = LuxorColors.luxorDarkTeal,
-    background = LuxorColors.Dark.background,
-    surface = LuxorColors.Dark.cardBackground,
     onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
+    secondary = LuxorColors.richGold,
+    onSecondary = LuxorColors.Dark.textPrimary,
+    tertiary = LuxorColors.pureGold,
+    onTertiary = LuxorColors.hieroglyphBrown,
+    background = LuxorColors.Dark.background,
     onBackground = LuxorColors.Dark.textPrimary,
+    surface = LuxorColors.Dark.cardBackground,
     onSurface = LuxorColors.Dark.textPrimary,
     surfaceVariant = LuxorColors.Dark.secondaryBackground,
     onSurfaceVariant = LuxorColors.Dark.textSecondary,
-    primaryContainer = LuxorColors.richGold.copy(alpha = 0.3f),
-    onPrimaryContainer = LuxorColors.pureGold,
-    secondaryContainer = LuxorColors.Dark.inputBackground,
-    onSecondaryContainer = LuxorColors.Dark.textPrimary
+    outline = LuxorColors.Dark.border,
+    outlineVariant = LuxorColors.Dark.border.copy(alpha = 0.2f)
 )
 
-// Legacy color schemes for compatibility
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+private val LuxorLightColorScheme = lightColorScheme(
+    primary = LuxorColors.luxorTeal,
+    onPrimary = Color.White,
+    secondary = LuxorColors.richGold,
+    onSecondary = LuxorColors.Light.textPrimary,
+    tertiary = LuxorColors.pureGold,
+    onTertiary = LuxorColors.hieroglyphBrown,
+    background = LuxorColors.Light.background,
+    onBackground = LuxorColors.Light.textPrimary,
+    surface = LuxorColors.Light.cardBackground,
+    onSurface = LuxorColors.Light.textPrimary,
+    surfaceVariant = LuxorColors.Light.secondaryBackground,
+    onSurfaceVariant = LuxorColors.Light.textSecondary,
+    outline = LuxorColors.Light.border,
+    outlineVariant = LuxorColors.Light.border.copy(alpha = 0.2f)
 )
 
 @Composable
 fun LuxorAppAndroidTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = false, // Disabled to use custom Luxor colors
+    // Dynamic color is available on Android 12+ but we'll use our custom theme
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -83,14 +66,22 @@ fun LuxorAppAndroidTheme(
         darkTheme -> LuxorDarkColorScheme
         else -> LuxorLightColorScheme
     }
-
+    
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = colorScheme.background.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
+    }
+    
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        systemUiController.setSystemBarsColor(
+            color = colorScheme.background,
+            darkIcons = !darkTheme
+        )
     }
 
     MaterialTheme(

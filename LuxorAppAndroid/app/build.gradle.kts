@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.luxorappandroid"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.luxorappandroid"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -37,7 +37,6 @@ android {
     buildFeatures {
         compose = true
     }
-    ndkVersion = ndkVersion
 }
 
 dependencies {
@@ -50,16 +49,14 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation("androidx.compose.material:material-icons-extended:1.6.1")
-    
-    // Coil for image loading
-    implementation("io.coil-kt:coil-compose:2.5.0")
-    
-    // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation(libs.generativeai)
-    implementation(libs.firebase.annotations)
-
+    implementation("androidx.navigation:navigation-compose:2.7.6")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+    implementation("androidx.compose.animation:animation:1.5.4")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
+    implementation("androidx.core:core-splashscreen:1.0.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

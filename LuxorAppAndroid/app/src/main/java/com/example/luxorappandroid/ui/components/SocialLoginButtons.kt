@@ -1,100 +1,387 @@
 package com.example.luxorappandroid.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.luxorappandroid.ui.theme.*
-import com.example.luxorappandroid.data.ThemeManager
-import com.example.luxorappandroid.data.LanguageManager
+import com.example.luxorappandroid.ui.theme.LuxorColors
 
 @Composable
 fun SocialLoginButtons(
+    onGoogleClick: () -> Unit,
+    onFacebookClick: () -> Unit,
+    onAppleClick: () -> Unit,
     modifier: Modifier = Modifier,
-    themeManager: ThemeManager,
-    languageManager: LanguageManager
+    isLoading: Boolean = false
 ) {
-    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
-    
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Text(
-            text = LocalizedStrings.orContinueWith(languageManager.currentLanguage),
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Medium,
-            color = colors.textSecondary
+        GoogleLoginButton(
+            onClick = onGoogleClick,
+            enabled = !isLoading
         )
         
+        FacebookLoginButton(
+            onClick = onFacebookClick,
+            enabled = !isLoading
+        )
+        
+        AppleLoginButton(
+            onClick = onAppleClick,
+            enabled = !isLoading
+        )
+    }
+}
+
+@Composable
+fun GoogleLoginButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    SocialLoginButton(
+        text = "Continue with Google",
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        backgroundColor = Color.White,
+        contentColor = Color.Black,
+        borderColor = Color.Gray.copy(alpha = 0.3f),
+        icon = {
+            // Google icon placeholder - in a real app, you'd use the actual Google icon
+            Box(
+                modifier = Modifier
+                    .size(20.dp)
+                    .background(
+                        Color.Red,
+                        RoundedCornerShape(10.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "G",
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    )
+}
+
+@Composable
+fun FacebookLoginButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    SocialLoginButton(
+        text = "Continue with Facebook",
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        backgroundColor = Color(0xFF1877F2),
+        contentColor = Color.White,
+        borderColor = Color.Transparent,
+        icon = {
+            // Facebook icon placeholder - in a real app, you'd use the actual Facebook icon
+            Box(
+                modifier = Modifier
+                    .size(20.dp)
+                    .background(
+                        Color.White,
+                        RoundedCornerShape(4.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "f",
+                    color = Color(0xFF1877F2),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    )
+}
+
+@Composable
+fun AppleLoginButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    val isDarkTheme = isSystemInDarkTheme()
+    
+    SocialLoginButton(
+        text = "Continue with Apple",
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        backgroundColor = if (isDarkTheme) Color.White else Color.Black,
+        contentColor = if (isDarkTheme) Color.Black else Color.White,
+        borderColor = Color.Transparent,
+        icon = {
+            // Apple icon placeholder - in a real app, you'd use the actual Apple icon
+            Box(
+                modifier = Modifier
+                    .size(20.dp)
+                    .background(
+                        if (isDarkTheme) Color.Black else Color.White,
+                        RoundedCornerShape(4.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "", // Apple symbol
+                    color = if (isDarkTheme) Color.White else Color.Black,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+    )
+}
+
+@Composable
+fun EmailLoginButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    val isDarkTheme = isSystemInDarkTheme()
+    
+    SocialLoginButton(
+        text = "Continue with Email",
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        backgroundColor = if (isDarkTheme) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground,
+        contentColor = LuxorColors.pureGold,
+        borderColor = LuxorColors.pureGold,
+        icon = {
+            Icon(
+                imageVector = Icons.Default.Email,
+                contentDescription = null,
+                tint = LuxorColors.pureGold,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+    )
+}
+
+@Composable
+private fun SocialLoginButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    backgroundColor: Color,
+    contentColor: Color,
+    borderColor: Color,
+    icon: @Composable () -> Unit
+) {
+    val finalBackgroundColor = if (enabled) backgroundColor else backgroundColor.copy(alpha = 0.6f)
+    val finalContentColor = if (enabled) contentColor else contentColor.copy(alpha = 0.6f)
+    val finalBorderColor = if (enabled) borderColor else borderColor.copy(alpha = 0.6f)
+    
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(finalBackgroundColor)
+            .then(
+                if (borderColor != Color.Transparent) {
+                    Modifier.border(
+                        width = 1.dp,
+                        color = finalBorderColor,
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                } else Modifier
+            )
+            .clickable(enabled = enabled) { onClick() },
+        contentAlignment = Alignment.Center
+    ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(horizontal = 16.dp)
         ) {
-            SocialButton(
-                icon = Icons.Default.Apple,
-                color = if (themeManager.isDarkMode) Color.White else Color.Black,
-                onClick = { /* Apple Sign In */ },
-                themeManager = themeManager
-            )
+            icon()
             
-            SocialButton(
-                icon = Icons.Default.Language,
-                color = Color.Red,
-                onClick = { /* Google Sign In */ },
-                themeManager = themeManager
-            )
+            Spacer(modifier = Modifier.width(12.dp))
             
-            SocialButton(
-                icon = Icons.Default.Facebook,
-                color = Color.Blue,
-                onClick = { /* Facebook Sign In */ },
-                themeManager = themeManager
+            Text(
+                text = text,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
+                color = finalContentColor,
+                textAlign = TextAlign.Center
             )
         }
     }
 }
 
 @Composable
-private fun SocialButton(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
-    color: Color,
-    onClick: () -> Unit,
-    themeManager: ThemeManager,
-    modifier: Modifier = Modifier
+fun SocialLoginDivider(
+    modifier: Modifier = Modifier,
+    text: String = "or"
 ) {
-    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
+    val isDarkTheme = isSystemInDarkTheme()
     
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Divider(
+            modifier = Modifier.weight(1f),
+            color = if (isDarkTheme) LuxorColors.Dark.border else LuxorColors.Light.border,
+            thickness = 1.dp
+        )
+        
+        Text(
+            text = text,
+            modifier = Modifier.padding(horizontal = 16.dp),
+            color = if (isDarkTheme) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium
+        )
+        
+        Divider(
+            modifier = Modifier.weight(1f),
+            color = if (isDarkTheme) LuxorColors.Dark.border else LuxorColors.Light.border,
+            thickness = 1.dp
+        )
+    }
+}
+
+@Composable
+fun CompactSocialLoginButtons(
+    onGoogleClick: () -> Unit,
+    onFacebookClick: () -> Unit,
+    onAppleClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    isLoading: Boolean = false
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        CompactSocialButton(
+            onClick = onGoogleClick,
+            enabled = !isLoading,
+            modifier = Modifier.weight(1f),
+            backgroundColor = Color.White,
+            borderColor = Color.Gray.copy(alpha = 0.3f)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(24.dp)
+                    .background(
+                        Color.Red,
+                        RoundedCornerShape(12.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "G",
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+        
+        CompactSocialButton(
+            onClick = onFacebookClick,
+            enabled = !isLoading,
+            modifier = Modifier.weight(1f),
+            backgroundColor = Color(0xFF1877F2),
+            borderColor = Color.Transparent
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(24.dp)
+                    .background(
+                        Color.White,
+                        RoundedCornerShape(4.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "f",
+                    color = Color(0xFF1877F2),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+        
+        CompactSocialButton(
+            onClick = onAppleClick,
+            enabled = !isLoading,
+            modifier = Modifier.weight(1f),
+            backgroundColor = Color.Black,
+            borderColor = Color.Transparent
+        ) {
+            Text(
+                text = "",
+                color = Color.White,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
+
+@Composable
+private fun CompactSocialButton(
+    onClick: () -> Unit,
+    enabled: Boolean,
+    modifier: Modifier = Modifier,
+    backgroundColor: Color,
+    borderColor: Color,
+    content: @Composable () -> Unit
+) {
     Box(
         modifier = modifier
-            .size(50.dp)
-            .clip(CircleShape)
-            .background(
-                brush = Brush.linearGradient(
-                    colors = listOf(colors.cardBackground, colors.cardBackground)
-                )
+            .height(56.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .background(if (enabled) backgroundColor else backgroundColor.copy(alpha = 0.6f))
+            .then(
+                if (borderColor != Color.Transparent) {
+                    Modifier.border(
+                        width = 1.dp,
+                        color = if (enabled) borderColor else borderColor.copy(alpha = 0.6f),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                } else Modifier
             )
-            .clickable { onClick() },
+            .clickable(enabled = enabled) { onClick() },
         contentAlignment = Alignment.Center
     ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = "Social login",
-            tint = color,
-            modifier = Modifier.size(20.dp)
-        )
+        content()
     }
 }

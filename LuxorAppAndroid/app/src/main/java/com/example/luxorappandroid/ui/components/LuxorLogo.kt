@@ -1,169 +1,273 @@
 package com.example.luxorappandroid.ui.components
 
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.luxorappandroid.R
-import com.example.luxorappandroid.ui.theme.*
+import androidx.compose.ui.unit.sp
+import com.example.luxorappandroid.ui.theme.LuxorColors
+import kotlin.math.*
+import kotlin.random.Random
 
 @Composable
 fun LuxorLogo(
-    size: Float = 120f,
     modifier: Modifier = Modifier,
-    themeManager: ThemeManager
+    size: Dp = 120.dp,
+    animated: Boolean = true,
+    showParticles: Boolean = true
 ) {
-    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
+    val isDarkTheme = isSystemInDarkTheme()
+    
+    // Animation states
     val infiniteTransition = rememberInfiniteTransition(label = "logo_animation")
     
-    val scale by infiniteTransition.animateFloat(
-        initialValue = 1.0f,
-        targetValue = 1.02f,
+    val rotation by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
         animationSpec = infiniteRepeatable(
-            animation = tween(3000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
+            animation = tween(20000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
         ),
-        label = "scale_animation"
+        label = "rotation"
     )
     
-    val opacity by infiniteTransition.animateFloat(
-        initialValue = 1.0f,
-        targetValue = 0.7f,
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 0.95f,
+        targetValue = 1.05f,
         animationSpec = infiniteRepeatable(
-            animation = tween(2000, easing = LinearEasing),
+            animation = tween(2000, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
         ),
-        label = "opacity_animation"
+        label = "scale"
+    )
+    
+    val glowIntensity by infiniteTransition.animateFloat(
+        initialValue = 0.3f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(3000, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "glow"
     )
     
     Box(
-        modifier = modifier
-            .size((size * 1.4).dp)
-            .scale(scale),
+        modifier = modifier.size(size),
         contentAlignment = Alignment.Center
     ) {
-        // Outer glow effect
-        Box(
-            modifier = Modifier
-                .size((size * 1.4).dp)
-                .background(
-                    brush = Brush.radialGradient(
-                        colors = listOf(
-                            LuxorColors.luxorTeal.copy(alpha = if (themeManager.isDarkMode) 0.4f else 0.3f),
-                            Color.Transparent
-                        ),
-                        center = androidx.compose.ui.geometry.Offset.Zero,
-                        radius = size * 0.8f
-                    ),
-                    shape = CircleShape
-                )
-        )
+        // Particle background
+        if (showParticles && animated) {
+            LuxorParticles(
+                modifier = Modifier.fillMaxSize(),
+                particleCount = 20
+            )
+        }
         
-        // Main logo circle
-        Box(
+        // Main logo
+        Canvas(
             modifier = Modifier
-                .size(size.dp)
-                .background(
-                    brush = Brush.angularGradient(
-                        colors = if (themeManager.isDarkMode) {
-                            listOf(
-                                LuxorColors.luxorTeal,
-                                LuxorColors.richGold,
-                                LuxorColors.egyptianBlue,
-                                LuxorColors.deepGold,
-                                LuxorColors.luxorTeal
-                            )
-                        } else {
-                            listOf(
-                                LuxorColors.luxorTeal,
-                                LuxorColors.luxorGold,
-                                LuxorColors.luxorTeal.copy(alpha = 0.8f),
-                                LuxorColors.luxorGold.copy(alpha = 0.9f),
-                                LuxorColors.luxorTeal
-                            )
-                        }
-                    ),
-                    shape = CircleShape
-                )
-                .scale(scale)
+                .size(size * 0.8f)
+                .then(if (animated) Modifier.scale(scale) else Modifier)
         ) {
-            // Inner circle
-            Box(
-                modifier = Modifier
-                    .size((size - 12).dp)
-                    .align(Alignment.Center)
-                    .background(
-                        brush = Brush.linearGradient(
-                            colors = if (themeManager.isDarkMode) {
-                                listOf(
-                                    colors.cardBackground,
-                                    colors.cardBackground.copy(alpha = 0.95f),
-                                    colors.inputBackground.copy(alpha = 0.3f)
-                                )
-                            } else {
-                                listOf(
-                                    Color.White,
-                                    Color.White.copy(alpha = 0.95f),
-                                    colors.secondaryBackground.copy(alpha = 0.3f)
-                                )
-                            }
-                        ),
-                        shape = CircleShape
-                    )
-            ) {
-                // Logo image placeholder
-                Box(
-                    modifier = Modifier
-                        .size((size - 32).dp)
-                        .align(Alignment.Center)
-                        .background(
-                            brush = Brush.radialGradient(
-                                colors = listOf(
-                                    LuxorColors.luxorTeal.copy(alpha = if (themeManager.isDarkMode) 0.2f else 0.1f),
-                                    Color.Transparent
-                                )
-                            ),
-                            shape = CircleShape
-                        )
-                ) {
-                    // Placeholder for logo image
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                        contentDescription = "Luxor Logo",
-                        modifier = Modifier
-                            .size((size - 40).dp)
-                            .align(Alignment.Center),
-                        tint = if (themeManager.isDarkMode) LuxorColors.pureGold else LuxorColors.luxorTeal
-                    )
+            val center = Offset(this.size.width / 2, this.size.height / 2)
+            val radius = minOf(this.size.width, this.size.height) / 2
+            
+            // Draw outer golden ring
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(
+                        LuxorColors.pureGold.copy(alpha = if (animated) glowIntensity else 1f),
+                        LuxorColors.egyptianGold.copy(alpha = if (animated) glowIntensity * 0.8f else 0.8f),
+                        LuxorColors.pureGold.copy(alpha = if (animated) glowIntensity * 0.6f else 0.6f)
+                    ),
+                    radius = radius
+                ),
+                radius = radius,
+                center = center
+            )
+            
+            // Draw inner circle
+            drawCircle(
+                color = if (isDarkTheme) LuxorColors.Dark.background else LuxorColors.Light.background,
+                radius = radius * 0.7f,
+                center = center
+            )
+            
+            // Draw Egyptian-style patterns
+            if (animated) {
+                rotate(rotation, center) {
+                    drawEgyptianPattern(center, radius * 0.6f)
                 }
+            } else {
+                drawEgyptianPattern(center, radius * 0.6f)
             }
         }
         
-        // Highlight effect
-        Box(
-            modifier = Modifier
-                .size((size * 0.4).dp)
-                .offset(x = (-size * 0.15).dp, y = (-size * 0.15).dp)
-                .background(
-                    brush = Brush.linearGradient(
-                        colors = listOf(
-                            (if (themeManager.isDarkMode) LuxorColors.pureGold else Color.White).copy(alpha = 0.3f),
-                            Color.Transparent
-                        )
-                    ),
-                    shape = CircleShape
-                )
+        // Logo text
+        Text(
+            text = "L",
+            fontSize = (size.value * 0.3f).sp,
+            fontWeight = FontWeight.Bold,
+            color = LuxorColors.pureGold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.then(if (animated) Modifier.rotate(rotation * 0.1f) else Modifier)
         )
     }
 }
+
+@Composable
+fun LuxorLogoWithText(
+    modifier: Modifier = Modifier,
+    logoSize: Dp = 80.dp,
+    animated: Boolean = true,
+    showParticles: Boolean = false
+) {
+    val isDarkTheme = isSystemInDarkTheme()
+    
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        LuxorLogo(
+            size = logoSize,
+            animated = animated,
+            showParticles = showParticles
+        )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        Text(
+            text = "LUXOR",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = LuxorColors.pureGold,
+            letterSpacing = 4.sp,
+            textAlign = TextAlign.Center
+        )
+        
+        Text(
+            text = "Discover Ancient Wonders",
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
+            color = if (isDarkTheme) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+    }
+}
+
+@Composable
+fun LuxorParticles(
+    modifier: Modifier = Modifier,
+    particleCount: Int = 15
+) {
+    val particles = remember {
+        List(particleCount) {
+            Particle(
+                x = Random.nextFloat(),
+                y = Random.nextFloat(),
+                size = Random.nextFloat() * 4f + 2f,
+                speed = Random.nextFloat() * 0.02f + 0.01f,
+                alpha = Random.nextFloat() * 0.8f + 0.2f
+            )
+        }
+    }
+    
+    val infiniteTransition = rememberInfiniteTransition(label = "particles")
+    
+    val animationProgress by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(10000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "particle_movement"
+    )
+    
+    Canvas(modifier = modifier) {
+        particles.forEach { particle ->
+            val currentY = (particle.y + animationProgress * particle.speed) % 1f
+            val currentX = particle.x + sin(animationProgress * 2 * PI.toFloat() + particle.x * 10) * 0.1f
+            
+            drawCircle(
+                color = LuxorColors.pureGold.copy(alpha = particle.alpha * (1f - currentY)),
+                radius = particle.size,
+                center = Offset(
+                    currentX * size.width,
+                    currentY * size.height
+                )
+            )
+        }
+    }
+}
+
+private fun DrawScope.drawEgyptianPattern(center: Offset, radius: Float) {
+    val patternRadius = radius * 0.8f
+    val segments = 8
+    
+    for (i in 0 until segments) {
+        val angle = (i * 2 * PI / segments).toFloat()
+        val startAngle = angle - PI.toFloat() / 16
+        val endAngle = angle + PI.toFloat() / 16
+        
+        val startX = center.x + cos(startAngle) * patternRadius
+        val startY = center.y + sin(startAngle) * patternRadius
+        val endX = center.x + cos(endAngle) * patternRadius
+        val endY = center.y + sin(endAngle) * patternRadius
+        
+        drawLine(
+            brush = Brush.linearGradient(
+                colors = listOf(
+                    LuxorColors.pureGold,
+                    LuxorColors.egyptianGold
+                )
+            ),
+            start = Offset(startX, startY),
+            end = Offset(endX, endY),
+            strokeWidth = 3.dp.toPx(),
+            cap = StrokeCap.Round
+        )
+    }
+    
+    // Draw inner decorative elements
+    for (i in 0 until 4) {
+        val angle = (i * PI / 2).toFloat()
+        val innerRadius = patternRadius * 0.5f
+        
+        val x = center.x + cos(angle) * innerRadius
+        val y = center.y + sin(angle) * innerRadius
+        
+        drawCircle(
+            color = LuxorColors.pureGold,
+            radius = 2.dp.toPx(),
+            center = Offset(x, y)
+        )
+    }
+}
+
+private data class Particle(
+    val x: Float,
+    val y: Float,
+    val size: Float,
+    val speed: Float,
+    val alpha: Float
+)

@@ -14,7 +14,7 @@ object LuxorColors {
     val egyptianBlue = Color(0xFF1052BA) // Lapis lazuli blue
     val papyrusBeige = Color(0xFFF5DEB3) // Papyrus color
     val sandstone = Color(0xFFEDD5AE) // Sandstone
-    val hieroglyphBrown = Color(0xFF663321) // Dark brown
+    val hieroglyphBrown = Color(0xFF664228) // Dark brown
     
     // Legacy colors (keeping for compatibility)
     val luxorTeal = egyptianBlue
@@ -26,25 +26,24 @@ object LuxorColors {
         val background = Color(0xFFFAF2E1) // Warm papyrus background
         val secondaryBackground = papyrusBeige
         val textPrimary = hieroglyphBrown
-        val textSecondary = Color(0xFF804D26)
+        val textSecondary = Color(0xFF80664D)
         val cardBackground = Color(0xFFFDF6E6)
         val shadow = hieroglyphBrown.copy(alpha = 0.15f)
         val accent = pureGold
         val border = richGold.copy(alpha = 0.3f)
-        val inputBackground = Color.White
     }
     
-    // Dark mode colors - Historical night theme
+    // Dark mode colors - Historical theme
     object Dark {
-        val background = Color(0xFF141008) // Dark stone
+        val background = Color(0xFF14100A) // Dark stone
         val secondaryBackground = Color(0xFF1F1A14)
         val textPrimary = pureGold
         val textSecondary = Color(0xFFD9C08C) // Warm gold text
-        val cardBackground = Color(0xFF261F14)
+        val cardBackground = Color(0xFF261E14)
         val shadow = Color.Black.copy(alpha = 0.6f)
         val accent = richGold
         val border = deepGold.copy(alpha = 0.4f)
-        val inputBackground = Color(0xFF2E261A)
+        val inputBackground = Color(0xFF2E251A)
     }
 }
 
