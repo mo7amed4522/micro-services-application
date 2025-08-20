@@ -17,6 +17,12 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import com.example.luxorappandroid.ui.components.LuxorTextField
+import com.example.luxorappandroid.ui.components.LuxorEmailTextField
+import com.example.luxorappandroid.ui.components.LuxorPasswordTextField
+import com.example.luxorappandroid.ui.components.LuxorFullNameTextField
+import com.example.luxorappandroid.ui.components.LuxorPhoneTextField
+
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush

@@ -11,6 +11,7 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import com.example.luxorappandroid.ui.screens.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
@@ -20,7 +21,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -88,15 +88,10 @@ fun MainScreen(
                 currentRoute = currentRoute,
                 onItemClick = { item ->
                     navController.navigate(item.route) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
                         popUpTo(navController.graph.startDestinationId) {
                             saveState = true
                         }
-                        // Avoid multiple copies of the same destination when
-                        // reselecting the same item
                         launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
                         restoreState = true
                     }
                 }
@@ -138,13 +133,13 @@ fun LuxorBottomNavigation(
     val backgroundBrush = Brush.verticalGradient(
         colors = if (isDarkTheme) {
             listOf(
-                LuxorColors.Dark.surface,
-                LuxorColors.Dark.cardBackground
+                LuxorColors.pureGold,
+                LuxorColors.egyptianBlue
             )
         } else {
             listOf(
-                LuxorColors.Light.surface,
-                LuxorColors.Light.cardBackground
+                LuxorColors.pureGold,
+                LuxorColors.egyptianBlue
             )
         }
     )

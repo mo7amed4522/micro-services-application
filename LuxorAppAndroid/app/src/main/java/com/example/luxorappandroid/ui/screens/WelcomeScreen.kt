@@ -1,6 +1,5 @@
 package com.example.luxorappandroid.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -17,15 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.luxorappandroid.R
 import com.example.luxorappandroid.ui.components.LuxorButton
 import com.example.luxorappandroid.ui.components.LuxorLogo
 import com.example.luxorappandroid.ui.theme.LuxorColors
@@ -59,9 +54,9 @@ fun WelcomeScreen(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        LuxorColors.current.background,
-                        LuxorColors.current.surface,
-                        LuxorColors.current.background
+                        LuxorColors.sandstone,
+                        LuxorColors.deepGold,
+                        LuxorColors.pureGold
                     )
                 )
             )
@@ -77,13 +72,13 @@ fun WelcomeScreen(
             OutlinedButton(
                 onClick = { showLanguageDialog = true },
                 colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = LuxorColors.current.primary
+                    contentColor = LuxorColors.deepGold
                 ),
                 border = ButtonDefaults.outlinedButtonBorder.copy(
                     brush = Brush.horizontalGradient(
                         colors = listOf(
-                            LuxorColors.current.primary,
-                            LuxorColors.current.secondary
+                            LuxorColors.luxorGold,
+                            LuxorColors.deepGold
                         )
                     )
                 ),
@@ -115,7 +110,7 @@ fun WelcomeScreen(
             // Luxor Logo
             LuxorLogo(
                 size = if (isTablet) 200.dp else 150.dp,
-                animate = true
+                //animate = true
             )
             
             Spacer(modifier = Modifier.height(32.dp))
@@ -128,9 +123,9 @@ fun WelcomeScreen(
                     fontSize = if (isTablet) 36.sp else 28.sp,
                     brush = Brush.horizontalGradient(
                         colors = listOf(
-                            LuxorColors.current.primary,
-                            LuxorColors.current.secondary,
-                            LuxorColors.current.tertiary
+                            LuxorColors.luxorGold,
+                            LuxorColors.deepGold,
+                            LuxorColors.pureGold
                         )
                     )
                 ),
@@ -144,7 +139,7 @@ fun WelcomeScreen(
                 text = "Discover the ancient wonders of Egypt\nExplore temples, tombs, and treasures",
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontSize = if (isTablet) 18.sp else 16.sp,
-                    color = LuxorColors.current.onSurface.copy(alpha = 0.8f)
+                    color = LuxorColors.deepGold.copy(alpha = 0.8f)
                 ),
                 textAlign = TextAlign.Center,
                 lineHeight = if (isTablet) 26.sp else 24.sp
@@ -182,7 +177,7 @@ fun WelcomeScreen(
                     .fillMaxWidth(if (isTablet) 0.8f else 1f)
                     .clip(RoundedCornerShape(16.dp)),
                 colors = CardDefaults.cardColors(
-                    containerColor = LuxorColors.current.surface.copy(alpha = 0.8f)
+                    containerColor = LuxorColors.deepGold.copy(alpha = 0.8f)
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
             ) {
@@ -194,7 +189,7 @@ fun WelcomeScreen(
                         text = "What awaits you",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.SemiBold,
-                            color = LuxorColors.current.primary
+                            color = LuxorColors.deepGold
                         ),
                         textAlign = TextAlign.Center
                     )
@@ -218,7 +213,7 @@ fun WelcomeScreen(
                             Text(
                                 text = feature,
                                 style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = LuxorColors.current.onSurface
+                                    color = LuxorColors.deepGold
                                 ),
                                 modifier = Modifier.weight(1f)
                             )
@@ -239,7 +234,7 @@ fun WelcomeScreen(
                 Text(
                     text = "Select Language",
                     style = MaterialTheme.typography.titleLarge.copy(
-                        color = LuxorColors.current.primary
+                        color = LuxorColors.deepGold
                     )
                 )
             },
@@ -259,7 +254,7 @@ fun WelcomeScreen(
                                     showLanguageDialog = false
                                 },
                                 colors = RadioButtonDefaults.colors(
-                                    selectedColor = if (isSystemInDarkTheme()) LuxorColors.Dark.primary else LuxorColors.Light.primary
+                                    selectedColor = if (isSystemInDarkTheme()) LuxorColors.deepGold else LuxorColors.luxorGold
                                 )
                             )
                             Spacer(modifier = Modifier.width(8.dp))
@@ -277,11 +272,11 @@ fun WelcomeScreen(
                 ) {
                     Text(
                         text = "Cancel",
-                        color = if (isSystemInDarkTheme()) LuxorColors.Dark.primary else LuxorColors.Light.primary
+                        color = if (isSystemInDarkTheme()) LuxorColors.Dark.shadow else LuxorColors.Light.shadow
                     )
                 }
             },
-            containerColor = if (isSystemInDarkTheme()) LuxorColors.Dark.surface else LuxorColors.Light.surface,
+            containerColor = if (isSystemInDarkTheme()) LuxorColors.Dark.secondaryBackground else LuxorColors.Light.secondaryBackground,
             tonalElevation = 8.dp
         )
     }

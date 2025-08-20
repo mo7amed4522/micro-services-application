@@ -1,18 +1,52 @@
 package com.example.luxorappandroid.ui.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ChatBubbleOutline
+import androidx.compose.material.icons.filled.Forum
+import androidx.compose.material.icons.filled.Group
+import androidx.compose.material.icons.filled.GroupAdd
+import androidx.compose.material.icons.filled.Help
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PersonAdd
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Support
+import androidx.compose.material.icons.filled.Translate
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
@@ -24,7 +58,8 @@ import androidx.compose.ui.unit.sp
 import com.example.luxorappandroid.ui.components.LuxorTextField
 import com.example.luxorappandroid.ui.theme.LuxorColors
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 data class ChatConversation(
     val id: String,
@@ -74,7 +109,7 @@ fun ChatScreen() {
             name = "Ahmed - Tour Guide",
             type = ChatType.GUIDE,
             lastMessage = "The Valley of Kings tour starts at 8 AM tomorrow. Don't forget to bring water!",
-            lastMessageTime = Date(System.currentTimeMillis() - 300000), // 5 minutes ago
+            lastMessageTime = Date(System.currentTimeMillis() - 300000),
             unreadCount = 2,
             isOnline = true
         ),
@@ -92,7 +127,7 @@ fun ChatScreen() {
             name = "Customer Support",
             type = ChatType.SUPPORT,
             lastMessage = "Thank you for contacting us. How can we help you today?",
-            lastMessageTime = Date(System.currentTimeMillis() - 3600000), // 1 hour ago
+            lastMessageTime = Date(System.currentTimeMillis() - 3600000),
             unreadCount = 0,
             isOnline = true
         ),
@@ -101,7 +136,7 @@ fun ChatScreen() {
             name = "Fatima - Local Guide",
             type = ChatType.GUIDE,
             lastMessage = "The sunset view from the West Bank is absolutely stunning today!",
-            lastMessageTime = Date(System.currentTimeMillis() - 7200000), // 2 hours ago
+            lastMessageTime = Date(System.currentTimeMillis() - 7200000),
             unreadCount = 1,
             isOnline = false
         ),
@@ -110,7 +145,7 @@ fun ChatScreen() {
             name = "Photography Enthusiasts",
             type = ChatType.COMMUNITY,
             lastMessage = "Mike: Check out these amazing shots from Karnak Temple!",
-            lastMessageTime = Date(System.currentTimeMillis() - 14400000), // 4 hours ago
+            lastMessageTime = Date(System.currentTimeMillis() - 14400000),
             unreadCount = 3,
             isOnline = false
         )
@@ -129,9 +164,8 @@ fun ChatScreen() {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        LuxorColors.current.background,
-                        LuxorColors.current.surface.copy(alpha = 0.3f),
-                        LuxorColors.current.background
+                        LuxorColors.pureGold,
+                        LuxorColors.bronzeGold
                     )
                 )
             )
@@ -155,8 +189,8 @@ fun ChatScreen() {
                             fontWeight = FontWeight.Bold,
                             brush = Brush.horizontalGradient(
                                 colors = listOf(
-                                    LuxorColors.current.primary,
-                                    LuxorColors.current.secondary
+                                    LuxorColors.pureGold,
+                                    LuxorColors.bronzeGold
                                 )
                             )
                         )
@@ -165,7 +199,7 @@ fun ChatScreen() {
                     Text(
                         text = "Connect with guides and fellow travelers",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = LuxorColors.current.onSurface.copy(alpha = 0.8f)
+                            color = LuxorColors.pureGold.copy(alpha = 0.8f)
                         )
                     )
                 }
@@ -173,8 +207,8 @@ fun ChatScreen() {
                 IconButton(
                     onClick = { /* Start new conversation */ },
                     colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = LuxorColors.current.primary,
-                        contentColor = LuxorColors.current.onPrimary
+                        containerColor = LuxorColors.pureGold,
+                        contentColor = LuxorColors.bronzeGold
                     )
                 ) {
                     Icon(
@@ -200,12 +234,12 @@ fun ChatScreen() {
             // Tabs
             TabRow(
                 selectedTabIndex = selectedTab,
-                containerColor = LuxorColors.current.surface,
-                contentColor = LuxorColors.current.primary,
+                containerColor = LuxorColors.bronzeGold,
+                contentColor = LuxorColors.hieroglyphBrown,
                 indicator = { tabPositions ->
                     TabRowDefaults.Indicator(
                         modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTab]),
-                        color = LuxorColors.current.primary
+                        color = LuxorColors.egyptianBlue
                     )
                 }
             ) {
@@ -219,8 +253,8 @@ fun ChatScreen() {
                                 fontWeight = if (selectedTab == index) FontWeight.SemiBold else FontWeight.Normal
                             )
                         },
-                        selectedContentColor = LuxorColors.current.primary,
-                        unselectedContentColor = LuxorColors.current.onSurface.copy(alpha = 0.7f)
+                        selectedContentColor = LuxorColors.papyrusBeige,
+                        unselectedContentColor = LuxorColors.bronzeGold.copy(alpha = 0.7f)
                     )
                 }
             }
@@ -238,7 +272,7 @@ fun ChatScreen() {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
-                        containerColor = LuxorColors.current.primary.copy(alpha = 0.1f)
+                        containerColor = LuxorColors.papyrusBeige.copy(alpha = 0.1f)
                     ),
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                 ) {
@@ -283,7 +317,7 @@ fun ChatScreen() {
                             .fillMaxWidth()
                             .padding(vertical = 32.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = LuxorColors.current.surface
+                            containerColor = LuxorColors.bronzeGold
                         )
                     ) {
                         Column(
@@ -296,7 +330,7 @@ fun ChatScreen() {
                                 imageVector = Icons.Default.ChatBubbleOutline,
                                 contentDescription = null,
                                 modifier = Modifier.size(64.dp),
-                                tint = LuxorColors.current.onSurface.copy(alpha = 0.5f)
+                                tint = LuxorColors.bronzeGold.copy(alpha = 0.5f)
                             )
                             
                             Spacer(modifier = Modifier.height(16.dp))
@@ -304,7 +338,7 @@ fun ChatScreen() {
                             Text(
                                 text = "No conversations found",
                                 style = MaterialTheme.typography.titleLarge.copy(
-                                    color = LuxorColors.current.onSurface.copy(alpha = 0.7f)
+                                    color = LuxorColors.papyrusBeige.copy(alpha = 0.7f)
                                 ),
                                 textAlign = TextAlign.Center
                             )
@@ -314,7 +348,7 @@ fun ChatScreen() {
                             Text(
                                 text = "Start a conversation with a guide or join a travel group",
                                 style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = LuxorColors.current.onSurface.copy(alpha = 0.5f)
+                                    color = LuxorColors.papyrusBeige.copy(alpha = 0.5f)
                                 ),
                                 textAlign = TextAlign.Center
                             )
@@ -346,8 +380,8 @@ fun QuickActionButton(
         IconButton(
             onClick = onClick,
             colors = IconButtonDefaults.iconButtonColors(
-                containerColor = LuxorColors.current.primary.copy(alpha = 0.2f),
-                contentColor = LuxorColors.current.primary
+                containerColor = LuxorColors.hieroglyphBrown.copy(alpha = 0.2f),
+                contentColor = LuxorColors.hieroglyphBrown
             )
         ) {
             Icon(
@@ -362,7 +396,7 @@ fun QuickActionButton(
         Text(
             text = label,
             style = MaterialTheme.typography.labelSmall.copy(
-                color = LuxorColors.current.primary,
+                color = LuxorColors.hieroglyphBrown,
                 fontWeight = FontWeight.Medium
             ),
             textAlign = TextAlign.Center
@@ -395,8 +429,8 @@ fun ConversationCard(
         modifier = modifier,
         colors = CardDefaults.cardColors(
             containerColor = if (conversation.unreadCount > 0) 
-                LuxorColors.current.primary.copy(alpha = 0.05f) else 
-                LuxorColors.current.surface
+                LuxorColors.hieroglyphBrown.copy(alpha = 0.05f) else
+                LuxorColors.hieroglyphBrown
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
@@ -413,10 +447,10 @@ fun ConversationCard(
                     shape = CircleShape,
                     colors = CardDefaults.cardColors(
                         containerColor = when (conversation.type) {
-                            ChatType.GUIDE -> LuxorColors.current.primary.copy(alpha = 0.2f)
-                            ChatType.GROUP -> LuxorColors.current.secondary.copy(alpha = 0.2f)
-                            ChatType.SUPPORT -> LuxorColors.current.tertiary.copy(alpha = 0.2f)
-                            ChatType.COMMUNITY -> LuxorColors.current.outline.copy(alpha = 0.2f)
+                            ChatType.GUIDE -> LuxorColors.bronzeGold.copy(alpha = 0.2f)
+                            ChatType.GROUP -> LuxorColors.hieroglyphBrown.copy(alpha = 0.2f)
+                            ChatType.SUPPORT -> LuxorColors.luxorGold.copy(alpha = 0.2f)
+                            ChatType.COMMUNITY -> LuxorColors.deepGold.copy(alpha = 0.2f)
                         }
                     )
                 ) {
@@ -428,10 +462,10 @@ fun ConversationCard(
                             imageVector = conversation.type.icon,
                             contentDescription = null,
                             tint = when (conversation.type) {
-                                ChatType.GUIDE -> LuxorColors.current.primary
-                                ChatType.GROUP -> LuxorColors.current.secondary
-                                ChatType.SUPPORT -> LuxorColors.current.tertiary
-                                ChatType.COMMUNITY -> LuxorColors.current.outline
+                                ChatType.GUIDE -> LuxorColors.bronzeGold
+                                ChatType.GROUP -> LuxorColors.hieroglyphBrown
+                                ChatType.SUPPORT -> LuxorColors.luxorGold
+                                ChatType.COMMUNITY -> LuxorColors.deepGold
                             },
                             modifier = Modifier.size(24.dp)
                         )
@@ -446,7 +480,7 @@ fun ConversationCard(
                             .align(Alignment.BottomEnd),
                         shape = CircleShape,
                         colors = CardDefaults.cardColors(
-                            containerColor = LuxorColors.current.tertiary
+                            containerColor = LuxorColors.deepGold
                         )
                     ) {}
                 }
@@ -467,7 +501,7 @@ fun ConversationCard(
                         text = conversation.name,
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = if (conversation.unreadCount > 0) FontWeight.Bold else FontWeight.SemiBold,
-                            color = LuxorColors.current.onSurface
+                            color = LuxorColors.deepGold
                         ),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -477,9 +511,9 @@ fun ConversationCard(
                     Text(
                         text = timeText,
                         style = MaterialTheme.typography.labelSmall.copy(
-                            color = if (conversation.unreadCount > 0) 
-                                LuxorColors.current.primary else 
-                                LuxorColors.current.onSurface.copy(alpha = 0.6f),
+                            color = if (conversation.unreadCount > 0)
+                                LuxorColors.deepGold else
+                                LuxorColors.bronzeGold.copy(alpha = 0.6f),
                             fontWeight = if (conversation.unreadCount > 0) FontWeight.SemiBold else FontWeight.Normal
                         )
                     )
@@ -495,7 +529,7 @@ fun ConversationCard(
                     Text(
                         text = conversation.lastMessage,
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = LuxorColors.current.onSurface.copy(
+                            color = LuxorColors.deepGold.copy(
                                 alpha = if (conversation.unreadCount > 0) 0.9f else 0.7f
                             ),
                             fontWeight = if (conversation.unreadCount > 0) FontWeight.Medium else FontWeight.Normal
@@ -510,7 +544,7 @@ fun ConversationCard(
                             modifier = Modifier.size(20.dp),
                             shape = CircleShape,
                             colors = CardDefaults.cardColors(
-                                containerColor = LuxorColors.current.primary
+                                containerColor = LuxorColors.bronzeGold
                             )
                         ) {
                             Box(
@@ -520,7 +554,7 @@ fun ConversationCard(
                                 Text(
                                     text = if (conversation.unreadCount > 9) "9+" else conversation.unreadCount.toString(),
                                     style = MaterialTheme.typography.labelSmall.copy(
-                                        color = LuxorColors.current.onPrimary,
+                                        color = LuxorColors.deepGold,
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 10.sp
                                     )
@@ -536,10 +570,10 @@ fun ConversationCard(
                 Card(
                     colors = CardDefaults.cardColors(
                         containerColor = when (conversation.type) {
-                            ChatType.GUIDE -> LuxorColors.current.primary.copy(alpha = 0.1f)
-                            ChatType.GROUP -> LuxorColors.current.secondary.copy(alpha = 0.1f)
-                            ChatType.SUPPORT -> LuxorColors.current.tertiary.copy(alpha = 0.1f)
-                            ChatType.COMMUNITY -> LuxorColors.current.outline.copy(alpha = 0.1f)
+                            ChatType.GUIDE -> LuxorColors.luxorGold.copy(alpha = 0.1f)
+                            ChatType.GROUP -> LuxorColors.deepGold.copy(alpha = 0.1f)
+                            ChatType.SUPPORT -> LuxorColors.bronzeGold.copy(alpha = 0.1f)
+                            ChatType.COMMUNITY -> LuxorColors.papyrusBeige.copy(alpha = 0.1f)
                         }
                     )
                 ) {
@@ -548,10 +582,10 @@ fun ConversationCard(
                         modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
                         style = MaterialTheme.typography.labelSmall.copy(
                             color = when (conversation.type) {
-                                ChatType.GUIDE -> LuxorColors.current.primary
-                                ChatType.GROUP -> LuxorColors.current.secondary
-                                ChatType.SUPPORT -> LuxorColors.current.tertiary
-                                ChatType.COMMUNITY -> LuxorColors.current.outline
+                                ChatType.GUIDE -> LuxorColors.luxorGold
+                                ChatType.GROUP -> LuxorColors.deepGold
+                                ChatType.SUPPORT -> LuxorColors.bronzeGold
+                                ChatType.COMMUNITY -> LuxorColors.papyrusBeige
                             },
                             fontWeight = FontWeight.Medium
                         )

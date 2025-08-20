@@ -94,7 +94,7 @@ fun LuxorLogo(
                 brush = Brush.radialGradient(
                     colors = listOf(
                         LuxorColors.pureGold.copy(alpha = if (animated) glowIntensity else 1f),
-                        LuxorColors.egyptianGold.copy(alpha = if (animated) glowIntensity * 0.8f else 0.8f),
+                        LuxorColors.egyptianBlue.copy(alpha = if (animated) glowIntensity * 0.8f else 0.8f),
                         LuxorColors.pureGold.copy(alpha = if (animated) glowIntensity * 0.6f else 0.6f)
                     ),
                     radius = radius
@@ -238,7 +238,7 @@ private fun DrawScope.drawEgyptianPattern(center: Offset, radius: Float) {
             brush = Brush.linearGradient(
                 colors = listOf(
                     LuxorColors.pureGold,
-                    LuxorColors.egyptianGold
+                    LuxorColors.egyptianBlue
                 )
             ),
             start = Offset(startX, startY),

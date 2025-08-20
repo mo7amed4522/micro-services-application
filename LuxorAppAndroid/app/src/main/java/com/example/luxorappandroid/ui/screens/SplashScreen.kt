@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.luxorappandroid.ui.components.LuxorLogo
 import com.example.luxorappandroid.ui.components.LuxorParticles
+import com.example.luxorappandroid.ui.screens.LuxorLoadingIndicator
 import com.example.luxorappandroid.ui.theme.LuxorColors
 import kotlinx.coroutines.delay
 
@@ -74,13 +75,13 @@ fun SplashScreen(
     val backgroundBrush = Brush.radialGradient(
         colors = if (isDarkTheme) {
             listOf(
-                LuxorColors.Dark.surface,
+                LuxorColors.pureGold,
                 LuxorColors.Dark.background,
                 Color.Black
             )
         } else {
             listOf(
-                LuxorColors.Light.surface,
+                LuxorColors.deepGold,
                 LuxorColors.Light.background,
                 LuxorColors.papyrusBeige
             )
@@ -152,7 +153,7 @@ fun SplashScreen(
             Text(
                 text = "𓂀 𓈖 𓇯 𓂀",
                 fontSize = 24.sp,
-                color = LuxorColors.egyptianGold,
+                color = LuxorColors.egyptianBlue,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.alpha(subtitleAlpha)
             )
@@ -248,13 +249,13 @@ fun LuxorSplashWithBranding(
             listOf(
                 Color.Black,
                 LuxorColors.Dark.background,
-                LuxorColors.Dark.surface
+                LuxorColors.Dark.textPrimary
             )
         } else {
             listOf(
                 LuxorColors.papyrusBeige,
                 LuxorColors.Light.background,
-                LuxorColors.Light.surface
+                LuxorColors.Light.textPrimary
             )
         }
     )

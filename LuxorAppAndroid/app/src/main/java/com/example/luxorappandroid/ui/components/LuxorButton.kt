@@ -18,7 +18,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.luxorappandroid.ui.components.LuxorButton
 import com.example.luxorappandroid.ui.theme.LuxorColors
+
 
 enum class LuxorButtonStyle {
     PRIMARY,
@@ -45,13 +47,13 @@ fun LuxorButton(
             if (isDarkTheme) {
                 Triple(
                     LuxorColors.pureGold,
-                    LuxorColors.egyptianBlack,
+                    LuxorColors.egyptianBlue,
                     Color.Transparent
                 )
             } else {
                 Triple(
                     LuxorColors.pureGold,
-                    LuxorColors.egyptianBlack,
+                    LuxorColors.egyptianBlue,
                     Color.Transparent
                 )
             }
@@ -280,12 +282,12 @@ fun LuxorGradientButton(
     val gradientBrush = Brush.horizontalGradient(
         colors = listOf(
             LuxorColors.pureGold,
-            LuxorColors.egyptianGold,
+            LuxorColors.pureGold,
             LuxorColors.pureGold
         )
     )
     
-    val contentColor = LuxorColors.egyptianBlack
+    val contentColor = LuxorColors.egyptianBlue
     val finalContentColor = if (enabled) contentColor else contentColor.copy(alpha = 0.6f)
     
     Box(
@@ -296,7 +298,7 @@ fun LuxorGradientButton(
             .background(if (enabled) gradientBrush else Brush.horizontalGradient(
                 colors = listOf(
                     LuxorColors.pureGold.copy(alpha = 0.6f),
-                    LuxorColors.egyptianGold.copy(alpha = 0.6f),
+                    LuxorColors.luxorGold.copy(alpha = 0.6f),
                     LuxorColors.pureGold.copy(alpha = 0.6f)
                 )
             ))

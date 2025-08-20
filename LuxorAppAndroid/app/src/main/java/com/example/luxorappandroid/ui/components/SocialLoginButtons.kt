@@ -18,6 +18,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import com.example.luxorappandroid.ui.components.LuxorTextField
+import com.example.luxorappandroid.ui.components.LuxorEmailTextField
+import com.example.luxorappandroid.ui.components.LuxorPasswordTextField
+import com.example.luxorappandroid.ui.components.LuxorFullNameTextField
+import com.example.luxorappandroid.ui.components.LuxorPhoneTextField
+
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
