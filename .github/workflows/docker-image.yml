@@ -1,18 +1,31 @@
-name: Docker Image CI
+name: Docker Build
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      # 1. Checkout repository
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 2. Set up Docker (comes preinstalled on ubuntu-latest)
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      # 3. Build Docker image
+      - name: Build Docker image
+        run: |
+          # Make sure Dockerfile exists
+          if [ ! -f Dockerfile ]; then
+            echo "Dockerfile not found!"
+            exit 1
+          fi
+          
+          # Build with timestamp tag
+          docker build . --file Dockerfile --tag my-image-name:$(date +%s)
