@@ -1,31 +1,46 @@
-name: Docker Build
+name: Docker Compose Build
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repository
+      # 1️⃣ Checkout the repository
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # 2. Set up Docker (comes preinstalled on ubuntu-latest)
-      - name: Set up Docker
+      # 2️⃣ Set up Docker Buildx (supports multi-platform builds)
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # 3. Build Docker image
-      - name: Build Docker image
+      # 3️⃣ Login to Docker Hub (optional, if you want to push images)
+      # - name: Log in to Docker Hub
+      #   uses: docker/login-action@v2
+      #   with:
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 4️⃣ Debug: List files to verify Dockerfiles exist
+      - name: List repository files
+        run: ls -R
+
+      # 5️⃣ Build all services using Docker Compose
+      - name: Build Docker Compose services
         run: |
-          # Make sure Dockerfile exists
-          if [ ! -f Dockerfile ]; then
-            echo "Dockerfile not found!"
-            exit 1
-          fi
+          # Add a timestamp for unique image tagging
+          TIMESTAMP=$(date +%s)
           
-          # Build with timestamp tag
-          docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+          # Build all services defined in docker-compose.yml
+          docker compose -f docker-compose.yml build \
+            --build-arg TIMESTAMP=$TIMESTAMP
+          
+      # 6️⃣ Optional: Push images to Docker Hub (uncomment if needed)
+      # - name: Push Docker images
+      #   run: |
+      #     docker compose -f docker-compose.yml push
