@@ -120,15 +120,15 @@ fun SearchSection(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = if (isDarkMode) DarkColors.InputBackground else LightColors.SecondaryBackground,
+                    color = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground,
                     shape = RoundedCornerShape(16.dp)
                 )
                 .border(
                     width = 1.dp,
                     brush = Brush.horizontalGradient(
                         colors = listOf(
-                            LuxorTeal.copy(alpha = 0.3f),
-                            LuxorGold.copy(alpha = 0.3f)
+                            LuxorColors.Dark.accent.copy(alpha = 0.3f),
+                            LuxorColors.pureGold.copy(alpha = 0.3f)
                         )
                     ),
                     shape = RoundedCornerShape(16.dp)
@@ -139,7 +139,7 @@ fun SearchSection(
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
-                tint = LuxorTeal,
+                tint = LuxorColors.Dark.accent,
                 modifier = Modifier.size(18.dp)
             )
             
@@ -151,7 +151,7 @@ fun SearchSection(
                 placeholder = {
                     Text(
                         text = "Search amazing places...",
-                        color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                        color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
                     )
                 },
                 modifier = Modifier.weight(1f),
@@ -160,8 +160,8 @@ fun SearchSection(
                     unfocusedContainerColor = Color.Transparent,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
-                    cursorColor = LuxorTeal,
-                    textColor = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                    cursorColor = LuxorColors.Dark.accent,
+                    textColor = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                 ),
                 textStyle = MaterialTheme.typography.bodyMedium.copy(
                     fontWeight = FontWeight.Medium
@@ -175,7 +175,7 @@ fun SearchSection(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Clear",
-                        tint = LuxorTeal.copy(alpha = 0.6f)
+                        tint = LuxorColors.Dark.accent.copy(alpha = 0.6f)
                     )
                 }
             }
@@ -236,14 +236,14 @@ fun CategoryCard(
             .shadow(
                 elevation = if (isSelected) 8.dp else 0.dp,
                 shape = RoundedCornerShape(25.dp),
-                spotColor = if (isSelected) LuxorTeal.copy(alpha = 0.3f) else Color.Transparent
+                spotColor = if (isSelected) LuxorColors.Dark.accent.copy(alpha = 0.3f) else Color.Transparent
             ),
         shape = RoundedCornerShape(25.dp),
         colors = CardDefaults.cardColors(
             containerColor = if (isSelected) {
                 Color.Transparent
             } else {
-                if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground
+                if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground
             }
         )
     ) {
@@ -252,13 +252,13 @@ fun CategoryCard(
                 .background(
                     brush = if (isSelected) {
                         Brush.horizontalGradient(
-                            colors = listOf(LuxorTeal, LuxorGold)
+                            colors = listOf(LuxorColors.Dark.accent, LuxorColors.pureGold)
                         )
                     } else {
                         Brush.verticalGradient(
                             colors = listOf(
-                                if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground,
-                                if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground
+                                if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground,
+                                if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground
                             )
                         )
                     }
@@ -266,7 +266,7 @@ fun CategoryCard(
                 .border(
                     width = 1.dp,
                     color = if (isSelected) Color.Transparent else {
-                        if (isDarkMode) DarkColors.Border else LightColors.Border
+                        if (isDarkMode) LuxorColors.Dark.border else LuxorColors.Light.border
                     },
                     shape = RoundedCornerShape(25.dp)
                 )
@@ -276,7 +276,7 @@ fun CategoryCard(
             Text(
                 text = category,
                 color = if (isSelected) Color.White else {
-                    if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                    if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                 },
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
@@ -300,7 +300,7 @@ fun DynamicTextSection(
                 text = if (selectedCategory == "All") "Discover" else "Explore",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
-                color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
             )
             
             Spacer(modifier = Modifier.width(8.dp))
@@ -309,7 +309,7 @@ fun DynamicTextSection(
                 text = if (selectedCategory == "All") "Everything" else selectedCategory,
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
-                color = LuxorTeal
+                color = LuxorColors.Dark.accent
             )
         }
         
@@ -319,7 +319,7 @@ fun DynamicTextSection(
             text = getDescriptionText(selectedCategory),
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
-            color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary,
+            color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
             maxLines = 2
         )
     }
@@ -375,11 +375,11 @@ fun PlaceCard(
             .shadow(
                 elevation = 8.dp,
                 shape = RoundedCornerShape(16.dp),
-                spotColor = if (isDarkMode) DarkColors.Shadow else LightColors.Shadow
+                spotColor = if (isDarkMode) LuxorColors.Dark.shadow else LuxorColors.Light.shadow
             ),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground
+            containerColor = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground
         )
     ) {
         Column {
@@ -445,7 +445,7 @@ fun PlaceCard(
                             text = "${place.likes}",
                             fontSize = 12.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                            color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
                         )
                     }
                     
@@ -455,7 +455,7 @@ fun PlaceCard(
                         Icon(
                             imageVector = Icons.Filled.Star,
                             contentDescription = "Rating",
-                            tint = LuxorGold,
+                            tint = LuxorColors.pureGold,
                             modifier = Modifier.size(10.dp)
                         )
                         
@@ -465,7 +465,7 @@ fun PlaceCard(
                             text = "%.1f".format(place.rating),
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Medium,
-                            color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                            color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
                         )
                     }
                 }
@@ -477,7 +477,7 @@ fun PlaceCard(
                     text = place.name,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary,
+                    color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary,
                     maxLines = 2
                 )
                 
@@ -490,7 +490,7 @@ fun PlaceCard(
                     Icon(
                         imageVector = Icons.Default.LocationOn,
                         contentDescription = "Location",
-                        tint = LuxorTeal,
+                        tint = LuxorColors.Dark.accent,
                         modifier = Modifier.size(10.dp)
                     )
                     
@@ -500,7 +500,7 @@ fun PlaceCard(
                         text = place.location,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
-                        color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary,
+                        color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
                         maxLines = 1
                     )
                 }

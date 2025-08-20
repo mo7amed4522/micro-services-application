@@ -116,11 +116,11 @@ fun AppBarView(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground
+                color = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground
             )
             .shadow(
                 elevation = 8.dp,
-                spotColor = if (isDarkMode) DarkColors.Shadow else LightColors.Shadow
+                spotColor = if (isDarkMode) LuxorColors.Dark.shadow else LuxorColors.Light.shadow
             )
             .padding(horizontal = 20.dp, vertical = 16.dp)
     ) {
@@ -138,7 +138,7 @@ fun AppBarView(
                         .size(40.dp)
                         .background(
                             brush = Brush.linearGradient(
-                                colors = listOf(LuxorTeal, LuxorGold)
+                                colors = listOf(LuxorColors.Dark.accent, LuxorColors.pureGold)
                             ),
                             shape = androidx.compose.foundation.shape.CircleShape
                         ),
@@ -158,7 +158,7 @@ fun AppBarView(
                     text = tabTitles[selectedTab],
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                    color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                 )
             }
             
@@ -171,19 +171,19 @@ fun AppBarView(
                     modifier = Modifier
                         .size(40.dp)
                         .background(
-                            color = if (isDarkMode) DarkColors.CardBackground else Color.White,
+                            color = if (isDarkMode) LuxorColors.Dark.cardBackground else Color.White,
                             shape = androidx.compose.foundation.shape.CircleShape
                         )
                         .shadow(
                             elevation = 4.dp,
                             shape = androidx.compose.foundation.shape.CircleShape,
-                            spotColor = if (isDarkMode) DarkColors.Shadow else LightColors.Shadow
+                            spotColor = if (isDarkMode) LuxorColors.Dark.shadow else LuxorColors.Light.shadow
                         )
                 ) {
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = "Search",
-                        tint = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                        tint = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                     )
                 }
                 
@@ -192,19 +192,19 @@ fun AppBarView(
                     modifier = Modifier
                         .size(40.dp)
                         .background(
-                            color = if (isDarkMode) DarkColors.CardBackground else Color.White,
+                            color = if (isDarkMode) LuxorColors.Dark.cardBackground else Color.White,
                             shape = androidx.compose.foundation.shape.CircleShape
                         )
                         .shadow(
                             elevation = 4.dp,
                             shape = androidx.compose.foundation.shape.CircleShape,
-                            spotColor = if (isDarkMode) DarkColors.Shadow else LightColors.Shadow
+                            spotColor = if (isDarkMode) LuxorColors.Dark.shadow else LuxorColors.Light.shadow
                         )
                 ) {
                     Icon(
                         imageVector = Icons.Default.Notifications,
                         contentDescription = "Notifications",
-                        tint = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                        tint = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                     )
                 }
             }
@@ -221,12 +221,12 @@ fun HomeContentView(
     modifier: Modifier = Modifier,
     isDarkMode: Boolean = false
 ) {
-    val colors = if (isDarkMode) DarkColors else LightColors
+    val colors = if (isDarkMode) LuxorColors.Dark else LuxorColors.Light
     
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .background(colors.Background),
+            .background(colors.background),
         contentPadding = PaddingValues(bottom = 100.dp) // Space for bottom nav
     ) {
         items(SampleData.samplePosts) { post ->
@@ -247,12 +247,12 @@ fun PlacesView(
     modifier: Modifier = Modifier,
     isDarkMode: Boolean = false
 ) {
-    val colors = if (isDarkMode) DarkColors else LightColors
+    val colors = if (isDarkMode) LuxorColors.Dark else LuxorColors.Light
     
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(colors.Background),
+            .background(colors.background),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -262,19 +262,19 @@ fun PlacesView(
             Icon(
                 imageVector = Icons.Default.LocationOn,
                 contentDescription = "Places",
-                tint = LuxorTeal,
+                tint = LuxorColors.Dark.accent,
                 modifier = Modifier.size(64.dp)
             )
             Text(
                 text = "Places",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = colors.TextPrimary
+                color = colors.textPrimary
             )
             Text(
                 text = "Coming soon...",
                 fontSize = 16.sp,
-                color = colors.TextSecondary
+                color = colors.textSecondary
             )
         }
     }
@@ -305,19 +305,19 @@ fun ChatView(
             Icon(
                 imageVector = Icons.Default.Chat,
                 contentDescription = "Chat",
-                tint = LuxorTeal,
+                tint = LuxorColors.Dark.accent,
                 modifier = Modifier.size(64.dp)
             )
             Text(
                 text = "Chat",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = colors.TextPrimary
+                color = colors.textPrimary
             )
             Text(
                 text = "Coming soon...",
                 fontSize = 16.sp,
-                color = colors.TextSecondary
+                color = colors.textSecondary
             )
         }
     }
@@ -333,12 +333,12 @@ fun SettingsView(
     isDarkMode: Boolean = false,
     onThemeToggle: () -> Unit = {}
 ) {
-    val colors = if (isDarkMode) DarkColors else LightColors
+    val colors = if (isDarkMode) LuxorColors.Dark else LuxorColors.Light
     
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(colors.Background),
+            .background(colors.background),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -348,19 +348,19 @@ fun SettingsView(
             Icon(
                 imageVector = Icons.Default.Settings,
                 contentDescription = "Settings",
-                tint = LuxorTeal,
+                tint = LuxorColors.Dark.accent,
                 modifier = Modifier.size(64.dp)
             )
             Text(
                 text = "Settings",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = colors.TextPrimary
+                color = colors.textPrimary
             )
             Text(
                 text = "Coming soon...",
                 fontSize = 16.sp,
-                color = colors.TextSecondary
+                color = colors.textSecondary
             )
         }
     }

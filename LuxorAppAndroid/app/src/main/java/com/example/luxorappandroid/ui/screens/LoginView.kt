@@ -20,20 +20,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.luxorappandroid.ui.components.*
 import com.example.luxorappandroid.ui.theme.*
+import com.example.luxorappandroid.data.LanguageManager
 import kotlinx.coroutines.launch
 
 @Composable
 fun LoginView(
     onLoginSuccess: () -> Unit,
+    themeManager: ThemeManager,
+    languageManager: LanguageManager,
     modifier: Modifier = Modifier,
-    isDarkMode: Boolean = false,
     onNavigateToRegister: () -> Unit = {}
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
     
-    val colors = if (isDarkMode) DarkColors else LightColors
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
     
     val isFormValid = email.isNotEmpty() && password.isNotEmpty() &&
             isValidEmail(email) && isValidPassword(password)
@@ -43,10 +45,10 @@ fun LoginView(
             .fillMaxSize()
             .background(
                 brush = Brush.linearGradient(
-                    colors = if (isDarkMode) {
-                        listOf(colors.Background, colors.SecondaryBackground)
+                    colors = if (themeManager.isDarkMode) {
+                        listOf(colors.background, colors.secondaryBackground)
                     } else {
-                        listOf(colors.Background, LuxorTeal.copy(alpha = 0.05f))
+                        listOf(colors.background, colors.primary.copy(alpha = 0.05f))
                     }
                 )
             )
@@ -59,24 +61,24 @@ fun LoginView(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            LuxorLogo(size = 100f)
+            LuxorLogo(size = 100f, themeManager = themeManager)
             
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
-                    text = "Welcome Back",
+                    text = LocalizedStrings.welcome(languageManager.currentLanguage),
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
-                    color = colors.TextPrimary
+                    color = colors.textPrimary
                 )
                 
                 Text(
-                    text = "Sign in to your account",
+                    text = LocalizedStrings.signIn(languageManager.currentLanguage),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
-                    color = colors.TextSecondary
+                    color = colors.textSecondary
                 )
             }
         }
@@ -93,13 +95,15 @@ fun LoginView(
             LuxorEmailTextField(
                 email = email,
                 onEmailChange = { email = it },
-                isDarkMode = isDarkMode
+                themeManager = themeManager,
+                languageManager = languageManager
             )
             
             LuxorPasswordTextField(
                 password = password,
                 onPasswordChange = { password = it },
-                isDarkMode = isDarkMode
+                themeManager = themeManager,
+                languageManager = languageManager
             )
             
             // Forgot password
@@ -111,10 +115,10 @@ fun LoginView(
                     onClick = { /* Forgot password */ }
                 ) {
                     Text(
-                        text = "Forgot Password?",
+                        text = LocalizedStrings.forgotPassword(languageManager.currentLanguage),
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
-                        color = LuxorTeal
+                        color = colors.primary
                     )
                 }
             }
@@ -145,7 +149,7 @@ fun LoginView(
                         .clip(RoundedCornerShape(12.dp))
                         .background(
                             brush = if (isFormValid) {
-                                Brush.linearGradient(listOf(LuxorTeal, LuxorGold))
+                                Brush.linearGradient(listOf(colors.primary, colors.secondary))
                             } else {
                                 Brush.linearGradient(
                                     listOf(
@@ -164,7 +168,7 @@ fun LoginView(
                         )
                     } else {
                         Text(
-                            text = "Sign In",
+                            text = LocalizedStrings.signIn(languageManager.currentLanguage),
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.White
@@ -180,32 +184,32 @@ fun LoginView(
             ) {
                 Divider(
                     modifier = Modifier.weight(1f),
-                    color = colors.TextSecondary.copy(alpha = 0.3f)
+                    color = colors.textSecondary.copy(alpha = 0.3f)
                 )
                 
                 Text(
                     text = "OR",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
-                    color = colors.TextSecondary,
+                    color = colors.textSecondary,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 
                 Divider(
                     modifier = Modifier.weight(1f),
-                    color = colors.TextSecondary.copy(alpha = 0.3f)
+                    color = colors.textSecondary.copy(alpha = 0.3f)
                 )
             }
             
             // Social login buttons
-            SocialLoginButtons(isDarkMode = isDarkMode)
+            SocialLoginButtons(themeManager = themeManager, languageManager = languageManager)
             
             // Create account section
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Divider(
-                    color = colors.TextSecondary.copy(alpha = 0.2f),
+                    color = colors.textSecondary.copy(alpha = 0.2f),
                     modifier = Modifier.padding(horizontal = 20.dp)
                 )
                 
@@ -225,15 +229,15 @@ fun LoginView(
                     ) {
                         Icon(
                             imageVector = Icons.Default.PersonAdd,
-                            contentDescription = "Create account",
-                            tint = colors.TextPrimary,
+                            contentDescription = LocalizedStrings.signUp(languageManager.currentLanguage),
+                            tint = colors.textPrimary,
                             modifier = Modifier.size(16.dp)
                         )
                         Text(
-                            text = "Create New Account",
+                            text = LocalizedStrings.signUp(languageManager.currentLanguage),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = colors.TextPrimary
+                            color = colors.textPrimary
                         )
                     }
                 }
@@ -244,9 +248,9 @@ fun LoginView(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = "By creating an account, you agree to our",
+                        text = LocalizedStrings.termsAgreement(languageManager.currentLanguage),
                         fontSize = 12.sp,
-                        color = colors.TextSecondary,
+                        color = colors.textSecondary,
                         textAlign = TextAlign.Center
                     )
                     
@@ -257,27 +261,27 @@ fun LoginView(
                             onClick = { /* Show terms */ }
                         ) {
                             Text(
-                                text = "Terms of Service",
+                                text = LocalizedStrings.termsOfService(languageManager.currentLanguage),
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Medium,
-                                color = LuxorTeal
+                                color = colors.primary
                             )
                         }
                         
                         Text(
-                            text = "and",
+                            text = LocalizedStrings.and(languageManager.currentLanguage),
                             fontSize = 12.sp,
-                            color = colors.TextSecondary
+                            color = colors.textSecondary
                         )
                         
                         TextButton(
                             onClick = { /* Show privacy policy */ }
                         ) {
                             Text(
-                                text = "Privacy Policy",
+                                text = LocalizedStrings.privacyPolicy(languageManager.currentLanguage),
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Medium,
-                                color = LuxorTeal
+                                color = colors.primary
                             )
                         }
                     }

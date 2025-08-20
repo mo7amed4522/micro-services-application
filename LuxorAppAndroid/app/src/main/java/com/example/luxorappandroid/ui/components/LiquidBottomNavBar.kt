@@ -22,12 +22,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.luxorappandroid.ui.theme.*
-import com.google.ai.client.generativeai.Chat
-import com.google.firebase.annotations.concurrent.Background
 
 data class TabItem(
     val icon: androidx.compose.ui.graphics.vector.ImageVector,
-    val title: String,
+    val titleKey: String,
     val index: Int
 )
 
@@ -35,16 +33,17 @@ data class TabItem(
 fun LiquidBottomNavBar(
     selectedTab: Int,
     onTabSelected: (Int) -> Unit,
-    modifier: Modifier = Modifier,
-    isDarkMode: Boolean = false
+    themeManager: ThemeManager,
+    languageManager: LanguageManager,
+    modifier: Modifier = Modifier
 ) {
-    val colors = if (isDarkMode) DarkColors else LightColors
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
     
     val tabs = listOf(
-        TabItem(Icons.Default.Home, "Home", 0),
-        TabItem(Icons.Default.LocationOn, "Places", 1),
-        TabItem(Icons.Default.Chat, "Chat", 2),
-        TabItem(Icons.Default.Settings, "Settings", 3)
+        TabItem(Icons.Default.Home, "home", 0),
+        TabItem(Icons.Default.LocationOn, "places", 1),
+        TabItem(Icons.Default.Chat, "chat", 2),
+        TabItem(Icons.Default.Settings, "settings", 3)
     )
     
     Row(
@@ -56,8 +55,8 @@ fun LiquidBottomNavBar(
             .background(
                 brush = Brush.linearGradient(
                     colors = listOf(
-                        colors.Background.copy(alpha = 0.1f),
-                        colors.Background.copy(alpha = 0.1f)
+                        colors.background.copy(alpha = 0.1f),
+                        colors.background.copy(alpha = 0.1f)
                     )
                 )
             )
@@ -65,8 +64,8 @@ fun LiquidBottomNavBar(
                 width = 0.5.dp,
                 brush = Brush.linearGradient(
                     colors = listOf(
-                        colors.Border.copy(alpha = 0.1f),
-                        colors.Border.copy(alpha = 0.1f)
+                        colors.border.copy(alpha = 0.1f),
+                        colors.border.copy(alpha = 0.1f)
                     )
                 ),
                 shape = RoundedCornerShape(30.dp)
@@ -79,7 +78,8 @@ fun LiquidBottomNavBar(
                 tab = tab,
                 isSelected = selectedTab == tab.index,
                 onClick = { onTabSelected(tab.index) },
-                isDarkMode = isDarkMode
+                themeManager = themeManager,
+                languageManager = languageManager
             )
         }
     }
@@ -90,15 +90,16 @@ private fun TabButton(
     tab: TabItem,
     isSelected: Boolean,
     onClick: () -> Unit,
-    isDarkMode: Boolean,
+    themeManager: ThemeManager,
+    languageManager: LanguageManager,
     modifier: Modifier = Modifier
 ) {
-    val colors = if (isDarkMode) DarkColors else LightColors
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
     
     val iconColor = if (isSelected) {
         Color.White
     } else {
-        colors.TextSecondary
+        colors.textSecondary
     }
     
     Box(
@@ -115,7 +116,7 @@ private fun TabButton(
                     .clip(CircleShape)
                     .background(
                         brush = Brush.linearGradient(
-                            colors = listOf(LuxorTeal, LuxorGold)
+                            colors = listOf(LuxorColors.luxorTeal, LuxorColors.luxorGold)
                         )
                     )
                     .scale(
@@ -134,7 +135,13 @@ private fun TabButton(
         // Icon
         Icon(
             imageVector = tab.icon,
-            contentDescription = tab.title,
+            contentDescription = when (tab.titleKey) {
+                "home" -> LocalizedStrings.home(languageManager.currentLanguage)
+                "places" -> LocalizedStrings.places(languageManager.currentLanguage)
+                "chat" -> LocalizedStrings.chat(languageManager.currentLanguage)
+                "settings" -> LocalizedStrings.settings(languageManager.currentLanguage)
+                else -> tab.titleKey
+            },
             tint = iconColor,
             modifier = Modifier
                 .size(if (isSelected) 18.dp else 20.dp)
@@ -153,7 +160,13 @@ private fun TabButton(
         // Text overlay for selected state
         if (isSelected) {
             Text(
-                text = tab.title,
+                text = when (tab.titleKey) {
+                    "home" -> LocalizedStrings.home(languageManager.currentLanguage)
+                    "places" -> LocalizedStrings.places(languageManager.currentLanguage)
+                    "chat" -> LocalizedStrings.chat(languageManager.currentLanguage)
+                    "settings" -> LocalizedStrings.settings(languageManager.currentLanguage)
+                    else -> tab.titleKey
+                },
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,

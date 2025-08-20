@@ -18,13 +18,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.luxorappandroid.ui.theme.*
+import com.example.luxorappandroid.data.ThemeManager
+import com.example.luxorappandroid.data.LanguageManager
 
 @Composable
 fun SocialLoginButtons(
     modifier: Modifier = Modifier,
-    isDarkMode: Boolean = false
+    themeManager: ThemeManager,
+    languageManager: LanguageManager
 ) {
-    val colors = if (isDarkMode) DarkColors else LightColors
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
     
     Column(
         modifier = modifier,
@@ -32,10 +35,10 @@ fun SocialLoginButtons(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Or continue with",
+            text = LocalizedStrings.orContinueWith(languageManager.currentLanguage),
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
-            color = colors.TextSecondary
+            color = colors.textSecondary
         )
         
         Row(
@@ -43,23 +46,23 @@ fun SocialLoginButtons(
         ) {
             SocialButton(
                 icon = Icons.Default.Apple,
-                color = if (isDarkMode) Color.White else Color.Black,
+                color = if (themeManager.isDarkMode) Color.White else Color.Black,
                 onClick = { /* Apple Sign In */ },
-                isDarkMode = isDarkMode
+                themeManager = themeManager
             )
             
             SocialButton(
                 icon = Icons.Default.Language,
                 color = Color.Red,
                 onClick = { /* Google Sign In */ },
-                isDarkMode = isDarkMode
+                themeManager = themeManager
             )
             
             SocialButton(
                 icon = Icons.Default.Facebook,
                 color = Color.Blue,
                 onClick = { /* Facebook Sign In */ },
-                isDarkMode = isDarkMode
+                themeManager = themeManager
             )
         }
     }
@@ -70,10 +73,10 @@ private fun SocialButton(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     color: Color,
     onClick: () -> Unit,
-    isDarkMode: Boolean,
+    themeManager: ThemeManager,
     modifier: Modifier = Modifier
 ) {
-    val colors = if (isDarkMode) DarkColors else LightColors
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
     
     Box(
         modifier = modifier
@@ -81,7 +84,7 @@ private fun SocialButton(
             .clip(CircleShape)
             .background(
                 brush = Brush.linearGradient(
-                    colors = listOf(colors.CardBackground, colors.CardBackground)
+                    colors = listOf(colors.cardBackground, colors.cardBackground)
                 )
             )
             .clickable { onClick() },

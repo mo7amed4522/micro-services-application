@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.luxorappandroid.data.SampleData
+import com.example.luxorappandroid.ui.theme.ThemeManager
+import com.example.luxorappandroid.ui.theme.LanguageManager
 import com.example.luxorappandroid.ui.theme.*
 
 @Composable
@@ -30,11 +32,12 @@ fun SettingsView(
     isAppBarVisible: MutableState<Boolean>,
     lastScrollOffset: MutableState<Float>,
     isScrolling: MutableState<Boolean>,
-    isDarkMode: Boolean,
-    onThemeToggle: () -> Unit
+    themeManager: ThemeManager,
+    languageManager: LanguageManager
 ) {
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
     var notificationsEnabled by remember { mutableStateOf(true) }
-    var darkModeEnabled by remember { mutableStateOf(isDarkMode) }
+    var darkModeEnabled by remember { mutableStateOf(themeManager.isDarkMode) }
     var locationEnabled by remember { mutableStateOf(true) }
     var biometricEnabled by remember { mutableStateOf(false) }
     var autoPlayVideos by remember { mutableStateOf(true) }
@@ -51,21 +54,21 @@ fun SettingsView(
     ) {
         item {
             // Header Section
-            HeaderSection(isDarkMode = isDarkMode)
+            HeaderSection(themeManager.isDarkMode)
         }
         
         item {
             // Account Section
             SettingsSection(
-                title = "Account",
-                isDarkMode = isDarkMode
+                title = LocalizedStrings.account(languageManager.currentLanguage),
+                isDarkMode = themeManager.isDarkMode
             ) {
                 SettingsRow(
                     icon = Icons.Default.Person,
-                    title = "Edit Profile",
-                    subtitle = "Update your personal information",
+                    title = LocalizedStrings.editProfile(languageManager.currentLanguage),
+                    subtitle = LocalizedStrings.updatePersonalInfo(languageManager.currentLanguage),
                     onClick = { /* Edit Profile */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -73,7 +76,7 @@ fun SettingsView(
                     title = "Notifications",
                     subtitle = "Manage your notification preferences",
                     onClick = { /* Notifications */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -81,7 +84,7 @@ fun SettingsView(
                     title = "Privacy",
                     subtitle = "Control your privacy settings",
                     onClick = { /* Privacy */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -89,7 +92,7 @@ fun SettingsView(
                     title = "Payment Methods",
                     subtitle = "Manage your payment options",
                     onClick = { /* Payment Methods */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
             }
         }
@@ -98,7 +101,7 @@ fun SettingsView(
             // Preferences Section
             SettingsSection(
                 title = "Preferences",
-                isDarkMode = isDarkMode
+                isDarkMode = themeManager.isDarkMode
             ) {
                 SettingsToggleRow(
                     icon = Icons.Outlined.MoreVert,
@@ -107,9 +110,9 @@ fun SettingsView(
                     isOn = darkModeEnabled,
                     onToggle = {
                         darkModeEnabled = !darkModeEnabled
-                        onThemeToggle()
+                        themeManager.toggleTheme()
                     },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsToggleRow(
@@ -118,7 +121,7 @@ fun SettingsView(
                     subtitle = "Allow access to your location",
                     isOn = locationEnabled,
                     onToggle = { locationEnabled = !locationEnabled },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsToggleRow(
@@ -127,7 +130,7 @@ fun SettingsView(
                     subtitle = "Use Face ID or Touch ID to sign in",
                     isOn = biometricEnabled,
                     onToggle = { biometricEnabled = !biometricEnabled },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsPickerRow(
@@ -137,7 +140,7 @@ fun SettingsView(
                     selection = selectedLanguage,
                     onSelectionChange = { selectedLanguage = it },
                     onShowPicker = { showLanguagePicker = true },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsPickerRow(
@@ -147,7 +150,7 @@ fun SettingsView(
                     selection = selectedCurrency,
                     onSelectionChange = { selectedCurrency = it },
                     onShowPicker = { showCurrencyPicker = true },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
             }
         }
@@ -156,14 +159,14 @@ fun SettingsView(
             // Privacy & Security Section
             SettingsSection(
                 title = "Privacy & Security",
-                isDarkMode = isDarkMode
+                isDarkMode = themeManager.isDarkMode
             ) {
                 SettingsRow(
                     icon = Icons.Default.Verified,
                     title = "Two-Factor Authentication",
                     subtitle = "Add an extra layer of security",
                     onClick = { /* 2FA */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -171,7 +174,7 @@ fun SettingsView(
                     title = "Change Password",
                     subtitle = "Update your account password",
                     onClick = { /* Change Password */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -179,7 +182,7 @@ fun SettingsView(
                     title = "Account Privacy",
                     subtitle = "Control who can see your profile",
                     onClick = { /* Account Privacy */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -187,7 +190,7 @@ fun SettingsView(
                     title = "Delete Account",
                     subtitle = "Permanently delete your account",
                     onClick = { /* Delete Account */ },
-                    isDarkMode = isDarkMode,
+                    isDarkMode = themeManager.isDarkMode,
                     textColor = Color.Red
                 )
             }
@@ -197,7 +200,7 @@ fun SettingsView(
             // App Settings Section
             SettingsSection(
                 title = "App Settings",
-                isDarkMode = isDarkMode
+                isDarkMode = themeManager.isDarkMode
             ) {
                 SettingsToggleRow(
                     icon = Icons.Default.PlayArrow,
@@ -205,7 +208,7 @@ fun SettingsView(
                     subtitle = "Automatically play videos in feed",
                     isOn = autoPlayVideos,
                     onToggle = { autoPlayVideos = !autoPlayVideos },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsToggleRow(
@@ -214,7 +217,7 @@ fun SettingsView(
                     subtitle = "Reduce data usage",
                     isOn = dataSaver,
                     onToggle = { dataSaver = !dataSaver },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -222,7 +225,7 @@ fun SettingsView(
                     title = "Check for Updates",
                     subtitle = "Current version: 1.0.0",
                     onClick = { /* Check Updates */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -230,7 +233,7 @@ fun SettingsView(
                     title = "Terms of Service",
                     subtitle = "Read our terms and conditions",
                     onClick = { /* Terms */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -238,7 +241,7 @@ fun SettingsView(
                     title = "Privacy Policy",
                     subtitle = "Learn about data collection",
                     onClick = { /* Privacy Policy */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
             }
         }
@@ -247,14 +250,14 @@ fun SettingsView(
             // Support Section
             SettingsSection(
                 title = "Support",
-                isDarkMode = isDarkMode
+                isDarkMode = themeManager.isDarkMode
             ) {
                 SettingsRow(
                     icon = Icons.Default.Help,
                     title = "Help Center",
                     subtitle = "Get help and find answers",
                     onClick = { /* Help Center */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -262,7 +265,7 @@ fun SettingsView(
                     title = "Contact Support",
                     subtitle = "Reach out to our support team",
                     onClick = { /* Contact Support */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -270,7 +273,7 @@ fun SettingsView(
                     title = "Rate App",
                     subtitle = "Share your feedback",
                     onClick = { /* Rate App */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
                 
                 SettingsRow(
@@ -278,7 +281,7 @@ fun SettingsView(
                     title = "Share App",
                     subtitle = "Tell friends about Luxor",
                     onClick = { /* Share App */ },
-                    isDarkMode = isDarkMode
+                    isDarkMode = themeManager.isDarkMode
                 )
             }
         }
@@ -296,7 +299,7 @@ fun SettingsView(
             selectedOption = selectedLanguage,
             onOptionSelected = { selectedLanguage = it },
             onDismiss = { showLanguagePicker = false },
-            isDarkMode = isDarkMode
+            isDarkMode = themeManager.isDarkMode
         )
     }
 
@@ -308,7 +311,7 @@ fun SettingsView(
             selectedOption = selectedCurrency,
             onOptionSelected = { selectedCurrency = it },
             onDismiss = { showCurrencyPicker = false },
-            isDarkMode = isDarkMode
+            isDarkMode = themeManager.isDarkMode
         )
     }
 }
@@ -327,8 +330,8 @@ fun HeaderSection(isDarkMode: Boolean) {
                 .background(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            LuxorTeal.copy(alpha = 0.2f),
-                            LuxorGold.copy(alpha = 0.2f)
+                            (if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent).copy(alpha = 0.2f),
+                            (if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent).copy(alpha = 0.2f)
                         )
                     ),
                     shape = CircleShape
@@ -338,7 +341,7 @@ fun HeaderSection(isDarkMode: Boolean) {
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = "Profile",
-                tint = LuxorTeal,
+                tint = if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent,
                 modifier = Modifier.size(50.dp)
             )
         }
@@ -349,14 +352,14 @@ fun HeaderSection(isDarkMode: Boolean) {
             text = "John Doe",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+            color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
         )
         
         Text(
             text = "john.doe@example.com",
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
-            color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+            color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
         )
     }
 }
@@ -374,7 +377,7 @@ fun SettingsSection(
             text = title,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
-            color = LuxorTeal,
+            color = if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent,
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp)
         )
         
@@ -384,11 +387,11 @@ fun SettingsSection(
                 .shadow(
                     elevation = 8.dp,
                     shape = RoundedCornerShape(16.dp),
-                    spotColor = if (isDarkMode) DarkColors.Shadow else LightColors.Shadow
+                    spotColor = if (isDarkMode) LuxorColors.Dark.shadow else LuxorColors.Light.shadow
                 ),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(
-                containerColor = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground
+                containerColor = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground
             )
         ) {
             content()
@@ -416,7 +419,7 @@ fun SettingsRow(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = LuxorTeal.copy(alpha = 0.1f),
+                    color = (if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent).copy(alpha = 0.1f),
                     shape = CircleShape
                 ),
             contentAlignment = Alignment.Center
@@ -424,7 +427,7 @@ fun SettingsRow(
             Icon(
                 imageVector = icon,
                 contentDescription = title,
-                tint = LuxorTeal,
+                tint = if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent,
                 modifier = Modifier.size(18.dp)
             )
         }
@@ -439,7 +442,7 @@ fun SettingsRow(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = if (textColor != Color.Unspecified) textColor else {
-                    if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                    if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                 }
             )
             
@@ -447,20 +450,20 @@ fun SettingsRow(
                 text = subtitle,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
             )
         }
         
         Icon(
             imageVector = Icons.Default.ChevronRight,
             contentDescription = "Navigate",
-            tint = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary,
+            tint = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
             modifier = Modifier.size(14.dp)
         )
     }
     
     Divider(
-        color = if (isDarkMode) DarkColors.Border else Color.Gray.copy(alpha = 0.1f),
+        color = if (isDarkMode) LuxorColors.Dark.border else LuxorColors.Light.border,
         thickness = 1.dp,
         modifier = Modifier.padding(horizontal = 16.dp)
     )
@@ -485,7 +488,7 @@ fun SettingsToggleRow(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = LuxorTeal.copy(alpha = 0.1f),
+                    color = (if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent).copy(alpha = 0.1f),
                     shape = CircleShape
                 ),
             contentAlignment = Alignment.Center
@@ -493,7 +496,7 @@ fun SettingsToggleRow(
             Icon(
                 imageVector = icon,
                 contentDescription = title,
-                tint = LuxorTeal,
+                tint = if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent,
                 modifier = Modifier.size(18.dp)
             )
         }
@@ -507,14 +510,14 @@ fun SettingsToggleRow(
                 text = title,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
             )
             
             Text(
                 text = subtitle,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
             )
         }
         
@@ -523,7 +526,7 @@ fun SettingsToggleRow(
             onCheckedChange = { onToggle() },
             colors = SwitchDefaults.colors(
                 checkedThumbColor = Color.White,
-                checkedTrackColor = LuxorTeal,
+                checkedTrackColor = if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent,
                 uncheckedThumbColor = Color.White,
                 uncheckedTrackColor = Color.Gray
             )
@@ -531,7 +534,7 @@ fun SettingsToggleRow(
     }
     
     Divider(
-        color = if (isDarkMode) DarkColors.Border else Color.Gray.copy(alpha = 0.1f),
+        color = if (isDarkMode) LuxorColors.Dark.border else LuxorColors.Light.border,
         thickness = 1.dp,
         modifier = Modifier.padding(horizontal = 16.dp)
     )
@@ -558,7 +561,7 @@ fun SettingsPickerRow(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = LuxorTeal.copy(alpha = 0.1f),
+                    color = (if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent).copy(alpha = 0.1f),
                     shape = CircleShape
                 ),
             contentAlignment = Alignment.Center
@@ -566,7 +569,7 @@ fun SettingsPickerRow(
             Icon(
                 imageVector = icon,
                 contentDescription = title,
-                tint = LuxorTeal,
+                tint = if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent,
                 modifier = Modifier.size(18.dp)
             )
         }
@@ -580,14 +583,14 @@ fun SettingsPickerRow(
                 text = title,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
             )
             
             Text(
                 text = subtitle,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
             )
         }
         
@@ -598,7 +601,7 @@ fun SettingsPickerRow(
                 text = selection,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = LuxorTeal
+                color = if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent
             )
             
             Spacer(modifier = Modifier.width(8.dp))
@@ -606,14 +609,14 @@ fun SettingsPickerRow(
             Icon(
                 imageVector = Icons.Default.ChevronRight,
                 contentDescription = "Select",
-                tint = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary,
+                tint = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
                 modifier = Modifier.size(14.dp)
             )
         }
     }
     
     Divider(
-        color = if (isDarkMode) DarkColors.Border else Color.Gray.copy(alpha = 0.1f),
+        color = if (isDarkMode) LuxorColors.Dark.border else LuxorColors.Light.border,
         thickness = 1.dp,
         modifier = Modifier.padding(horizontal = 16.dp)
     )
@@ -635,7 +638,7 @@ fun PickerDialog(
                 .heightIn(max = 400.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(
-                containerColor = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground
+                containerColor = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground
             )
         ) {
             Column(
@@ -650,13 +653,13 @@ fun PickerDialog(
                         text = title,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                        color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                     )
                     
                     TextButton(onClick = onDismiss) {
                         Text(
                             text = "Done",
-                            color = LuxorTeal,
+                            color = if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent,
                             fontWeight = FontWeight.Medium
                         )
                     }
@@ -680,7 +683,7 @@ fun PickerDialog(
                                 text = option,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Medium,
-                                color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary,
+                                color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary,
                                 modifier = Modifier.weight(1f)
                             )
                             
@@ -688,7 +691,7 @@ fun PickerDialog(
                                 Icon(
                                     imageVector = Icons.Default.Check,
                                     contentDescription = "Selected",
-                                    tint = LuxorTeal,
+                                    tint = if (isDarkMode) LuxorColors.Dark.accent else LuxorColors.Light.accent,
                                     modifier = Modifier.size(16.dp)
                                 )
                             }
@@ -696,7 +699,7 @@ fun PickerDialog(
                         
                         if (option != options.lastOrNull()) {
                             Divider(
-                                color = if (isDarkMode) DarkColors.Border else Color.Gray.copy(alpha = 0.1f),
+                                color = if (isDarkMode) LuxorColors.Dark.border else LuxorColors.Light.border,
                                 thickness = 1.dp
                             )
                         }

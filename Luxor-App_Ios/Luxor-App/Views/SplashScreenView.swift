@@ -57,8 +57,8 @@ struct SplashScreenView: View {
                 .scaleEffect(logoScale)
                 .opacity(logoOpacity)
                 VStack(spacing: 8) {
-                    Text("LUXOR")
-                        .font(.system(size: 36, weight: .bold, design: .serif))
+                    Text("EGYPT FOR EVERY ONE !!")
+                        .font(.system(size: 30, weight: .bold, design: .serif))
                         .foregroundStyle(
                             LinearGradient(
                                 colors: [

@@ -23,13 +23,16 @@ import androidx.compose.ui.unit.sp
 import com.example.luxorappandroid.ui.components.LuxorEmailTextField
 import com.example.luxorappandroid.ui.components.LuxorPasswordTextField
 import com.example.luxorappandroid.ui.theme.*
+import com.example.luxorappandroid.ui.theme.ThemeManager
+import com.example.luxorappandroid.ui.theme.LanguageManager
 import androidx.compose.foundation.border
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 
 @Composable
 fun RegisterView(
-    isDarkMode: Boolean,
+    themeManager: ThemeManager,
+    languageManager: LanguageManager,
     onBackPressed: () -> Unit,
     onRegisterSuccess: () -> Unit
 ) {
@@ -49,7 +52,8 @@ fun RegisterView(
         item {
             // Custom App Bar
             CustomAppBar(
-                isDarkMode = isDarkMode,
+                themeManager = themeManager,
+                languageManager = languageManager,
                 onBackPressed = onBackPressed
             )
         }
@@ -59,7 +63,8 @@ fun RegisterView(
             ProfilePhotoSection(
                 profileImage = profileImage,
                 onImageClick = { showImagePicker = true },
-                isDarkMode = isDarkMode
+                themeManager = themeManager,
+                languageManager = languageManager
             )
         }
         
@@ -84,7 +89,8 @@ fun RegisterView(
                         onRegisterSuccess()
                     }
                 },
-                isDarkMode = isDarkMode
+                themeManager = themeManager,
+                languageManager = languageManager
             )
         }
     }
@@ -97,16 +103,19 @@ fun RegisterView(
                 showImagePicker = false
             },
             onDismiss = { showImagePicker = false },
-            isDarkMode = isDarkMode
+            themeManager = themeManager,
+            languageManager = languageManager
         )
     }
 }
 
 @Composable
 fun CustomAppBar(
-    isDarkMode: Boolean,
+    themeManager: ThemeManager,
+    languageManager: LanguageManager,
     onBackPressed: () -> Unit
 ) {
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -119,19 +128,19 @@ fun CustomAppBar(
             modifier = Modifier
                 .size(44.dp)
                 .background(
-                    color = if (isDarkMode) DarkColors.CardBackground else Color.White,
+                    color = colors.cardBackground,
                     shape = CircleShape
                 )
                 .shadow(
                     elevation = 8.dp,
                     shape = CircleShape,
-                    spotColor = if (isDarkMode) DarkColors.Shadow else LightColors.Shadow
+                    spotColor = colors.shadow
                 )
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Back",
-                tint = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                contentDescription = LocalizedStrings.back(languageManager.currentLanguage),
+                tint = colors.textPrimary
             )
         }
         
@@ -139,10 +148,10 @@ fun CustomAppBar(
         
         // Title
         Text(
-            text = "Create Account",
+            text = LocalizedStrings.createAccount(languageManager.currentLanguage),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+            color = colors.textPrimary
         )
         
         Spacer(modifier = Modifier.weight(1f))
@@ -153,14 +162,14 @@ fun CustomAppBar(
                 .size(44.dp)
                 .background(
                     brush = Brush.linearGradient(
-                        colors = listOf(LuxorTeal, LuxorGold)
+                        colors = listOf(colors.primary, colors.secondary)
                     ),
                     shape = CircleShape
                 )
                 .shadow(
                     elevation = 8.dp,
                     shape = CircleShape,
-                    spotColor = LuxorTeal.copy(alpha = 0.3f)
+                    spotColor = colors.primary.copy(alpha = 0.3f)
                 ),
             contentAlignment = Alignment.Center
         ) {
@@ -178,8 +187,10 @@ fun CustomAppBar(
 fun ProfilePhotoSection(
     profileImage: String?,
     onImageClick: () -> Unit,
-    isDarkMode: Boolean
+    themeManager: ThemeManager,
+    languageManager: LanguageManager
 ) {
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -192,8 +203,8 @@ fun ProfilePhotoSection(
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(
-                            if (isDarkMode) DarkColors.CardBackground else Color.LightGray,
-                            if (isDarkMode) DarkColors.InputBackground else Color.White
+                            colors.cardBackground,
+                            colors.inputBackground
                         )
                     ),
                     shape = CircleShape
@@ -201,14 +212,14 @@ fun ProfilePhotoSection(
                 .border(
                     width = 3.dp,
                     brush = Brush.linearGradient(
-                        colors = listOf(LuxorTeal, LuxorGold)
+                        colors = listOf(colors.primary, colors.secondary)
                     ),
                     shape = CircleShape
                 )
                 .shadow(
                     elevation = 12.dp,
                     shape = CircleShape,
-                    spotColor = if (isDarkMode) DarkColors.Shadow else LightColors.Shadow
+                    spotColor = colors.shadow
                 )
                 .clickable { onImageClick() },
             contentAlignment = Alignment.Center
@@ -217,15 +228,15 @@ fun ProfilePhotoSection(
                 // Profile image would be displayed here
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "Profile",
-                    tint = LuxorTeal,
+                    contentDescription = LocalizedStrings.profile(languageManager.currentLanguage),
+                    tint = colors.primary,
                     modifier = Modifier.size(40.dp)
                 )
             } else {
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "Add Profile Photo",
-                    tint = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary,
+                    contentDescription = LocalizedStrings.addProfilePhoto(languageManager.currentLanguage),
+                    tint = colors.textSecondary,
                     modifier = Modifier.size(40.dp)
                 )
             }
@@ -237,20 +248,20 @@ fun ProfilePhotoSection(
                     .size(36.dp)
                     .background(
                         brush = Brush.linearGradient(
-                            colors = listOf(LuxorTeal, LuxorGold)
+                            colors = listOf(colors.primary, colors.secondary)
                         ),
                         shape = CircleShape
                     )
                     .shadow(
                         elevation = 8.dp,
                         shape = CircleShape,
-                        spotColor = LuxorTeal.copy(alpha = 0.4f)
+                        spotColor = colors.primary.copy(alpha = 0.4f)
                     ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = Icons.Default.CameraAlt,
-                    contentDescription = "Camera",
+                    contentDescription = LocalizedStrings.camera(languageManager.currentLanguage),
                     tint = Color.White,
                     modifier = Modifier.size(16.dp)
                 )
@@ -260,10 +271,10 @@ fun ProfilePhotoSection(
         Spacer(modifier = Modifier.height(16.dp))
         
         Text(
-            text = "Add Profile Photo",
+            text = LocalizedStrings.addProfilePhoto(languageManager.currentLanguage),
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
-            color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+            color = colors.textSecondary
         )
     }
 }
@@ -280,8 +291,11 @@ fun RegistrationForm(
     onPasswordChange: (String) -> Unit,
     isLoading: Boolean,
     onRegister: () -> Unit,
-    isDarkMode: Boolean
+    themeManager: ThemeManager,
+    languageManager: LanguageManager
 ) {
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
+    val isDarkMode = themeManager.isDarkMode
     val isFormValid = remember(fullName, email, phoneNumber, password) {
         fullName.isNotEmpty() && 
         email.isNotEmpty() && 
@@ -309,7 +323,8 @@ fun RegistrationForm(
         LuxorEmailTextField(
             email = email,
             onEmailChange = onEmailChange,
-            isDarkMode = isDarkMode
+            themeManager = themeManager,
+            languageManager = languageManager
         )
         
         // Phone Number Field
@@ -323,7 +338,8 @@ fun RegistrationForm(
         LuxorPasswordTextField(
             password = password,
             onPasswordChange = onPasswordChange,
-            isDarkMode = isDarkMode
+            themeManager = themeManager,
+            languageManager = languageManager
         )
         
         // Register Button
@@ -348,7 +364,7 @@ fun RegistrationForm(
                     .background(
                         brush = if (isFormValid) {
                             Brush.linearGradient(
-                                colors = listOf(LuxorTeal, LuxorGold)
+                                colors = listOf(LuxorColors.Dark.accent, LuxorColors.pureGold)
                             )
                         } else {
                             Brush.linearGradient(
@@ -385,7 +401,7 @@ fun RegistrationForm(
             Text(
                 text = "By creating an account, you agree to our",
                 fontSize = 12.sp,
-                color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary,
+                color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
                 textAlign = TextAlign.Center
             )
             
@@ -399,14 +415,14 @@ fun RegistrationForm(
                         text = "Terms of Service",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
-                        color = LuxorTeal
+                        color = LuxorColors.Dark.accent
                     )
                 }
                 
                 Text(
                     text = "and",
                     fontSize = 12.sp,
-                    color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                    color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
                 )
                 
                 TextButton(
@@ -416,7 +432,7 @@ fun RegistrationForm(
                         text = "Privacy Policy",
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Medium,
-                        color = LuxorTeal
+                        color = LuxorColors.Dark.accent
                     )
                 }
             }
@@ -440,14 +456,14 @@ fun FullNameTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = if (isDarkMode) DarkColors.InputBackground else Color.White,
+                    color = if (isDarkMode) LuxorColors.Dark.inputBackground else Color.White,
                     shape = RoundedCornerShape(16.dp)
                 )
                 .border(
                     width = if (isEditing) 2.dp else 1.dp,
                     brush = if (isEditing) {
                         Brush.linearGradient(
-                            colors = listOf(LuxorTeal, LuxorGold)
+                            colors = listOf(LuxorColors.Dark.accent, LuxorColors.pureGold)
                         )
                     } else if (!isValid) {
                         Brush.linearGradient(
@@ -456,8 +472,8 @@ fun FullNameTextField(
                     } else {
                         Brush.linearGradient(
                             colors = listOf(
-                                if (isDarkMode) DarkColors.Border else Color.Gray.copy(alpha = 0.2f),
-                                if (isDarkMode) DarkColors.Border.copy(alpha = 0.5f) else Color.Gray.copy(alpha = 0.1f)
+                                if (isDarkMode) LuxorColors.Dark.border else Color.Gray.copy(alpha = 0.2f),
+            if (isDarkMode) LuxorColors.Dark.border.copy(alpha = 0.5f) else Color.Gray.copy(alpha = 0.1f)
                             )
                         )
                     },
@@ -466,7 +482,7 @@ fun FullNameTextField(
                 .shadow(
                     elevation = if (isEditing) 12.dp else 6.dp,
                     shape = RoundedCornerShape(16.dp),
-                    spotColor = if (isDarkMode) DarkColors.Shadow else LightColors.Shadow
+                    spotColor = if (isDarkMode) LuxorColors.Dark.shadow else LuxorColors.Light.shadow
                 )
         ) {
             Row(
@@ -480,7 +496,7 @@ fun FullNameTextField(
                     modifier = Modifier
                         .size(36.dp)
                         .background(
-                            color = if (isEditing) LuxorTeal.copy(alpha = 0.2f) else Color.Transparent,
+                            color = if (isEditing) LuxorColors.Dark.accent.copy(alpha = 0.2f) else Color.Transparent,
                             shape = CircleShape
                         ),
                     contentAlignment = Alignment.Center
@@ -488,8 +504,8 @@ fun FullNameTextField(
                     Icon(
                         imageVector = if (isEditing) Icons.Default.PersonAdd else Icons.Default.Person,
                         contentDescription = "Full Name",
-                        tint = if (isEditing) LuxorTeal else {
-                            if (isDarkMode) DarkColors.TextSecondary else Color.Gray
+                        tint = if (isEditing) LuxorColors.Dark.accent else {
+                            if (isDarkMode) LuxorColors.Dark.textSecondary else Color.Gray
                         },
                         modifier = Modifier.size(18.dp)
                     )
@@ -505,8 +521,8 @@ fun FullNameTextField(
                         text = "Full Name",
                         fontSize = if (isEditing || fullName.isNotEmpty()) 11.sp else 16.sp,
                         fontWeight = FontWeight.Medium,
-                        color = if (isEditing) LuxorTeal else {
-                            if (isDarkMode) DarkColors.TextSecondary else Color.Gray
+                        color = if (isEditing) LuxorColors.Dark.accent else {
+                            if (isDarkMode) LuxorColors.Dark.textSecondary else Color.Gray
                         }
                     )
                     
@@ -524,14 +540,13 @@ fun FullNameTextField(
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
                             disabledIndicatorColor = Color.Transparent,
-                            cursorColor = LuxorTeal,
-                            focusedTextColor = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary,
-                            unfocusedTextColor = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                            cursorColor = LuxorColors.Dark.accent,
+                            focusedTextColor = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary,
+                            unfocusedTextColor = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                         ),
                         textStyle = MaterialTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Medium
-                        ),
-                        onFocusChanged = { isEditing = it.isFocused }
+                        )
                     )
                 }
                 
@@ -599,14 +614,14 @@ fun PhoneNumberTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    color = if (isDarkMode) DarkColors.InputBackground else Color.White,
+                    color = if (isDarkMode) LuxorColors.Dark.inputBackground else Color.White,
                     shape = RoundedCornerShape(16.dp)
                 )
                 .border(
                     width = if (isEditing) 2.dp else 1.dp,
                     brush = if (isEditing) {
                         Brush.linearGradient(
-                            colors = listOf(LuxorTeal, LuxorGold)
+                            colors = listOf(LuxorColors.Dark.accent, LuxorColors.pureGold)
                         )
                     } else if (!isValid) {
                         Brush.linearGradient(
@@ -615,8 +630,8 @@ fun PhoneNumberTextField(
                     } else {
                         Brush.linearGradient(
                             colors = listOf(
-                                if (isDarkMode) DarkColors.Border else Color.Gray.copy(alpha = 0.2f),
-                                if (isDarkMode) DarkColors.Border.copy(alpha = 0.5f) else Color.Gray.copy(alpha = 0.1f)
+                                if (isDarkMode) LuxorColors.Dark.border else Color.Gray.copy(alpha = 0.2f),
+                                if (isDarkMode) LuxorColors.Dark.border.copy(alpha = 0.5f) else Color.Gray.copy(alpha = 0.1f)
                             )
                         )
                     },
@@ -625,7 +640,7 @@ fun PhoneNumberTextField(
                 .shadow(
                     elevation = if (isEditing) 12.dp else 6.dp,
                     shape = RoundedCornerShape(16.dp),
-                    spotColor = if (isDarkMode) DarkColors.Shadow else LightColors.Shadow
+                    spotColor = if (isDarkMode) LuxorColors.Dark.shadow else LuxorColors.Light.shadow
                 )
         ) {
             Row(
@@ -638,7 +653,7 @@ fun PhoneNumberTextField(
                 Button(
                     onClick = { /* Show country picker */ },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (isDarkMode) DarkColors.CardBackground else Color.LightGray
+                        containerColor = if (isDarkMode) LuxorColors.Dark.cardBackground else Color.LightGray
                     ),
                     shape = RoundedCornerShape(8.dp)
                 ) {
@@ -651,12 +666,12 @@ fun PhoneNumberTextField(
                             text = "+1",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
-                            color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                            color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                         )
                         Icon(
                             imageVector = Icons.Default.KeyboardArrowDown,
                             contentDescription = "Select Country",
-                            tint = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary,
+                            tint = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
                             modifier = Modifier.size(12.dp)
                         )
                     }
@@ -670,7 +685,7 @@ fun PhoneNumberTextField(
                         .width(1.dp)
                         .height(30.dp)
                         .background(
-                            color = if (isDarkMode) DarkColors.Border else Color.Gray.copy(alpha = 0.3f)
+                            color = if (isDarkMode) LuxorColors.Dark.border else Color.Gray.copy(alpha = 0.3f)
                         )
                 )
                 
@@ -684,8 +699,8 @@ fun PhoneNumberTextField(
                         text = "Phone Number",
                         fontSize = if (isEditing || phoneNumber.isNotEmpty()) 11.sp else 16.sp,
                         fontWeight = FontWeight.Medium,
-                        color = if (isEditing) LuxorTeal else {
-                            if (isDarkMode) DarkColors.TextSecondary else Color.Gray
+                        color = if (isEditing) LuxorColors.Dark.accent else {
+                            if (isDarkMode) LuxorColors.Dark.textSecondary else Color.Gray
                         }
                     )
                     
@@ -702,13 +717,12 @@ fun PhoneNumberTextField(
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent,
                             disabledIndicatorColor = Color.Transparent,
-                            cursorColor = LuxorTeal,
-                            textColor = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                            cursorColor = LuxorColors.Dark.accent,
+                            textColor = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                         ),
                         textStyle = MaterialTheme.typography.bodyMedium.copy(
                             fontWeight = FontWeight.Medium
-                        ),
-                        onFocusChanged = { isEditing = it.isFocused }
+                        )
                     )
                 }
                 
@@ -771,13 +785,13 @@ fun ImagePickerDialog(
         title = {
             Text(
                 text = "Select Profile Photo",
-                color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
             )
         },
         text = {
             Text(
                 text = "Choose how you want to add your profile photo",
-                color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
             )
         },
         confirmButton = {
@@ -787,7 +801,7 @@ fun ImagePickerDialog(
                     onImageSelected("https://picsum.photos/200/200")
                 }
             ) {
-                Text("Camera", color = LuxorTeal)
+                Text("Camera", color = LuxorColors.Dark.accent)
             }
         },
         dismissButton = {
@@ -797,10 +811,10 @@ fun ImagePickerDialog(
                     onImageSelected("https://picsum.photos/200/200")
                 }
             ) {
-                Text("Gallery", color = LuxorTeal)
+                Text("Gallery", color = LuxorColors.Dark.accent)
             }
         },
-        containerColor = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground
+        containerColor = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground
     )
 }
 

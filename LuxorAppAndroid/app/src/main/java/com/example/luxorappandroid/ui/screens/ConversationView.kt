@@ -81,7 +81,7 @@ fun ConversationView(
                 .weight(1f)
                 .fillMaxWidth()
                 .background(
-                    color = if (isDarkMode) DarkColors.Background else LightColors.Background
+                    color = if (isDarkMode) LuxorColors.Dark.background else LuxorColors.Light.background
                 ),
             contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -149,7 +149,7 @@ fun ChatHeader(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground
+                color = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground
             )
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -160,14 +160,14 @@ fun ChatHeader(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground,
+                    color = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground,
                     shape = CircleShape
                 )
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Back",
-                tint = LuxorTeal
+                tint = LuxorColors.Dark.accent
             )
         }
         
@@ -178,7 +178,7 @@ fun ChatHeader(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = LuxorTeal.copy(alpha = 0.1f),
+                    color = LuxorColors.Dark.accent.copy(alpha = 0.1f),
                     shape = CircleShape
                 ),
             contentAlignment = Alignment.Center
@@ -186,7 +186,7 @@ fun ChatHeader(
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = chat.name,
-                tint = LuxorTeal,
+                tint = LuxorColors.Dark.accent,
                 modifier = Modifier.size(30.dp)
             )
         }
@@ -199,13 +199,13 @@ fun ChatHeader(
                 text = chat.name,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
             )
             
             Text(
                 text = "Online",
                 fontSize = 12.sp,
-                color = LuxorTeal
+                color = LuxorColors.Dark.accent
             )
         }
         
@@ -217,14 +217,14 @@ fun ChatHeader(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground,
+                    color = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground,
                     shape = CircleShape
                 )
         ) {
             Icon(
                 imageVector = Icons.Default.Call,
                 contentDescription = "Call",
-                tint = LuxorTeal
+                tint = LuxorColors.Dark.accent
             )
         }
         
@@ -233,14 +233,14 @@ fun ChatHeader(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground,
+                    color = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground,
                     shape = CircleShape
                 )
         ) {
             Icon(
                 imageVector = Icons.Default.Videocam,
                 contentDescription = "Video Call",
-                tint = LuxorTeal
+                tint = LuxorColors.Dark.accent
             )
         }
     }
@@ -266,9 +266,9 @@ fun MessageBubble(
                 modifier = Modifier
                     .background(
                         color = if (isFromCurrentUser) {
-                            LuxorTeal
+                            LuxorColors.Dark.accent
                         } else {
-                            if (isDarkMode) DarkColors.CardBackground else Color.LightGray
+                            if (isDarkMode) LuxorColors.Dark.cardBackground else Color.LightGray
                         },
                         shape = RoundedCornerShape(16.dp)
                     )
@@ -277,7 +277,7 @@ fun MessageBubble(
                 Text(
                     text = message.content,
                     color = if (isFromCurrentUser) Color.White else {
-                        if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                        if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
                     },
                     fontSize = 14.sp
                 )
@@ -289,7 +289,7 @@ fun MessageBubble(
             Text(
                 text = formatTime(message.timestamp),
                 fontSize = 10.sp,
-                color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
             )
         }
     }
@@ -319,7 +319,7 @@ fun TypingIndicator(isDarkMode: Boolean) {
     Row(
         modifier = Modifier
             .background(
-                color = if (isDarkMode) DarkColors.CardBackground else Color.LightGray,
+                color = if (isDarkMode) LuxorColors.Dark.cardBackground else Color.LightGray,
                 shape = RoundedCornerShape(16.dp)
             )
             .padding(horizontal = 12.dp, vertical = 8.dp)
@@ -360,7 +360,7 @@ fun ChatInputBar(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                color = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground
+                color = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground
             )
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -371,14 +371,14 @@ fun ChatInputBar(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = if (isDarkMode) DarkColors.CardBackground else LightColors.CardBackground,
+                    color = if (isDarkMode) LuxorColors.Dark.cardBackground else LuxorColors.Light.cardBackground,
                     shape = CircleShape
                 )
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = "Add",
-                tint = LuxorTeal
+                tint = LuxorColors.Dark.accent
             )
         }
         
@@ -391,17 +391,17 @@ fun ChatInputBar(
             placeholder = {
                 Text(
                     text = "Message",
-                    color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                    color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
                 )
             },
             modifier = Modifier.weight(1f),
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = if (isDarkMode) DarkColors.InputBackground else Color.LightGray,
-                unfocusedContainerColor = if (isDarkMode) DarkColors.InputBackground else Color.LightGray,
+                focusedContainerColor = if (isDarkMode) LuxorColors.Dark.inputBackground else Color.LightGray,
+                unfocusedContainerColor = if (isDarkMode) LuxorColors.Dark.inputBackground else Color.LightGray,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = LuxorTeal,
-                textColor = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                cursorColor = LuxorColors.Dark.accent,
+                textColor = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
             ),
             shape = RoundedCornerShape(20.dp)
         )
@@ -414,7 +414,7 @@ fun ChatInputBar(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    color = LuxorTeal,
+                    color = LuxorColors.Dark.accent,
                     shape = CircleShape
                 )
         ) {
@@ -485,7 +485,7 @@ fun RecordingOverlay(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        color = LuxorTeal.copy(alpha = 0.8f),
+                        color = LuxorColors.Dark.accent.copy(alpha = 0.8f),
                         shape = RoundedCornerShape(20.dp)
                     )
                     .padding(horizontal = 20.dp, vertical = 10.dp),

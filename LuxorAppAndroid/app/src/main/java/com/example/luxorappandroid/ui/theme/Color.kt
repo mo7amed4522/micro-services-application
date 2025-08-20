@@ -2,33 +2,50 @@ package com.example.luxorappandroid.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Primary Luxor brand colors (from logo)
-val LuxorTeal = Color(0xFF008080)
-val LuxorGold = Color(0xFFCC9933)
-val LuxorDarkTeal = Color(0xFF004D4D)
-
-// Light mode colors
-object LightColors {
-    val Background = Color.White
-    val SecondaryBackground = Color(0xFFF2F2F7)
-    val TextPrimary = Color.Black
-    val TextSecondary = Color.Gray
-    val CardBackground = Color.White
-    val Shadow = Color.Black.copy(alpha = 0.1f)
-    val Border = Color.Gray.copy(alpha = 0.2f)
-    val InputBackground = Color.White
-}
-
-// Enhanced Dark mode colors - Much more visible!
-object DarkColors {
-    val Background = Color(0xFF141420) // Dark blue-gray instead of pure black
-    val SecondaryBackground = Color(0xFF1E1E2E) // Lighter secondary
-    val TextPrimary = Color.White
-    val TextSecondary = Color(0xFFCCCCD9) // Much lighter gray
-    val CardBackground = Color(0xFF262636) // Visible card background
-    val Shadow = Color.Black.copy(alpha = 0.4f) // Stronger shadow for depth
-    val Border = Color(0xFF404058) // Visible borders
-    val InputBackground = Color(0xFF2E2E40) // Input field background
+// MARK: - Historical Luxor Colors
+object LuxorColors {
+    // Pure Gold (Mica Powder) - Primary historical colors
+    val pureGold = Color(0xFFFFD700) // Pure gold
+    val richGold = Color(0xFFD9A441) // Rich gold
+    val deepGold = Color(0xFFB8860B) // Deep gold
+    val bronzeGold = Color(0xFFCC8020) // Bronze gold
+    
+    // Historical Egyptian colors
+    val egyptianBlue = Color(0xFF1052BA) // Lapis lazuli blue
+    val papyrusBeige = Color(0xFFF5DEB3) // Papyrus color
+    val sandstone = Color(0xFFEDD5AE) // Sandstone
+    val hieroglyphBrown = Color(0xFF663321) // Dark brown
+    
+    // Legacy colors (keeping for compatibility)
+    val luxorTeal = egyptianBlue
+    val luxorGold = pureGold
+    val luxorDarkTeal = Color(0xFF0A3D8C)
+    
+    // Light mode colors - Historical theme
+    object Light {
+        val background = Color(0xFFFAF2E1) // Warm papyrus background
+        val secondaryBackground = papyrusBeige
+        val textPrimary = hieroglyphBrown
+        val textSecondary = Color(0xFF804D26)
+        val cardBackground = Color(0xFFFDF6E6)
+        val shadow = hieroglyphBrown.copy(alpha = 0.15f)
+        val accent = pureGold
+        val border = richGold.copy(alpha = 0.3f)
+        val inputBackground = Color.White
+    }
+    
+    // Dark mode colors - Historical night theme
+    object Dark {
+        val background = Color(0xFF141008) // Dark stone
+        val secondaryBackground = Color(0xFF1F1A14)
+        val textPrimary = pureGold
+        val textSecondary = Color(0xFFD9C08C) // Warm gold text
+        val cardBackground = Color(0xFF261F14)
+        val shadow = Color.Black.copy(alpha = 0.6f)
+        val accent = richGold
+        val border = deepGold.copy(alpha = 0.4f)
+        val inputBackground = Color(0xFF2E261A)
+    }
 }
 
 // Legacy colors for compatibility

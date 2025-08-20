@@ -16,35 +16,43 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-// Custom Luxor color schemes
+// Custom Luxor color schemes with historical Egyptian colors
 private val LuxorLightColorScheme = lightColorScheme(
-    primary = LuxorTeal,
-    secondary = LuxorGold,
-    tertiary = LuxorDarkTeal,
-    background = LightColors.Background,
-    surface = LightColors.CardBackground,
+    primary = LuxorColors.luxorTeal,
+    secondary = LuxorColors.luxorGold,
+    tertiary = LuxorColors.luxorDarkTeal,
+    background = LuxorColors.Light.background,
+    surface = LuxorColors.Light.cardBackground,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
-    onBackground = LightColors.TextPrimary,
-    onSurface = LightColors.TextPrimary,
-    surfaceVariant = LightColors.SecondaryBackground,
-    onSurfaceVariant = LightColors.TextSecondary
+    onBackground = LuxorColors.Light.textPrimary,
+    onSurface = LuxorColors.Light.textPrimary,
+    surfaceVariant = LuxorColors.Light.secondaryBackground,
+    onSurfaceVariant = LuxorColors.Light.textSecondary,
+    primaryContainer = LuxorColors.pureGold.copy(alpha = 0.2f),
+    onPrimaryContainer = LuxorColors.hieroglyphBrown,
+    secondaryContainer = LuxorColors.papyrusBeige,
+    onSecondaryContainer = LuxorColors.hieroglyphBrown
 )
 
 private val LuxorDarkColorScheme = darkColorScheme(
-    primary = LuxorTeal,
-    secondary = LuxorGold,
-    tertiary = LuxorDarkTeal,
-    background = DarkColors.Background,
-    surface = DarkColors.CardBackground,
+    primary = LuxorColors.luxorTeal,
+    secondary = LuxorColors.luxorGold,
+    tertiary = LuxorColors.luxorDarkTeal,
+    background = LuxorColors.Dark.background,
+    surface = LuxorColors.Dark.cardBackground,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
-    onBackground = DarkColors.TextPrimary,
-    onSurface = DarkColors.TextPrimary,
-    surfaceVariant = DarkColors.SecondaryBackground,
-    onSurfaceVariant = DarkColors.TextSecondary
+    onBackground = LuxorColors.Dark.textPrimary,
+    onSurface = LuxorColors.Dark.textPrimary,
+    surfaceVariant = LuxorColors.Dark.secondaryBackground,
+    onSurfaceVariant = LuxorColors.Dark.textSecondary,
+    primaryContainer = LuxorColors.richGold.copy(alpha = 0.3f),
+    onPrimaryContainer = LuxorColors.pureGold,
+    secondaryContainer = LuxorColors.Dark.inputBackground,
+    onSecondaryContainer = LuxorColors.Dark.textPrimary
 )
 
 // Legacy color schemes for compatibility

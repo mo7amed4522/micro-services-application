@@ -34,23 +34,25 @@ fun LuxorEmailTextField(
     email: String,
     onEmailChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    isDarkMode: Boolean = false
+    themeManager: ThemeManager,
+    languageManager: LanguageManager
 ) {
     var isEditing by remember { mutableStateOf(false) }
     var isValid by remember { mutableStateOf(true) }
     
-    val colors = if (isDarkMode) DarkColors else LightColors
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
+    val currentLanguage = languageManager.currentLanguage
     
     val borderGradient = when {
-        isEditing -> Brush.linearGradient(listOf(LuxorTeal, LuxorGold))
+        isEditing -> Brush.linearGradient(listOf(LuxorColors.luxorTeal, LuxorColors.luxorGold))
         !isValid -> Brush.linearGradient(listOf(Color.Red.copy(alpha = 0.6f), Color.Red.copy(alpha = 0.3f)))
-        else -> Brush.linearGradient(listOf(colors.Border, colors.Border.copy(alpha = 0.5f)))
+        else -> Brush.linearGradient(listOf(colors.border, colors.border.copy(alpha = 0.5f)))
     }
     
     val iconColor = when {
-        isEditing -> LuxorTeal
+        isEditing -> LuxorColors.luxorTeal
         !isValid -> Color.Red
-        else -> colors.TextSecondary
+        else -> colors.textSecondary
     }
     
     Column(
@@ -64,10 +66,10 @@ fun LuxorEmailTextField(
                 .clip(RoundedCornerShape(16.dp))
                 .background(
                     brush = Brush.linearGradient(
-                        colors = if (isDarkMode) {
-                            listOf(colors.InputBackground, colors.CardBackground)
+                        colors = if (themeManager.isDarkMode) {
+                            listOf(colors.inputBackground, colors.cardBackground)
                         } else {
-                            listOf(Color.White, Color(0xFFF2F2F7))
+                            listOf(colors.inputBackground, colors.secondaryBackground)
                         }
                     )
                 )
@@ -94,8 +96,8 @@ fun LuxorEmailTextField(
                             brush = if (isEditing) {
                                 Brush.linearGradient(
                                     listOf(
-                                        LuxorTeal.copy(alpha = 0.2f),
-                                        LuxorGold.copy(alpha = 0.2f)
+                                        LuxorColors.luxorTeal.copy(alpha = 0.2f),
+                                        LuxorColors.luxorGold.copy(alpha = 0.2f)
                                     )
                                 )
                             } else {
@@ -123,7 +125,7 @@ fun LuxorEmailTextField(
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(
-                        text = "Email Address",
+                        text = LocalizedStrings.email(currentLanguage),
                         fontSize = if (isEditing || email.isNotEmpty()) 11.sp else 16.sp,
                         fontWeight = FontWeight.Medium,
                         color = iconColor,
@@ -142,7 +144,7 @@ fun LuxorEmailTextField(
                         textStyle = LocalTextStyle.current.copy(
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
-                            color = colors.TextPrimary
+                            color = colors.textPrimary
                         ),
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Email,
@@ -205,7 +207,7 @@ fun LuxorEmailTextField(
                     modifier = Modifier.size(12.dp)
                 )
                 Text(
-                    text = "Please enter a valid email address",
+                    text = LocalizedStrings.invalidEmail(currentLanguage),
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
                     color = Color.Red
@@ -225,22 +227,24 @@ fun LuxorPasswordTextField(
     password: String,
     onPasswordChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    isDarkMode: Boolean = false
+    themeManager: ThemeManager,
+    languageManager: LanguageManager
 ) {
     var isEditing by remember { mutableStateOf(false) }
     var isSecure by remember { mutableStateOf(true) }
     var showValidation by remember { mutableStateOf(false) }
     
-    val colors = if (isDarkMode) DarkColors else LightColors
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
+    val currentLanguage = languageManager.currentLanguage
     
     val borderGradient = when {
-        isEditing -> Brush.linearGradient(listOf(LuxorTeal, LuxorGold))
-        else -> Brush.linearGradient(listOf(colors.Border, colors.Border.copy(alpha = 0.5f)))
+        isEditing -> Brush.linearGradient(listOf(LuxorColors.luxorTeal, LuxorColors.luxorGold))
+        else -> Brush.linearGradient(listOf(colors.border, colors.border.copy(alpha = 0.5f)))
     }
     
     val iconColor = when {
-        isEditing -> LuxorTeal
-        else -> colors.TextSecondary
+        isEditing -> LuxorColors.luxorTeal
+        else -> colors.textSecondary
     }
     
     Column(
@@ -284,7 +288,7 @@ fun LuxorPasswordTextField(
                             brush = if (isEditing) {
                                 Brush.linearGradient(
                                     listOf(
-                                        LuxorTeal.copy(alpha = 0.2f),
+                                        LuxorColors.Dark.accent.copy(alpha = 0.2f),
                                         LuxorGold.copy(alpha = 0.2f)
                                     )
                                 )

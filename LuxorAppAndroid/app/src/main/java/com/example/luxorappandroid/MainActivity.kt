@@ -14,6 +14,7 @@ import com.example.luxorappandroid.ui.screens.MainTabView
 import com.example.luxorappandroid.ui.screens.RegisterView
 import com.example.luxorappandroid.ui.theme.LuxorAppAndroidTheme
 import com.example.luxorappandroid.ui.theme.ThemeManager
+import com.example.luxorappandroid.ui.theme.LanguageManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val themeManager = remember { ThemeManager() }
+            val languageManager = remember { LanguageManager() }
             
             LuxorAppAndroidTheme(
                 darkTheme = themeManager.isDarkMode
@@ -35,14 +37,16 @@ class MainActivity : ComponentActivity() {
                             )
                         } else if (showRegister) {
                             RegisterView(
-                                isDarkMode = themeManager.isDarkMode,
+                                themeManager = themeManager,
+                                languageManager = languageManager,
                                 onBackPressed = { showRegister = false },
                                 onRegisterSuccess = { isLoggedIn = true }
                             )
                         } else {
                             LoginView(
+                                themeManager = themeManager,
+                                languageManager = languageManager,
                                 onLoginSuccess = { isLoggedIn = true },
-                                isDarkMode = themeManager.isDarkMode,
                                 onNavigateToRegister = { showRegister = true }
                             )
                         }

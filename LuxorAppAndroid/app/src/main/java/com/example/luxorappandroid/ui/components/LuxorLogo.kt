@@ -16,14 +16,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.luxorappandroid.R
-import com.example.luxorappandroid.ui.theme.LuxorTeal
-import com.example.luxorappandroid.ui.theme.LuxorGold
+import com.example.luxorappandroid.ui.theme.*
 
 @Composable
 fun LuxorLogo(
     size: Float = 120f,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    themeManager: ThemeManager
 ) {
+    val colors = if (themeManager.isDarkMode) LuxorColors.Dark else LuxorColors.Light
     val infiniteTransition = rememberInfiniteTransition(label = "logo_animation")
     
     val scale by infiniteTransition.animateFloat(
@@ -59,7 +60,7 @@ fun LuxorLogo(
                 .background(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            LuxorTeal.copy(alpha = 0.3f),
+                            LuxorColors.luxorTeal.copy(alpha = if (themeManager.isDarkMode) 0.4f else 0.3f),
                             Color.Transparent
                         ),
                         center = androidx.compose.ui.geometry.Offset.Zero,
@@ -75,13 +76,23 @@ fun LuxorLogo(
                 .size(size.dp)
                 .background(
                     brush = Brush.angularGradient(
-                        colors = listOf(
-                            LuxorTeal,
-                            LuxorGold,
-                            LuxorTeal.copy(alpha = 0.8f),
-                            LuxorGold.copy(alpha = 0.9f),
-                            LuxorTeal
-                        )
+                        colors = if (themeManager.isDarkMode) {
+                            listOf(
+                                LuxorColors.luxorTeal,
+                                LuxorColors.richGold,
+                                LuxorColors.egyptianBlue,
+                                LuxorColors.deepGold,
+                                LuxorColors.luxorTeal
+                            )
+                        } else {
+                            listOf(
+                                LuxorColors.luxorTeal,
+                                LuxorColors.luxorGold,
+                                LuxorColors.luxorTeal.copy(alpha = 0.8f),
+                                LuxorColors.luxorGold.copy(alpha = 0.9f),
+                                LuxorColors.luxorTeal
+                            )
+                        }
                     ),
                     shape = CircleShape
                 )
@@ -94,11 +105,19 @@ fun LuxorLogo(
                     .align(Alignment.Center)
                     .background(
                         brush = Brush.linearGradient(
-                            colors = listOf(
-                                Color.White,
-                                Color.White.copy(alpha = 0.95f),
-                                Color(0xFFF2F2F7).copy(alpha = 0.3f)
-                            )
+                            colors = if (themeManager.isDarkMode) {
+                                listOf(
+                                    colors.cardBackground,
+                                    colors.cardBackground.copy(alpha = 0.95f),
+                                    colors.inputBackground.copy(alpha = 0.3f)
+                                )
+                            } else {
+                                listOf(
+                                    Color.White,
+                                    Color.White.copy(alpha = 0.95f),
+                                    colors.secondaryBackground.copy(alpha = 0.3f)
+                                )
+                            }
                         ),
                         shape = CircleShape
                     )
@@ -111,7 +130,7 @@ fun LuxorLogo(
                         .background(
                             brush = Brush.radialGradient(
                                 colors = listOf(
-                                    LuxorTeal.copy(alpha = 0.1f),
+                                    LuxorColors.luxorTeal.copy(alpha = if (themeManager.isDarkMode) 0.2f else 0.1f),
                                     Color.Transparent
                                 )
                             ),
@@ -125,7 +144,7 @@ fun LuxorLogo(
                         modifier = Modifier
                             .size((size - 40).dp)
                             .align(Alignment.Center),
-                        tint = LuxorTeal
+                        tint = if (themeManager.isDarkMode) LuxorColors.pureGold else LuxorColors.luxorTeal
                     )
                 }
             }
@@ -139,7 +158,7 @@ fun LuxorLogo(
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(
-                            Color.White.copy(alpha = 0.3f),
+                            (if (themeManager.isDarkMode) LuxorColors.pureGold else Color.White).copy(alpha = 0.3f),
                             Color.Transparent
                         )
                     ),

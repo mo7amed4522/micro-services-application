@@ -117,7 +117,7 @@ fun LuxorPost(
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        color = LuxorTeal
+                        color = LuxorColors.Dark.accent
                     )
                 }
             }

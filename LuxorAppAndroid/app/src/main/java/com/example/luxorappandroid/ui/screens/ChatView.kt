@@ -74,7 +74,7 @@ fun StatusSection(
             text = "STATUS",
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
-            color = LuxorTeal,
+            color = LuxorColors.Dark.accent,
             modifier = Modifier.padding(horizontal = 20.dp)
         )
         
@@ -109,13 +109,13 @@ fun StatusCard(
             modifier = Modifier
                 .size(70.dp, 100.dp)
                 .background(
-                    color = LuxorTeal.copy(alpha = 0.1f),
+                    color = LuxorColors.Dark.accent.copy(alpha = 0.1f),
                     shape = RoundedCornerShape(8.dp)
                 )
                 .border(
                     width = 2.dp,
                     brush = Brush.verticalGradient(
-                        colors = listOf(LuxorTeal, LuxorTeal)
+                        colors = listOf(LuxorColors.Dark.accent, LuxorColors.Dark.accent)
                     ),
                     shape = RoundedCornerShape(8.dp)
                 ),
@@ -124,7 +124,7 @@ fun StatusCard(
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = status,
-                tint = LuxorTeal,
+                tint = LuxorColors.Dark.accent,
                 modifier = Modifier.size(30.dp)
             )
         }
@@ -134,7 +134,7 @@ fun StatusCard(
         Text(
             text = status,
             fontSize = 12.sp,
-            color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+            color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
         )
     }
 }
@@ -154,7 +154,7 @@ fun ChatsSection(
             text = "CHATS",
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
-            color = LuxorTeal,
+            color = LuxorColors.Dark.accent,
             modifier = Modifier.padding(horizontal = 20.dp)
         )
         
@@ -170,7 +170,7 @@ fun ChatsSection(
                 
                 if (chat.id != chats.lastOrNull()?.id) {
                     Divider(
-                        color = if (isDarkMode) DarkColors.Border else Color.Gray.copy(alpha = 0.2f),
+                        color = if (isDarkMode) LuxorColors.Dark.border else Color.Gray.copy(alpha = 0.2f),
                         thickness = 1.dp,
                         modifier = Modifier.padding(horizontal = 20.dp)
                     )
@@ -198,7 +198,7 @@ fun ChatItem(
             modifier = Modifier
                 .size(50.dp)
                 .background(
-                    color = LuxorTeal.copy(alpha = 0.1f),
+                    color = LuxorColors.Dark.accent.copy(alpha = 0.1f),
                     shape = RoundedCornerShape(8.dp)
                 ),
             contentAlignment = Alignment.Center
@@ -206,7 +206,7 @@ fun ChatItem(
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = chat.name,
-                tint = LuxorTeal,
+                tint = LuxorColors.Dark.accent,
                 modifier = Modifier.size(25.dp)
             )
         }
@@ -221,7 +221,7 @@ fun ChatItem(
                 text = chat.name,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
-                color = if (isDarkMode) DarkColors.TextPrimary else LightColors.TextPrimary
+                color = if (isDarkMode) LuxorColors.Dark.textPrimary else LuxorColors.Light.textPrimary
             )
             
             Text(
@@ -229,9 +229,9 @@ fun ChatItem(
                 fontSize = 14.sp,
                 fontWeight = if (chat.unread) FontWeight.Bold else FontWeight.Normal,
                 color = if (chat.unread) {
-                    LuxorTeal
+                    LuxorColors.Dark.accent
                 } else {
-                    if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                    if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
                 }
             )
         }
@@ -243,7 +243,7 @@ fun ChatItem(
             Text(
                 text = chat.time,
                 fontSize = 12.sp,
-                color = if (isDarkMode) DarkColors.TextSecondary else LightColors.TextSecondary
+                color = if (isDarkMode) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary
             )
             
             if (chat.unread) {
@@ -253,7 +253,7 @@ fun ChatItem(
                     modifier = Modifier
                         .size(10.dp)
                         .background(
-                            color = LuxorTeal,
+                            color = LuxorColors.Dark.accent,
                             shape = CircleShape
                         )
                 )
@@ -276,7 +276,7 @@ fun FloatingActionButton(
         FloatingActionButton(
             onClick = onClick,
             modifier = Modifier.padding(end = 20.dp, bottom = 70.dp),
-            containerColor = LuxorTeal,
+            containerColor = LuxorColors.Dark.accent,
             contentColor = Color.White
         ) {
             Icon(
