@@ -30,7 +30,7 @@ func NewUserServer() *UserServer {
 }
 
 // MARK:Get User By ID
-func (s *UserServer) GetUserByID(ctx context.Context, req *pb.GetUserByUserIDRequeste) (*pb.GetUserByUserIDResponse, error) {
+func (s *UserServer) GetUserByUserID(ctx context.Context, req *pb.GetUserByUserIDRequeste) (*pb.GetUserByUserIDResponse, error) {
 	query := `SELECT id, full_name, email, country_code, phone_number, role, verify_code, created_at, updated_at FROM users WHERE id = $1 `
 	row := s.db.DB.QueryRow(query, req.Id)
 
