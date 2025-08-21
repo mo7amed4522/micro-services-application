@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import PrivacyPolicy from './components/PrivacyPolicy';
-import TermsOfService from './components/TermsOfService';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -59,14 +57,7 @@ function App() {
               <Navigate to="/login" replace />
             } 
           />
-          <Route 
-            path="/privacy" 
-            element={<PrivacyPolicy />} 
-          />
-          <Route 
-            path="/terms" 
-            element={<TermsOfService />} 
-          />
+
           <Route 
             path="/" 
             element={
