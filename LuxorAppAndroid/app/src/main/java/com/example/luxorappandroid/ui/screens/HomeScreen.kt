@@ -5,26 +5,19 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.luxorappandroid.ui.components.LuxorButton
 import com.example.luxorappandroid.ui.theme.LuxorColors
 
 data class Monument(
@@ -118,9 +111,9 @@ fun HomeScreen() {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        LuxorColors.current.background,
-                        LuxorColors.current.surface.copy(alpha = 0.3f),
-                        LuxorColors.current.background
+                        LuxorColors.pureGold,
+                        LuxorColors.luxorGold.copy(alpha = 0.3f),
+                        LuxorColors.pureGold
                     )
                 )
             ),
@@ -139,8 +132,8 @@ fun HomeScreen() {
                         fontWeight = FontWeight.Bold,
                         brush = Brush.horizontalGradient(
                             colors = listOf(
-                                LuxorColors.current.primary,
-                                LuxorColors.current.secondary
+                                LuxorColors.luxorGold,
+                                LuxorColors.pureGold
                             )
                         )
                     )
@@ -151,7 +144,7 @@ fun HomeScreen() {
                 Text(
                     text = "Discover ancient wonders and timeless treasures",
                     style = MaterialTheme.typography.bodyLarge.copy(
-                        color = LuxorColors.current.onSurface.copy(alpha = 0.8f)
+                        color = LuxorColors.sandstone.copy(alpha = 0.8f)
                     )
                 )
             }
@@ -162,7 +155,7 @@ fun HomeScreen() {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
-                    containerColor = LuxorColors.current.surface
+                    containerColor = LuxorColors.sandstone
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
@@ -173,7 +166,7 @@ fun HomeScreen() {
                         text = "Quick Actions",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.SemiBold,
-                            color = LuxorColors.current.primary
+                            color = LuxorColors.luxorGold
                         )
                     )
                     
@@ -205,7 +198,7 @@ fun HomeScreen() {
                         text = "Today's Highlights",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.SemiBold,
-                            color = LuxorColors.current.primary
+                            color = LuxorColors.luxorGold
                         )
                     )
                     
@@ -214,13 +207,13 @@ fun HomeScreen() {
                     ) {
                         Text(
                             text = "See All",
-                            color = LuxorColors.current.secondary
+                            color = LuxorColors.sandstone
                         )
                         Icon(
                             imageVector = Icons.Default.ArrowForward,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
-                            tint = LuxorColors.current.secondary
+                            tint = LuxorColors.sandstone
                         )
                     }
                 }
@@ -242,7 +235,7 @@ fun HomeScreen() {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
-                    containerColor = LuxorColors.current.tertiary.copy(alpha = 0.1f)
+                    containerColor = LuxorColors.pureGold.copy(alpha = 0.1f)
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
@@ -255,7 +248,7 @@ fun HomeScreen() {
                         Icon(
                             imageVector = Icons.Default.WbSunny,
                             contentDescription = null,
-                            tint = LuxorColors.current.tertiary,
+                            tint = LuxorColors.pureGold,
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
@@ -263,7 +256,7 @@ fun HomeScreen() {
                             text = "Perfect weather for exploring!",
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.SemiBold,
-                                color = LuxorColors.current.tertiary
+                                color = LuxorColors.pureGold
                             )
                         )
                     }
@@ -273,7 +266,7 @@ fun HomeScreen() {
                     Text(
                         text = "28°C • Clear skies • Light breeze\nBest time to visit outdoor monuments",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = LuxorColors.current.onSurface.copy(alpha = 0.8f)
+                            color = LuxorColors.sandstone.copy(alpha = 0.8f)
                         )
                     )
                 }
@@ -291,7 +284,7 @@ fun QuickActionCard(
         onClick = action.action,
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = LuxorColors.current.primary.copy(alpha = 0.1f)
+            containerColor = LuxorColors.luxorGold.copy(alpha = 0.1f)
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
@@ -304,7 +297,7 @@ fun QuickActionCard(
             Icon(
                 imageVector = action.icon,
                 contentDescription = action.title,
-                tint = LuxorColors.current.primary,
+                tint = LuxorColors.luxorGold,
                 modifier = Modifier.size(32.dp)
             )
             
@@ -314,7 +307,7 @@ fun QuickActionCard(
                 text = action.title,
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontWeight = FontWeight.SemiBold,
-                    color = LuxorColors.current.primary
+                    color = LuxorColors.luxorGold
                 ),
                 textAlign = TextAlign.Center
             )
@@ -324,7 +317,7 @@ fun QuickActionCard(
             Text(
                 text = action.description,
                 style = MaterialTheme.typography.labelSmall.copy(
-                    color = LuxorColors.current.onSurface.copy(alpha = 0.7f)
+                    color = LuxorColors.sandstone.copy(alpha = 0.7f)
                 ),
                 textAlign = TextAlign.Center,
                 maxLines = 2,
@@ -344,7 +337,7 @@ fun MonumentCard(
         onClick = onClick,
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = LuxorColors.current.surface
+            containerColor = LuxorColors.sandstone
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
@@ -357,8 +350,8 @@ fun MonumentCard(
                     .background(
                         brush = Brush.verticalGradient(
                             colors = listOf(
-                                LuxorColors.current.primary.copy(alpha = 0.3f),
-                                LuxorColors.current.secondary.copy(alpha = 0.5f)
+                                LuxorColors.luxorGold.copy(alpha = 0.3f),
+                                LuxorColors.pureGold.copy(alpha = 0.5f)
                             )
                         )
                     ),
@@ -367,7 +360,7 @@ fun MonumentCard(
                 Icon(
                     imageVector = Icons.Default.PhotoCamera,
                     contentDescription = null,
-                    tint = LuxorColors.current.onSurface.copy(alpha = 0.5f),
+                    tint = LuxorColors.sandstone.copy(alpha = 0.5f),
                     modifier = Modifier.size(48.dp)
                 )
                 
@@ -378,15 +371,15 @@ fun MonumentCard(
                         .padding(12.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = if (monument.isOpen) 
-                            LuxorColors.current.tertiary else 
-                            LuxorColors.current.error
+                            LuxorColors.pureGold else
+                            LuxorColors.bronzeGold
                     )
                 ) {
                     Text(
                         text = if (monument.isOpen) "Open" else "Closed",
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                         style = MaterialTheme.typography.labelSmall.copy(
-                            color = LuxorColors.current.onPrimary,
+                            color = LuxorColors.luxorGold,
                             fontWeight = FontWeight.SemiBold
                         )
                     )
@@ -408,7 +401,7 @@ fun MonumentCard(
                             text = monument.name,
                             style = MaterialTheme.typography.titleLarge.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = LuxorColors.current.primary
+                                color = LuxorColors.luxorGold
                             ),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
@@ -419,7 +412,7 @@ fun MonumentCard(
                         Text(
                             text = monument.category,
                             style = MaterialTheme.typography.labelMedium.copy(
-                                color = LuxorColors.current.secondary
+                                color = LuxorColors.sandstone
                             )
                         )
                     }
@@ -430,7 +423,7 @@ fun MonumentCard(
                         Icon(
                             imageVector = Icons.Default.Star,
                             contentDescription = null,
-                            tint = LuxorColors.current.tertiary,
+                            tint = LuxorColors.bronzeGold,
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
@@ -448,7 +441,7 @@ fun MonumentCard(
                 Text(
                     text = monument.description,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color = LuxorColors.current.onSurface.copy(alpha = 0.8f)
+                        color = LuxorColors.sandstone.copy(alpha = 0.8f)
                     ),
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
@@ -467,14 +460,14 @@ fun MonumentCard(
                         Icon(
                             imageVector = Icons.Default.AccessTime,
                             contentDescription = null,
-                            tint = LuxorColors.current.onSurface.copy(alpha = 0.6f),
+                            tint = LuxorColors.sandstone.copy(alpha = 0.6f),
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = monument.estimatedTime,
                             style = MaterialTheme.typography.labelMedium.copy(
-                                color = LuxorColors.current.onSurface.copy(alpha = 0.8f)
+                                color = LuxorColors.sandstone.copy(alpha = 0.8f)
                             )
                         )
                     }
@@ -485,14 +478,14 @@ fun MonumentCard(
                         Icon(
                             imageVector = Icons.Default.People,
                             contentDescription = null,
-                            tint = LuxorColors.current.onSurface.copy(alpha = 0.6f),
+                            tint = LuxorColors.sandstone.copy(alpha = 0.6f),
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = "${monument.visitorsToday} today",
                             style = MaterialTheme.typography.labelMedium.copy(
-                                color = LuxorColors.current.onSurface.copy(alpha = 0.8f)
+                                color = LuxorColors.sandstone.copy(alpha = 0.8f)
                             )
                         )
                     }

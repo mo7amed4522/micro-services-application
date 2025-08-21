@@ -147,9 +147,9 @@ fun PlacesScreen() {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        LuxorColors.current.background,
-                        LuxorColors.current.surface.copy(alpha = 0.3f),
-                        LuxorColors.current.background
+                        LuxorColors.pureGold,
+                        LuxorColors.luxorGold.copy(alpha = 0.3f),
+                        LuxorColors.sandstone
                     )
                 )
             )
@@ -167,8 +167,8 @@ fun PlacesScreen() {
                     fontWeight = FontWeight.Bold,
                     brush = Brush.horizontalGradient(
                         colors = listOf(
-                            LuxorColors.current.primary,
-                            LuxorColors.current.secondary
+                            LuxorColors.pureGold,
+                            LuxorColors.luxorGold
                         )
                     )
                 )
@@ -179,7 +179,7 @@ fun PlacesScreen() {
             Text(
                 text = "Discover ${filteredPlaces.size} amazing places in Luxor",
                 style = MaterialTheme.typography.bodyLarge.copy(
-                    color = LuxorColors.current.onSurface.copy(alpha = 0.8f)
+                    color = LuxorColors.luxorGold.copy(alpha = 0.8f)
                 )
             )
             
@@ -218,10 +218,10 @@ fun PlacesScreen() {
                         },
                         selected = selectedCategory == category,
                         colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = LuxorColors.current.primary,
-                            selectedLabelColor = LuxorColors.current.onPrimary,
-                            containerColor = LuxorColors.current.surface,
-                            labelColor = LuxorColors.current.onSurface
+                            selectedContainerColor = LuxorColors.pureGold,
+                            selectedLabelColor = LuxorColors.sandstone,
+                            containerColor = LuxorColors.luxorGold,
+                            labelColor = LuxorColors.sandstone
                         )
                     )
                 }
@@ -238,7 +238,7 @@ fun PlacesScreen() {
                 Text(
                     text = "${filteredPlaces.size} places found",
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color = LuxorColors.current.onSurface.copy(alpha = 0.7f)
+                        color = LuxorColors.sandstone.copy(alpha = 0.7f)
                     )
                 )
                 
@@ -248,7 +248,7 @@ fun PlacesScreen() {
                     Text(
                         text = "Sort by:",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = LuxorColors.current.onSurface.copy(alpha = 0.7f)
+                            color = LuxorColors.sandstone.copy(alpha = 0.7f)
                         )
                     )
                     Spacer(modifier = Modifier.width(8.dp))
@@ -270,8 +270,8 @@ fun PlacesScreen() {
                                 .menuAnchor()
                                 .width(120.dp),
                             colors = OutlinedTextFieldDefaults.colors(
-                                focusedBorderColor = LuxorColors.current.primary,
-                                unfocusedBorderColor = LuxorColors.current.outline
+                                focusedBorderColor = LuxorColors.luxorGold,
+                                unfocusedBorderColor = LuxorColors.bronzeGold
                             )
                         )
                         
@@ -317,7 +317,7 @@ fun PlacesScreen() {
                             .fillMaxWidth()
                             .padding(vertical = 32.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = LuxorColors.current.surface
+                            containerColor = LuxorColors.sandstone
                         )
                     ) {
                         Column(
@@ -330,7 +330,7 @@ fun PlacesScreen() {
                                 imageVector = Icons.Default.SearchOff,
                                 contentDescription = null,
                                 modifier = Modifier.size(64.dp),
-                                tint = LuxorColors.current.onSurface.copy(alpha = 0.5f)
+                                tint = LuxorColors.sandstone.copy(alpha = 0.5f)
                             )
                             
                             Spacer(modifier = Modifier.height(16.dp))
@@ -338,7 +338,7 @@ fun PlacesScreen() {
                             Text(
                                 text = "No places found",
                                 style = MaterialTheme.typography.titleLarge.copy(
-                                    color = LuxorColors.current.onSurface.copy(alpha = 0.7f)
+                                    color = LuxorColors.sandstone.copy(alpha = 0.7f)
                                 ),
                                 textAlign = TextAlign.Center
                             )
@@ -348,7 +348,7 @@ fun PlacesScreen() {
                             Text(
                                 text = "Try adjusting your search or filters",
                                 style = MaterialTheme.typography.bodyMedium.copy(
-                                    color = LuxorColors.current.onSurface.copy(alpha = 0.5f)
+                                    color = LuxorColors.sandstone.copy(alpha = 0.5f)
                                 ),
                                 textAlign = TextAlign.Center
                             )
@@ -370,7 +370,7 @@ fun PlaceCard(
         onClick = onClick,
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = LuxorColors.current.surface
+            containerColor = LuxorColors.sandstone
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
@@ -383,8 +383,8 @@ fun PlaceCard(
                     .background(
                         brush = Brush.verticalGradient(
                             colors = listOf(
-                                place.category.icon.let { LuxorColors.current.primary.copy(alpha = 0.3f) },
-                                place.category.icon.let { LuxorColors.current.secondary.copy(alpha = 0.5f) }
+                                place.category.icon.let { LuxorColors.luxorGold.copy(alpha = 0.3f) },
+                                place.category.icon.let { LuxorColors.pureGold.copy(alpha = 0.5f) }
                             )
                         )
                     ),
@@ -393,7 +393,7 @@ fun PlaceCard(
                 Icon(
                     imageVector = place.category.icon,
                     contentDescription = null,
-                    tint = LuxorColors.current.onSurface.copy(alpha = 0.5f),
+                    tint = LuxorColors.sandstone.copy(alpha = 0.5f),
                     modifier = Modifier.size(48.dp)
                 )
                 
@@ -407,14 +407,14 @@ fun PlaceCard(
                     if (place.ticketPrice != null) {
                         Card(
                             colors = CardDefaults.cardColors(
-                                containerColor = LuxorColors.current.secondary
+                                containerColor = LuxorColors.sandstone
                             )
                         ) {
                             Text(
                                 text = place.ticketPrice,
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                                 style = MaterialTheme.typography.labelSmall.copy(
-                                    color = LuxorColors.current.onSecondary,
+                                    color = LuxorColors.sandstone,
                                     fontWeight = FontWeight.SemiBold
                                 )
                             )
@@ -424,15 +424,15 @@ fun PlaceCard(
                     Card(
                         colors = CardDefaults.cardColors(
                             containerColor = if (place.isOpen) 
-                                LuxorColors.current.tertiary else 
-                                LuxorColors.current.error
+                                LuxorColors.papyrusBeige else
+                                LuxorColors.sandstone
                         )
                     ) {
                         Text(
                             text = if (place.isOpen) "Open" else "Closed",
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                             style = MaterialTheme.typography.labelSmall.copy(
-                                color = LuxorColors.current.onPrimary,
+                                color = LuxorColors.luxorGold,
                                 fontWeight = FontWeight.SemiBold
                             )
                         )
@@ -445,7 +445,7 @@ fun PlaceCard(
                         .align(Alignment.BottomStart)
                         .padding(12.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = LuxorColors.current.primary.copy(alpha = 0.9f)
+                        containerColor = LuxorColors.luxorGold.copy(alpha = 0.9f)
                     )
                 ) {
                     Row(
@@ -456,13 +456,13 @@ fun PlaceCard(
                             imageVector = place.category.icon,
                             contentDescription = null,
                             modifier = Modifier.size(12.dp),
-                            tint = LuxorColors.current.onPrimary
+                            tint = LuxorColors.luxorGold
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = place.category.displayName,
                             style = MaterialTheme.typography.labelSmall.copy(
-                                color = LuxorColors.current.onPrimary,
+                                color = LuxorColors.luxorGold,
                                 fontWeight = FontWeight.SemiBold
                             )
                         )
@@ -485,7 +485,7 @@ fun PlaceCard(
                             text = place.name,
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = LuxorColors.current.primary
+                                color = LuxorColors.luxorGold
                             ),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
@@ -499,14 +499,14 @@ fun PlaceCard(
                             Icon(
                                 imageVector = Icons.Default.Star,
                                 contentDescription = null,
-                                tint = LuxorColors.current.tertiary,
+                                tint = LuxorColors.pureGold,
                                 modifier = Modifier.size(16.dp)
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
                                 text = "${place.rating} (${place.reviewCount})",
                                 style = MaterialTheme.typography.labelMedium.copy(
-                                    color = LuxorColors.current.onSurface.copy(alpha = 0.8f)
+                                    color = LuxorColors.sandstone.copy(alpha = 0.8f)
                                 )
                             )
                         }
@@ -521,14 +521,14 @@ fun PlaceCard(
                             Icon(
                                 imageVector = Icons.Default.LocationOn,
                                 contentDescription = null,
-                                tint = LuxorColors.current.secondary,
+                                tint = LuxorColors.sandstone,
                                 modifier = Modifier.size(14.dp)
                             )
                             Spacer(modifier = Modifier.width(2.dp))
                             Text(
                                 text = place.distance,
                                 style = MaterialTheme.typography.labelSmall.copy(
-                                    color = LuxorColors.current.secondary
+                                    color = LuxorColors.sandstone
                                 )
                             )
                         }
@@ -541,14 +541,14 @@ fun PlaceCard(
                             Icon(
                                 imageVector = Icons.Default.AccessTime,
                                 contentDescription = null,
-                                tint = LuxorColors.current.onSurface.copy(alpha = 0.6f),
+                                tint = LuxorColors.sandstone.copy(alpha = 0.6f),
                                 modifier = Modifier.size(14.dp)
                             )
                             Spacer(modifier = Modifier.width(2.dp))
                             Text(
                                 text = place.estimatedTime,
                                 style = MaterialTheme.typography.labelSmall.copy(
-                                    color = LuxorColors.current.onSurface.copy(alpha = 0.6f)
+                                    color = LuxorColors.sandstone.copy(alpha = 0.6f)
                                 )
                             )
                         }
@@ -560,7 +560,7 @@ fun PlaceCard(
                 Text(
                     text = place.description,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color = LuxorColors.current.onSurface.copy(alpha = 0.8f)
+                        color = LuxorColors.sandstone.copy(alpha = 0.8f)
                     ),
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
@@ -575,14 +575,14 @@ fun PlaceCard(
                         items(place.highlights.take(3)) { highlight ->
                             Card(
                                 colors = CardDefaults.cardColors(
-                                    containerColor = LuxorColors.current.tertiary.copy(alpha = 0.1f)
+                                    containerColor = LuxorColors.pureGold.copy(alpha = 0.1f)
                                 )
                             ) {
                                 Text(
                                     text = highlight,
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                                     style = MaterialTheme.typography.labelSmall.copy(
-                                        color = LuxorColors.current.tertiary,
+                                        color = LuxorColors.deepGold,
                                         fontWeight = FontWeight.Medium
                                     )
                                 )
@@ -593,14 +593,14 @@ fun PlaceCard(
                             item {
                                 Card(
                                     colors = CardDefaults.cardColors(
-                                        containerColor = LuxorColors.current.outline.copy(alpha = 0.1f)
+                                        containerColor = LuxorColors.papyrusBeige.copy(alpha = 0.1f)
                                     )
                                 ) {
                                     Text(
                                         text = "+${place.highlights.size - 3}",
                                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                                         style = MaterialTheme.typography.labelSmall.copy(
-                                            color = LuxorColors.current.onSurface.copy(alpha = 0.7f),
+                                            color = LuxorColors.papyrusBeige.copy(alpha = 0.7f),
                                             fontWeight = FontWeight.Medium
                                         )
                                     )
