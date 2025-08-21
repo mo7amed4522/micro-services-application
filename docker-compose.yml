@@ -32,6 +32,7 @@ services:
       - ./services/user-services/.env
     environment:
       USER_SERVICE_ADDR: user-service:50051
+      DB_HOST: postgres
     ports:
       - "50051:50051"
     depends_on:
@@ -128,8 +129,10 @@ services:
       - "50056:50056"
     environment:
       PHARAOH_SERVICE_ADDR: pharaoh-service:50056
+      DB_HOST: postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - user_network
     restart: unless-stopped
@@ -146,8 +149,10 @@ services:
       - "50057:50057"
     environment:
       HISTORY_TEMPLATE_SERVICE_ADDR: history-template-service:50057
+      DB_HOST: postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - user_network
     restart: unless-stopped
@@ -163,8 +168,10 @@ services:
       - "50058:50058"
     environment:
       QUIZ_SERVICE_ADDR: quiz-service:50058
+      DB_HOST: postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - user_network
     restart: unless-stopped
@@ -180,8 +187,10 @@ services:
       - "50059:50059"
     environment:
       FEEDBACK_SERVICE_ADDR: feedback-service:50059
+      DB_HOST: postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - user_network
     restart: unless-stopped
@@ -198,8 +207,10 @@ services:
       - "50060:50060"
     environment:
       USER_PROGRESS_SERVICE_ADDR: user-progress-service:50060
+      DB_HOST: postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - user_network
     restart: unless-stopped
@@ -213,12 +224,15 @@ services:
     env_file:
       - ./services/chat-services/.env
     ports:
-      - "50062:50062"
+      - "50063:50063"
     environment:
-      CHAT_SERVICE_ADDR: chat-service:50062
+      CHAT_SERVICE_ADDR: chat-service:50063
+      DB_HOST: postgres
     depends_on:
-      - postgres
-      - user-service
+      postgres:
+        condition: service_healthy
+      user-service:
+        condition: service_started
     networks:
       - user_network
     restart: unless-stopped
@@ -240,7 +254,9 @@ services:
       QUIZ_SERVICE_URL: quiz-service:50058
       FEEDBACK_SERVICE_URL: feedback-service:50059
       USER_PROGRESS_SERVICE_URL: user-progress-service:50060
-      CHAT_SERVICE_URL: chat-service:50062
+      CHAT_SERVICE_URL: chat-service:50063
+      REALS_SERVICE_URL: reals-service:50062
+      UPLOAD_SERVICE_URL: upload-service:50061
     ports:
       - "3000:3000"
     depends_on:
@@ -255,6 +271,8 @@ services:
       - feedback-service
       - user-progress-service
       - chat-service
+      - reals-service
+      - upload-service
     networks:
       - user_network
     restart: unless-stopped
@@ -271,8 +289,10 @@ services:
       - "50061:50061"
     environment:
       UPLOAD_SERVICE_ADDR: upload-service:50061
+      DB_HOST: postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - user_network
     restart: unless-stopped
@@ -292,11 +312,16 @@ services:
       UPLOAD_SERVICE_ADDR: upload-service:50061
       USER_SERVICE_ADDR: user-service:50051
       REDIS_ADDR: redis:6379
+      DB_HOST: postgres
     depends_on:
-      - postgres
-      - redis
-      - upload-service
-      - user-service
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      upload-service:
+        condition: service_started
+      user-service:
+        condition: service_started
     networks:
       - user_network
     restart: unless-stopped
