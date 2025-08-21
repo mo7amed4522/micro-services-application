@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "user-service-grpc-collection",
+		"name": "User Service gRPC API",
+		"description": "Complete gRPC API collection for User Service with all 10 endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Create New User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "grpc",
+							"grpc": {
+								"message": {
+									"fullName": "John Doe",
+									"email": "john.doe@example.com",
+									"password": "SecurePass123!",
+									"countryCode": "+1",
+									"phoneNumber": "1234567890",
+									"role": "USER",
+									"verifiyCode": "123456"
+								}
+							}
+						},
+						"url": {
+							"raw": "grpc://localhost:50051/users.UserService/CreateNewUser",
+							"protocol": "grpc",
+							"host": ["localhost"],
+							"port": "50051",
+							"path": ["users.UserService", "CreateNewUser"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "grpc",
+							"grpc": {
+								"message": {
+									"id": "user-123-456-789"
+								}
+							}
+						},
+						"url": {
+							"raw": "grpc://localhost:50051/users.UserService/GetUserByUserID",
+							"protocol": "grpc",
+							"host": ["localhost"],
+							"port": "50051",
+							"path": ["users.UserService", "GetUserByUserID"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "grpc",
+							"grpc": {
+								"message": {
+									"email": "john.doe@example.com"
+								}
+							}
+						},
+						"url": {
+							"raw": "grpc://localhost:50051/users.UserService/GetUserByEmail",
+							"protocol": "grpc",
+							"host": ["localhost"],
+							"port": "50051",
+							"path": ["users.UserService", "GetUserByEmail"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "grpc",
+							"grpc": {
+								"message": {
+									"fullName": "John Smith",
+									"email": "john.smith@example.com",
+									"countryCode": "+1",
+									"phoneNumber": "9876543210",
+									"role": "ADMIN"
+								}
+							}
+						},
+						"url": {
+							"raw": "grpc://localhost:50051/users.UserService/UpdateUserData",
+							"protocol": "grpc",
+							"host": ["localhost"],
+							"port": "50051",
+							"path": ["users.UserService", "UpdateUserData"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "grpc",
+							"grpc": {
+								"message": {
+									"id": "user-123-456-789"
+								}
+							}
+						},
+						"url": {
+							"raw": "grpc://localhost:50051/users.UserService/DeleteUserData",
+							"protocol": "grpc",
+							"host": ["localhost"],
+							"port": "50051",
+							"path": ["users.UserService", "DeleteUserData"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "grpc",
+							"grpc": {
+								"message": {
+									"email": "john.doe@example.com",
+									"password": "SecurePass123!"
+								}
+							}
+						},
+						"url": {
+							"raw": "grpc://localhost:50051/users.UserService/LoginUser",
+							"protocol": "grpc",
+							"host": ["localhost"],
+							"port": "50051",
+							"path": ["users.UserService", "LoginUser"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "grpc",
+							"grpc": {
+								"message": {
+									"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example.token"
+								}
+							}
+						},
+						"url": {
+							"raw": "grpc://localhost:50051/users.UserService/ValidateToken",
+							"protocol": "grpc",
+							"host": ["localhost"],
+							"port": "50051",
+							"path": ["users.UserService", "ValidateToken"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Password Management",
+			"item": [
+				{
+					"name": "Forget Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "grpc",
+							"grpc": {
+								"message": {
+									"email": "john.doe@example.com",
+									"type": "email"
+								}
+							}
+						},
+						"url": {
+							"raw": "grpc://localhost:50051/users.UserService/ForgetPassword",
+							"protocol": "grpc",
+							"host": ["localhost"],
+							"port": "50051",
+							"path": ["users.UserService", "ForgetPassword"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "grpc",
+							"grpc": {
+								"message": {
+									"email": "john.doe@example.com",
+									"verifyCode": "123456"
+								}
+							}
+						},
+						"url": {
+							"raw": "grpc://localhost:50051/users.UserService/VerifyCode",
+							"protocol": "grpc",
+							"host": ["localhost"],
+							"port": "50051",
+							"path": ["users.UserService", "VerifyCode"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "grpc",
+							"grpc": {
+								"message": {
+									"email": "john.doe@example.com",
+									"password": "NewSecurePass456!"
+								}
+							}
+						},
+						"url": {
+							"raw": "grpc://localhost:50051/users.UserService/ResetPassword",
+							"protocol": "grpc",
+							"host": ["localhost"],
+							"port": "50051",
+							"path": ["users.UserService", "ResetPassword"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:50051",
+			"type": "string"
+		},
+		{
+			"key": "service",
+			"value": "users.UserService",
+			"type": "string"
+		}
+	]
+}

@@ -213,9 +213,9 @@ services:
     env_file:
       - ./services/chat-services/.env
     ports:
-      - "50061:50061"
+      - "50062:50062"
     environment:
-      CHAT_SERVICE_ADDR: chat-service:50061
+      CHAT_SERVICE_ADDR: chat-service:50062
     depends_on:
       - postgres
       - user-service
@@ -240,7 +240,7 @@ services:
       QUIZ_SERVICE_URL: quiz-service:50058
       FEEDBACK_SERVICE_URL: feedback-service:50059
       USER_PROGRESS_SERVICE_URL: user-progress-service:50060
-      CHAT_SERVICE_URL: chat-service:50061
+      CHAT_SERVICE_URL: chat-service:50062
     ports:
       - "3000:3000"
     depends_on:
