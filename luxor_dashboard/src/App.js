@@ -10,7 +10,6 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check if user is already authenticated on app load
   useEffect(() => {
     const token = localStorage.getItem('luxor_auth_token');
     if (token) {
@@ -18,15 +17,11 @@ function App() {
     }
     setIsLoading(false);
   }, []);
-
-  // Handle login
   const handleLogin = (userData) => {
     localStorage.setItem('luxor_auth_token', userData.token || 'demo_token');
     localStorage.setItem('luxor_user_data', JSON.stringify(userData));
     setIsAuthenticated(true);
   };
-
-  // Handle logout
   const handleLogout = () => {
     localStorage.removeItem('luxor_auth_token');
     localStorage.removeItem('luxor_user_data');
