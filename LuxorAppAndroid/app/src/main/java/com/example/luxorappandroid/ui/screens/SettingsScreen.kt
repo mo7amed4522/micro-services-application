@@ -5,21 +5,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.luxorappandroid.ui.theme.LuxorColors
 
 data class SettingsSection(
@@ -219,9 +216,9 @@ fun SettingsScreen() {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        LuxorColors.current.background,
-                        LuxorColors.current.surface.copy(alpha = 0.3f),
-                        LuxorColors.current.background
+                        LuxorColors.pureGold,
+                        LuxorColors.deepGold.copy(alpha = 0.3f),
+                        LuxorColors.luxorGold
                     )
                 )
             ),
@@ -236,7 +233,7 @@ fun SettingsScreen() {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
-                    containerColor = LuxorColors.current.surface
+                    containerColor = LuxorColors.luxorGold
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
@@ -249,7 +246,7 @@ fun SettingsScreen() {
                         modifier = Modifier.size(80.dp),
                         shape = CircleShape,
                         colors = CardDefaults.cardColors(
-                            containerColor = LuxorColors.current.primary.copy(alpha = 0.2f)
+                            containerColor = LuxorColors.luxorGold.copy(alpha = 0.2f)
                         )
                     ) {
                         Box(
@@ -259,7 +256,7 @@ fun SettingsScreen() {
                             Icon(
                                 imageVector = Icons.Default.Person,
                                 contentDescription = "Profile",
-                                tint = LuxorColors.current.primary,
+                                tint = LuxorColors.luxorGold,
                                 modifier = Modifier.size(40.dp)
                             )
                         }
@@ -271,14 +268,14 @@ fun SettingsScreen() {
                         text = "Welcome, Traveler!",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
-                            color = LuxorColors.current.primary
+                            color = LuxorColors.luxorGold
                         )
                     )
                     
                     Text(
                         text = "user@example.com",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = LuxorColors.current.onSurface.copy(alpha = 0.7f)
+                            color = LuxorColors.deepGold.copy(alpha = 0.7f)
                         )
                     )
                     
@@ -334,7 +331,7 @@ fun SettingsScreen() {
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 colors = CardDefaults.cardColors(
-                    containerColor = LuxorColors.current.error.copy(alpha = 0.1f)
+                    containerColor = LuxorColors.hieroglyphBrown.copy(alpha = 0.1f)
                 ),
                 elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
@@ -347,7 +344,7 @@ fun SettingsScreen() {
                     Icon(
                         imageVector = Icons.Default.Logout,
                         contentDescription = "Sign Out",
-                        tint = LuxorColors.current.error,
+                        tint = LuxorColors.hieroglyphBrown,
                         modifier = Modifier.size(24.dp)
                     )
                     
@@ -357,7 +354,7 @@ fun SettingsScreen() {
                         text = "Sign Out",
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.SemiBold,
-                            color = LuxorColors.current.error
+                            color = LuxorColors.hieroglyphBrown
                         )
                     )
                 }
@@ -373,7 +370,7 @@ fun SettingsScreen() {
                 Text(
                     text = "Made with ❤️ for Egypt",
                     style = MaterialTheme.typography.bodySmall.copy(
-                        color = LuxorColors.current.onSurface.copy(alpha = 0.6f)
+                        color = LuxorColors.luxorGold.copy(alpha = 0.6f)
                     ),
                     textAlign = TextAlign.Center
                 )
@@ -383,7 +380,7 @@ fun SettingsScreen() {
                 Text(
                     text = "© 2024 Luxor App. All rights reserved.",
                     style = MaterialTheme.typography.bodySmall.copy(
-                        color = LuxorColors.current.onSurface.copy(alpha = 0.5f)
+                        color = LuxorColors.pureGold.copy(alpha = 0.5f)
                     ),
                     textAlign = TextAlign.Center
                 )
@@ -405,7 +402,7 @@ fun QuickStatCard(
         Icon(
             imageVector = icon,
             contentDescription = title,
-            tint = LuxorColors.current.secondary,
+            tint = LuxorColors.pureGold,
             modifier = Modifier.size(20.dp)
         )
         
@@ -415,14 +412,14 @@ fun QuickStatCard(
             text = value,
             style = MaterialTheme.typography.titleMedium.copy(
                 fontWeight = FontWeight.Bold,
-                color = LuxorColors.current.primary
+                color = LuxorColors.luxorGold
             )
         )
         
         Text(
             text = subtitle,
             style = MaterialTheme.typography.labelSmall.copy(
-                color = LuxorColors.current.onSurface.copy(alpha = 0.7f)
+                color = LuxorColors.luxorGold.copy(alpha = 0.7f)
             )
         )
     }
@@ -436,7 +433,7 @@ fun SettingsSectionCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = LuxorColors.current.surface
+            containerColor = LuxorColors.sandstone
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
@@ -447,7 +444,7 @@ fun SettingsSectionCard(
                 text = section.title,
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = LuxorColors.current.primary
+                    color = LuxorColors.luxorGold
                 )
             )
             
@@ -462,7 +459,7 @@ fun SettingsSectionCard(
                 if (index < section.items.size - 1) {
                     Spacer(modifier = Modifier.height(16.dp))
                     HorizontalDivider(
-                        color = LuxorColors.current.outline.copy(alpha = 0.2f),
+                        color = LuxorColors.sandstone.copy(alpha = 0.2f),
                         thickness = 0.5.dp
                     )
                     Spacer(modifier = Modifier.height(16.dp))
@@ -484,7 +481,7 @@ fun SettingsItemRow(
         Icon(
             imageVector = item.icon,
             contentDescription = item.title,
-            tint = LuxorColors.current.onSurface.copy(alpha = 0.7f),
+            tint = LuxorColors.sandstone.copy(alpha = 0.7f),
             modifier = Modifier.size(24.dp)
         )
         
@@ -497,7 +494,7 @@ fun SettingsItemRow(
                 text = item.title,
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.Medium,
-                    color = LuxorColors.current.onSurface
+                    color = LuxorColors.sandstone
                 )
             )
             
@@ -506,7 +503,7 @@ fun SettingsItemRow(
                 Text(
                     text = item.subtitle,
                     style = MaterialTheme.typography.bodySmall.copy(
-                        color = LuxorColors.current.onSurface.copy(alpha = 0.7f)
+                        color = LuxorColors.sandstone.copy(alpha = 0.7f)
                     )
                 )
             }
@@ -518,10 +515,10 @@ fun SettingsItemRow(
                     checked = item.value as? Boolean ?: false,
                     onCheckedChange = onToggleChange,
                     colors = SwitchDefaults.colors(
-                        checkedThumbColor = LuxorColors.current.primary,
-                        checkedTrackColor = LuxorColors.current.primary.copy(alpha = 0.5f),
-                        uncheckedThumbColor = LuxorColors.current.outline,
-                        uncheckedTrackColor = LuxorColors.current.outline.copy(alpha = 0.3f)
+                        checkedThumbColor = LuxorColors.luxorGold,
+                        checkedTrackColor = LuxorColors.luxorGold.copy(alpha = 0.5f),
+                        uncheckedThumbColor = LuxorColors.pureGold,
+                        uncheckedTrackColor = LuxorColors.deepGold.copy(alpha = 0.3f)
                     )
                 )
             }
@@ -533,7 +530,7 @@ fun SettingsItemRow(
                     Icon(
                         imageVector = Icons.Default.ChevronRight,
                         contentDescription = "Navigate",
-                        tint = LuxorColors.current.onSurface.copy(alpha = 0.5f)
+                        tint = LuxorColors.sandstone.copy(alpha = 0.5f)
                     )
                 }
             }
@@ -545,7 +542,7 @@ fun SettingsItemRow(
                     Text(
                         text = item.value?.toString() ?: "",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = LuxorColors.current.secondary,
+                            color = LuxorColors.sandstone,
                             fontWeight = FontWeight.Medium
                         )
                     )
@@ -556,7 +553,7 @@ fun SettingsItemRow(
                         Icon(
                             imageVector = Icons.Default.ChevronRight,
                             contentDescription = "Select",
-                            tint = LuxorColors.current.onSurface.copy(alpha = 0.5f)
+                            tint = LuxorColors.sandstone.copy(alpha = 0.5f)
                         )
                     }
                 }

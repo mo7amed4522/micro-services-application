@@ -26,6 +26,7 @@ const Dashboard = ({ onLogout }) => {
       appVersion: 'App Version',
       police: 'Police',
       privacy: 'Privacy',
+      terms: 'Terms',
       payment: 'Payment',
       trips: 'Trips',
       dashboard: 'Luxor Dashboard',
@@ -46,6 +47,7 @@ const Dashboard = ({ onLogout }) => {
       appVersion: 'إصدار التطبيق',
       police: 'الشرطة',
       privacy: 'الخصوصية',
+      terms: 'الشروط',
       payment: 'الدفع',
       trips: 'الرحلات',
       dashboard: 'لوحة تحكم الأقصر',
@@ -66,6 +68,7 @@ const Dashboard = ({ onLogout }) => {
       appVersion: 'Version de l\'App',
       police: 'Police',
       privacy: 'Confidentialité',
+      terms: 'Conditions',
       payment: 'Paiement',
       trips: 'Voyages',
       dashboard: 'Tableau de Bord Luxor',
@@ -86,6 +89,7 @@ const Dashboard = ({ onLogout }) => {
       appVersion: 'App-Version',
       police: 'Polizei',
       privacy: 'Datenschutz',
+      terms: 'Bedingungen',
       payment: 'Zahlung',
       trips: 'Reisen',
       dashboard: 'Luxor Dashboard',
@@ -98,21 +102,22 @@ const Dashboard = ({ onLogout }) => {
 
   const t = translations[language];
 
-  // Navigation items
+  // Navigation items with Egyptian/Pharaoh themed icons
   const navigationItems = [
-    { id: 'overview', icon: '📊', label: t.overview },
-    { id: 'reals', icon: '🎬', label: t.reals },
-    { id: 'videos', icon: '📹', label: t.videos },
-    { id: 'posts', icon: '📝', label: t.posts },
-    { id: 'users', icon: '👥', label: t.users },
-    { id: 'visitors', icon: '🧳', label: t.visitors },
-    { id: 'tourism', icon: '🏛️', label: t.tourism },
-    { id: 'tourGuides', icon: '🗺️', label: t.tourGuides },
-    { id: 'appVersion', icon: '📱', label: t.appVersion },
-    { id: 'police', icon: '👮', label: t.police },
-    { id: 'privacy', icon: '🔒', label: t.privacy },
-    { id: 'payment', icon: '💳', label: t.payment },
-    { id: 'trips', icon: '✈️', label: t.trips }
+    { id: 'overview', icon: '𓂀', label: t.overview }, // Eye of Horus
+    { id: 'reals', icon: '𓊪', label: t.reals }, // Papyrus scroll
+    { id: 'videos', icon: '𓇳', label: t.videos }, // Sun disk
+    { id: 'posts', icon: '𓊹', label: t.posts }, // Hieroglyphic writing
+    { id: 'users', icon: '𓀀', label: t.users }, // Standing person
+    { id: 'visitors', icon: '𓂧', label: t.visitors }, // Walking legs
+    { id: 'tourism', icon: '𓉴', label: t.tourism }, // Temple/pyramid
+    { id: 'tourGuides', icon: '𓋹', label: t.tourGuides }, // Ankh symbol
+    { id: 'appVersion', icon: '𓊽', label: t.appVersion }, // Cartouche
+    { id: 'police', icon: '𓌃', label: t.police }, // Was scepter
+    { id: 'privacy', icon: '𓊖', label: t.privacy }, // Sealed jar
+    { id: 'terms', icon: '𓊨', label: t.terms }, // Scroll/document
+    { id: 'payment', icon: '𓋞', label: t.payment }, // Gold/treasure
+    { id: 'trips', icon: '𓊝', label: t.trips } // Boat/ship
   ];
 
   // Toggle sidebar
@@ -144,7 +149,7 @@ const Dashboard = ({ onLogout }) => {
             <h2>{t.overview}</h2>
             <div className="stats-grid">
               <div className="stat-card">
-                <div className="stat-icon">👥</div>
+                <div className="stat-icon">𓀀</div>
                 <div className="stat-info">
                   <h3>12,543</h3>
                   <p>{t.users}</p>
@@ -152,7 +157,7 @@ const Dashboard = ({ onLogout }) => {
                 </div>
               </div>
               <div className="stat-card">
-                <div className="stat-icon">🧳</div>
+                <div className="stat-icon">𓂧</div>
                 <div className="stat-info">
                   <h3>8,921</h3>
                   <p>{t.visitors}</p>
@@ -160,7 +165,7 @@ const Dashboard = ({ onLogout }) => {
                 </div>
               </div>
               <div className="stat-card">
-                <div className="stat-icon">✈️</div>
+                <div className="stat-icon">𓊝</div>
                 <div className="stat-info">
                   <h3>1,234</h3>
                   <p>{t.trips}</p>
@@ -168,7 +173,7 @@ const Dashboard = ({ onLogout }) => {
                 </div>
               </div>
               <div className="stat-card">
-                <div className="stat-icon">🎬</div>
+                <div className="stat-icon">𓊪</div>
                 <div className="stat-info">
                   <h3>567</h3>
                   <p>{t.reals}</p>
@@ -176,7 +181,6 @@ const Dashboard = ({ onLogout }) => {
                 </div>
               </div>
             </div>
-            
             <div className="charts-section">
               <div className="chart-card">
                 <h3>Monthly Visitors</h3>
@@ -191,7 +195,6 @@ const Dashboard = ({ onLogout }) => {
                   </div>
                 </div>
               </div>
-              
               <div className="chart-card">
                 <h3>Revenue Overview</h3>
                 <div className="chart-placeholder">
@@ -225,21 +228,21 @@ const Dashboard = ({ onLogout }) => {
               {[1,2,3,4,5,6].map(item => (
                 <div key={item} className="content-card">
                   <div className="content-thumbnail">
-                    <div className="play-button">▶️</div>
+                    <div className="play-button">𓇳</div>
                     <span className="duration">2:30</span>
                   </div>
                   <div className="content-info">
                     <h4>Luxor Temple Tour {item}</h4>
                     <p>Amazing historical journey through ancient Egypt</p>
                     <div className="content-stats">
-                      <span>👁️ 1.2K views</span>
-                      <span>❤️ 89 likes</span>
-                      <span>💬 12 comments</span>
+                      <span>𓂀 1.2K views</span>
+                      <span>𓋹 89 likes</span>
+                      <span>𓊹 12 comments</span>
                     </div>
                   </div>
                   <div className="content-actions">
-                    <button className="edit-btn">✏️</button>
-                    <button className="delete-btn">🗑️</button>
+                    <button className="edit-btn">𓊪</button>
+                    <button className="delete-btn">𓌃</button>
                   </div>
                 </div>
               ))}
@@ -268,21 +271,21 @@ const Dashboard = ({ onLogout }) => {
               {[1,2,3,4,5,6].map(item => (
                 <div key={item} className="content-card">
                   <div className="content-thumbnail">
-                    <div className="play-button">▶️</div>
+                    <div className="play-button">𓇳</div>
                     <span className="duration">5:45</span>
                   </div>
                   <div className="content-info">
                     <h4>Discover Luxor {item}</h4>
                     <p>Professional video showcasing Luxor's beauty</p>
                     <div className="content-stats">
-                      <span>👁️ 5.2K views</span>
-                      <span>❤️ 234 likes</span>
-                      <span>💬 45 comments</span>
+                      <span>𓂀 5.2K views</span>
+                      <span>𓋹 234 likes</span>
+                      <span>𓊹 45 comments</span>
                     </div>
                   </div>
                   <div className="content-actions">
-                    <button className="edit-btn">✏️</button>
-                    <button className="delete-btn">🗑️</button>
+                    <button className="edit-btn">𓊪</button>
+                    <button className="delete-btn">𓌃</button>
                   </div>
                 </div>
               ))}
@@ -315,19 +318,19 @@ const Dashboard = ({ onLogout }) => {
                     <h4>Exploring Ancient Luxor: A Journey Through Time {item}</h4>
                     <p>Discover the magnificent temples and tombs that make Luxor one of the world's greatest archaeological sites...</p>
                     <div className="post-meta">
-                      <span>📅 2 days ago</span>
-                      <span>👤 Admin</span>
+                      <span>𓇳 2 days ago</span>
+                      <span>𓀀 Admin</span>
                       <span className="status published">Published</span>
                     </div>
                   </div>
                   <div className="post-stats">
-                    <div>👁️ 1.5K</div>
-                    <div>❤️ 89</div>
-                    <div>💬 23</div>
+                    <div>𓂀 1.5K</div>
+                    <div>𓋹 89</div>
+                    <div>𓊹 23</div>
                   </div>
                   <div className="post-actions">
-                    <button className="edit-btn">✏️</button>
-                    <button className="delete-btn">🗑️</button>
+                    <button className="edit-btn">𓊪</button>
+                    <button className="delete-btn">𓌃</button>
                   </div>
                 </div>
               ))}
@@ -445,6 +448,171 @@ const Dashboard = ({ onLogout }) => {
           </div>
         );
         
+      case 'privacy':
+        return (
+          <div className="content-section privacy-section">
+            <h2>🔒 {t.privacy}</h2>
+            <div className="policy-content">
+              <section className="policy-section">
+                <h3>1. Information We Collect</h3>
+                <p>
+                  We collect information you provide directly to us, such as when you create an account, 
+                  use our services, or contact us for support. This may include:
+                </p>
+                <ul>
+                  <li>Personal information (name, email address, phone number)</li>
+                  <li>Account credentials and preferences</li>
+                  <li>Usage data and analytics</li>
+                  <li>Device and browser information</li>
+                </ul>
+              </section>
+              
+              <section className="policy-section">
+                <h3>2. How We Use Your Information</h3>
+                <p>We use the information we collect to:</p>
+                <ul>
+                  <li>Provide, maintain, and improve our services</li>
+                  <li>Process transactions and send related information</li>
+                  <li>Send technical notices and support messages</li>
+                  <li>Respond to your comments and questions</li>
+                  <li>Analyze usage patterns and trends</li>
+                </ul>
+              </section>
+              
+              <section className="policy-section">
+                <h3>3. Information Sharing</h3>
+                <p>
+                  We do not sell, trade, or otherwise transfer your personal information to third parties 
+                  without your consent, except as described in this policy. We may share information:
+                </p>
+                <ul>
+                  <li>With service providers who assist in our operations</li>
+                  <li>To comply with legal obligations</li>
+                  <li>To protect our rights and safety</li>
+                  <li>In connection with a business transfer</li>
+                </ul>
+              </section>
+              
+              <section className="policy-section">
+                <h3>4. Data Security</h3>
+                <p>
+                  We implement appropriate security measures to protect your personal information against 
+                  unauthorized access, alteration, disclosure, or destruction. However, no method of 
+                  transmission over the internet is 100% secure.
+                </p>
+              </section>
+              
+              <section className="policy-section">
+                <h3>5. Your Rights</h3>
+                <p>You have the right to:</p>
+                <ul>
+                  <li>Access and update your personal information</li>
+                  <li>Request deletion of your data</li>
+                  <li>Opt-out of certain communications</li>
+                  <li>Request data portability</li>
+                </ul>
+              </section>
+              
+              <section className="policy-section">
+                <h3>6. Contact Us</h3>
+                <p>
+                  If you have any questions about this Privacy Policy, please contact us at:
+                </p>
+                <div className="contact-info">
+                  <p>📧 Email: privacy@luxordashboard.com</p>
+                  <p>📞 Phone: +1 (555) 123-4567</p>
+                  <p>📍 Address: 123 Dashboard Street, Tech City, TC 12345</p>
+                </div>
+              </section>
+            </div>
+          </div>
+        );
+        
+      case 'terms':
+        return (
+          <div className="content-section terms-section">
+            <h2>📋 {t.terms}</h2>
+            <div className="policy-content">
+              <section className="policy-section">
+                <h3>1. Acceptance of Terms</h3>
+                <p>
+                  By accessing and using Luxor Dashboard, you accept and agree to be bound by the terms 
+                  and provision of this agreement. If you do not agree to abide by the above, please do 
+                  not use this service.
+                </p>
+              </section>
+              
+              <section className="policy-section">
+                <h3>2. Use License</h3>
+                <p>
+                  Permission is granted to temporarily download one copy of Luxor Dashboard per device 
+                  for personal, non-commercial transitory viewing only. This is the grant of a license, 
+                  not a transfer of title, and under this license you may not:
+                </p>
+                <ul>
+                  <li>Modify or copy the materials</li>
+                  <li>Use the materials for any commercial purpose or for any public display</li>
+                  <li>Attempt to reverse engineer any software contained in the service</li>
+                  <li>Remove any copyright or other proprietary notations</li>
+                </ul>
+              </section>
+              
+              <section className="policy-section">
+                <h3>3. User Accounts</h3>
+                <p>When you create an account with us, you must provide information that is accurate, complete, and current at all times. You are responsible for:</p>
+                <ul>
+                  <li>Safeguarding the password and all activities under your account</li>
+                  <li>Notifying us immediately of any unauthorized use</li>
+                  <li>Ensuring your account information remains accurate</li>
+                  <li>Complying with all applicable laws and regulations</li>
+                </ul>
+              </section>
+              
+              <section className="policy-section">
+                <h3>4. Prohibited Uses</h3>
+                <p>You may not use our service:</p>
+                <ul>
+                  <li>For any unlawful purpose or to solicit others to unlawful acts</li>
+                  <li>To violate any international, federal, provincial, or state regulations, rules, laws, or local ordinances</li>
+                  <li>To infringe upon or violate our intellectual property rights or the intellectual property rights of others</li>
+                  <li>To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate</li>
+                  <li>To submit false or misleading information</li>
+                </ul>
+              </section>
+              
+              <section className="policy-section">
+                <h3>5. Service Availability</h3>
+                <p>
+                  We strive to provide continuous service availability, but we do not guarantee that our 
+                  service will be uninterrupted or error-free. We reserve the right to modify, suspend, 
+                  or discontinue the service at any time without notice.
+                </p>
+              </section>
+              
+              <section className="policy-section">
+                <h3>6. Limitation of Liability</h3>
+                <p>
+                  In no event shall Luxor Dashboard or its suppliers be liable for any damages 
+                  (including, without limitation, damages for loss of data or profit, or due to business 
+                  interruption) arising out of the use or inability to use the service.
+                </p>
+              </section>
+              
+              <section className="policy-section">
+                <h3>7. Contact Information</h3>
+                <p>
+                  If you have any questions about these Terms of Service, please contact us at:
+                </p>
+                <div className="contact-info">
+                  <p>📧 Email: mo7amed455@gmail.com</p>
+                  <p>📞 Phone: +971 (52) 537-4187</p>
+                  <p>📍 Address: 123 Dashboard Street, Tech City, TC 12345</p>
+                </div>
+              </section>
+            </div>
+          </div>
+        );
+        
       default:
         return (
           <div className="content-section">
@@ -488,26 +656,7 @@ const Dashboard = ({ onLogout }) => {
         </nav>
         
         {/* Sidebar Footer */}
-        <div className="sidebar-footer">
-          {sidebarOpen && (
-            <>
-              <div className="app-version">
-                <span className="version-label">Version</span>
-                <span className="version-number">1.0.0</span>
-              </div>
-              <div className="footer-links">
-                <button className="footer-link" onClick={() => window.open('/privacy', '_blank')}>
-                  <span className="link-icon">🔒</span>
-                  <span className="link-text">Privacy Policy</span>
-                </button>
-                <button className="footer-link" onClick={() => window.open('/terms', '_blank')}>
-                  <span className="link-icon">📋</span>
-                  <span className="link-text">Terms of Service</span>
-                </button>
-              </div>
-            </>
-          )}
-        </div>
+        
       </div>
 
       {/* Main Content */}

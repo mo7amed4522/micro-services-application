@@ -213,9 +213,9 @@ services:
     env_file:
       - ./services/chat-services/.env
     ports:
-      - "50061:50061"
+      - "50062:50062"
     environment:
-      CHAT_SERVICE_ADDR: chat-service:50061
+      CHAT_SERVICE_ADDR: chat-service:50062
     depends_on:
       - postgres
       - user-service
@@ -240,7 +240,7 @@ services:
       QUIZ_SERVICE_URL: quiz-service:50058
       FEEDBACK_SERVICE_URL: feedback-service:50059
       USER_PROGRESS_SERVICE_URL: user-progress-service:50060
-      CHAT_SERVICE_URL: chat-service:50061
+      CHAT_SERVICE_URL: chat-service:50062
     ports:
       - "3000:3000"
     depends_on:
@@ -310,6 +310,29 @@ services:
     networks:
       - user_network
     restart: unless-stopped
+
+  # Luxor Dashboard (React Frontend)
+  luxor-dashboard:
+    build:
+      context: ./luxor_dashboard
+      dockerfile: Dockerfile
+    container_name: luxor_dashboard
+    ports:
+      - "8888:8888"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8888
+      - NODE_ENV=production
+    depends_on:
+      - gateway
+    networks:
+      - user_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
 volumes:
   postgres_data:

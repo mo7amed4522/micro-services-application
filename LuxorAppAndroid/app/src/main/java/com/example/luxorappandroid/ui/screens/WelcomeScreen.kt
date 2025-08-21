@@ -38,14 +38,14 @@ fun WelcomeScreen(
     
     val languages = listOf(
         "English",
-        "العربية", // Arabic
-        "Français", // French
-        "Deutsch", // German
-        "Español", // Spanish
-        "Italiano", // Italian
-        "中文", // Chinese
-        "日本語", // Japanese
-        "Русский" // Russian
+        "العربية",
+        "Français",
+        "Deutsch",
+        "Español",
+        "Italiano",
+        "中文",
+        "日本語",
+        "Русский"
     )
     
     Box(
