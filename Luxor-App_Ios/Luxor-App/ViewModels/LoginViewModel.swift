@@ -23,7 +23,6 @@ class LoginViewModel: ObservableObject {
     }
     
     func validateFields() {
-        // Validate email
         if email.isEmpty {
             emailError = nil
         } else if !authUseCase.validateEmail(email) {
@@ -31,8 +30,6 @@ class LoginViewModel: ObservableObject {
         } else {
             emailError = nil
         }
-        
-        // Validate password
         if password.isEmpty {
             passwordError = nil
         } else if !authUseCase.validatePassword(password) {
@@ -49,9 +46,7 @@ class LoginViewModel: ObservableObject {
             authState.showErrorToast("Please fill in all fields correctly")
             return
         }
-        
         authState.setLoading(true)
-        
         authUseCase.login(email: email, password: password)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
@@ -81,8 +76,6 @@ class LoginViewModel: ObservableObject {
     }
     
     func updateAuthState(_ newAuthState: AuthState) {
-        // This method allows updating the authState reference from the environment
-        // We'll use the injected authState for all operations
     }
     
     

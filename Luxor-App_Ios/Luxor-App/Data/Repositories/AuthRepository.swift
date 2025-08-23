@@ -31,10 +31,9 @@ class AuthRepository: AuthRepositoryProtocol {
                     )
                     
                     if response.statusCode == 200 {
-                        // Convert gRPC response to domain AuthTokens
                         let domainTokens = AuthTokens(
                             accessToken: response.accessToken,
-                            expiresIn: 3600, // Default expiration time
+                            expiresIn: 3600,
                             user: User(
                                 id: response.user.id,
                                 fullName: response.user.fullName,
@@ -71,7 +70,6 @@ class AuthRepository: AuthRepositoryProtocol {
             Task {
                 do {
                     let response = try await self.grpcClient.validateToken(token)
-                    // Note: validateToken returns Users_User, checking if user exists indicates valid token
                     promise(.success(!response.id.isEmpty))
                 } catch {
                     promise(.success(false))
@@ -83,7 +81,6 @@ class AuthRepository: AuthRepositoryProtocol {
     
     func logout() -> AnyPublisher<Void, Never> {
         return Future<Void, Never> { promise in
-            // Clear any stored tokens or perform logout operations
             UserDefaults.standard.removeObject(forKey: "access_token")
             UserDefaults.standard.removeObject(forKey: "user_data")
             promise(.success(()))

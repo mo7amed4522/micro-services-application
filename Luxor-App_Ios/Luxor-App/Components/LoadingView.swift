@@ -12,20 +12,13 @@ struct LoadingView: View {
     
     var body: some View {
         ZStack {
-            // Background overlay
             Color.black.opacity(0.3)
                 .ignoresSafeArea()
-            
-            // Loading container
             VStack(spacing: 20) {
-                // Animated circles
                 ZStack {
-                    // Outer circle
                     Circle()
                         .stroke(Color.blue.opacity(0.2), lineWidth: 4)
                         .frame(width: 60, height: 60)
-                    
-                    // Animated circle
                     Circle()
                         .trim(from: 0, to: 0.7)
                         .stroke(
@@ -43,8 +36,6 @@ struct LoadingView: View {
                             value: isAnimating
                         )
                 }
-                
-                // Loading text
                 Text("Authenticating...")
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.primary)

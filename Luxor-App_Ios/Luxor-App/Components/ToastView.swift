@@ -49,8 +49,6 @@ struct ToastView: View {
         .opacity(opacity)
         .onAppear {
             showToast()
-            
-            // Auto dismiss after 3 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 dismissToast()
             }
@@ -115,7 +113,7 @@ extension View {
             message: "Login successful! Welcome back.",
             type: .success
         ) {
-            // Preview dismiss action
+
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 50)

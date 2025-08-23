@@ -34,23 +34,17 @@ class GRPCClientManager {
     }
     
     func validateToken(_ token: String) async throws -> Users_User {
-        // Note: Token validation would need to be implemented in the proto file
-        // For now, we'll throw an error indicating this feature is not implemented
         throw GRPCError.unimplemented("Token validation not implemented in proto")
     }
-    
     func getUserByEmail(_ email: String) async throws -> User {
         throw GRPCError.unimplemented("HTTP2 transport not available. Add grpc-swift-nio-transport package dependency.")
     }
-    
     func createUser(fullName: String, email: String, password: String, countryCode: String, phoneNumber: String) async throws -> User {
         throw GRPCError.unimplemented("HTTP2 transport not available. Add grpc-swift-nio-transport package dependency.")
     }
-    
     func forgetPassword(email: String) async throws {
         throw GRPCError.unimplemented("HTTP2 transport not available. Add grpc-swift-nio-transport package dependency.")
     }
-    
     func resetPassword(email: String, password: String) async throws {
         throw GRPCError.unimplemented("HTTP2 transport not available. Add grpc-swift-nio-transport package dependency.")
     }
@@ -101,7 +95,7 @@ extension GRPCClientManager {
     private func convertToDomainAuthTokens(from response: Users_LoginUserResponse) -> AuthTokens {
         return AuthTokens(
             accessToken: response.accessToken,
-            expiresIn: 3600, // Default expiration time since not provided in response
+            expiresIn: 3600,
             user: convertToDomainUser(from: response.user)
         )
     }
