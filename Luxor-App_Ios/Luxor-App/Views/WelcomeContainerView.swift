@@ -2,6 +2,7 @@ import SwiftUI
 
 struct WelcomeContainerView: View {
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var languageManager: LanguageManager
     @State private var currentPage = 0
     @State private var dragOffset: CGFloat = 0
     @State private var isAnimating = false
@@ -9,45 +10,45 @@ struct WelcomeContainerView: View {
     @State private var backgroundScale: CGFloat = 1.0
     
     let onComplete: () -> Void
-    
-    private let welcomePages = [
+    private var welcomePages:[WelcomePageData]  {[
+        
         WelcomePageData(
             imageName: "temp1",
-            title: "Discover Ancient Wonders",
-            subtitle: "Journey Through History",
-            description: "Explore the magnificent temples and tombs of ancient Egypt with our immersive historical experience."
+            title: LocalizedStrings.title1(languageManager.currentLanguage),
+            subtitle: LocalizedStrings.subtitle1(languageManager.currentLanguage),
+            description: LocalizedStrings.description1(languageManager.currentLanguage)
         ),
         WelcomePageData(
             imageName: "temp2",
-            title: "Uncover Hidden Treasures",
-            subtitle: "Archaeological Adventures",
-            description: "Join archaeological expeditions and discover artifacts that tell the story of ancient civilizations."
+            title: LocalizedStrings.title2(languageManager.currentLanguage),
+            subtitle: LocalizedStrings.subtitle2(languageManager.currentLanguage),
+            description: LocalizedStrings.description2(languageManager.currentLanguage)
         ),
         WelcomePageData(
             imageName: "temp3",
-            title: "Walk Among Pharaohs",
-            subtitle: "Royal Experiences",
-            description: "Experience the grandeur of pharaohs and learn about the powerful rulers of ancient Egypt."
+            title: LocalizedStrings.title3(languageManager.currentLanguage),
+            subtitle: LocalizedStrings.subtitle3(languageManager.currentLanguage),
+            description: LocalizedStrings.description3(languageManager.currentLanguage)
         ),
         WelcomePageData(
             imageName: "temp4",
-            title: "Decode Ancient Mysteries",
-            subtitle: "Hieroglyphic Secrets",
-            description: "Learn to read hieroglyphs and unlock the secrets written in stone thousands of years ago."
+            title: LocalizedStrings.title4(languageManager.currentLanguage),
+            subtitle: LocalizedStrings.subtitle4(languageManager.currentLanguage),
+            description: LocalizedStrings.description4(languageManager.currentLanguage)
         ),
         WelcomePageData(
             imageName: "temp5",
-            title: "Sacred Rituals",
-            subtitle: "Spiritual Journey",
-            description: "Understand the spiritual beliefs and sacred rituals that guided ancient Egyptian life."
+            title: LocalizedStrings.title5(languageManager.currentLanguage),
+            subtitle: LocalizedStrings.subtitle5(languageManager.currentLanguage),
+            description: LocalizedStrings.description5(languageManager.currentLanguage)
         ),
         WelcomePageData(
             imageName: "temp6",
-            title: "Begin Your Adventure",
-            subtitle: "Your Journey Awaits",
-            description: "Ready to embark on an unforgettable journey through the wonders of ancient Egypt?"
+            title: LocalizedStrings.title6(languageManager.currentLanguage),
+            subtitle: LocalizedStrings.subtitle6(languageManager.currentLanguage),
+            description: LocalizedStrings.description6(languageManager.currentLanguage)
         )
-    ]
+    ]}
     
     var body: some View {
         GeometryReader { geometry in
@@ -83,7 +84,7 @@ struct WelcomeContainerView: View {
                         Spacer()
                         
                         Button(action: skipToEnd) {
-                            Text("Skip")
+                            Text(LocalizedStrings.Next(languageManager.currentLanguage))
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.white)
                                 .padding(.horizontal, 20)
@@ -134,7 +135,7 @@ struct WelcomeContainerView: View {
                         
                         Button(action: nextPage) {
                             HStack {
-                                Text(currentPage == welcomePages.count - 1 ? "Get Started" : "Next")
+                                Text(currentPage == welcomePages.count - 1 ? LocalizedStrings.GetStart(languageManager.currentLanguage) : LocalizedStrings.Next(languageManager.currentLanguage))
                                     .font(.system(size: 18, weight: .semibold))
                                     .foregroundColor(LuxorColors.hieroglyphBrown)
                                 
@@ -230,4 +231,5 @@ struct WelcomePageData {
 #Preview {
     WelcomeContainerView(onComplete: {})
         .environmentObject(ThemeManager())
+        .environmentObject(LanguageManager())
 }

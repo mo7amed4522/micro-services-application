@@ -3,6 +3,7 @@ import SwiftUI
 struct RegisterView: View {
     @StateObject private var viewModel = RegisterViewModel()
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var languageManager: LanguageManager
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
@@ -65,7 +66,7 @@ struct RegisterView: View {
             
             Spacer()
             
-            Text("Create Account")
+            Text(LocalizedStrings.CreateAccount(languageManager.currentLanguage))
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
             
@@ -178,7 +179,7 @@ struct RegisterView: View {
                 .offset(x: 40, y: 42)
             }
             
-            Text("Add Profile Photo")
+            Text(LocalizedStrings.AddProfilePhoto(languageManager.currentLanguage))
                 .font(.system(size: 16, weight: .medium))
                 .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
         }
@@ -209,7 +210,7 @@ struct RegisterView: View {
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                             .scaleEffect(0.8)
                     } else {
-                        Text("Create Account")
+                        Text(LocalizedStrings.CreateAccount(languageManager.currentLanguage))
                             .font(.system(size: 18, weight: .semibold))
                     }
                 }
@@ -234,7 +235,7 @@ struct RegisterView: View {
             }
             
             VStack(spacing: 8) {
-                Text("By creating an account, you agree to our")
+                Text(LocalizedStrings.ByCreatingAccount(languageManager.currentLanguage))
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                 
@@ -242,20 +243,20 @@ struct RegisterView: View {
                     Button(action: {
                         viewModel.showTerms()
                     }) {
-                        Text("Terms of Service")
+                        Text(LocalizedStrings.TermsOfServices(languageManager.currentLanguage))
                             .font(.system(size: 12, weight: .medium))
                             .foregroundColor(LuxorColors.luxorTeal)
                             .underline()
                     }
                     
-                    Text("and")
+                    Text(LocalizedStrings.And(languageManager.currentLanguage))
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                     
                     Button(action: {
                         viewModel.showPrivacyPolicy()
                     }) {
-                        Text("Privacy Policy")
+                        Text(LocalizedStrings.PrivacyAndPolicy(languageManager.currentLanguage))
                             .font(.system(size: 12, weight: .medium))
                             .foregroundColor(LuxorColors.luxorTeal)
                             .underline()
@@ -379,4 +380,5 @@ struct ImagePicker: UIViewControllerRepresentable {
 #Preview {
     RegisterView()
         .environmentObject(ThemeManager())
+        .environmentObject(LanguageManager())
 }

@@ -90,29 +90,29 @@ struct SettingsView: View {
         SettingsSection(title: LocalizedStrings.settings(languageManager.currentLanguage)) {
             SettingsRow(
                 icon: "person.circle",
-                title: "Edit Profile",
-                subtitle: "Update your personal information",
+                title: LocalizedStrings.EditProfile(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubtitleEditProfile(languageManager.currentLanguage),
                 action: { /* Edit Profile */ }
             )
             
             SettingsRow(
                 icon: "bell",
                 title: LocalizedStrings.notifications(languageManager.currentLanguage),
-                subtitle: "Manage your notification preferences",
+                subtitle: LocalizedStrings.SubTitleNotifications(languageManager.currentLanguage),
                 action: { /* Notifications */ }
             )
             
             SettingsRow(
                 icon: "lock.shield",
-                title: "Privacy",
-                subtitle: "Control your privacy settings",
+                title: LocalizedStrings.Privacy(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitlePrivacy(languageManager.currentLanguage),
                 action: { /* Privacy */ }
             )
             
             SettingsRow(
                 icon: "creditcard",
-                title: "Payment Methods",
-                subtitle: "Manage your payment options",
+                title: LocalizedStrings.PaymentMethod(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitlePaymentMethod(languageManager.currentLanguage),
                 action: { /* Payment Methods */ }
             )
         }
@@ -120,11 +120,11 @@ struct SettingsView: View {
     
     // MARK: - Preferences Section
     private var preferencesSection: some View {
-        SettingsSection(title: "Preferences") {
+        SettingsSection(title: LocalizedStrings.Preferences(languageManager.currentLanguage)) {
             SettingsToggleRow(
                 icon: "moon.fill",
                 title: LocalizedStrings.darkMode(languageManager.currentLanguage),
-                subtitle: "Switch between light and dark themes",
+                subtitle: LocalizedStrings.SubTitledarkMode(languageManager.currentLanguage),
                 isOn: $darkModeEnabled
             ) {
                 themeManager.toggleTheme()
@@ -132,15 +132,15 @@ struct SettingsView: View {
             
             SettingsToggleRow(
                 icon: "location.fill",
-                title: "Location Services",
-                subtitle: "Allow access to your location",
+                title: LocalizedStrings.LocationServices(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleLocationServices(languageManager.currentLanguage),
                 isOn: $locationEnabled
             ) {}
             
             SettingsToggleRow(
                 icon: "faceid",
-                title: "Biometric Login",
-                subtitle: "Use Face ID or Touch ID to sign in",
+                title: LocalizedStrings.BiometricLogin(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleBiometricLogin(languageManager.currentLanguage),
                 isOn: $biometricEnabled
             ) {}
             
@@ -148,14 +148,14 @@ struct SettingsView: View {
             LanguagePickerRow(
                 icon: "globe",
                 title: LocalizedStrings.language(languageManager.currentLanguage),
-                subtitle: "Choose your preferred language",
+                subtitle: LocalizedStrings.SubTitlelanguage(languageManager.currentLanguage),
                 languageManager: languageManager
             )
             
             SettingsPickerRow(
                 icon: "dollarsign.circle",
-                title: "Currency",
-                subtitle: "Select your preferred currency",
+                title: LocalizedStrings.Currency(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleCurrency(languageManager.currentLanguage),
                 selection: $selectedCurrency,
                 options: currencies
             )
@@ -164,32 +164,32 @@ struct SettingsView: View {
     
     // MARK: - Privacy & Security Section
     private var privacySecuritySection: some View {
-        SettingsSection(title: "Privacy & Security") {
+        SettingsSection(title: LocalizedStrings.PrivacySecurity(languageManager.currentLanguage)) {
             SettingsRow(
                 icon: "shield.checkered",
-                title: "Two-Factor Authentication",
-                subtitle: "Add an extra layer of security",
+                title: LocalizedStrings.TwoFactorAuthentication(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleBiometricLogin(languageManager.currentLanguage),
                 action: { /* 2FA */ }
             )
             
             SettingsRow(
                 icon: "key.fill",
-                title: "Change Password",
-                subtitle: "Update your account password",
+                title: LocalizedStrings.ChangePassword(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleChangePassword(languageManager.currentLanguage),
                 action: { /* Change Password */ }
             )
             
             SettingsRow(
                 icon: "eye.slash",
-                title: "Account Privacy",
-                subtitle: "Control who can see your profile",
+                title: LocalizedStrings.AccountPrivacy(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleAccountPrivacy(languageManager.currentLanguage),
                 action: { /* Account Privacy */ }
             )
             
             SettingsRow(
                 icon: "trash",
-                title: "Delete Account",
-                subtitle: "Permanently delete your account",
+                title: LocalizedStrings.DeleteAccount(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleDeleteAccount(languageManager.currentLanguage),
                 action: { /* Delete Account */ }
             )
             .foregroundColor(.red)
@@ -198,39 +198,39 @@ struct SettingsView: View {
     
     // MARK: - App Settings Section
     private var appSettingsSection: some View {
-        SettingsSection(title: "App Settings") {
+        SettingsSection(title: LocalizedStrings.AppSeetting(languageManager.currentLanguage)) {
             SettingsToggleRow(
                 icon: "play.circle",
-                title: "Auto-play Videos",
-                subtitle: "Automatically play videos in feed",
+                title: LocalizedStrings.AutoPlayVideos(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleAutoPlayVideos(languageManager.currentLanguage),
                 isOn: $autoPlayVideos
             ) {}
             
             SettingsToggleRow(
                 icon: "network",
-                title: "Data Saver",
-                subtitle: "Reduce data usage",
+                title: LocalizedStrings.DataSaver(languageManager.currentLanguage),
+                subtitle:LocalizedStrings.SubTitleDataSaver(languageManager.currentLanguage),
                 isOn: $dataSaver
             ) {}
             
             SettingsRow(
                 icon: "arrow.up.circle",
-                title: "Check for Updates",
-                subtitle: "Current version: 1.0.0",
+                title: LocalizedStrings.CheckForUpdate(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleCheckForUpdate(languageManager.currentLanguage),
                 action: { /* Check Updates */ }
             )
             
             SettingsRow(
                 icon: "doc.text",
-                title: "Terms of Service",
-                subtitle: "Read our terms and conditions",
+                title: LocalizedStrings.TermsOfServices(languageManager.currentLanguage),
+                subtitle:LocalizedStrings.SubTitleTermsOfServices(languageManager.currentLanguage),
                 action: { /* Terms */ }
             )
             
             SettingsRow(
                 icon: "hand.raised",
-                title: "Privacy Policy",
-                subtitle: "Learn about data collection",
+                title: LocalizedStrings.PrivacyAndPolicy(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitlePrivacyAndPolicy(languageManager.currentLanguage),
                 action: { /* Privacy Policy */ }
             )
         }
@@ -238,32 +238,32 @@ struct SettingsView: View {
     
     // MARK: - Support Section
     private var supportSection: some View {
-        SettingsSection(title: "Support") {
+        SettingsSection(title: LocalizedStrings.Support(languageManager.currentLanguage)) {
             SettingsRow(
                 icon: "questionmark.circle",
-                title: "Help Center",
-                subtitle: "Get help and find answers",
+                title: LocalizedStrings.HelpCenter(languageManager.currentLanguage),
+                subtitle:LocalizedStrings.SubTitleHelpCenter(languageManager.currentLanguage),
                 action: { /* Help Center */ }
             )
             
             SettingsRow(
                 icon: "envelope",
-                title: "Contact Support",
-                subtitle: "Reach out to our support team",
+                title: LocalizedStrings.HelpCenter(languageManager.currentLanguage),
+                subtitle:LocalizedStrings.SubTitleHelpCenter(languageManager.currentLanguage),
                 action: { /* Contact Support */ }
             )
             
             SettingsRow(
                 icon: "star",
-                title: "Rate App",
-                subtitle: "Share your feedback",
+                title: LocalizedStrings.RateApp(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleRateApp(languageManager.currentLanguage),
                 action: { /* Rate App */ }
             )
             
             SettingsRow(
                 icon: "square.and.arrow.up",
-                title: "Share App",
-                subtitle: "Tell friends about Luxor",
+                title: LocalizedStrings.ShareApp(languageManager.currentLanguage),
+                subtitle: LocalizedStrings.SubTitleShareApp(languageManager.currentLanguage),
                 action: { /* Share App */ }
             )
         }
@@ -348,6 +348,7 @@ struct SettingsRow: View {
     let subtitle: String
     let action: () -> Void
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var langManger: LanguageManager
     
     var body: some View {
         Button(action: action) {
@@ -368,13 +369,13 @@ struct SettingsRow: View {
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
                     
                     Text(subtitle)
-                        .font(.system(size: 14, weight: .medium))
+                        .font(.system(size: 10, weight: .medium))
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                 }
                 
                 Spacer()
                 
-                Image(systemName: "chevron.right")
+                Image(systemName: langManger.currentLanguage == .arabic ? "chevron.left" : "chevron.right")
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
             }
@@ -397,6 +398,7 @@ struct SettingsToggleRow: View {
     @Binding var isOn: Bool
     let action: () -> Void
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var langManger: LanguageManager
     
     var body: some View {
         HStack(spacing: 16) {
@@ -412,12 +414,13 @@ struct SettingsToggleRow: View {
             
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
                 
                 Text(subtitle)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.system(size: 12, weight: .regular))
                     .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
+                    
             }
             
             Spacer()
@@ -445,6 +448,7 @@ struct SettingsPickerRow: View {
     @Binding var selection: String
     let options: [String]
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var langManger: LanguageManager
     @State private var showPicker = false
     
     var body: some View {
@@ -477,7 +481,7 @@ struct SettingsPickerRow: View {
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(LuxorColors.luxorTeal)
                     
-                    Image(systemName: "chevron.right")
+                    Image(systemName: langManger.currentLanguage == .arabic ? "chevron.left" : "chevron.right")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                 }

@@ -13,15 +13,17 @@ struct PasswordValidation {
 struct LuxorPasswordTextField: View {
     @Binding var password: String
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var languageManager: LanguageManager
     @State private var isEditing = false
     @State private var isSecure = true
     @State private var validation = PasswordValidation()
     @State private var showValidation = false
-    
+    var isRTL: Bool {
+            languageManager.currentLanguage == .arabic
+        }
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             ZStack {
-                // Enhanced Background with Historical Theme
                 RoundedRectangle(cornerRadius: 16)
                     .fill(
                         themeManager.isDarkMode ?
@@ -70,7 +72,6 @@ struct LuxorPasswordTextField: View {
                     .frame(height: 64)
                 
                 HStack(spacing: 16) {
-                    // Lock Icon with Historical Styling
                     ZStack {
                         Circle()
                             .fill(
@@ -101,7 +102,7 @@ struct LuxorPasswordTextField: View {
                     
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
-                            Text("Password")
+                            Text(LocalizedStrings.password(languageManager.currentLanguage))
                                 .font(.system(
                                     size: (isEditing || !password.isEmpty) ? 11 : 16,
                                     weight: .medium
@@ -114,8 +115,6 @@ struct LuxorPasswordTextField: View {
                                 .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isEditing || !password.isEmpty)
                             Spacer()
                         }
-                        
-                        // Password Input Field
                         HStack {
                             Group {
                                 if isSecure {
@@ -141,8 +140,6 @@ struct LuxorPasswordTextField: View {
                             }
                         }
                     }
-                    
-                    // Enhanced Eye Toggle with Historical Styling
                     Button(action: {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                             isSecure.toggle()
@@ -173,7 +170,7 @@ struct LuxorPasswordTextField: View {
             // Enhanced Password Validation with Beautiful Design
             if showValidation {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Password Requirements")
+                    Text(LocalizedStrings.PasswordRequirements(languageManager.currentLanguage))
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(
                             themeManager.isDarkMode ? Color.white.opacity(0.8) : Color.black.opacity(0.8)
@@ -181,17 +178,17 @@ struct LuxorPasswordTextField: View {
                     
                     VStack(alignment: .leading, spacing: 8) {
                         EnhancedPasswordValidationRow(
-                            text: "At least one capital letter",
+                            text: LocalizedStrings.AtLeastOneCapitalLetter(languageManager.currentLanguage),
                             isValid: validation.hasCapitalLetter,
                             themeManager: themeManager
                         )
                         EnhancedPasswordValidationRow(
-                            text: "At least 8 characters",
+                            text:LocalizedStrings.AtLeastEightCharacters(languageManager.currentLanguage),
                             isValid: validation.hasMinimumLength,
                             themeManager: themeManager
                         )
                         EnhancedPasswordValidationRow(
-                            text: "At least one special character",
+                            text: LocalizedStrings.AtLeastOneSpecialCharacter(languageManager.currentLanguage),
                             isValid: validation.hasSpecialCharacter,
                             themeManager: themeManager
                         )
@@ -295,6 +292,7 @@ struct EnhancedPasswordValidationRow: View {
     VStack {
         LuxorPasswordTextField(password: .constant("Test123!"))
             .environmentObject(ThemeManager())
+            .environmentObject(LanguageManager())
         
         LuxorPasswordTextField(password: .constant("Test123!"))
             .environmentObject({
@@ -304,4 +302,5 @@ struct EnhancedPasswordValidationRow: View {
             }())
     }
     .padding()
+    .environmentObject(LanguageManager())
 }
