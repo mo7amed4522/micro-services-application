@@ -10,6 +10,7 @@ struct CountryCode {
 struct LuxorPhoneTextField: View {
     @Binding var phoneNumber: String
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var languageManager: LanguageManager
     @State private var isEditing = false
     @State private var isValid = true
     @State private var selectedCountry = CountryCode(name: "United States", code: "US", flag: "🇺🇸", dialCode: "+1")
@@ -23,7 +24,6 @@ struct LuxorPhoneTextField: View {
         CountryCode(name: "Germany", code: "DE", flag: "🇩🇪", dialCode: "+49"),
         CountryCode(name: "France", code: "FR", flag: "🇫🇷", dialCode: "+33"),
         CountryCode(name: "Japan", code: "JP", flag: "🇯🇵", dialCode: "+81"),
-        CountryCode(name: "India", code: "IN", flag: "🇮🇳", dialCode: "+91"),
         CountryCode(name: "Brazil", code: "BR", flag: "🇧🇷", dialCode: "+55"),
         CountryCode(name: "Mexico", code: "MX", flag: "🇲🇽", dialCode: "+52")
     ]
@@ -96,91 +96,177 @@ struct LuxorPhoneTextField: View {
                     .frame(height: 64)
                 
                 HStack(spacing: 12) {
-                    
-                    Button(action: {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                            showDropdown.toggle()
-                        }
-                    }) {
-                        HStack(spacing: 8) {
-                            Text(selectedCountry.flag)
-                                .font(.system(size: 20))
+                    // RTL Diractions
+                    if( languageManager.currentLanguage == .arabic)
+                    {
+                        ZStack {
+                            Circle()
+                                .fill(
+                                    phoneNumber.isEmpty ? LinearGradient(colors: [Color.clear], startPoint: .top, endPoint: .bottom) :
+                                    isValid ? LinearGradient(colors: [Color.green.opacity(0.2), Color.green.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing) :
+                                        LinearGradient(colors: [Color.red.opacity(0.2), Color.red.opacity(0.1)], startPoint: .topLeading, endPoint: .trailing)
+                                )
+                                .frame(width: 32, height: 32)
                             
-                            Text(selectedCountry.dialCode)
+                            if !phoneNumber.isEmpty {
+                                Image(systemName: isValid ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                    .foregroundColor(isValid ? .green : .red)
+                                    .font(.system(size: 16, weight: .medium))
+                            }
+                        }
+                        VStack(alignment: .trailing, spacing: 4) {
+                            HStack {
+                                Text(LocalizedStrings.phoneNumber(languageManager.currentLanguage))
+                                    .font(.system(
+                                        size: (isEditing || !phoneNumber.isEmpty) ? 11 : 16,
+                                        weight: .medium
+                                    ))
+                                    .foregroundColor(
+                                        isEditing ? LuxorColors.luxorTeal :
+                                        !isValid ? Color.red :
+                                        themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : Color.gray
+                                    )
+                                    .offset(y: (isEditing || !phoneNumber.isEmpty) ? -8 : 8)
+                                    .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isEditing || !phoneNumber.isEmpty)
+                                Spacer()
+                            }
+                            
+                            TextField("", text: $phoneNumber)
                                 .font(.system(size: 16, weight: .medium))
                                 .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
-                            
-                            Image(systemName: "chevron.down")
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
-                                .rotationEffect(.degrees(showDropdown ? 180 : 0))
-                                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: showDropdown)
-                        }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(themeManager.isDarkMode ? LuxorColors.Dark.cardBackground : Color(UIColor.systemGray6))
-                        )
-                    }
-                    
-                    Rectangle()
-                        .fill(themeManager.isDarkMode ? LuxorColors.Dark.border : Color.gray.opacity(0.3))
-                        .frame(width: 1, height: 30)
-                    
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack {
-                            Text("Phone Number")
-                                .font(.system(
-                                    size: (isEditing || !phoneNumber.isEmpty) ? 11 : 16,
-                                    weight: .medium
-                                ))
-                                .foregroundColor(
-                                    isEditing ? LuxorColors.luxorTeal :
-                                    !isValid ? Color.red :
-                                    themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : Color.gray
-                                )
-                                .offset(y: (isEditing || !phoneNumber.isEmpty) ? -8 : 8)
-                                .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isEditing || !phoneNumber.isEmpty)
-                            Spacer()
-                        }
-                        
-                        TextField("", text: $phoneNumber)
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
-                            .keyboardType(.phonePad)
-                            .onTapGesture {
-                                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                                    isEditing = true
-                                }
-                                // Close dropdown when tapping on text field
-                                if showDropdown {
-                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                                        showDropdown = false
+                                .keyboardType(.phonePad)
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                                        isEditing = true
+                                    }
+                                    // Close dropdown when tapping on text field
+                                    if showDropdown {
+                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                            showDropdown = false
+                                        }
                                     }
                                 }
-                            }
-                            .onChange(of: phoneNumber) { newValue in
-                                validatePhoneNumber(newValue)
-                            }
-                    }
-                    
-                    ZStack {
-                        Circle()
-                            .fill(
-                                phoneNumber.isEmpty ? LinearGradient(colors: [Color.clear], startPoint: .top, endPoint: .bottom) :
-                                isValid ? LinearGradient(colors: [Color.green.opacity(0.2), Color.green.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing) :
-                                LinearGradient(colors: [Color.red.opacity(0.2), Color.red.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                            )
-                            .frame(width: 32, height: 32)
+                                .onChange(of: phoneNumber) { newValue in
+                                    validatePhoneNumber(newValue)
+                                }
+                        }
                         
-                        if !phoneNumber.isEmpty {
-                            Image(systemName: isValid ? "checkmark.circle.fill" : "xmark.circle.fill")
-                                .foregroundColor(isValid ? .green : .red)
+                        Button(action: {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                showDropdown.toggle()
+                            }
+                        }) {
+                            HStack() {
+                                Image(systemName: "chevron.down")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
+                                    .rotationEffect(.degrees(showDropdown ? 180 : 0))
+                                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: showDropdown)
+                                Text(selectedCountry.dialCode)
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
+                                
+                                Text(selectedCountry.flag)
+                                    .font(.system(size: 20))
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(themeManager.isDarkMode ? LuxorColors.Dark.cardBackground : Color(UIColor.systemGray6))
+                            )
+                        }
+                        
+                        Rectangle()
+                            .fill(themeManager.isDarkMode ? LuxorColors.Dark.border : Color.gray.opacity(0.3))
+                            .frame(width: 1, height: 30)
+                    
+                    }else{
+                        Button(action: {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                showDropdown.toggle()
+                            }
+                        }) {
+                            HStack(spacing: 8) {
+                                Text(selectedCountry.flag)
+                                    .font(.system(size: 20))
+                                
+                                Text(selectedCountry.dialCode)
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
+                                
+                                Image(systemName: "chevron.down")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
+                                    .rotationEffect(.degrees(showDropdown ? 180 : 0))
+                                    .animation(.spring(response: 0.3, dampingFraction: 0.7), value: showDropdown)
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(themeManager.isDarkMode ? LuxorColors.Dark.cardBackground : Color(UIColor.systemGray6))
+                            )
+                        }
+                        
+                        Rectangle()
+                            .fill(themeManager.isDarkMode ? LuxorColors.Dark.border : Color.gray.opacity(0.3))
+                            .frame(width: 1, height: 30)
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack {
+                                Text(LocalizedStrings.phoneNumber(languageManager.currentLanguage))
+                                    .font(.system(
+                                        size: (isEditing || !phoneNumber.isEmpty) ? 11 : 16,
+                                        weight: .medium
+                                    ))
+                                    .foregroundColor(
+                                        isEditing ? LuxorColors.luxorTeal :
+                                        !isValid ? Color.red :
+                                        themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : Color.gray
+                                    )
+                                    .offset(y: (isEditing || !phoneNumber.isEmpty) ? -8 : 8)
+                                    .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isEditing || !phoneNumber.isEmpty)
+                                Spacer()
+                            }
+                            
+                            TextField("", text: $phoneNumber)
                                 .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
+                                .keyboardType(.phonePad)
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                                        isEditing = true
+                                    }
+                                    // Close dropdown when tapping on text field
+                                    if showDropdown {
+                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                            showDropdown = false
+                                        }
+                                    }
+                                }
+                                .onChange(of: phoneNumber) { newValue in
+                                    validatePhoneNumber(newValue)
+                                }
+                        }
+                        
+                        ZStack {
+                            Circle()
+                                .fill(
+                                    phoneNumber.isEmpty ? LinearGradient(colors: [Color.clear], startPoint: .top, endPoint: .bottom) :
+                                    isValid ? LinearGradient(colors: [Color.green.opacity(0.2), Color.green.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing) :
+                                    LinearGradient(colors: [Color.red.opacity(0.2), Color.red.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                )
+                                .frame(width: 32, height: 32)
+                            
+                            if !phoneNumber.isEmpty {
+                                Image(systemName: isValid ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                    .foregroundColor(isValid ? .green : .red)
+                                    .font(.system(size: 16, weight: .medium))
+                            }
                         }
                     }
-                }
+                    }
                 .padding(.horizontal, 20)
             }
             if showDropdown {
@@ -280,6 +366,7 @@ struct LuxorPhoneTextField: View {
     VStack(spacing: 40) {
         LuxorPhoneTextField(phoneNumber: .constant("1234567890"))
             .environmentObject(ThemeManager())
+            .environmentObject(LanguageManager())
         LuxorPhoneTextField(phoneNumber: .constant(""))
             .environmentObject({
                 let theme = ThemeManager()
@@ -289,4 +376,5 @@ struct LuxorPhoneTextField: View {
             .background(Color.black)
     }
     .padding()
+    .environmentObject(LanguageManager())
 }

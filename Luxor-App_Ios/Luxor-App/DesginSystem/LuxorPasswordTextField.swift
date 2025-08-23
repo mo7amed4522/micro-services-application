@@ -18,9 +18,7 @@ struct LuxorPasswordTextField: View {
     @State private var isSecure = true
     @State private var validation = PasswordValidation()
     @State private var showValidation = false
-    var isRTL: Bool {
-            languageManager.currentLanguage == .arabic
-        }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             ZStack {

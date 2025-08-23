@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var languageManager: LanguageManager
     @EnvironmentObject var authState: AuthState
     @EnvironmentObject var diContainer: DIContainer
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -23,11 +24,11 @@ struct LoginView: View {
                     LuxorLogoView(size: isIPad ? 140 : 100)
                     
                     VStack(spacing: 8) {
-                        Text("Welcome Back")
+                        Text(LocalizedStrings.welcomeTitle(languageManager.currentLanguage))
                             .font(.system(size: isIPad ? 32 : 28, weight: .bold))
                             .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
                         
-                        Text("Sign in to your account")
+                        Text(LocalizedStrings.SignInToYourAccount(languageManager.currentLanguage))
                             .font(.system(size: isIPad ? 18 : 16, weight: .medium))
                             .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                     }
@@ -97,7 +98,7 @@ struct LoginView: View {
                 Button(action: {
                     viewModel.forgotPassword()
                 }) {
-                    Text("Forgot Password?")
+                    Text(LocalizedStrings.forgotPassword(languageManager.currentLanguage))
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(LuxorColors.luxorTeal)
                 }
@@ -112,7 +113,7 @@ struct LoginView: View {
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                             .scaleEffect(0.8)
                     } else {
-                        Text("Sign In")
+                        Text(LocalizedStrings.SignInToYourAccount(languageManager.currentLanguage))
                             .font(.system(size: 18, weight: .semibold))
                     }
                 }
@@ -141,7 +142,7 @@ struct LoginView: View {
                     .fill(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary.opacity(0.3) : LuxorColors.Light.textSecondary.opacity(0.3))
                     .frame(height: 1)
                 
-                Text("OR")
+                Text(LocalizedStrings.OR(languageManager.currentLanguage))
                     .font(.system(size: 12, weight: .medium))
                     .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                     .padding(.horizontal, 16)
@@ -169,7 +170,7 @@ struct LoginView: View {
                             Image(systemName: "person.badge.plus")
                                 .font(.system(size: 16, weight: .medium))
                             
-                            Text("Create New Account")
+                            Text(LocalizedStrings.CreateAccount(languageManager.currentLanguage))
                                 .font(.system(size: 16, weight: .semibold))
                         }
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
@@ -198,7 +199,7 @@ struct LoginView: View {
                 }
                 
                 VStack(spacing: 4) {
-                    Text("By creating an account, you agree to our")
+                    Text(LocalizedStrings.ByCreatingAccount(languageManager.currentLanguage))
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                     
@@ -206,20 +207,20 @@ struct LoginView: View {
                         Button(action: {
                             viewModel.showTerms()
                         }) {
-                            Text("Terms of Service")
+                            Text(LocalizedStrings.TermsOfServices(languageManager.currentLanguage))
                                 .font(.system(size: 12, weight: .medium))
                                 .foregroundColor(LuxorColors.luxorTeal)
                                 .underline()
                         }
                         
-                        Text("and")
+                        Text(LocalizedStrings.And(languageManager.currentLanguage))
                             .font(.system(size: 12, weight: .regular))
                             .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                         
                         Button(action: {
                             viewModel.showPrivacyPolicy()
                         }) {
-                            Text("Privacy Policy")
+                            Text(LocalizedStrings.PrivacyAndPolicy(languageManager.currentLanguage))
                                 .font(.system(size: 12, weight: .medium))
                                 .foregroundColor(LuxorColors.luxorTeal)
                                 .underline()
@@ -239,4 +240,5 @@ struct LoginView: View {
         .environmentObject(ThemeManager())
         .environmentObject(AuthState())
         .environmentObject(DIContainer.shared)
+        .environmentObject(LanguageManager())
 }

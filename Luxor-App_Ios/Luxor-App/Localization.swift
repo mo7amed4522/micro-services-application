@@ -220,6 +220,32 @@ struct LocalizedStrings {
         case .chinese: return "添加头像"
         }
     }
+    static func SignInToYourAccount(_ language: SupportedLanguage) -> String {
+        switch language {
+        case .english: return "Sign in to your account"
+        case .arabic: return "سجّل الدخول إلى حسابك"
+        case .french: return "Connectez-vous à votre compte"
+        case .chinese: return "登录到您的账户"
+        }
+    }
+
+    static func SignIn(_ language: SupportedLanguage) -> String {
+        switch language {
+        case .english: return "Sign In"
+        case .arabic: return "تسجيل الدخول"
+        case .french: return "Se connecter"
+        case .chinese: return "登录"
+        }
+    }
+
+    static func OR(_ language: SupportedLanguage) -> String {
+        switch language {
+        case .english: return "OR"
+        case .arabic: return "أو"
+        case .french: return "OU"
+        case .chinese: return "或"
+        }
+    }
     static func PasswordRequirements(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Password Requirements"
