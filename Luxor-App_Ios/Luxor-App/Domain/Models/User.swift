@@ -56,3 +56,43 @@ struct AuthResult {
         return AuthResult(isSuccess: false, user: nil, tokens: nil, errorMessage: message)
     }
 }
+
+struct ForgotPasswordResult {
+    let isSuccess: Bool
+    let verifyCode: String?
+    let errorMessage: String?
+    
+    static func success(verifyCode: String) -> ForgotPasswordResult {
+        return ForgotPasswordResult(isSuccess: true, verifyCode: verifyCode, errorMessage: nil)
+    }
+    
+    static func failure(message: String) -> ForgotPasswordResult {
+        return ForgotPasswordResult(isSuccess: false, verifyCode: nil, errorMessage: message)
+    }
+}
+
+struct VerifyCodeResult {
+    let isSuccess: Bool
+    let errorMessage: String?
+    
+    static func success() -> VerifyCodeResult {
+        return VerifyCodeResult(isSuccess: true, errorMessage: nil)
+    }
+    
+    static func failure(message: String) -> VerifyCodeResult {
+        return VerifyCodeResult(isSuccess: false, errorMessage: message)
+    }
+}
+
+struct ResetPasswordResult {
+    let isSuccess: Bool
+    let errorMessage: String?
+    
+    static func success() -> ResetPasswordResult {
+        return ResetPasswordResult(isSuccess: true, errorMessage: nil)
+    }
+    
+    static func failure(message: String) -> ResetPasswordResult {
+        return ResetPasswordResult(isSuccess: false, errorMessage: message)
+    }
+}

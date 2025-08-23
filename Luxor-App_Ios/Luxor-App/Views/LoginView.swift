@@ -55,6 +55,11 @@ struct LoginView: View {
         .onAppear {
             viewModel.updateAuthState(authState)
         }
+        .sheet(isPresented: $viewModel.showForgotPassword) {
+            ForgotPasswordView(authUseCase: diContainer.authUseCase)
+                .environmentObject(themeManager)
+                .environmentObject(languageManager)
+        }
     }
     
     @ViewBuilder

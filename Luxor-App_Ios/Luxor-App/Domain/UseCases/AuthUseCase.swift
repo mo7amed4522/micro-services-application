@@ -40,4 +40,16 @@ class AuthUseCase {
         let hasSpecial = password.range(of: "[^A-Za-z0-9]", options: .regularExpression) != nil
         return hasCapital && hasMinLength && hasSpecial
     }
+    
+    func forgetPassword(email: String, type: String) -> AnyPublisher<ForgotPasswordResult, Never> {
+        return authRepository.forgetPassword(email: email, type: type)
+    }
+    
+    func verifyCode(email: String, verifyCode: String) -> AnyPublisher<VerifyCodeResult, Never> {
+        return authRepository.verifyCode(email: email, verifyCode: verifyCode)
+    }
+    
+    func resetPassword(email: String, password: String) -> AnyPublisher<ResetPasswordResult, Never> {
+        return authRepository.resetPassword(email: email, password: password)
+    }
 }

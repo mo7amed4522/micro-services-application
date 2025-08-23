@@ -32,7 +32,7 @@ class AuthRepository: AuthRepositoryProtocol {
                     
                     if response.statusCode == 200 {
                         let domainTokens = AuthTokens(
-                            accessToken: response.accessToken,
+                            accessToken: response.tokens.accessToken,
                             expiresIn: 3600,
                             user: User(
                                 id: response.user.id,
@@ -84,6 +84,84 @@ class AuthRepository: AuthRepositoryProtocol {
             UserDefaults.standard.removeObject(forKey: "access_token")
             UserDefaults.standard.removeObject(forKey: "user_data")
             promise(.success(()))
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func forgetPassword(email: String, type: String) -> AnyPublisher<ForgotPasswordResult, Never> {
+        return Future<ForgotPasswordResult, Never> { [weak self] promise in
+            guard let self = self else {
+                promise(.success(ForgotPasswordResult.failure(message: "Repository not available")))
+                return
+            }
+            
+            Task {
+                do {
+                    let response = try await self.grpcClient.forgetPassword(email: email, type: type)
+                    
+                    if response.statusCode == 200 {
+                        let result = ForgotPasswordResult.success(verifyCode: response.verifyCode)
+                        promise(.success(result))
+                    } else {
+                        let errorMessage = response.message.isEmpty ? "Failed to send verification code" : response.message
+                        promise(.success(ForgotPasswordResult.failure(message: errorMessage)))
+                    }
+                } catch {
+                    promise(.success(ForgotPasswordResult.failure(message: "Network error: \(error.localizedDescription)")))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func verifyCode(email: String, verifyCode: String) -> AnyPublisher<VerifyCodeResult, Never> {
+        return Future<VerifyCodeResult, Never> { [weak self] promise in
+            guard let self = self else {
+                promise(.success(VerifyCodeResult.failure(message: "Repository not available")))
+                return
+            }
+            
+            Task {
+                do {
+                    let response = try await self.grpcClient.verifyCode(email: email, verifyCode: verifyCode)
+                    
+                    if response.statusCode == 200 {
+                        let result = VerifyCodeResult.success()
+                        promise(.success(result))
+                    } else {
+                        let errorMessage = response.message.isEmpty ? "Invalid verification code" : response.message
+                        promise(.success(VerifyCodeResult.failure(message: errorMessage)))
+                    }
+                } catch {
+                    promise(.success(VerifyCodeResult.failure(message: "Network error: \(error.localizedDescription)")))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func resetPassword(email: String, password: String) -> AnyPublisher<ResetPasswordResult, Never> {
+        return Future<ResetPasswordResult, Never> { [weak self] promise in
+            guard let self = self else {
+                promise(.success(ResetPasswordResult.failure(message: "Repository not available")))
+                return
+            }
+            
+            Task {
+                do {
+                    let response = try await self.grpcClient.resetPassword(email: email, password: password)
+                    
+                    if response.statusCode == 200 {
+                        let result = ResetPasswordResult.success()
+                        promise(.success(result))
+                    } else {
+                        let errorMessage = response.message.isEmpty ? "Failed to reset password" : response.message
+                        promise(.success(ResetPasswordResult.failure(message: errorMessage)))
+                    }
+                } catch {
+                    promise(.success(ResetPasswordResult.failure(message: "Network error: \(error.localizedDescription)")))
+                }
+            }
         }
         .eraseToAnyPublisher()
     }

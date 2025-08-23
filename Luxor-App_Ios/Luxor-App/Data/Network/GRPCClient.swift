@@ -42,11 +42,61 @@ class GRPCClientManager {
     func createUser(fullName: String, email: String, password: String, countryCode: String, phoneNumber: String) async throws -> User {
         throw GRPCError.unimplemented("HTTP2 transport not available. Add grpc-swift-nio-transport package dependency.")
     }
-    func forgetPassword(email: String) async throws {
-        throw GRPCError.unimplemented("HTTP2 transport not available. Add grpc-swift-nio-transport package dependency.")
+    func forgetPassword(email: String, type: String) async throws -> Users_ForgetPasswordResponse {
+        return try await withGRPCClient(
+            transport: .http2NIOPosix(
+                target: .dns(host: "127.0.0.1", port: 8080),
+                transportSecurity: .plaintext
+            )
+        ) { client in
+            let service = Users_UserService.Client(wrapping: client)
+            
+            let request = Users_ForgetPasswordRequest.with {
+                $0.email = email
+                $0.type = type
+            }
+            
+            let response = try await service.forgetPassword(request)
+            return response
+        }
     }
-    func resetPassword(email: String, password: String) async throws {
-        throw GRPCError.unimplemented("HTTP2 transport not available. Add grpc-swift-nio-transport package dependency.")
+    
+    func verifyCode(email: String, verifyCode: String) async throws -> Users_VerifyCodeResponse {
+        return try await withGRPCClient(
+            transport: .http2NIOPosix(
+                target: .dns(host: "127.0.0.1", port: 8080),
+                transportSecurity: .plaintext
+            )
+        ) { client in
+            let service = Users_UserService.Client(wrapping: client)
+            
+            let request = Users_VerifyCodeRequest.with {
+                $0.email = email
+                $0.verifyCode = verifyCode
+            }
+            
+            let response = try await service.verifyCode(request)
+            return response
+        }
+    }
+    
+    func resetPassword(email: String, password: String) async throws -> Users_ResetPasswordResponse {
+        return try await withGRPCClient(
+            transport: .http2NIOPosix(
+                target: .dns(host: "127.0.0.1", port: 8080),
+                transportSecurity: .plaintext
+            )
+        ) { client in
+            let service = Users_UserService.Client(wrapping: client)
+            
+            let request = Users_ResetPasswordRequest.with {
+                $0.email = email
+                $0.password = password
+            }
+            
+            let response = try await service.resetPassword(request)
+            return response
+        }
     }
 }
 
@@ -94,7 +144,7 @@ extension GRPCClientManager {
     
     private func convertToDomainAuthTokens(from response: Users_LoginUserResponse) -> AuthTokens {
         return AuthTokens(
-            accessToken: response.accessToken,
+            accessToken: response.tokens.accessToken,
             expiresIn: 3600,
             user: convertToDomainUser(from: response.user)
         )

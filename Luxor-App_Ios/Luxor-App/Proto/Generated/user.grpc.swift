@@ -20,6 +20,18 @@ internal enum Users_UserService {
     internal static let descriptor = GRPCCore.ServiceDescriptor(fullyQualifiedService: "users.UserService")
     /// Namespace for method metadata.
     internal enum Method {
+        /// Namespace for "GetUserByUserID" metadata.
+        internal enum GetUserByUserID {
+            /// Request type for "GetUserByUserID".
+            internal typealias Input = Users_GetUserByUserIDRequeste
+            /// Response type for "GetUserByUserID".
+            internal typealias Output = Users_GetUserByUserIDResponse
+            /// Descriptor for "GetUserByUserID".
+            internal static let descriptor = GRPCCore.MethodDescriptor(
+                service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "users.UserService"),
+                method: "GetUserByUserID"
+            )
+        }
         /// Namespace for "GetUserByEmail" metadata.
         internal enum GetUserByEmail {
             /// Request type for "GetUserByEmail".
@@ -116,8 +128,21 @@ internal enum Users_UserService {
                 method: "DeleteUserData"
             )
         }
+        /// Namespace for "ValidateToken" metadata.
+        internal enum ValidateToken {
+            /// Request type for "ValidateToken".
+            internal typealias Input = Users_ValidateTokenRequest
+            /// Response type for "ValidateToken".
+            internal typealias Output = Users_ValidateTokenResponse
+            /// Descriptor for "ValidateToken".
+            internal static let descriptor = GRPCCore.MethodDescriptor(
+                service: GRPCCore.ServiceDescriptor(fullyQualifiedService: "users.UserService"),
+                method: "ValidateToken"
+            )
+        }
         /// Descriptors for all methods in the "users.UserService" service.
         internal static let descriptors: [GRPCCore.MethodDescriptor] = [
+            GetUserByUserID.descriptor,
             GetUserByEmail.descriptor,
             CreateNewUser.descriptor,
             ForgetPassword.descriptor,
@@ -125,7 +150,8 @@ internal enum Users_UserService {
             ResetPassword.descriptor,
             LoginUser.descriptor,
             UpdateUserData.descriptor,
-            DeleteUserData.descriptor
+            DeleteUserData.descriptor,
+            ValidateToken.descriptor
         ]
     }
 }
@@ -151,6 +177,20 @@ extension Users_UserService {
     /// Where possible, prefer using the stricter, less-verbose ``ServiceProtocol``
     /// or ``SimpleServiceProtocol`` instead.
     internal protocol StreamingServiceProtocol: GRPCCore.RegistrableRPCService {
+        /// Handle the "GetUserByUserID" method.
+        ///
+        /// - Parameters:
+        ///   - request: A streaming request of `Users_GetUserByUserIDRequeste` messages.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        /// - Returns: A streaming response of `Users_GetUserByUserIDResponse` messages.
+        func getUserByUserID(
+            request: GRPCCore.StreamingServerRequest<Users_GetUserByUserIDRequeste>,
+            context: GRPCCore.ServerContext
+        ) async throws -> GRPCCore.StreamingServerResponse<Users_GetUserByUserIDResponse>
+
         /// Handle the "GetUserByEmail" method.
         ///
         /// - Parameters:
@@ -262,6 +302,20 @@ extension Users_UserService {
             request: GRPCCore.StreamingServerRequest<Users_DeleteUserDatatRequest>,
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.StreamingServerResponse<Users_DeleteUserDataResponse>
+
+        /// Handle the "ValidateToken" method.
+        ///
+        /// - Parameters:
+        ///   - request: A streaming request of `Users_ValidateTokenRequest` messages.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        /// - Returns: A streaming response of `Users_ValidateTokenResponse` messages.
+        func validateToken(
+            request: GRPCCore.StreamingServerRequest<Users_ValidateTokenRequest>,
+            context: GRPCCore.ServerContext
+        ) async throws -> GRPCCore.StreamingServerResponse<Users_ValidateTokenResponse>
     }
 
     /// Service protocol for the "users.UserService" service.
@@ -272,6 +326,20 @@ extension Users_UserService {
     /// the ``SimpleServiceProtocol``. If you need fine grained control over your RPCs then
     /// use ``StreamingServiceProtocol``.
     internal protocol ServiceProtocol: Users_UserService.StreamingServiceProtocol {
+        /// Handle the "GetUserByUserID" method.
+        ///
+        /// - Parameters:
+        ///   - request: A request containing a single `Users_GetUserByUserIDRequeste` message.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        /// - Returns: A response containing a single `Users_GetUserByUserIDResponse` message.
+        func getUserByUserID(
+            request: GRPCCore.ServerRequest<Users_GetUserByUserIDRequeste>,
+            context: GRPCCore.ServerContext
+        ) async throws -> GRPCCore.ServerResponse<Users_GetUserByUserIDResponse>
+
         /// Handle the "GetUserByEmail" method.
         ///
         /// - Parameters:
@@ -383,6 +451,20 @@ extension Users_UserService {
             request: GRPCCore.ServerRequest<Users_DeleteUserDatatRequest>,
             context: GRPCCore.ServerContext
         ) async throws -> GRPCCore.ServerResponse<Users_DeleteUserDataResponse>
+
+        /// Handle the "ValidateToken" method.
+        ///
+        /// - Parameters:
+        ///   - request: A request containing a single `Users_ValidateTokenRequest` message.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        /// - Returns: A response containing a single `Users_ValidateTokenResponse` message.
+        func validateToken(
+            request: GRPCCore.ServerRequest<Users_ValidateTokenRequest>,
+            context: GRPCCore.ServerContext
+        ) async throws -> GRPCCore.ServerResponse<Users_ValidateTokenResponse>
     }
 
     /// Simple service protocol for the "users.UserService" service.
@@ -391,6 +473,20 @@ extension Users_UserService {
     /// doesn't provide access to request or response metadata. If you need access to these
     /// then use ``ServiceProtocol`` instead.
     internal protocol SimpleServiceProtocol: Users_UserService.ServiceProtocol {
+        /// Handle the "GetUserByUserID" method.
+        ///
+        /// - Parameters:
+        ///   - request: A `Users_GetUserByUserIDRequeste` message.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        /// - Returns: A `Users_GetUserByUserIDResponse` to respond with.
+        func getUserByUserID(
+            request: Users_GetUserByUserIDRequeste,
+            context: GRPCCore.ServerContext
+        ) async throws -> Users_GetUserByUserIDResponse
+
         /// Handle the "GetUserByEmail" method.
         ///
         /// - Parameters:
@@ -502,6 +598,20 @@ extension Users_UserService {
             request: Users_DeleteUserDatatRequest,
             context: GRPCCore.ServerContext
         ) async throws -> Users_DeleteUserDataResponse
+
+        /// Handle the "ValidateToken" method.
+        ///
+        /// - Parameters:
+        ///   - request: A `Users_ValidateTokenRequest` message.
+        ///   - context: Context providing information about the RPC.
+        /// - Throws: Any error which occurred during the processing of the request. Thrown errors
+        ///     of type `RPCError` are mapped to appropriate statuses. All other errors are converted
+        ///     to an internal error.
+        /// - Returns: A `Users_ValidateTokenResponse` to respond with.
+        func validateToken(
+            request: Users_ValidateTokenRequest,
+            context: GRPCCore.ServerContext
+        ) async throws -> Users_ValidateTokenResponse
     }
 }
 
@@ -509,6 +619,17 @@ extension Users_UserService {
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension Users_UserService.StreamingServiceProtocol {
     internal func registerMethods<Transport>(with router: inout GRPCCore.RPCRouter<Transport>) where Transport: GRPCCore.ServerTransport {
+        router.registerHandler(
+            forMethod: Users_UserService.Method.GetUserByUserID.descriptor,
+            deserializer: GRPCProtobuf.ProtobufDeserializer<Users_GetUserByUserIDRequeste>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<Users_GetUserByUserIDResponse>(),
+            handler: { request, context in
+                try await self.getUserByUserID(
+                    request: request,
+                    context: context
+                )
+            }
+        )
         router.registerHandler(
             forMethod: Users_UserService.Method.GetUserByEmail.descriptor,
             deserializer: GRPCProtobuf.ProtobufDeserializer<Users_GetUserByEmailRequest>(),
@@ -597,12 +718,34 @@ extension Users_UserService.StreamingServiceProtocol {
                 )
             }
         )
+        router.registerHandler(
+            forMethod: Users_UserService.Method.ValidateToken.descriptor,
+            deserializer: GRPCProtobuf.ProtobufDeserializer<Users_ValidateTokenRequest>(),
+            serializer: GRPCProtobuf.ProtobufSerializer<Users_ValidateTokenResponse>(),
+            handler: { request, context in
+                try await self.validateToken(
+                    request: request,
+                    context: context
+                )
+            }
+        )
     }
 }
 
 // Default implementation of streaming methods from 'StreamingServiceProtocol'.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension Users_UserService.ServiceProtocol {
+    internal func getUserByUserID(
+        request: GRPCCore.StreamingServerRequest<Users_GetUserByUserIDRequeste>,
+        context: GRPCCore.ServerContext
+    ) async throws -> GRPCCore.StreamingServerResponse<Users_GetUserByUserIDResponse> {
+        let response = try await self.getUserByUserID(
+            request: GRPCCore.ServerRequest(stream: request),
+            context: context
+        )
+        return GRPCCore.StreamingServerResponse(single: response)
+    }
+
     internal func getUserByEmail(
         request: GRPCCore.StreamingServerRequest<Users_GetUserByEmailRequest>,
         context: GRPCCore.ServerContext
@@ -690,11 +833,35 @@ extension Users_UserService.ServiceProtocol {
         )
         return GRPCCore.StreamingServerResponse(single: response)
     }
+
+    internal func validateToken(
+        request: GRPCCore.StreamingServerRequest<Users_ValidateTokenRequest>,
+        context: GRPCCore.ServerContext
+    ) async throws -> GRPCCore.StreamingServerResponse<Users_ValidateTokenResponse> {
+        let response = try await self.validateToken(
+            request: GRPCCore.ServerRequest(stream: request),
+            context: context
+        )
+        return GRPCCore.StreamingServerResponse(single: response)
+    }
 }
 
 // Default implementation of methods from 'ServiceProtocol'.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension Users_UserService.SimpleServiceProtocol {
+    internal func getUserByUserID(
+        request: GRPCCore.ServerRequest<Users_GetUserByUserIDRequeste>,
+        context: GRPCCore.ServerContext
+    ) async throws -> GRPCCore.ServerResponse<Users_GetUserByUserIDResponse> {
+        return GRPCCore.ServerResponse<Users_GetUserByUserIDResponse>(
+            message: try await self.getUserByUserID(
+                request: request.message,
+                context: context
+            ),
+            metadata: [:]
+        )
+    }
+
     internal func getUserByEmail(
         request: GRPCCore.ServerRequest<Users_GetUserByEmailRequest>,
         context: GRPCCore.ServerContext
@@ -798,6 +965,19 @@ extension Users_UserService.SimpleServiceProtocol {
             metadata: [:]
         )
     }
+
+    internal func validateToken(
+        request: GRPCCore.ServerRequest<Users_ValidateTokenRequest>,
+        context: GRPCCore.ServerContext
+    ) async throws -> GRPCCore.ServerResponse<Users_ValidateTokenResponse> {
+        return GRPCCore.ServerResponse<Users_ValidateTokenResponse>(
+            message: try await self.validateToken(
+                request: request.message,
+                context: context
+            ),
+            metadata: [:]
+        )
+    }
 }
 
 // MARK: users.UserService (client)
@@ -809,6 +989,25 @@ extension Users_UserService {
     /// You don't need to implement this protocol directly, use the generated
     /// implementation, ``Client``.
     internal protocol ClientProtocol: Sendable {
+        /// Call the "GetUserByUserID" method.
+        ///
+        /// - Parameters:
+        ///   - request: A request containing a single `Users_GetUserByUserIDRequeste` message.
+        ///   - serializer: A serializer for `Users_GetUserByUserIDRequeste` messages.
+        ///   - deserializer: A deserializer for `Users_GetUserByUserIDResponse` messages.
+        ///   - options: Options to apply to this RPC.
+        ///   - handleResponse: A closure which handles the response, the result of which is
+        ///       returned to the caller. Returning from the closure will cancel the RPC if it
+        ///       hasn't already finished.
+        /// - Returns: The result of `handleResponse`.
+        func getUserByUserID<Result>(
+            request: GRPCCore.ClientRequest<Users_GetUserByUserIDRequeste>,
+            serializer: some GRPCCore.MessageSerializer<Users_GetUserByUserIDRequeste>,
+            deserializer: some GRPCCore.MessageDeserializer<Users_GetUserByUserIDResponse>,
+            options: GRPCCore.CallOptions,
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<Users_GetUserByUserIDResponse>) async throws -> Result
+        ) async throws -> Result where Result: Sendable
+
         /// Call the "GetUserByEmail" method.
         ///
         /// - Parameters:
@@ -960,6 +1159,25 @@ extension Users_UserService {
             options: GRPCCore.CallOptions,
             onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<Users_DeleteUserDataResponse>) async throws -> Result
         ) async throws -> Result where Result: Sendable
+
+        /// Call the "ValidateToken" method.
+        ///
+        /// - Parameters:
+        ///   - request: A request containing a single `Users_ValidateTokenRequest` message.
+        ///   - serializer: A serializer for `Users_ValidateTokenRequest` messages.
+        ///   - deserializer: A deserializer for `Users_ValidateTokenResponse` messages.
+        ///   - options: Options to apply to this RPC.
+        ///   - handleResponse: A closure which handles the response, the result of which is
+        ///       returned to the caller. Returning from the closure will cancel the RPC if it
+        ///       hasn't already finished.
+        /// - Returns: The result of `handleResponse`.
+        func validateToken<Result>(
+            request: GRPCCore.ClientRequest<Users_ValidateTokenRequest>,
+            serializer: some GRPCCore.MessageSerializer<Users_ValidateTokenRequest>,
+            deserializer: some GRPCCore.MessageDeserializer<Users_ValidateTokenResponse>,
+            options: GRPCCore.CallOptions,
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<Users_ValidateTokenResponse>) async throws -> Result
+        ) async throws -> Result where Result: Sendable
     }
 
     /// Generated client for the "users.UserService" service.
@@ -976,6 +1194,36 @@ extension Users_UserService {
         ///   - client: A `GRPCCore.GRPCClient` providing a communication channel to the service.
         internal init(wrapping client: GRPCCore.GRPCClient<Transport>) {
             self.client = client
+        }
+
+        /// Call the "GetUserByUserID" method.
+        ///
+        /// - Parameters:
+        ///   - request: A request containing a single `Users_GetUserByUserIDRequeste` message.
+        ///   - serializer: A serializer for `Users_GetUserByUserIDRequeste` messages.
+        ///   - deserializer: A deserializer for `Users_GetUserByUserIDResponse` messages.
+        ///   - options: Options to apply to this RPC.
+        ///   - handleResponse: A closure which handles the response, the result of which is
+        ///       returned to the caller. Returning from the closure will cancel the RPC if it
+        ///       hasn't already finished.
+        /// - Returns: The result of `handleResponse`.
+        internal func getUserByUserID<Result>(
+            request: GRPCCore.ClientRequest<Users_GetUserByUserIDRequeste>,
+            serializer: some GRPCCore.MessageSerializer<Users_GetUserByUserIDRequeste>,
+            deserializer: some GRPCCore.MessageDeserializer<Users_GetUserByUserIDResponse>,
+            options: GRPCCore.CallOptions = .defaults,
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<Users_GetUserByUserIDResponse>) async throws -> Result = { response in
+                try response.message
+            }
+        ) async throws -> Result where Result: Sendable {
+            try await self.client.unary(
+                request: request,
+                descriptor: Users_UserService.Method.GetUserByUserID.descriptor,
+                serializer: serializer,
+                deserializer: deserializer,
+                options: options,
+                onResponse: handleResponse
+            )
         }
 
         /// Call the "GetUserByEmail" method.
@@ -1217,12 +1465,67 @@ extension Users_UserService {
                 onResponse: handleResponse
             )
         }
+
+        /// Call the "ValidateToken" method.
+        ///
+        /// - Parameters:
+        ///   - request: A request containing a single `Users_ValidateTokenRequest` message.
+        ///   - serializer: A serializer for `Users_ValidateTokenRequest` messages.
+        ///   - deserializer: A deserializer for `Users_ValidateTokenResponse` messages.
+        ///   - options: Options to apply to this RPC.
+        ///   - handleResponse: A closure which handles the response, the result of which is
+        ///       returned to the caller. Returning from the closure will cancel the RPC if it
+        ///       hasn't already finished.
+        /// - Returns: The result of `handleResponse`.
+        internal func validateToken<Result>(
+            request: GRPCCore.ClientRequest<Users_ValidateTokenRequest>,
+            serializer: some GRPCCore.MessageSerializer<Users_ValidateTokenRequest>,
+            deserializer: some GRPCCore.MessageDeserializer<Users_ValidateTokenResponse>,
+            options: GRPCCore.CallOptions = .defaults,
+            onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<Users_ValidateTokenResponse>) async throws -> Result = { response in
+                try response.message
+            }
+        ) async throws -> Result where Result: Sendable {
+            try await self.client.unary(
+                request: request,
+                descriptor: Users_UserService.Method.ValidateToken.descriptor,
+                serializer: serializer,
+                deserializer: deserializer,
+                options: options,
+                onResponse: handleResponse
+            )
+        }
     }
 }
 
 // Helpers providing default arguments to 'ClientProtocol' methods.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension Users_UserService.ClientProtocol {
+    /// Call the "GetUserByUserID" method.
+    ///
+    /// - Parameters:
+    ///   - request: A request containing a single `Users_GetUserByUserIDRequeste` message.
+    ///   - options: Options to apply to this RPC.
+    ///   - handleResponse: A closure which handles the response, the result of which is
+    ///       returned to the caller. Returning from the closure will cancel the RPC if it
+    ///       hasn't already finished.
+    /// - Returns: The result of `handleResponse`.
+    internal func getUserByUserID<Result>(
+        request: GRPCCore.ClientRequest<Users_GetUserByUserIDRequeste>,
+        options: GRPCCore.CallOptions = .defaults,
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<Users_GetUserByUserIDResponse>) async throws -> Result = { response in
+            try response.message
+        }
+    ) async throws -> Result where Result: Sendable {
+        try await self.getUserByUserID(
+            request: request,
+            serializer: GRPCProtobuf.ProtobufSerializer<Users_GetUserByUserIDRequeste>(),
+            deserializer: GRPCProtobuf.ProtobufDeserializer<Users_GetUserByUserIDResponse>(),
+            options: options,
+            onResponse: handleResponse
+        )
+    }
+
     /// Call the "GetUserByEmail" method.
     ///
     /// - Parameters:
@@ -1422,11 +1725,65 @@ extension Users_UserService.ClientProtocol {
             onResponse: handleResponse
         )
     }
+
+    /// Call the "ValidateToken" method.
+    ///
+    /// - Parameters:
+    ///   - request: A request containing a single `Users_ValidateTokenRequest` message.
+    ///   - options: Options to apply to this RPC.
+    ///   - handleResponse: A closure which handles the response, the result of which is
+    ///       returned to the caller. Returning from the closure will cancel the RPC if it
+    ///       hasn't already finished.
+    /// - Returns: The result of `handleResponse`.
+    internal func validateToken<Result>(
+        request: GRPCCore.ClientRequest<Users_ValidateTokenRequest>,
+        options: GRPCCore.CallOptions = .defaults,
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<Users_ValidateTokenResponse>) async throws -> Result = { response in
+            try response.message
+        }
+    ) async throws -> Result where Result: Sendable {
+        try await self.validateToken(
+            request: request,
+            serializer: GRPCProtobuf.ProtobufSerializer<Users_ValidateTokenRequest>(),
+            deserializer: GRPCProtobuf.ProtobufDeserializer<Users_ValidateTokenResponse>(),
+            options: options,
+            onResponse: handleResponse
+        )
+    }
 }
 
 // Helpers providing sugared APIs for 'ClientProtocol' methods.
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 extension Users_UserService.ClientProtocol {
+    /// Call the "GetUserByUserID" method.
+    ///
+    /// - Parameters:
+    ///   - message: request message to send.
+    ///   - metadata: Additional metadata to send, defaults to empty.
+    ///   - options: Options to apply to this RPC, defaults to `.defaults`.
+    ///   - handleResponse: A closure which handles the response, the result of which is
+    ///       returned to the caller. Returning from the closure will cancel the RPC if it
+    ///       hasn't already finished.
+    /// - Returns: The result of `handleResponse`.
+    internal func getUserByUserID<Result>(
+        _ message: Users_GetUserByUserIDRequeste,
+        metadata: GRPCCore.Metadata = [:],
+        options: GRPCCore.CallOptions = .defaults,
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<Users_GetUserByUserIDResponse>) async throws -> Result = { response in
+            try response.message
+        }
+    ) async throws -> Result where Result: Sendable {
+        let request = GRPCCore.ClientRequest<Users_GetUserByUserIDRequeste>(
+            message: message,
+            metadata: metadata
+        )
+        return try await self.getUserByUserID(
+            request: request,
+            options: options,
+            onResponse: handleResponse
+        )
+    }
+
     /// Call the "GetUserByEmail" method.
     ///
     /// - Parameters:
@@ -1653,6 +2010,35 @@ extension Users_UserService.ClientProtocol {
             metadata: metadata
         )
         return try await self.deleteUserData(
+            request: request,
+            options: options,
+            onResponse: handleResponse
+        )
+    }
+
+    /// Call the "ValidateToken" method.
+    ///
+    /// - Parameters:
+    ///   - message: request message to send.
+    ///   - metadata: Additional metadata to send, defaults to empty.
+    ///   - options: Options to apply to this RPC, defaults to `.defaults`.
+    ///   - handleResponse: A closure which handles the response, the result of which is
+    ///       returned to the caller. Returning from the closure will cancel the RPC if it
+    ///       hasn't already finished.
+    /// - Returns: The result of `handleResponse`.
+    internal func validateToken<Result>(
+        _ message: Users_ValidateTokenRequest,
+        metadata: GRPCCore.Metadata = [:],
+        options: GRPCCore.CallOptions = .defaults,
+        onResponse handleResponse: @Sendable @escaping (GRPCCore.ClientResponse<Users_ValidateTokenResponse>) async throws -> Result = { response in
+            try response.message
+        }
+    ) async throws -> Result where Result: Sendable {
+        let request = GRPCCore.ClientRequest<Users_ValidateTokenRequest>(
+            message: message,
+            metadata: metadata
+        )
+        return try await self.validateToken(
             request: request,
             options: options,
             onResponse: handleResponse

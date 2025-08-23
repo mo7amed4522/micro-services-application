@@ -6,6 +6,7 @@ class LoginViewModel: ObservableObject {
     @Published var password = ""
     @Published var emailError: String?
     @Published var passwordError: String?
+    @Published var showForgotPassword = false
     
     private let authUseCase: AuthUseCase
     private let authState: AuthState
@@ -80,7 +81,7 @@ class LoginViewModel: ObservableObject {
     
     
     func forgotPassword() {
-        print("Forgot password tapped for email: \(email)")
+        showForgotPassword = true
     }
     
     func createAccount() {
