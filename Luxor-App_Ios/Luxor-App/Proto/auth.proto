@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "auth-services/proto";
+
+service AuthService {
+    rpc AuthenticateWithFirebase(FirebaseAuthRequest) returns (FirebaseAuthResponse);
+    rpc AuthenticateWithApple(AppleAuthRequest) returns (SocialAuthResponse);
+    rpc AuthenticateWithGoogle(GoogleAuthRequest) returns (SocialAuthResponse);
+    rpc AuthenticateWithSocial(SocialAuthRequest) returns (SocialAuthResponse);
+}
+
+message FirebaseAuthRequest {
+    string idToken = 1;
+    string provider = 2; 
+}
+
+message UserInfo {
+    string id = 1;
+    string email = 2;
+    string fullName = 3;
+    string role = 4;
+}
+
+message FirebaseAuthResponse {
+    int32 statusCode = 1;
+    string message = 2;
+    oneof result {
+        AuthTokens tokens = 3;
+        ErrorDetails error = 4;
+    }
+}
+
+message AuthTokens {
+    string accessToken = 1;
+    int64 expiresIn = 2;
+    UserInfo user = 3;
+}
+message ErrorDetails {
+    int32 code = 1;
+    string message = 2;
+    repeated string details = 3;
+    string timestamp = 4;
+}
+
+// Apple Sign In Messages
+message AppleAuthRequest {
+    string identityToken = 1;
+    string authorizationCode = 2;
+    string fullName = 3;
+    string email = 4;
+}
+
+// Google Sign In Messages
+message GoogleAuthRequest {
+    string idToken = 1;
+    string accessToken = 2;
+}
+
+// Generic Social Auth Messages
+message SocialAuthRequest {
+    string provider = 1; // "apple", "google", "facebook"
+    string idToken = 2;
+    string accessToken = 3;
+    string authorizationCode = 4;
+    string fullName = 5;
+    string email = 6;
+}
+
+message SocialAuthResponse {
+    int32 statusCode = 1;
+    string message = 2;
+    oneof result {
+        AuthTokens tokens = 3;
+        ErrorDetails error = 4;
+    }
+}

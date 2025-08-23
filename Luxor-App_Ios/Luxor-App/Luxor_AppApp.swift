@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct Luxor_AppApp: App {
@@ -13,6 +14,10 @@ struct Luxor_AppApp: App {
     @StateObject private var languageManager = LanguageManager()
     @StateObject private var authState = AuthState()
     @StateObject private var diContainer = DIContainer.shared
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {

@@ -12,6 +12,10 @@ class LoginViewModel: ObservableObject {
     private let authState: AuthState
     private var cancellables = Set<AnyCancellable>()
     
+    // Social authentication coordinators
+    @Published var appleSignInCoordinator: AppleSignInCoordinator?
+    @Published var googleSignInCoordinator: GoogleSignInCoordinator?
+    
     init(authUseCase: AuthUseCase, authState: AuthState) {
         self.authUseCase = authUseCase
         self.authState = authState
@@ -77,8 +81,40 @@ class LoginViewModel: ObservableObject {
     }
     
     func updateAuthState(_ newAuthState: AuthState) {
+        // Update coordinators when dependencies are available
+        if let grpcClient = DIContainer.shared.grpcClient {
+            self.appleSignInCoordinator = AppleSignInCoordinator(
+                grpcClient: grpcClient,
+                authState: newAuthState
+            )
+            self.googleSignInCoordinator = GoogleSignInCoordinator(
+                grpcClient: grpcClient,
+                authState: newAuthState
+            )
+        }
     }
     
+    // MARK: - Social Authentication Methods
+    
+    func signInWithApple() {
+        guard let coordinator = appleSignInCoordinator else {
+            authState.showErrorToast("Apple Sign In not available")
+            return
+        }
+        coordinator.signIn { [weak self] isLoading in
+            // Loading state is handled by the coordinator and AuthState
+        }
+    }
+    
+    func signInWithGoogle() {
+        guard let coordinator = googleSignInCoordinator else {
+            authState.showErrorToast("Google Sign In not available")
+            return
+        }
+        coordinator.signIn { [weak self] isLoading in
+            // Loading state is handled by the coordinator and AuthState
+        }
+    }
     
     func forgotPassword() {
         showForgotPassword = true

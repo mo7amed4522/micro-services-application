@@ -1,7 +1,13 @@
 import SwiftUI
+import AuthenticationServices
 
 struct SocialLoginButtons: View {
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var authState: AuthState
+    @EnvironmentObject var diContainer: DIContainer
+    @StateObject private var appleSignInCoordinator = AppleSignInCoordinator()
+    @StateObject private var googleSignInCoordinator = GoogleSignInCoordinator()
+    @State private var isLoading = false
     
     var body: some View {
         VStack(spacing: 16) {
@@ -13,13 +19,13 @@ struct SocialLoginButtons: View {
                 SocialButton(
                     icon: "apple.logo",
                     color: themeManager.isDarkMode ? .white : .black,
-                    action: { /* Apple Sign In */ }
+                    action: { handleAppleSignIn() }
                 )
                 
                 SocialButton(
                     icon: "globe",
                     color: .red,
-                    action: { /* Google Sign In */ }
+                    action: { handleGoogleSignIn() }
                 )
                 
                 SocialButton(
@@ -28,6 +34,43 @@ struct SocialLoginButtons: View {
                     action: { /* Facebook Sign In */ }
                 )
             }
+        }
+        .disabled(isLoading)
+        .onAppear {
+            // Reinitialize coordinators with proper environment objects
+            appleSignInCoordinator.updateDependencies(
+                grpcClient: diContainer.grpcClient,
+                authState: authState
+            )
+            googleSignInCoordinator.updateDependencies(
+                grpcClient: diContainer.grpcClient,
+                authState: authState
+            )
+        }
+    }
+    
+    private func handleAppleSignIn() {
+        guard !isLoading else { return }
+        
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = AppleSignInCoordinator(
+            authState: authState,
+            grpcClient: diContainer.grpcClient,
+            onLoadingChange: { loading in
+                isLoading = loading
+            }
+        )
+        authorizationController.performRequests()
+    }
+    
+    private func handleGoogleSignIn() {
+        guard !isLoading else { return }
+        
+        googleSignInCoordinator.signIn { loading in
+            isLoading = loading
         }
     }
 }

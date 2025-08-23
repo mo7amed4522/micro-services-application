@@ -100,6 +100,254 @@ func (s *AuthServer) Close() error {
 	return nil
 }
 
+func (s *AuthServer) AuthenticateWithApple(ctx context.Context, req *pb.AppleAuthRequest) (*pb.SocialAuthResponse, error) {
+	// Verify Apple ID token with Firebase
+	token, err := s.firebaseAuth.VerifyIDToken(ctx, req.IdentityToken)
+	if err != nil {
+		return &pb.SocialAuthResponse{
+			StatusCode: 401,
+			Message:    "Invalid Apple ID token",
+			Result: &pb.SocialAuthResponse_Error{
+				Error: &pb.ErrorDetails{
+					Code:      401,
+					Message:   err.Error(),
+					Timestamp: time.Now().Format(time.RFC3339),
+				},
+			},
+		}, nil
+	}
+
+	// Extract user information
+	email := req.Email
+	if email == "" {
+		if emailClaim, ok := token.Claims["email"].(string); ok {
+			email = emailClaim
+		}
+	}
+	fullName := req.FullName
+	if fullName == "" {
+		if nameClaim, ok := token.Claims["name"].(string); ok {
+			fullName = nameClaim
+		}
+	}
+
+	// Check if user exists
+	user, err := s.getUserByEmail(ctx, email)
+	if err != nil {
+		// User doesn't exist, create new user
+		user, err = s.createNewUser(ctx, fullName, email, "")
+		if err != nil {
+			return &pb.SocialAuthResponse{
+				StatusCode: 500,
+				Message:    "Failed to create user",
+				Result: &pb.SocialAuthResponse_Error{
+					Error: &pb.ErrorDetails{
+						Code:      500,
+						Message:   err.Error(),
+						Timestamp: time.Now().Format(time.RFC3339),
+					},
+				},
+			}, nil
+		}
+	}
+
+	// Generate JWT tokens
+	accessToken, err := generateTokens(user.Id, user.Email, user.Role)
+	if err != nil {
+		return &pb.SocialAuthResponse{
+			StatusCode: 500,
+			Message:    "Failed to generate tokens",
+			Result: &pb.SocialAuthResponse_Error{
+				Error: &pb.ErrorDetails{
+					Code:      500,
+					Message:   err.Error(),
+					Timestamp: time.Now().Format(time.RFC3339),
+				},
+			},
+		}, nil
+	}
+
+	return &pb.SocialAuthResponse{
+		StatusCode: 200,
+		Message:    "Apple authentication successful",
+		Result: &pb.SocialAuthResponse_Tokens{
+			Tokens: &pb.AuthTokens{
+				AccessToken: accessToken,
+				ExpiresIn:   3600,
+				User: &pb.UserInfo{
+					Id:       user.Id,
+					Email:    user.Email,
+					FullName: user.FullName,
+					Role:     user.Role,
+				},
+			},
+		},
+	}, nil
+}
+
+func (s *AuthServer) AuthenticateWithGoogle(ctx context.Context, req *pb.GoogleAuthRequest) (*pb.SocialAuthResponse, error) {
+	// Verify Google ID token with Firebase
+	token, err := s.firebaseAuth.VerifyIDToken(ctx, req.IdToken)
+	if err != nil {
+		return &pb.SocialAuthResponse{
+			StatusCode: 401,
+			Message:    "Invalid Google ID token",
+			Result: &pb.SocialAuthResponse_Error{
+				Error: &pb.ErrorDetails{
+					Code:      401,
+					Message:   err.Error(),
+					Timestamp: time.Now().Format(time.RFC3339),
+				},
+			},
+		}, nil
+	}
+
+	// Extract user information
+	email := token.Claims["email"].(string)
+	fullName := ""
+	if name, ok := token.Claims["name"].(string); ok {
+		fullName = name
+	}
+
+	// Check if user exists
+	user, err := s.getUserByEmail(ctx, email)
+	if err != nil {
+		// User doesn't exist, create new user
+		user, err = s.createNewUser(ctx, fullName, email, "")
+		if err != nil {
+			return &pb.SocialAuthResponse{
+				StatusCode: 500,
+				Message:    "Failed to create user",
+				Result: &pb.SocialAuthResponse_Error{
+					Error: &pb.ErrorDetails{
+						Code:      500,
+						Message:   err.Error(),
+						Timestamp: time.Now().Format(time.RFC3339),
+					},
+				},
+			}, nil
+		}
+	}
+
+	// Generate JWT tokens
+	accessToken, err := generateTokens(user.Id, user.Email, user.Role)
+	if err != nil {
+		return &pb.SocialAuthResponse{
+			StatusCode: 500,
+			Message:    "Failed to generate tokens",
+			Result: &pb.SocialAuthResponse_Error{
+				Error: &pb.ErrorDetails{
+					Code:      500,
+					Message:   err.Error(),
+					Timestamp: time.Now().Format(time.RFC3339),
+				},
+			},
+		}, nil
+	}
+
+	return &pb.SocialAuthResponse{
+		StatusCode: 200,
+		Message:    "Google authentication successful",
+		Result: &pb.SocialAuthResponse_Tokens{
+			Tokens: &pb.AuthTokens{
+				AccessToken: accessToken,
+				ExpiresIn:   3600,
+				User: &pb.UserInfo{
+					Id:       user.Id,
+					Email:    user.Email,
+					FullName: user.FullName,
+					Role:     user.Role,
+				},
+			},
+		},
+	}, nil
+}
+
+func (s *AuthServer) AuthenticateWithSocial(ctx context.Context, req *pb.SocialAuthRequest) (*pb.SocialAuthResponse, error) {
+	// Verify social provider ID token with Firebase
+	token, err := s.firebaseAuth.VerifyIDToken(ctx, req.IdToken)
+	if err != nil {
+		return &pb.SocialAuthResponse{
+			StatusCode: 401,
+			Message:    "Invalid social provider ID token",
+			Result: &pb.SocialAuthResponse_Error{
+				Error: &pb.ErrorDetails{
+					Code:      401,
+					Message:   err.Error(),
+					Timestamp: time.Now().Format(time.RFC3339),
+				},
+			},
+		}, nil
+	}
+
+	// Extract user information
+	email := req.Email
+	if email == "" {
+		if emailClaim, ok := token.Claims["email"].(string); ok {
+			email = emailClaim
+		}
+	}
+	fullName := req.FullName
+	if fullName == "" {
+		if nameClaim, ok := token.Claims["name"].(string); ok {
+			fullName = nameClaim
+		}
+	}
+
+	// Check if user exists
+	user, err := s.getUserByEmail(ctx, email)
+	if err != nil {
+		// User doesn't exist, create new user
+		user, err = s.createNewUser(ctx, fullName, email, "")
+		if err != nil {
+			return &pb.SocialAuthResponse{
+				StatusCode: 500,
+				Message:    "Failed to create user",
+				Result: &pb.SocialAuthResponse_Error{
+					Error: &pb.ErrorDetails{
+						Code:      500,
+						Message:   err.Error(),
+						Timestamp: time.Now().Format(time.RFC3339),
+					},
+				},
+			}, nil
+		}
+	}
+
+	// Generate JWT tokens
+	accessToken, err := generateTokens(user.Id, user.Email, user.Role)
+	if err != nil {
+		return &pb.SocialAuthResponse{
+			StatusCode: 500,
+			Message:    "Failed to generate tokens",
+			Result: &pb.SocialAuthResponse_Error{
+				Error: &pb.ErrorDetails{
+					Code:      500,
+					Message:   err.Error(),
+					Timestamp: time.Now().Format(time.RFC3339),
+				},
+			},
+		}, nil
+	}
+
+	return &pb.SocialAuthResponse{
+		StatusCode: 200,
+		Message:    fmt.Sprintf("%s authentication successful", req.Provider),
+		Result: &pb.SocialAuthResponse_Tokens{
+			Tokens: &pb.AuthTokens{
+				AccessToken: accessToken,
+				ExpiresIn:   3600,
+				User: &pb.UserInfo{
+					Id:       user.Id,
+					Email:    user.Email,
+					FullName: user.FullName,
+					Role:     user.Role,
+				},
+			},
+		},
+	}, nil
+}
+
 func (s *AuthServer) AuthenticateWithFirebase(ctx context.Context, req *pb.FirebaseAuthRequest) (*pb.FirebaseAuthResponse, error) {
 	token, err := s.firebaseAuth.VerifyIDToken(ctx, req.IdToken)
 	if err != nil {
