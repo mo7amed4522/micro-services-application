@@ -4,46 +4,85 @@ import Combine
 class LoginViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
-    @Published var isLoading = false
-    @Published var showError = false
-    @Published var errorMessage = ""
+    @Published var emailError: String?
+    @Published var passwordError: String?
     
+    private let authUseCase: AuthUseCase
+    private let authState: AuthState
     private var cancellables = Set<AnyCancellable>()
     
+    init(authUseCase: AuthUseCase, authState: AuthState) {
+        self.authUseCase = authUseCase
+        self.authState = authState
+    }
+    
     var isFormValid: Bool {
-        !email.isEmpty && !password.isEmpty && isValidEmail(email) && isValidPassword(password)
+        !email.isEmpty && !password.isEmpty && 
+        authUseCase.validateEmail(email) && 
+        authUseCase.validatePassword(password)
+    }
+    
+    func validateFields() {
+        // Validate email
+        if email.isEmpty {
+            emailError = nil
+        } else if !authUseCase.validateEmail(email) {
+            emailError = "Please enter a valid email address"
+        } else {
+            emailError = nil
+        }
+        
+        // Validate password
+        if password.isEmpty {
+            passwordError = nil
+        } else if !authUseCase.validatePassword(password) {
+            passwordError = "Password must be at least 8 characters with uppercase, and special character"
+        } else {
+            passwordError = nil
+        }
     }
     
     func login() {
+        validateFields()
+        
         guard isFormValid else {
-            showError("Please fill in all fields correctly")
+            authState.showErrorToast("Please fill in all fields correctly")
             return
         }
         
-        isLoading = true
+        authState.setLoading(true)
         
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.isLoading = false
-        }
+        authUseCase.login(email: email, password: password)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] result in
+                guard let self = self else { return }
+                
+                self.authState.setLoading(false)
+                
+                if result.isSuccess {
+                    if let user = result.user, let tokens = result.tokens {
+                        self.authState.login(user: user, tokens: tokens)
+                        self.authState.showSuccessToast("Welcome back, \(user.fullName)!")
+                        self.clearForm()
+                    }
+                } else {
+                    let errorMsg = result.errorMessage ?? "Login failed. Please try again."
+                    self.authState.showErrorToast(errorMsg)
+                }
+            }
+            .store(in: &cancellables)
     }
     
-    private func isValidEmail(_ email: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-        return emailPredicate.evaluate(with: email)
+    private func clearForm() {
+        email = ""
+        password = ""
+        emailError = nil
+        passwordError = nil
     }
     
-    private func isValidPassword(_ password: String) -> Bool {
-        let hasCapital = password.range(of: "[A-Z]", options: .regularExpression) != nil
-        let hasMinLength = password.count >= 8
-        let hasSpecial = password.range(of: "[^A-Za-z0-9]", options: .regularExpression) != nil
-        return hasCapital && hasMinLength && hasSpecial
-    }
-    
-    private func showError(_ message: String) {
-        errorMessage = message
-        showError = true
+    func updateAuthState(_ newAuthState: AuthState) {
+        // This method allows updating the authState reference from the environment
+        // We'll use the injected authState for all operations
     }
     
     

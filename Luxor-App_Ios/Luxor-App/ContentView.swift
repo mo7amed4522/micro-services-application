@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var themeManager = ThemeManager()
-    @State private var isLoggedIn = false
+    @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var authState: AuthState
     @State private var showSplash = true
     @State private var hasSeenWelcome = UserDefaults.standard.bool(forKey: "hasSeenWelcome")
     
@@ -21,25 +21,22 @@ struct ContentView: View {
                         showSplash = false
                     }
                 }
-                .environmentObject(themeManager)
             } else if !hasSeenWelcome {
                 WelcomeContainerView {
                     withAnimation(.easeInOut(duration: 0.5)) {
                         hasSeenWelcome = true
+                        UserDefaults.standard.set(true, forKey: "hasSeenWelcome")
                     }
                 }
-                .environmentObject(themeManager)
-            } else if isLoggedIn {
+            } else if authState.isAuthenticated {
                 MainTabView()
-                    .environmentObject(themeManager)
             } else {
-                LoginView(isLoggedIn: $isLoggedIn)
-                    .environmentObject(themeManager)
+                LoginView()
             }
         }
         .animation(.easeInOut(duration: 0.5), value: showSplash)
         .animation(.easeInOut(duration: 0.5), value: hasSeenWelcome)
-        .animation(.easeInOut(duration: 0.5), value: isLoggedIn)
+        .animation(.easeInOut(duration: 0.5), value: authState.isAuthenticated)
     }
 }
 

@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5488C7502E50808800B4D956 /* GRPCCodeGen in Frameworks */ = {isa = PBXBuildFile; productRef = 5488C74F2E50808800B4D956 /* GRPCCodeGen */; };
-		5488C7522E50808800B4D956 /* GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5488C7512E50808800B4D956 /* GRPCCore */; };
-		5488C7542E50808800B4D956 /* GRPCInProcessTransport in Frameworks */ = {isa = PBXBuildFile; productRef = 5488C7532E50808800B4D956 /* GRPCInProcessTransport */; };
-		5488C7572E50809900B4D956 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 5488C7562E50809900B4D956 /* SwiftProtobuf */; };
-		5488C7592E50809900B4D956 /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 5488C7582E50809900B4D956 /* SwiftProtobufPluginLibrary */; };
-		5488C75B2E50809900B4D956 /* protoc-gen-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 5488C75A2E50809900B4D956 /* protoc-gen-swift */; };
+		547B741A2E5988D9007FC831 /* GRPCCodeGen in Frameworks */ = {isa = PBXBuildFile; productRef = 547B74192E5988D9007FC831 /* GRPCCodeGen */; };
+		547B741C2E5988D9007FC831 /* GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 547B741B2E5988D9007FC831 /* GRPCCore */; };
+		547B741E2E5988D9007FC831 /* GRPCInProcessTransport in Frameworks */ = {isa = PBXBuildFile; productRef = 547B741D2E5988D9007FC831 /* GRPCInProcessTransport */; };
+		547B741F2E5988D9007FC831 /* GRPCProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 547B74212E5988D9007FC831 /* GRPCProtobuf */; };
+		54872A3B2E59943700D29989 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		54872A3D2E59943700D29989 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		54872A3F2E59943700D29989 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		54872AA62E599A3E00D29989 /* GRPCNIOTransportHTTP2 in Frameworks */ = {isa = PBXBuildFile; productRef = 54872AA52E599A3E00D29989 /* GRPCNIOTransportHTTP2 */; };
+		54872AA82E599A3E00D29989 /* GRPCNIOTransportHTTP2Posix in Frameworks */ = {isa = PBXBuildFile; productRef = 54872AA72E599A3E00D29989 /* GRPCNIOTransportHTTP2Posix */; };
+		54872AAA2E599A3E00D29989 /* GRPCNIOTransportHTTP2TransportServices in Frameworks */ = {isa = PBXBuildFile; productRef = 54872AA92E599A3E00D29989 /* GRPCNIOTransportHTTP2TransportServices */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		547B74142E5986E6007FC831 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		547B74152E5986E6007FC831 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		5488C7242E50804B00B4D956 /* Luxor-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Luxor-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5488C7312E50804C00B4D956 /* Luxor-AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Luxor-AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5488C73B2E50804C00B4D956 /* Luxor-AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Luxor-AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,12 +67,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5488C7502E50808800B4D956 /* GRPCCodeGen in Frameworks */,
-				5488C7522E50808800B4D956 /* GRPCCore in Frameworks */,
-				5488C75B2E50809900B4D956 /* protoc-gen-swift in Frameworks */,
-				5488C7592E50809900B4D956 /* SwiftProtobufPluginLibrary in Frameworks */,
-				5488C7542E50808800B4D956 /* GRPCInProcessTransport in Frameworks */,
-				5488C7572E50809900B4D956 /* SwiftProtobuf in Frameworks */,
+				54872A3B2E59943700D29989 /* (null) in Frameworks */,
+				547B741A2E5988D9007FC831 /* GRPCCodeGen in Frameworks */,
+				547B741C2E5988D9007FC831 /* GRPCCore in Frameworks */,
+				54872A3D2E59943700D29989 /* (null) in Frameworks */,
+				54872AA82E599A3E00D29989 /* GRPCNIOTransportHTTP2Posix in Frameworks */,
+				547B741E2E5988D9007FC831 /* GRPCInProcessTransport in Frameworks */,
+				547B741F2E5988D9007FC831 /* GRPCProtobuf in Frameworks */,
+				54872AA62E599A3E00D29989 /* GRPCNIOTransportHTTP2 in Frameworks */,
+				54872AAA2E599A3E00D29989 /* GRPCNIOTransportHTTP2TransportServices in Frameworks */,
+				54872A3F2E59943700D29989 /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,12 +97,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		547B74132E5986E6007FC831 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				547B74152E5986E6007FC831 /* SwiftData.framework */,
+				547B74142E5986E6007FC831 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5488C71B2E50804B00B4D956 = {
 			isa = PBXGroup;
 			children = (
 				5488C7262E50804B00B4D956 /* Luxor-App */,
 				5488C7342E50804C00B4D956 /* Luxor-AppTests */,
 				5488C73E2E50804C00B4D956 /* Luxor-AppUITests */,
+				547B74132E5986E6007FC831 /* Frameworks */,
 				5488C7252E50804B00B4D956 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -127,12 +147,12 @@
 			);
 			name = "Luxor-App";
 			packageProductDependencies = (
-				5488C74F2E50808800B4D956 /* GRPCCodeGen */,
-				5488C7512E50808800B4D956 /* GRPCCore */,
-				5488C7532E50808800B4D956 /* GRPCInProcessTransport */,
-				5488C7562E50809900B4D956 /* SwiftProtobuf */,
-				5488C7582E50809900B4D956 /* SwiftProtobufPluginLibrary */,
-				5488C75A2E50809900B4D956 /* protoc-gen-swift */,
+				547B74192E5988D9007FC831 /* GRPCCodeGen */,
+				547B741B2E5988D9007FC831 /* GRPCCore */,
+				547B741D2E5988D9007FC831 /* GRPCInProcessTransport */,
+				54872AA52E599A3E00D29989 /* GRPCNIOTransportHTTP2 */,
+				54872AA72E599A3E00D29989 /* GRPCNIOTransportHTTP2Posix */,
+				54872AA92E599A3E00D29989 /* GRPCNIOTransportHTTP2TransportServices */,
 			);
 			productName = "Luxor-App";
 			productReference = 5488C7242E50804B00B4D956 /* Luxor-App.app */;
@@ -217,9 +237,10 @@
 			mainGroup = 5488C71B2E50804B00B4D956;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5488C74E2E50808800B4D956 /* XCRemoteSwiftPackageReference "grpc-swift" */,
-				5488C7552E50809900B4D956 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				5488C75C2E5080A300B4D956 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+				547B74182E5988D9007FC831 /* XCRemoteSwiftPackageReference "grpc-swift-2" */,
+				547B74202E5988D9007FC831 /* XCRemoteSwiftPackageReference "grpc-swift-protobuf" */,
+				54872AA42E599A3E00D29989 /* XCRemoteSwiftPackageReference "grpc-swift-nio-transport" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5488C7252E50804B00B4D956 /* Products */;
@@ -426,8 +447,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -453,8 +474,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -578,20 +599,28 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5488C74E2E50808800B4D956 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
+		547B74182E5988D9007FC831 /* XCRemoteSwiftPackageReference "grpc-swift-2" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/grpc/grpc-swift.git";
+			repositoryURL = "https://github.com/grpc/grpc-swift-2.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.3;
+				minimumVersion = 2.1.0;
 			};
 		};
-		5488C7552E50809900B4D956 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+		547B74202E5988D9007FC831 /* XCRemoteSwiftPackageReference "grpc-swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			repositoryURL = "https://github.com/grpc/grpc-swift-protobuf.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.30.0;
+				minimumVersion = 2.0.0;
+			};
+		};
+		54872AA42E599A3E00D29989 /* XCRemoteSwiftPackageReference "grpc-swift-nio-transport" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/grpc/grpc-swift-nio-transport";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
 			};
 		};
 		5488C75C2E5080A300B4D956 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
@@ -605,35 +634,40 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5488C74F2E50808800B4D956 /* GRPCCodeGen */ = {
+		547B74192E5988D9007FC831 /* GRPCCodeGen */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5488C74E2E50808800B4D956 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			package = 547B74182E5988D9007FC831 /* XCRemoteSwiftPackageReference "grpc-swift-2" */;
 			productName = GRPCCodeGen;
 		};
-		5488C7512E50808800B4D956 /* GRPCCore */ = {
+		547B741B2E5988D9007FC831 /* GRPCCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5488C74E2E50808800B4D956 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			package = 547B74182E5988D9007FC831 /* XCRemoteSwiftPackageReference "grpc-swift-2" */;
 			productName = GRPCCore;
 		};
-		5488C7532E50808800B4D956 /* GRPCInProcessTransport */ = {
+		547B741D2E5988D9007FC831 /* GRPCInProcessTransport */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5488C74E2E50808800B4D956 /* XCRemoteSwiftPackageReference "grpc-swift" */;
+			package = 547B74182E5988D9007FC831 /* XCRemoteSwiftPackageReference "grpc-swift-2" */;
 			productName = GRPCInProcessTransport;
 		};
-		5488C7562E50809900B4D956 /* SwiftProtobuf */ = {
+		547B74212E5988D9007FC831 /* GRPCProtobuf */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5488C7552E50809900B4D956 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
-			productName = SwiftProtobuf;
+			package = 547B74202E5988D9007FC831 /* XCRemoteSwiftPackageReference "grpc-swift-protobuf" */;
+			productName = GRPCProtobuf;
 		};
-		5488C7582E50809900B4D956 /* SwiftProtobufPluginLibrary */ = {
+		54872AA52E599A3E00D29989 /* GRPCNIOTransportHTTP2 */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5488C7552E50809900B4D956 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
-			productName = SwiftProtobufPluginLibrary;
+			package = 54872AA42E599A3E00D29989 /* XCRemoteSwiftPackageReference "grpc-swift-nio-transport" */;
+			productName = GRPCNIOTransportHTTP2;
 		};
-		5488C75A2E50809900B4D956 /* protoc-gen-swift */ = {
+		54872AA72E599A3E00D29989 /* GRPCNIOTransportHTTP2Posix */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5488C7552E50809900B4D956 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
-			productName = "protoc-gen-swift";
+			package = 54872AA42E599A3E00D29989 /* XCRemoteSwiftPackageReference "grpc-swift-nio-transport" */;
+			productName = GRPCNIOTransportHTTP2Posix;
+		};
+		54872AA92E599A3E00D29989 /* GRPCNIOTransportHTTP2TransportServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 54872AA42E599A3E00D29989 /* XCRemoteSwiftPackageReference "grpc-swift-nio-transport" */;
+			productName = GRPCNIOTransportHTTP2TransportServices;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

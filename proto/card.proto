@@ -41,7 +41,6 @@ message GetCardByIDResponse {
         ErrorDetails error = 4;
     }
 }
-
 message CreateNewCardRequest {
     string userId = 1;
     string cardNumber = 2;

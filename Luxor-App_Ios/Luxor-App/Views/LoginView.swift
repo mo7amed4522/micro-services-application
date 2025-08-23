@@ -1,11 +1,16 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject private var viewModel = LoginViewModel()
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var authState: AuthState
+    @EnvironmentObject var diContainer: DIContainer
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
-    @Binding var isLoggedIn: Bool
+    
+    @StateObject private var viewModel = LoginViewModel(
+        authUseCase: DIContainer.shared.authUseCase,
+        authState: AuthState()
+    )
     
     private var isIPad: Bool {
         horizontalSizeClass == .regular && verticalSizeClass == .regular
@@ -46,15 +51,47 @@ struct LoginView: View {
         }
         .luxorThemedBackground(themeManager)
         .ignoresSafeArea(.all, edges: .bottom)
+        .onAppear {
+            viewModel.updateAuthState(authState)
+        }
     }
     
     @ViewBuilder
     private var loginForm: some View {
         VStack(spacing: 24) {
-            LuxorEmailTextField(email: $viewModel.email)
-                .environmentObject(themeManager)
-            LuxorPasswordTextField(password: $viewModel.password)
-                .environmentObject(themeManager)
+            VStack(spacing: 4) {
+                LuxorEmailTextField(email: $viewModel.email)
+                    .environmentObject(themeManager)
+                    .onChange(of: viewModel.email) { _ in
+                        viewModel.validateFields()
+                    }
+                
+                if let emailError = viewModel.emailError {
+                    HStack {
+                        Text(emailError)
+                            .font(.caption)
+                            .foregroundColor(.red)
+                        Spacer()
+                    }
+                }
+            }
+            
+            VStack(spacing: 4) {
+                LuxorPasswordTextField(password: $viewModel.password)
+                    .environmentObject(themeManager)
+                    .onChange(of: viewModel.password) { _ in
+                        viewModel.validateFields()
+                    }
+                
+                if let passwordError = viewModel.passwordError {
+                    HStack {
+                        Text(passwordError)
+                            .font(.caption)
+                            .foregroundColor(.red)
+                        Spacer()
+                    }
+                }
+            }
             HStack {
                 Spacer()
                 Button(action: {
@@ -67,10 +104,10 @@ struct LoginView: View {
             }
             .padding(.top, -8)
             Button(action: {
-                isLoggedIn = true
+                viewModel.login()
             }) {
                 HStack {
-                    if viewModel.isLoading {
+                    if authState.isLoading {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                             .scaleEffect(0.8)
@@ -94,9 +131,9 @@ struct LoginView: View {
                             )
                         )
                 )
-                .disabled(!viewModel.isFormValid || viewModel.isLoading)
-                .scaleEffect(viewModel.isLoading ? 0.95 : 1.0)
-                .animation(.easeInOut(duration: 0.1), value: viewModel.isLoading)
+                .disabled(!viewModel.isFormValid || authState.isLoading)
+                .scaleEffect(authState.isLoading ? 0.95 : 1.0)
+                .animation(.easeInOut(duration: 0.1), value: authState.isLoading)
             }
             
             HStack {
@@ -198,6 +235,8 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView(isLoggedIn: .constant(false))
+    LoginView()
         .environmentObject(ThemeManager())
+        .environmentObject(AuthState())
+        .environmentObject(DIContainer.shared)
 }
