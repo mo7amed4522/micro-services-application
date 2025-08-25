@@ -47,110 +47,131 @@ fun SplashScreen(
 ) {
     val isDarkTheme = isSystemInDarkTheme()
     
-    // Animation states
-    var startAnimation by remember { mutableStateOf(false) }
+    // Animation states - matching iOS timing
+    var backgroundOpacity by remember { mutableStateOf(0f) }
+    var logoScale by remember { mutableStateOf(0.5f) }
+    var logoOpacity by remember { mutableStateOf(0f) }
+    var showGoldenParticles by remember { mutableStateOf(false) }
     
-    val logoScale by animateFloatAsState(
-        targetValue = if (startAnimation) 1f else 0.3f,
+    val animatedBackgroundOpacity by animateFloatAsState(
+        targetValue = backgroundOpacity,
         animationSpec = tween(
-            durationMillis = 1000,
+            durationMillis = 500,
+            easing = FastOutSlowInEasing
+        ),
+        label = "background_opacity"
+    )
+    
+    val animatedLogoScale by animateFloatAsState(
+        targetValue = logoScale,
+        animationSpec = tween(
+            durationMillis = 1200,
+            delayMillis = 300,
             easing = FastOutSlowInEasing
         ),
         label = "logo_scale"
     )
     
-    val logoAlpha by animateFloatAsState(
-        targetValue = if (startAnimation) 1f else 0f,
+    val animatedLogoOpacity by animateFloatAsState(
+        targetValue = logoOpacity,
         animationSpec = tween(
-            durationMillis = 800,
-            delayMillis = 200,
+            durationMillis = 1200,
+            delayMillis = 300,
             easing = FastOutSlowInEasing
         ),
-        label = "logo_alpha"
+        label = "logo_opacity"
     )
     
-    val textAlpha by animateFloatAsState(
-        targetValue = if (startAnimation) 1f else 0f,
-        animationSpec = tween(
-            durationMillis = 800,
-            delayMillis = 800,
-            easing = FastOutSlowInEasing
+    // iOS-style background gradient
+    val backgroundBrush = Brush.linearGradient(
+        colors = listOf(
+            LuxorColors.hieroglyphBrown.copy(alpha = 0.9f),
+            LuxorColors.deepGold.copy(alpha = 0.3f),
+            LuxorColors.pureGold.copy(alpha = 0.1f)
         ),
-        label = "text_alpha"
+        start = androidx.compose.ui.geometry.Offset(0f, 0f),
+        end = androidx.compose.ui.geometry.Offset(1000f, 1000f)
     )
     
-    val subtitleAlpha by animateFloatAsState(
-        targetValue = if (startAnimation) 1f else 0f,
-        animationSpec = tween(
-            durationMillis = 600,
-            delayMillis = 1200,
-            easing = FastOutSlowInEasing
-        ),
-        label = "subtitle_alpha"
-    )
-    
-    // Background gradient
-    val backgroundBrush = Brush.radialGradient(
-        colors = if (isDarkTheme) {
-            listOf(
-                LuxorColors.pureGold,
-                LuxorColors.Dark.background,
-                Color.Black
-            )
-        } else {
-            listOf(
-                LuxorColors.deepGold,
-                LuxorColors.Light.background,
-                LuxorColors.papyrusBeige
-            )
-        },
-        radius = 1000f
-    )
-    
-    // Start animation and handle completion
+    // Start animation sequence matching iOS
     LaunchedEffect(Unit) {
-        startAnimation = true
-        delay(3000) // Total splash duration
+        // Background fade in
+        backgroundOpacity = 1f
+        
+        delay(300)
+        // Logo animation
+        logoScale = 1f
+        logoOpacity = 1f
+        
+        delay(800)
+        // Particles appear
+        showGoldenParticles = true
+        
+        delay(2500)
+        // Fade out
+        logoOpacity = 0f
+        backgroundOpacity = 0f
+        
+        delay(500)
         onSplashComplete()
     }
     
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(backgroundBrush),
+            .background(backgroundBrush)
+            .alpha(animatedBackgroundOpacity),
         contentAlignment = Alignment.Center
     ) {
-        // Particle background
-        LuxorParticles(
-            modifier = Modifier.fillMaxSize(),
-            particleCount = 30
-        )
+        // Golden particles background
+        if (showGoldenParticles) {
+            LuxorGoldenParticles(
+                modifier = Modifier.fillMaxSize(),
+                isVisible = showGoldenParticles
+            )
+        }
         
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(30.dp)
         ) {
-            // Animated logo
-            LuxorLogo(
-                modifier = Modifier
-                    .scale(logoScale)
-                    .alpha(logoAlpha),
-                size = 150.dp,
-                animated = startAnimation,
-                showParticles = true
-            )
+            // Logo with blur effect (iOS style)
+            Box {
+                // Blurred background logo
+                LuxorLogo(
+                    modifier = Modifier
+                        .scale(animatedLogoScale)
+                        .alpha(animatedLogoOpacity * 0.6f),
+                    size = 120.dp,
+                    animated = false,
+                    showParticles = false
+                )
+                
+                // Sharp foreground logo
+                LuxorLogo(
+                    modifier = Modifier
+                        .scale(animatedLogoScale)
+                        .alpha(animatedLogoOpacity),
+                    size = 120.dp,
+                    animated = true,
+                    showParticles = false
+                )
+            }
             
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             
-            // Main title with gradient text effect
+            // Welcome title with iOS-style gradient text
             Text(
-                text = "LUXOR",
-                fontSize = 42.sp,
+                text = "Welcome to Luxor",
+                fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
                 color = LuxorColors.pureGold,
-                letterSpacing = 6.sp,
+                letterSpacing = 1.sp,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.alpha(textAlpha)
+                modifier = Modifier
+                    .alpha(animatedLogoOpacity)
+                    .scale(animatedLogoScale * 0.9f)
             )
             
             Spacer(modifier = Modifier.height(8.dp))
@@ -158,33 +179,14 @@ fun SplashScreen(
             // Subtitle
             Text(
                 text = "Discover Ancient Wonders",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Normal,
-                color = if (isDarkTheme) LuxorColors.Dark.textSecondary else LuxorColors.Light.textSecondary,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = LuxorColors.papyrusBeige.copy(alpha = 0.9f),
                 textAlign = TextAlign.Center,
-                modifier = Modifier.alpha(subtitleAlpha)
+                modifier = Modifier
+                    .alpha(animatedLogoOpacity)
+                    .scale(animatedLogoScale * 0.9f)
             )
-            
-            Spacer(modifier = Modifier.height(16.dp))
-            
-            // Egyptian hieroglyphic-style decorative text
-            Text(
-                text = "𓂀 𓈖 𓇯 𓂀",
-                fontSize = 24.sp,
-                color = LuxorColors.egyptianBlue,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.alpha(subtitleAlpha)
-            )
-        }
-        
-        // Loading indicator at bottom
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 80.dp)
-                .alpha(subtitleAlpha)
-        ) {
-            LuxorLoadingIndicator()
         }
     }
 }

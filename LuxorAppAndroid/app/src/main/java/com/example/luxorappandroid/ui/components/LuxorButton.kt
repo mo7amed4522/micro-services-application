@@ -1,8 +1,13 @@
 package com.example.luxorappandroid.ui.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,9 +24,12 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -51,6 +59,15 @@ fun LuxorButton(
     isLoading: Boolean = false
 ) {
     val isDarkTheme = isSystemInDarkTheme()
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    
+    
+    val animatedScale by animateFloatAsState(
+        targetValue = if (isPressed && enabled) 0.95f else 1f,
+        animationSpec = tween(durationMillis = 100),
+        label = "buttonScale"
+    )
     
     val (backgroundColor, contentColor, borderColor) = when (style) {
         LuxorButtonStyle.PRIMARY -> {
@@ -119,9 +136,17 @@ fun LuxorButton(
     val finalContentColor = if (enabled) contentColor else contentColor.copy(alpha = 0.6f)
     val finalBorderColor = if (enabled) borderColor else borderColor.copy(alpha = 0.6f)
     
+    // Animated colors for press feedback
+    val animatedBackgroundColor by animateColorAsState(
+        targetValue = if (isPressed && enabled) finalBackgroundColor.copy(alpha = 0.8f) else finalBackgroundColor,
+        animationSpec = tween(durationMillis = 100),
+        label = "backgroundColor"
+    )
+    
     Button(
         onClick = onClick,
         modifier = modifier
+            .scale(animatedScale)
             .height(56.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
@@ -136,7 +161,7 @@ fun LuxorButton(
             ),
         enabled = enabled && !isLoading,
         colors = ButtonDefaults.buttonColors(
-            containerColor = finalBackgroundColor,
+            containerColor = animatedBackgroundColor,
             contentColor = finalContentColor,
             disabledContainerColor = finalBackgroundColor,
             disabledContentColor = finalContentColor
@@ -145,7 +170,8 @@ fun LuxorButton(
         elevation = ButtonDefaults.buttonElevation(
             defaultElevation = if (style == LuxorButtonStyle.PRIMARY) 4.dp else 0.dp,
             pressedElevation = if (style == LuxorButtonStyle.PRIMARY) 2.dp else 0.dp
-        )
+        ),
+        interactionSource = interactionSource
     ) {
         if (isLoading) {
             CircularProgressIndicator(
@@ -288,31 +314,52 @@ fun LuxorGradientButton(
     isLoading: Boolean = false
 ) {
     val isDarkTheme = isSystemInDarkTheme()
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
     
-    val gradientBrush = Brush.horizontalGradient(
-        colors = listOf(
+    // iOS-style animations
+    val animatedScale by animateFloatAsState(
+        targetValue = if (isPressed && enabled) 0.95f else 1f,
+        animationSpec = tween(durationMillis = 100),
+        label = "buttonScale"
+    )
+    
+    val gradientColors = if (isDarkTheme) {
+        listOf(
             LuxorColors.pureGold,
-            LuxorColors.pureGold,
+            LuxorColors.luxorGold,
             LuxorColors.pureGold
         )
-    )
+    } else {
+        listOf(
+            LuxorColors.pureGold,
+            LuxorColors.luxorGold,
+            LuxorColors.pureGold
+        )
+    }
+    
+    val pressedGradientColors = gradientColors.map { it.copy(alpha = 0.8f) }
+    val currentGradient = if (isPressed && enabled) pressedGradientColors else gradientColors
     
     val contentColor = LuxorColors.egyptianBlue
     val finalContentColor = if (enabled) contentColor else contentColor.copy(alpha = 0.6f)
     
     Box(
         modifier = modifier
+            .scale(animatedScale)
             .height(56.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
-            .background(if (enabled) gradientBrush else Brush.horizontalGradient(
-                colors = listOf(
-                    LuxorColors.pureGold.copy(alpha = 0.6f),
-                    LuxorColors.luxorGold.copy(alpha = 0.6f),
-                    LuxorColors.pureGold.copy(alpha = 0.6f)
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = if (enabled) currentGradient else gradientColors.map { it.copy(alpha = 0.6f) }
                 )
-            ))
-            .clickable(enabled = enabled && !isLoading) { onClick() },
+            )
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                enabled = enabled && !isLoading
+            ) { onClick() },
         contentAlignment = Alignment.Center
     ) {
         if (isLoading) {
