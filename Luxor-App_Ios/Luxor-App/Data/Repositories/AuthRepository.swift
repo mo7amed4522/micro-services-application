@@ -60,6 +60,48 @@ class AuthRepository: AuthRepositoryProtocol {
         .eraseToAnyPublisher()
     }
     
+    func register(credentials: RegisterCreditials) -> AnyPublisher<RegisterResult, Never>{
+        return Future<RegisterResult, Never>{[weak self] promise in
+            guard let self = self else {
+                promise(.success(RegisterResult.failure(message: "Repository not available")))
+                return
+            }
+            Task{
+                do {
+                    let response = try await self.grpcClient.createUser(
+                        fullName: credentials.fullName, email: credentials.email, password: credentials.password, countryCode: credentials.countryCode, phoneNumber: credentials.phoneNumber
+                    )
+                    if response.statusCode == 200 {
+                        let domainToken = RegisterationTokens(
+                            
+                        user:User(
+                            id: response.user.id,
+                            fullName: response.user.fullName,
+                            email : response.user.email,
+                            countryCode: response.user.countryCode,
+                            phoneNumber: response.user.phoneNumber,
+                            role: response.user.role,
+                            verifyCode: response.user.verifiyCode,
+                            createAt: response.user.createAt,
+                            updateAt: response.user.updateAt
+                        )
+                        )
+                        let result = RegisterResult.success(user: domainToken.user)
+                        promise(.success(result))
+                        
+                    }else{
+                        let errorMessage = true ? response.error.message : response.message
+                        promise(.success(RegisterResult.failure(message: errorMessage)))
+                    }
+                }catch{
+                    promise(.success(RegisterResult.failure(message: "Network error: \(error.localizedDescription)")))
+                
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
     func validateToken(_ token: String) -> AnyPublisher<Bool, Never> {
         return Future<Bool, Never> { [weak self] promise in
             guard let self = self else {

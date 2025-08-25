@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-// MARK: - View Extensions for RegisterView
+
 extension View {
-    /// Applies Luxor background styling
     func luxorBackground() -> some View {
         self.background(
             LinearGradient(
@@ -22,8 +21,6 @@ extension View {
             )
         )
     }
-    
-    /// Custom toast modifier for RegisterView
     func toast(isPresented: Binding<Bool>, type: ToastType, message: String) -> some View {
         self.overlay(
             VStack {

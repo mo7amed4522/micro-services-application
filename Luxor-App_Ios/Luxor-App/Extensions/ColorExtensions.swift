@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// MARK: - Color Extensions for Luxor Theme
 extension Color {
     static var luxorGold: Color {
         LuxorColors.pureGold

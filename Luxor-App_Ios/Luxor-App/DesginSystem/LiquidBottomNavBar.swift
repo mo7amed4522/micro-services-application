@@ -93,23 +93,18 @@ struct TabButton: View {
     var body: some View {
         Button(action: {
             action()
-            // Animate text appearance
             withAnimation(.spring(response: 0.4, dampingFraction: 0.7).delay(0.1)) {
                 showText = isSelected
             }
         }) {
             ZStack {
-                // Background circle for selected state
                 if isSelected {
                     selectedBackground
                 }
                 
                 VStack(spacing: 0) {
-                    // Icon with text overlay
                     ZStack {
                         iconView
-                        
-                        // Text that appears inside the icon area when selected
                         if isSelected {
                             selectedText
                         }
@@ -125,8 +120,6 @@ struct TabButton: View {
             }
         }
     }
-    
-    // Extract complex views as separate computed properties
     private var selectedBackground: some View {
         Circle()
             .fill(
@@ -140,7 +133,6 @@ struct TabButton: View {
             .scaleEffect(isSelected ? 1.0 : 0.8)
             .animation(.spring(response: 0.5, dampingFraction: 0.7), value: isSelected)
     }
-    
     private var iconView: some View {
         Image(systemName: tab.icon)
             .font(.system(size: isSelected ? 18 : 20, weight: .medium))
@@ -149,7 +141,6 @@ struct TabButton: View {
             .opacity(isSelected && showText ? 0.3 : 1.0)
             .animation(.spring(response: 0.4, dampingFraction: 0.6), value: isSelected)
     }
-    
     private var selectedText: some View {
         Text(tab.title)
             .font(.system(size: 10, weight: .bold))
@@ -162,7 +153,6 @@ struct TabButton: View {
             )
     }
 }
-
 struct TabItem {
     let icon: String
     let title: String

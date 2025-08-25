@@ -136,8 +136,7 @@ struct ChatView: View {
             .navigationBarHidden(true)
         }
     }
-    
-    // MARK: - Instagram-Style Scroll Handling
+
     private func handleInstagramStyleScroll(currentOffset: CGFloat) {
         let delta = abs(currentOffset - lastScrollOffset)
         if delta > 1.0 {

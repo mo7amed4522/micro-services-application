@@ -179,7 +179,6 @@ struct ForgotPasswordView: View {
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
                     
                     TextField("Enter code", text: $viewModel.verifyCode)
-                        .textFieldStyle(LuxorTextFieldStyle())
                         .keyboardType(.numberPad)
                         .onChange(of: viewModel.verifyCode) { _ in
                             viewModel.validateVerifyCode()
@@ -253,7 +252,7 @@ struct ForgotPasswordView: View {
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
                     
                     SecureField("Confirm password", text: $viewModel.confirmPassword)
-                        .textFieldStyle(LuxorTextFieldStyle())
+                        
                         .onChange(of: viewModel.confirmPassword) { _ in
                             viewModel.validatePasswords()
                         }

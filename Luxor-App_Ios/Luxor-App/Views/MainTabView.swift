@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var languageManager: LanguageManager
     @State private var selectedTab = 0
     @State private var isNavBarVisible = true
     @State private var isAppBarVisible = true
@@ -146,4 +147,5 @@ struct MainTabView: View {
 #Preview {
     MainTabView()
         .environmentObject(ThemeManager())
+        .environmentObject(LanguageManager())
 }

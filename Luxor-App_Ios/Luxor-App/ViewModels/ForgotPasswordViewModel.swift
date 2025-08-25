@@ -22,6 +22,7 @@ class ForgotPasswordViewModel: ObservableObject {
     @Published var currentStep: ForgotPasswordStep = .enterEmail
     @Published var showAlert = false
     @Published var alertMessage = ""
+    @EnvironmentObject var languageManager: LanguageManager
     
     private let authUseCase: AuthUseCase
     private var cancellables = Set<AnyCancellable>()
@@ -41,7 +42,7 @@ class ForgotPasswordViewModel: ObservableObject {
         if email.isEmpty {
             emailError = nil
         } else if !authUseCase.validateEmail(email) {
-            emailError = "Please enter a valid email address"
+            emailError = LocalizedStrings.enterValidEmail(languageManager.currentLanguage)
         } else {
             emailError = nil
         }
@@ -49,9 +50,9 @@ class ForgotPasswordViewModel: ObservableObject {
     
     func validateVerifyCode() {
         if verifyCode.isEmpty {
-            verifyCodeError = "Please enter the verification code"
+            verifyCodeError = LocalizedStrings.enterVerificationCode(languageManager.currentLanguage)
         } else if verifyCode.count < 4 {
-            verifyCodeError = "Verification code must be at least 4 characters"
+            verifyCodeError = LocalizedStrings.verificationCodeLength(languageManager.currentLanguage)
         } else {
             verifyCodeError = nil
         }
@@ -61,7 +62,7 @@ class ForgotPasswordViewModel: ObservableObject {
         if newPassword.isEmpty {
             passwordError = nil
         } else if !authUseCase.validatePassword(newPassword) {
-            passwordError = "Password must be at least 8 characters with uppercase, and special character"
+            passwordError = LocalizedStrings.passwordRequirements(languageManager.currentLanguage)
         } else {
             passwordError = nil
         }
@@ -69,7 +70,7 @@ class ForgotPasswordViewModel: ObservableObject {
         if confirmPassword.isEmpty {
             confirmPasswordError = nil
         } else if newPassword != confirmPassword {
-            confirmPasswordError = "Passwords do not match"
+            confirmPasswordError = LocalizedStrings.passwordsDoNotMatch(languageManager.currentLanguage)
         } else {
             confirmPasswordError = nil
         }
@@ -151,7 +152,6 @@ class ForgotPasswordViewModel: ObservableObject {
     }
     
     func goBackToLogin() {
-        // This will be handled by the parent view
         currentStep = .enterEmail
         clearForm()
     }

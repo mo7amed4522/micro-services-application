@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var languageManager: LanguageManager
     @State private var logoScale: CGFloat = 0.5
     @State private var logoOpacity: Double = 0.0
     @State private var backgroundOpacity: Double = 0.0
@@ -57,7 +58,7 @@ struct SplashScreenView: View {
                 .scaleEffect(logoScale)
                 .opacity(logoOpacity)
                 VStack(spacing: 8) {
-                    Text("EGYPT FOR EVERY ONE !!")
+                    Text(LocalizedStrings.welcomeTitle(languageManager.currentLanguage))
                         .font(.system(size: 30, weight: .bold, design: .serif))
                         .foregroundStyle(
                             LinearGradient(
@@ -71,8 +72,7 @@ struct SplashScreenView: View {
                             )
                         )
                         .shadow(color: LuxorColors.hieroglyphBrown.opacity(0.5), radius: 2, x: 1, y: 1)
-                    
-                    Text("Journey Through Time")
+                    Text(LocalizedStrings.welcomeSubtitle(languageManager.currentLanguage))
                         .font(.system(size: 14, weight: .medium, design: .serif))
                         .foregroundColor(LuxorColors.papyrusBeige)
                         .opacity(0.9)
@@ -116,4 +116,5 @@ struct SplashScreenView: View {
 #Preview {
     SplashScreenView(onAnimationComplete: {})
         .environmentObject(ThemeManager())
+        .environmentObject(LanguageManager())
 }

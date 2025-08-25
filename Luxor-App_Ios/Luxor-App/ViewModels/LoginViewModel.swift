@@ -7,12 +7,13 @@ class LoginViewModel: ObservableObject {
     @Published var emailError: String?
     @Published var passwordError: String?
     @Published var showForgotPassword = false
+    @EnvironmentObject var languageManager: LanguageManager
     
     private let authUseCase: AuthUseCase
     private let authState: AuthState
     private var cancellables = Set<AnyCancellable>()
     
-    // Social authentication coordinators
+  
     @Published var appleSignInCoordinator: AppleSignInCoordinator?
     @Published var googleSignInCoordinator: GoogleSignInCoordinator?
     
@@ -31,14 +32,14 @@ class LoginViewModel: ObservableObject {
         if email.isEmpty {
             emailError = nil
         } else if !authUseCase.validateEmail(email) {
-            emailError = "Please enter a valid email address"
+            emailError = LocalizedStrings.enterValidEmail(languageManager.currentLanguage)
         } else {
             emailError = nil
         }
         if password.isEmpty {
             passwordError = nil
         } else if !authUseCase.validatePassword(password) {
-            passwordError = "Password must be at least 8 characters with uppercase, and special character"
+            passwordError = LocalizedStrings.passwordRequirements(languageManager.currentLanguage)
         } else {
             passwordError = nil
         }
@@ -48,7 +49,7 @@ class LoginViewModel: ObservableObject {
         validateFields()
         
         guard isFormValid else {
-            authState.showErrorToast("Please fill in all fields correctly")
+            authState.showErrorToast(LocalizedStrings.fillAllFieldsCorrectly(languageManager.currentLanguage))
             return
         }
         authState.setLoading(true)
@@ -82,8 +83,6 @@ class LoginViewModel: ObservableObject {
     
     @MainActor
     func updateAuthState(_ newAuthState: AuthState) {
-        // Update coordinators when dependencies are available
-        // Fix: Remove optional binding since grpcClient is not optional
         let grpcClient = DIContainer.shared.grpcClient
         self.appleSignInCoordinator = AppleSignInCoordinator(
             grpcClient: grpcClient,
@@ -95,23 +94,21 @@ class LoginViewModel: ObservableObject {
         )
     }
     
-    // MARK: - Social Authentication Methods
-    
     @MainActor
     func signInWithApple() {
         guard let coordinator = appleSignInCoordinator else {
-            authState.showErrorToast("Apple Sign In not available")
+            authState.showErrorToast(LocalizedStrings.appleSignInFailed(languageManager.currentLanguage))
             return
         }
         coordinator.signIn { [weak self] isLoading in
-            // Loading state is handled by the coordinator and AuthState
+
         }
     }
     
     @MainActor
     func signInWithGoogle() {
         guard let coordinator = googleSignInCoordinator else {
-            authState.showErrorToast("Google Sign In not available")
+            authState.showErrorToast(LocalizedStrings.googleSignInNotAvailable(languageManager.currentLanguage))
             return
         }
         coordinator.signIn { [weak self] isLoading in

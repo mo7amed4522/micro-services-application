@@ -50,10 +50,8 @@ struct WelcomePageView: View {
                             value: animateContent
                         )
                 }
-                
                 VStack {
                     Spacer()
-                    
                     VStack(spacing: 20) {
                         Rectangle()
                             .fill(
@@ -86,8 +84,7 @@ struct WelcomePageView: View {
                             .scaleEffect(animateContent ? 1.0 : 0.8)
                             .opacity(animateContent ? 1.0 : 0.0)
                             .animation(.spring(response: 0.6, dampingFraction: 0.8).delay(0.5), value: animateContent)
-                        
-                        // Subtitle with slide-in effect
+
                         Text(subtitle)
                             .font(.system(size: 18, weight: .semibold, design: .serif))
                             .foregroundColor(LuxorColors.papyrusBeige)

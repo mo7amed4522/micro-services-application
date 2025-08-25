@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// MARK: - Font Extensions for Luxor Theme
 extension Font {
     static var luxorTitle: Font {
         .system(size: 28, weight: .bold, design: .default)

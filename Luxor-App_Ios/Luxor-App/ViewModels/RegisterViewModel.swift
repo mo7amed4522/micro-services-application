@@ -20,14 +20,16 @@ class RegisterViewModel: ObservableObject {
     @Published var showVerificationOptions = false
     @Published var isPhotoUploaded = false
     @Published var uploadedPhotoURL = ""
+    @Published var showImagePicker = false
     
-    // Validation states
-    @Published var fullNameError = ""
-    @Published var emailError = ""
-    @Published var passwordError = ""
-    @Published var confirmPasswordError = ""
-    @Published var phoneError = ""
-    @Published var photoError = ""
+
+    @Published var fullNameError: String?
+    @Published var emailError: String?
+    @Published var passwordError: String?
+    @Published var confirmPasswordError: String?
+    @Published var phoneError: String?
+    @Published var photoError: String?
+    @EnvironmentObject var languageManager: LanguageManager
     
     private let grpcClient = GRPCClientManager()
     private var cancellables = Set<AnyCancellable>()
@@ -37,42 +39,36 @@ class RegisterViewModel: ObservableObject {
     }
     
     private func setupValidation() {
-        // Real-time validation
         $fullName
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .sink { [weak self] value in
                 self?.validateFullName(value)
             }
             .store(in: &cancellables)
-        
         $email
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .sink { [weak self] value in
                 self?.validateEmail(value)
             }
             .store(in: &cancellables)
-        
         $password
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .sink { [weak self] value in
                 self?.validatePassword(value)
             }
             .store(in: &cancellables)
-        
         $confirmPassword
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .sink { [weak self] value in
                 self?.validateConfirmPassword(value)
             }
             .store(in: &cancellables)
-        
         $phoneNumber
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .sink { [weak self] value in
                 self?.validatePhone(value)
             }
             .store(in: &cancellables)
-        
         $selectedPhoto
             .sink { [weak self] item in
                 Task {
@@ -82,83 +78,74 @@ class RegisterViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    // MARK: - Validation Methods
     
     private func validateFullName(_ name: String) {
         if name.isEmpty {
-            fullNameError = "Full name is required"
+            fullNameError = LocalizedStrings.fullNameRequired(languageManager.currentLanguage)
         } else if name.count < 2 {
-            fullNameError = "Full name must be at least 2 characters"
+            fullNameError = LocalizedStrings.fullNameMinLength(languageManager.currentLanguage)
         } else {
-            fullNameError = ""
+            fullNameError = nil
         }
     }
-    
     private func validateEmail(_ email: String) {
         if email.isEmpty {
-            emailError = "Email is required"
+            emailError = LocalizedStrings.emailRequired(languageManager.currentLanguage)
         } else if !isValidEmail(email) {
-            emailError = "Please enter a valid email address"
+            emailError = LocalizedStrings.enterValidEmail(languageManager.currentLanguage)
         } else {
-            emailError = ""
+            emailError = nil
         }
     }
-    
     private func validatePassword(_ password: String) {
         if password.isEmpty {
-            passwordError = "Password is required"
+            passwordError = LocalizedStrings.passwordRequired(languageManager.currentLanguage)
         } else if password.count < 8 {
-            passwordError = "Password must be at least 8 characters"
+            passwordError = LocalizedStrings.passwordRequirements(languageManager.currentLanguage)
         } else if !password.contains(where: { $0.isUppercase }) {
-            passwordError = "Password must contain at least one uppercase letter"
+            passwordError = LocalizedStrings.passwordUppercase(languageManager.currentLanguage)
         } else if !password.contains(where: { $0.isLowercase }) {
-            passwordError = "Password must contain at least one lowercase letter"
+            passwordError = LocalizedStrings.passwordLowercase(languageManager.currentLanguage)
         } else if !password.contains(where: { $0.isNumber }) {
-            passwordError = "Password must contain at least one number"
+            passwordError = LocalizedStrings.passwordNumber(languageManager.currentLanguage)
         } else {
-            passwordError = ""
+            passwordError = nil
         }
     }
-    
     private func validateConfirmPassword(_ confirmPassword: String) {
         if confirmPassword.isEmpty {
-            confirmPasswordError = "Please confirm your password"
+            confirmPasswordError = LocalizedStrings.confirmPasswordRequired(languageManager.currentLanguage)
         } else if confirmPassword != password {
-            confirmPasswordError = "Passwords do not match"
+            confirmPasswordError = LocalizedStrings.passwordsDoNotMatch(languageManager.currentLanguage)
         } else {
-            confirmPasswordError = ""
+            confirmPasswordError = nil
         }
     }
-    
     private func validatePhone(_ phone: String) {
         if phone.isEmpty {
-            phoneError = "Phone number is required"
+            phoneError = LocalizedStrings.phoneNumberRequired(languageManager.currentLanguage)
         } else if phone.count < 10 {
-            phoneError = "Please enter a valid phone number"
+            phoneError = LocalizedStrings.phoneNumberRequired(languageManager.currentLanguage)
         } else {
-            phoneError = ""
+            phoneError = nil
         }
     }
-    
     private func validatePhoto() {
         if profileImage == nil {
-            photoError = "Profile photo is required"
+            photoError = LocalizedStrings.profilePhotoRequired(languageManager.currentLanguage )
         } else {
-            photoError = ""
+            photoError = nil
         }
     }
-    
     private func isValidEmail(_ email: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailPredicate.evaluate(with: email)
     }
-    
     // MARK: - Photo Handling
     
     func loadSelectedPhoto(_ item: PhotosPickerItem?) async {
         guard let item = item else { return }
-        
         do {
             if let data = try await item.loadTransferable(type: Data.self),
                let image = UIImage(data: data) {
@@ -166,17 +153,19 @@ class RegisterViewModel: ObservableObject {
                 photoError = ""
             }
         } catch {
-            showErrorToast("Failed to load selected photo: \(error.localizedDescription)")
+            showErrorToast("\(LocalizedStrings.registrationFailed(languageManager.currentLanguage)) \(error.localizedDescription)")
         }
     }
     
-    // MARK: - Registration Process
+    func register() {
+        Task {
+            await performRegistration()
+        }
+    }
     
-    func register() async {
+    private func performRegistration() async {
         guard validateAllInputs() else { return }
-        
         isLoading = true
-        
         do {
             let userResponse = try await grpcClient.createUser(
                 fullName: fullName,
@@ -185,7 +174,6 @@ class RegisterViewModel: ObservableObject {
                 countryCode: countryCode,
                 phoneNumber: phoneNumber
             )
-            
             let userId = userResponse.user.id
             var photoURL: String? = nil
             if let profileImage = profileImage,
@@ -198,11 +186,8 @@ class RegisterViewModel: ObservableObject {
                     userId: userId,
                     fileType: .image
                 )
-                
                 photoURL = uploadResponse.success.fileURL
             }
-            
-            // Step 3: Save all data to SharedPreferences
             UserDataManager.shared.saveUserData(
                 userId: userId,
                 fullName: fullName,
@@ -212,11 +197,10 @@ class RegisterViewModel: ObservableObject {
                 photoURL: photoURL
             )
             
-            // Step 4: Show success and navigate
-            showToast(message: "Registration successful!", type: .success)
+            showToast(message: LocalizedStrings.registrationSuccessful(languageManager.currentLanguage), type: .success)
             
         } catch {
-            showToast(message: "Registration failed: \(error.localizedDescription)", type: .error)
+            showToast(message: "\(LocalizedStrings.registrationFailed(languageManager.currentLanguage)) \(error.localizedDescription)", type: .error)
         }
         
         isLoading = false
@@ -227,10 +211,8 @@ class RegisterViewModel: ObservableObject {
               let imageData = image.jpegData(compressionQuality: 0.8) else {
             throw RegistrationError.invalidPhoto
         }
-        
         let fileName = "profile_\(UUID().uuidString).jpg"
-        let tempUserId = UUID().uuidString // Temporary ID for upload
-        
+        let tempUserId = UUID().uuidString
         let response = try await grpcClient.uploadFile(
             fileData: imageData,
             fileName: fileName,
@@ -238,7 +220,6 @@ class RegisterViewModel: ObservableObject {
             userId: tempUserId,
             fileType: .image
         )
-        
         if response.statusCode == 200,
            case .success(let uploadSuccess) = response.result {
             uploadedPhotoURL = uploadSuccess.fileURL
@@ -246,10 +227,9 @@ class RegisterViewModel: ObservableObject {
         } else if case .error(let errorDetails) = response.result {
             throw RegistrationError.uploadFailed(errorDetails.message)
         } else {
-            throw RegistrationError.uploadFailed("Unknown upload error")
+            throw RegistrationError.uploadFailed(LocalizedStrings.unknownUploadError(languageManager.currentLanguage))
         }
     }
-    
     private func createUser() async throws {
         let response = try await grpcClient.createUser(
             fullName: fullName,
@@ -257,48 +237,38 @@ class RegisterViewModel: ObservableObject {
             password: password,
             countryCode: countryCode,
             phoneNumber: phoneNumber,
-            
         )
         
         if response.statusCode == 200,
            case .user(let user) = response.result {
-            print("User created with ID: \(user.id)")
+            print("\(LocalizedStrings.userCreatedWithID(languageManager.currentLanguage)) \(user.id)")
         } else if case .error(let errorDetails) = response.result {
             throw RegistrationError.userCreationFailed(errorDetails.message)
         } else {
-            throw RegistrationError.userCreationFailed("Unknown user creation error")
+            throw RegistrationError.userCreationFailed(LocalizedStrings.unknownUserCreationError(languageManager.currentLanguage))
         }
     }
-    
     private func showSuccessAndVerificationOptions() {
-        showSuccessToast("Registration successful! Please verify your account.")
+        showSuccessToast(LocalizedStrings.registrationSuccessfulWithVerification(languageManager.currentLanguage))
         showVerificationOptions = true
     }
-    
     private func handleRegistrationError(_ error: Error) {
         if let registrationError = error as? RegistrationError {
             showErrorToast(registrationError.localizedDescription)
         } else {
-            showErrorToast("Registration failed: \(error.localizedDescription)")
+            showErrorToast("\(LocalizedStrings.registrationFailed(languageManager.currentLanguage)) \(error.localizedDescription)")
         }
     }
-    
-    // MARK: - Toast Methods
-    
     private func showSuccessToast(_ message: String) {
         toastMessage = message
         toastType = .success
         showToast = true
     }
-    
     private func showErrorToast(_ message: String) {
         toastMessage = message
         toastType = .error
         showToast = true
     }
-    
-    // MARK: - Verification Methods
-    
     func sendVerificationCode(via method: VerificationMethod) async {
         isLoading = true
         
@@ -307,19 +277,39 @@ class RegisterViewModel: ObservableObject {
             let response = try await grpcClient.forgetPassword(email: email, type: methodString)
             
             if response.statusCode == 200 {
-                showSuccessToast("Verification code sent via \(method.displayName)")
+                showSuccessToast("\(LocalizedStrings.verificationCodeSentVia(languageManager.currentLanguage))\(method.displayName)")
             } else {
-                showErrorToast("Failed to send verification code")
+                showErrorToast(LocalizedStrings.failedToSendVerificationCode(languageManager.currentLanguage))
             }
         } catch {
-            showErrorToast("Error sending verification code: \(error.localizedDescription)")
+            showErrorToast("\(LocalizedStrings.errorSendingVerificationCode(languageManager.currentLanguage)) \(error.localizedDescription)")
         }
         
         isLoading = false
         showVerificationOptions = false
     }
+
+    func validateFields() {
+        validateFullName(fullName)
+        validateEmail(email)
+        validatePassword(password)
+        validateConfirmPassword(confirmPassword)
+        validatePhone(phoneNumber)
+    }
     
-    // MARK: - Validation Helper
+    var isFormValid: Bool {
+        return !fullName.isEmpty &&
+               !email.isEmpty &&
+               !password.isEmpty &&
+               !confirmPassword.isEmpty &&
+               !phoneNumber.isEmpty &&
+               fullNameError == nil &&
+               emailError == nil &&
+               passwordError == nil &&
+               confirmPasswordError == nil &&
+               phoneError == nil
+    }
+    
     private func validateAllInputs() -> Bool {
         validateFullName(fullName)
         validateEmail(email)
@@ -328,23 +318,30 @@ class RegisterViewModel: ObservableObject {
         validatePhone(phoneNumber)
         validatePhoto()
         
-        return fullNameError.isEmpty &&
-               emailError.isEmpty &&
-               passwordError.isEmpty &&
-               confirmPasswordError.isEmpty &&
-               phoneError.isEmpty &&
-               photoError.isEmpty
+        return fullNameError == nil &&
+               emailError == nil &&
+               passwordError == nil &&
+               confirmPasswordError == nil &&
+               phoneError == nil &&
+               photoError == nil
     }
     
-    // MARK: - Toast Helper
     private func showToast(message: String, type: ToastType) {
         toastMessage = message
         toastType = type
         showToast = true
     }
+    
+    func showTerms() {
+        print("Terms of service tapped")
+        // TODO: Implement terms of service navigation
+    }
+    
+    func showPrivacyPolicy() {
+        print("Privacy policy tapped")
+        // TODO: Implement privacy policy navigation
+    }
 }
-
-// MARK: - Supporting Types
 
 enum RegistrationError: LocalizedError {
     case invalidPhoto
@@ -365,7 +362,6 @@ enum RegistrationError: LocalizedError {
         }
     }
 }
-
 enum VerificationMethod: String, CaseIterable {
     case email = "email"
     case sms = "sms"

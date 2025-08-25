@@ -34,7 +34,6 @@ class UserDataManager {
         userDefaults.set(photoURL, forKey: Keys.photoURL)
         userDefaults.set(true, forKey: Keys.isLoggedIn)
     }
-    
     // MARK: - Get User Data
     func getUserId() -> String? {
         return userDefaults.string(forKey: Keys.userId)

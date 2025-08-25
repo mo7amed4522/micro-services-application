@@ -36,12 +36,6 @@ struct AuthTokens: Codable {
     let expiresIn: Int32
     let user: User
 }
-
-struct LoginCredentials {
-    let email: String
-    let password: String
-}
-
 struct AuthResult {
     let isSuccess: Bool
     let user: User?
@@ -56,7 +50,35 @@ struct AuthResult {
         return AuthResult(isSuccess: false, user: nil, tokens: nil, errorMessage: message)
     }
 }
+struct LoginCredentials {
+    let email: String
+    let password: String
+}
+struct RegisterationTokens: Codable {
+    let user: User
+}
 
+struct RegisterCreditials {
+    let fullName: String
+    let email : String
+    let password: String
+    let countryCode: String
+    let phoneNumber: String
+}
+
+struct RegisterResult {
+    let isSuccess: Bool
+    let user: User?
+    let errorMessage: String?
+    
+    static func success(user: User) -> RegisterResult {
+        return RegisterResult(isSuccess: true, user: user, errorMessage: nil)
+    }
+    
+    static func failure(message: String) -> RegisterResult {
+        return RegisterResult(isSuccess: false, user: nil,  errorMessage: message)
+    }
+}
 struct ForgotPasswordResult {
     let isSuccess: Bool
     let verifyCode: String?

@@ -68,7 +68,6 @@ struct WelcomeContainerView: View {
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .animation(.spring(response: 0.6, dampingFraction: 0.8), value: currentPage)
                 .onChange(of: currentPage) { _ in
-                    // Scale animation on page change
                     withAnimation(.easeInOut(duration: 0.3)) {
                         backgroundScale = 0.95
                     }

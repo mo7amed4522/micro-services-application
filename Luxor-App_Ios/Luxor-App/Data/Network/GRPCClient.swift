@@ -13,16 +13,14 @@ import Combine
 
 @available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *)
 class GRPCClientManager {
-    
-    // MARK: - Service Configuration
+
     private let authServiceHost = "localhost"
     private let authServicePort = 50052
     private let userServiceHost = "localhost"
     private let userServicePort = 50051
     private let uploadServiceHost = "localhost"
     private let uploadServicePort = 50061
-    
-    // MARK: - User Service Methods
+
     
     func login(email: String, password: String) async throws -> Users_LoginUserResponse {
         return try await withGRPCClient(
@@ -43,7 +41,7 @@ class GRPCClientManager {
         }
     }
     
-    // MARK: - Auth Service Methods
+  
     
     func authenticateWithApple(identityToken: String, authorizationCode: String, fullName: String?, email: String?) async throws -> Auth_SocialAuthResponse {
         return try await withGRPCClient(
@@ -212,8 +210,7 @@ class GRPCClientManager {
             return response
         }
     }
-    
-    // MARK: - Upload Service Methods
+
     
     func uploadFile(fileData: Data, fileName: String, contentType: String, userId: String, fileType: Upload_FileType) async throws -> Upload_UploadFileResponse {
         return try await withGRPCClient(
@@ -276,7 +273,6 @@ class GRPCClientManager {
     }
 }
 
-// MARK: - Error Handling
 extension GRPCClientManager {
     enum GRPCError: Error {
         case connectionFailed
@@ -302,7 +298,7 @@ extension GRPCClientManager {
     }
 }
 
-// MARK: - Domain Model Conversion
+
 extension GRPCClientManager {
     private func convertToDomainUser(from grpcUser: Users_User) -> User {
         return User(
