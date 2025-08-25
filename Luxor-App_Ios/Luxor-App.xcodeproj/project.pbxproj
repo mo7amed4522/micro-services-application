@@ -535,7 +535,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
-				// Debug Configuration (around line 540)
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to camera to take profile photos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to photo library to select profile photos";
@@ -565,7 +564,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
-				// Release Configuration (around line 565)
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to camera to take profile photos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to photo library to select profile photos";

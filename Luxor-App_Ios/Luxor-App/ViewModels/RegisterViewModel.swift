@@ -156,7 +156,7 @@ class RegisterViewModel: ObservableObject {
     
     // MARK: - Photo Handling
     
-    private func loadSelectedPhoto(_ item: PhotosPickerItem?) async {
+    func loadSelectedPhoto(_ item: PhotosPickerItem?) async {
         guard let item = item else { return }
         
         do {
@@ -178,8 +178,7 @@ class RegisterViewModel: ObservableObject {
         isLoading = true
         
         do {
-            // Step 1: Register user first
-            let userResponse = try await GRPCClientManager.shared.createUser(
+            let userResponse = try await grpcClient.createUser(
                 fullName: fullName,
                 email: email,
                 password: password,
@@ -187,16 +186,12 @@ class RegisterViewModel: ObservableObject {
                 phoneNumber: phoneNumber
             )
             
-            guard let userId = userResponse.user?.id else {
-                throw RegistrationError.invalidUserResponse
-            }
-            
-            // Step 2: Upload photo with user UUID
+            let userId = userResponse.user.id
             var photoURL: String? = nil
-            if let selectedImage = selectedImage,
-               let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
+            if let profileImage = profileImage,
+               let imageData = profileImage.jpegData(compressionQuality: 0.8) {
                 
-                let uploadResponse = try await GRPCClientManager.shared.uploadFile(
+                let uploadResponse = try await grpcClient.uploadFile(
                     fileData: imageData,
                     fileName: "profile_\(userId).jpg",
                     contentType: "image/jpeg",
@@ -204,7 +199,7 @@ class RegisterViewModel: ObservableObject {
                     fileType: .image
                 )
                 
-                photoURL = uploadResponse.success?.fileUrl
+                photoURL = uploadResponse.success.fileURL
             }
             
             // Step 3: Save all data to SharedPreferences
@@ -262,12 +257,11 @@ class RegisterViewModel: ObservableObject {
             password: password,
             countryCode: countryCode,
             phoneNumber: phoneNumber,
-            photoUrl: uploadedPhotoURL
+            
         )
         
         if response.statusCode == 200,
            case .user(let user) = response.result {
-            // User created successfully
             print("User created with ID: \(user.id)")
         } else if case .error(let errorDetails) = response.result {
             throw RegistrationError.userCreationFailed(errorDetails.message)
@@ -324,6 +318,30 @@ class RegisterViewModel: ObservableObject {
         isLoading = false
         showVerificationOptions = false
     }
+    
+    // MARK: - Validation Helper
+    private func validateAllInputs() -> Bool {
+        validateFullName(fullName)
+        validateEmail(email)
+        validatePassword(password)
+        validateConfirmPassword(confirmPassword)
+        validatePhone(phoneNumber)
+        validatePhoto()
+        
+        return fullNameError.isEmpty &&
+               emailError.isEmpty &&
+               passwordError.isEmpty &&
+               confirmPasswordError.isEmpty &&
+               phoneError.isEmpty &&
+               photoError.isEmpty
+    }
+    
+    // MARK: - Toast Helper
+    private func showToast(message: String, type: ToastType) {
+        toastMessage = message
+        toastType = type
+        showToast = true
+    }
 }
 
 // MARK: - Supporting Types
@@ -332,6 +350,7 @@ enum RegistrationError: LocalizedError {
     case invalidPhoto
     case uploadFailed(String)
     case userCreationFailed(String)
+    case invalidUserResponse
     
     var errorDescription: String? {
         switch self {
@@ -341,6 +360,8 @@ enum RegistrationError: LocalizedError {
             return "Photo upload failed: \(message)"
         case .userCreationFailed(let message):
             return "User creation failed: \(message)"
+        case .invalidUserResponse:
+            return "Invalid user response from server"
         }
     }
 }
@@ -365,36 +386,4 @@ enum VerificationMethod: String, CaseIterable {
         case .whatsapp: return "phone.fill"
         }
     }
-}
-
-enum ToastType {
-    case success
-    case error
-    case info
-}
-
-// Add these methods after line 149 (after validatePhoto method)
-
-// MARK: - Validation Helper
-private func validateAllInputs() -> Bool {
-    validateFullName(fullName)
-    validateEmail(email)
-    validatePassword(password)
-    validateConfirmPassword(confirmPassword)
-    validatePhone(phoneNumber)
-    validatePhoto()
-    
-    return fullNameError.isEmpty &&
-           emailError.isEmpty &&
-           passwordError.isEmpty &&
-           confirmPasswordError.isEmpty &&
-           phoneError.isEmpty &&
-           photoError.isEmpty
-}
-
-// MARK: - Toast Helper
-private func showToast(message: String, type: ToastType) {
-    toastMessage = message
-    toastType = type
-    showToast = true
 }

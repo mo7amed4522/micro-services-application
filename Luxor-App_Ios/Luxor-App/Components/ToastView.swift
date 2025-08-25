@@ -14,6 +14,7 @@ struct ToastView: View {
     
     @State private var offset: CGFloat = 100
     @State private var opacity: Double = 0
+    @EnvironmentObject var languageManager: LanguageManager
     
     var body: some View {
         HStack(spacing: 12) {
@@ -111,7 +112,7 @@ extension View {
         
         ToastView(
             message: "Login successful! Welcome back.",
-            type: .success
+            type: ToastType.success
         ) {
 
         }
@@ -119,4 +120,6 @@ extension View {
         .padding(.bottom, 50)
     }
     .background(Color.gray.opacity(0.1))
+    .environmentObject(LanguageManager())
+    
 }

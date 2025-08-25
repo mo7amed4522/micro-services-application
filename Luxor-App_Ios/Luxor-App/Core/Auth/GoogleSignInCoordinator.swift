@@ -11,37 +11,49 @@ import UIKit
 
 @MainActor
 class GoogleSignInCoordinator: NSObject, ObservableObject {
-    private let grpcClient: GRPCClientManager
-    private let authState: AuthState
+    private var grpcClient: GRPCClientManager?
+    private var authState: AuthState?
+    
     
     @Published var isLoading = false
+    
+    
+    override init() {
+        super.init()
+    }
     
     init(grpcClient: GRPCClientManager, authState: AuthState) {
         self.grpcClient = grpcClient
         self.authState = authState
+        super.init()
     }
     
-    func updateDependencies(grpcClient: GRPCClientManager, authState: AuthState) {
-        // Update dependencies when environment objects are available
+    func updateDependencies(grpcClient: GRPCClientManager?, authState: AuthState?) {
+        self.grpcClient = grpcClient
+        self.authState = authState
     }
     
     func signIn(loadingCallback: @escaping (Bool) -> Void) {
+        guard let authState = authState, let grpcClient = grpcClient else {
+            loadingCallback(false)
+            return
+        }
         signInWithGoogle(loadingCallback: loadingCallback)
     }
     
     private func signInWithGoogle(loadingCallback: @escaping (Bool) -> Void) {
+        guard let authState = authState else {
+            loadingCallback(false)
+            return
+        }
         isLoading = true
         authState.setLoading(true)
         loadingCallback(true)
-        
-        // For now, we'll simulate Google Sign In since the SDK isn't configured
-        // In a real implementation, you would need to add GoogleSignIn SDK to the project
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             self?.isLoading = false
-            self?.authState.setLoading(false)
+            self?.authState?.setLoading(false)
             loadingCallback(false)
-            
-            // Simulate successful Google Sign In with mock data
             let mockIdToken = "mock_google_id_token_\(UUID().uuidString)"
             let mockAccessToken = "mock_google_access_token_\(UUID().uuidString)"
             
@@ -52,6 +64,9 @@ class GoogleSignInCoordinator: NSObject, ObservableObject {
     }
     
     private func authenticateWithBackend(idToken: String, accessToken: String) async {
+        guard let grpcClient = grpcClient, let authState = authState else {
+            return
+        }
         do {
             let response = try await grpcClient.authenticateWithGoogle(
                 idToken: idToken,
@@ -61,7 +76,6 @@ class GoogleSignInCoordinator: NSObject, ObservableObject {
             if response.statusCode == 200 {
                 if case .tokens(let authTokens) = response.result {
                     let user = grpcClient.convertToDomainUser(authTokens.user)
-                    // Fix: Pass authTokens directly instead of response
                     if let tokens = grpcClient.convertToDomainAuthTokens(authTokens) {
                         authState.login(user: user, tokens: tokens)
                         authState.showSuccessToast("Successfully signed in with Google")

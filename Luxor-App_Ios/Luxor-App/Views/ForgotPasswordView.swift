@@ -179,7 +179,7 @@ struct ForgotPasswordView: View {
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
                     
                     TextField("Enter code", text: $viewModel.verifyCode)
-                        .textFieldStyle(LuxorTextFieldStyle(themeManager: themeManager))
+                        .textFieldStyle(LuxorTextFieldStyle())
                         .keyboardType(.numberPad)
                         .onChange(of: viewModel.verifyCode) { _ in
                             viewModel.validateVerifyCode()
@@ -253,7 +253,7 @@ struct ForgotPasswordView: View {
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
                     
                     SecureField("Confirm password", text: $viewModel.confirmPassword)
-                        .textFieldStyle(LuxorTextFieldStyle(themeManager: themeManager))
+                        .textFieldStyle(LuxorTextFieldStyle())
                         .onChange(of: viewModel.confirmPassword) { _ in
                             viewModel.validatePasswords()
                         }
@@ -383,53 +383,6 @@ struct ForgotPasswordView: View {
     }
 }
 
-// MARK: - Custom Text Field Style
-
-struct LuxorTextFieldStyle: TextFieldStyle {
-    let themeManager: ThemeManager
-    
-    func _body(configuration: TextField<Self._Label>) -> some View {
-        configuration
-            .padding(16)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(
-                        themeManager.isDarkMode ?
-                        LinearGradient(
-                            colors: [
-                                LuxorColors.hieroglyphBrown.opacity(0.1),
-                                LuxorColors.sandstone.opacity(0.05)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ) :
-                        LinearGradient(
-                            colors: [
-                                LuxorColors.papyrusBeige.opacity(0.3),
-                                Color.white
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(
-                                LinearGradient(
-                                    colors: [
-                                        LuxorColors.pureGold.opacity(0.3),
-                                        LuxorColors.richGold.opacity(0.2)
-                                    ],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 1
-                            )
-                    )
-            )
-            .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
-    }
-}
 
 #Preview {
     ForgotPasswordView(authUseCase: AuthUseCase(authRepository: AuthRepository(grpcClient: GRPCClientManager())))

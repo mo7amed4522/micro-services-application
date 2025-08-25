@@ -13,6 +13,7 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
     private var authState: AuthState?
     private var grpcClient: GRPCClientManager?
     private var loadingCallback: ((Bool) -> Void)?
+    @EnvironmentObject var languageManager: LanguageManager
     
     override init() {
         super.init()
@@ -45,21 +46,21 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
-            authState?.showErrorToast("Failed to get Apple ID credentials")
+            authState?.showErrorToast(LocalizedStrings.failedToGetAppleIDCredentials(languageManager.currentLanguage))
             loadingCallback?(false)
             return
         }
         
         guard let identityTokenData = appleIDCredential.identityToken,
               let identityToken = String(data: identityTokenData, encoding: .utf8) else {
-            authState?.showErrorToast("Failed to get identity token")
+            authState?.showErrorToast(LocalizedStrings.failedToGetIdentityToken(languageManager.currentLanguage))
             loadingCallback?(false)
             return
         }
         
         guard let authorizationCodeData = appleIDCredential.authorizationCode,
               let authorizationCode = String(data: authorizationCodeData, encoding: .utf8) else {
-            authState?.showErrorToast("Failed to get authorization code")
+            authState?.showErrorToast(LocalizedStrings.failedToGetAuthorizationCode(languageManager.currentLanguage))
             loadingCallback?(false)
             return
         }
@@ -76,7 +77,7 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
                     await MainActor.run {
                         authState?.setLoading(false)
                         loadingCallback?(false)
-                        authState?.showErrorToast("Authentication service not available")
+                        authState?.showErrorToast(LocalizedStrings.authServiceNotAvailable(languageManager.currentLanguage))
                     }
                     return
                 }
@@ -110,13 +111,13 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
             case .canceled:
                 break
             case .failed:
-                authState?.showErrorToast("Apple Sign In failed")
+                authState?.showErrorToast(LocalizedStrings.appleSignInFailed(languageManager.currentLanguage))
             case .invalidResponse:
-                authState?.showErrorToast("Invalid response from Apple")
+                authState?.showErrorToast(LocalizedStrings.invalidResponseFromApple(languageManager.currentLanguage))
             case .notHandled:
-                authState?.showErrorToast("Apple Sign In not handled")
+                authState?.showErrorToast(LocalizedStrings.appleSignInNotHandled(languageManager.currentLanguage))
             case .unknown:
-                authState?.showErrorToast("Unknown Apple Sign In error")
+                authState?.showErrorToast(LocalizedStrings.unknownAppleSignInError(languageManager.currentLanguage))
             @unknown default:
                 authState?.showErrorToast("Apple Sign In error: \(error.localizedDescription)")
             }
@@ -135,15 +136,15 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
                 let tokens = grpcClient?.convertToDomainAuthTokens(authTokens) ?? AuthTokens(accessToken: "mock_token", expiresIn: 3600, user: user)
                 
                 authState?.login(user: user, tokens: tokens)
-                authState?.showSuccessToast("Successfully signed in with Apple")
+                authState?.showSuccessToast(LocalizedStrings.successfullySignedInWithApple(languageManager.currentLanguage))
             } else {
-                authState?.showErrorToast("Authentication failed: No tokens received")
+                authState?.showErrorToast(LocalizedStrings.authFailedNoTokens(languageManager.currentLanguage))
             }
         } else {
             if case .error(let errorDetails) = response.result {
                 authState?.showErrorToast(errorDetails.message)
             } else {
-                authState?.showErrorToast("Authentication failed")
+                authState?.showErrorToast(LocalizedStrings.authFailed(languageManager.currentLanguage))
             }
         }
     }

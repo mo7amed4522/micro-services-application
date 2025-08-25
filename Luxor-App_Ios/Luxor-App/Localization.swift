@@ -211,6 +211,14 @@ struct LocalizedStrings {
             case .chinese: return "探索古代奇观"
             }
         }
+    static func loginSuccessful(_ language: SupportedLanguage) -> String {
+        switch language {
+        case .english: return "Login successful! Welcome back."
+        case .arabic: return "تم تسجيل الدخول بنجاح! أهلاً بك مرة أخرى."
+        case .french: return "Connexion réussie ! Bienvenue de retour."
+        case .chinese: return "登录成功！欢迎回来。"
+        }
+    }
     static func CreateAccount(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Create Account"
@@ -219,6 +227,23 @@ struct LocalizedStrings {
         case .chinese: return "创建账户"
         }
     }
+    static func successfullySignedInWithGoogle(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Successfully signed in with Google"
+            case .arabic: return "تم تسجيل الدخول باستخدام Google بنجاح"
+            case .french: return "Connecté avec succès via Google"
+            case .chinese: return "已成功通过 Google 登录"
+            }
+        }
+        
+        static func failedToProcessAuthTokens(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Failed to process authentication tokens"
+            case .arabic: return "فشل في معالجة رموز المصادقة"
+            case .french: return "Échec du traitement des jetons d'authentification"
+            case .chinese: return "无法处理认证令牌"
+            }
+        }
     static func AddProfilePhoto(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Add Profile Photo"
@@ -235,6 +260,104 @@ struct LocalizedStrings {
         case .chinese: return "登录到您的账户"
         }
     }
+    static func failedToGetAppleIDCredentials(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Failed to get Apple ID credentials"
+            case .arabic: return "فشل في الحصول على بيانات اعتماد معرّف Apple"
+            case .french: return "Échec de l'obtention des identifiants Apple ID"
+            case .chinese: return "无法获取 Apple ID 凭据"
+            }
+        }
+        
+        static func failedToGetIdentityToken(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Failed to get identity token"
+            case .arabic: return "فشل في الحصول على رمز الهوية"
+            case .french: return "Échec de l'obtention du jeton d'identité"
+            case .chinese: return "无法获取身份令牌"
+            }
+        }
+        
+        static func failedToGetAuthorizationCode(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Failed to get authorization code"
+            case .arabic: return "فشل في الحصول على رمز التفويض"
+            case .french: return "Échec de l'obtention du code d'autorisation"
+            case .chinese: return "无法获取授权代码"
+            }
+        }
+        
+        static func authServiceNotAvailable(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Authentication service not available"
+            case .arabic: return "خدمة المصادقة غير متاحة"
+            case .french: return "Service d'authentification non disponible"
+            case .chinese: return "认证服务不可用"
+            }
+        }
+        
+        static func appleSignInFailed(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Apple Sign In failed"
+            case .arabic: return "فشل تسجيل الدخول باستخدام Apple"
+            case .french: return "La connexion avec Apple a échoué"
+            case .chinese: return "Apple 登录失败"
+            }
+        }
+        
+        static func invalidResponseFromApple(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Invalid response from Apple"
+            case .arabic: return "استجابة غير صالحة من Apple"
+            case .french: return "Réponse invalide d'Apple"
+            case .chinese: return "来自 Apple 的响应无效"
+            }
+        }
+        
+        static func appleSignInNotHandled(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Apple Sign In not handled"
+            case .arabic: return "لم يتم التعامل مع تسجيل الدخول باستخدام Apple"
+            case .french: return "Connexion Apple non gérée"
+            case .chinese: return "未处理 Apple 登录"
+            }
+        }
+        
+        static func unknownAppleSignInError(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Unknown Apple Sign In error"
+            case .arabic: return "خطأ غير معروف في تسجيل الدخول باستخدام Apple"
+            case .french: return "Erreur inconnue de connexion Apple"
+            case .chinese: return "未知的 Apple 登录错误"
+            }
+        }
+        
+        static func successfullySignedInWithApple(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Successfully signed in with Apple"
+            case .arabic: return "تم تسجيل الدخول باستخدام Apple بنجاح"
+            case .french: return "Connecté avec succès via Apple"
+            case .chinese: return "已成功通过 Apple 登录"
+            }
+        }
+        
+        static func authFailedNoTokens(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Authentication failed: No tokens received"
+            case .arabic: return "فشلت المصادقة: لم يتم استلام أي رموز"
+            case .french: return "Échec de l'authentification : Aucun jeton reçu"
+            case .chinese: return "认证失败：未收到令牌"
+            }
+        }
+        
+        static func authFailed(_ language: SupportedLanguage) -> String {
+            switch language {
+            case .english: return "Authentication failed"
+            case .arabic: return "فشلت المصادقة"
+            case .french: return "Échec de l'authentification"
+            case .chinese: return "认证失败"
+            }
+        }
 
     static func SignIn(_ language: SupportedLanguage) -> String {
         switch language {

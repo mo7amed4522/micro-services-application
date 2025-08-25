@@ -6,15 +6,8 @@ struct SocialLoginButtons: View {
     @EnvironmentObject var authState: AuthState
     @EnvironmentObject var diContainer: DIContainer
     @StateObject private var appleSignInCoordinator = AppleSignInCoordinator()
-    @StateObject private var googleSignInCoordinator: GoogleSignInCoordinator
+    @StateObject private var googleSignInCoordinator = GoogleSignInCoordinator()
     @State private var isLoading = false
-    
-    init() {
-        // Initialize with temporary values, will be updated in onAppear
-        let tempGrpcClient = GRPCClientManager()
-        let tempAuthState = AuthState()
-        self._googleSignInCoordinator = StateObject(wrappedValue: GoogleSignInCoordinator(grpcClient: tempGrpcClient, authState: tempAuthState))
-    }
     
     var body: some View {
         VStack(spacing: 16) {
@@ -36,7 +29,7 @@ struct SocialLoginButtons: View {
                 )
                 
                 SocialButton(
-                    icon: "f.circle.fill", // Use a custom Facebook icon in production
+                    icon: "f.circle.fill",
                     color: .blue,
                     action: { /* Facebook Sign In */ }
                 )
@@ -44,7 +37,6 @@ struct SocialLoginButtons: View {
         }
         .disabled(isLoading)
         .onAppear {
-            // Reinitialize coordinators with proper environment objects
             appleSignInCoordinator.updateDependencies(
                 grpcClient: diContainer.grpcClient,
                 authState: authState

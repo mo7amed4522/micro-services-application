@@ -9,19 +9,10 @@ struct RegisterView: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 24) {
-                    // Header
                     headerSection
-                    
-                    // Photo Upload Section
                     photoUploadSection
-                    
-                    // Form Fields
                     formFieldsSection
-                    
-                    // Register Button
                     registerButton
-                    
-                    // Login Link
                     loginLinkSection
                 }
                 .padding(.horizontal, 24)
@@ -53,11 +44,9 @@ struct RegisterView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 60)
-            
             Text("Create Account")
                 .font(.luxorTitle)
                 .foregroundColor(.luxorGold)
-            
             Text("Join the Luxor experience")
                 .font(.luxorBody)
                 .foregroundColor(.luxorSecondaryText)
@@ -72,7 +61,6 @@ struct RegisterView: View {
                 .font(.luxorHeadline)
                 .foregroundColor(.luxorPrimaryText)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
             PhotosPicker(
                 selection: $viewModel.selectedPhoto,
                 matching: .images,
@@ -90,8 +78,6 @@ struct RegisterView: View {
                                 )
                         )
                         .animation(.easeInOut(duration: 0.3), value: viewModel.photoError.isEmpty)
-                    
-                    // Display uploaded user photo or placeholder
                     if let image = viewModel.profileImage {
                         Image(uiImage: image)
                             .resizable()
@@ -110,7 +96,6 @@ struct RegisterView: View {
                             Image(systemName: "person.crop.circle.fill.badge.plus")
                                 .font(.system(size: 32))
                                 .foregroundColor(.luxorGold)
-                            
                             Text("Add Profile Photo")
                                 .font(.luxorCaption)
                                 .foregroundColor(.luxorSecondaryText)
@@ -121,8 +106,6 @@ struct RegisterView: View {
                         }
                         .transition(.opacity)
                     }
-                    
-                    // Loading indicator for photo processing
                     if viewModel.isLoading && viewModel.selectedPhoto != nil {
                         RoundedRectangle(cornerRadius: 16)
                             .fill(Color.black.opacity(0.4))
@@ -138,8 +121,6 @@ struct RegisterView: View {
                                 .foregroundColor(.white)
                         }
                     }
-                    
-                    // Success indicator when photo is uploaded
                     if viewModel.profileImage != nil && !viewModel.isLoading {
                         VStack {
                             HStack {
@@ -155,8 +136,6 @@ struct RegisterView: View {
                     }
                 }
             }
-            
-            // Enhanced error message with animation
             if !viewModel.photoError.isEmpty {
                 HStack {
                     Image(systemName: "exclamationmark.triangle.fill")
@@ -170,7 +149,7 @@ struct RegisterView: View {
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .transition(.move(edge: .top).combined(with: .opacity))
+                .transition(.move(edge: Edge.top).combined(with: .opacity))
                 .animation(.easeInOut(duration: 0.3), value: viewModel.photoError)
             }
         }
@@ -179,15 +158,12 @@ struct RegisterView: View {
     // MARK: - Form Fields Section
     private var formFieldsSection: some View {
         VStack(spacing: 20) {
-            // Full Name Field
             LuxorTextField(
                 title: "Full Name",
                 text: $viewModel.fullName,
                 placeholder: "Enter your full name",
                 errorMessage: viewModel.fullNameError
             )
-            
-            // Email Field
             LuxorTextField(
                 title: "Email",
                 text: $viewModel.email,
@@ -195,24 +171,18 @@ struct RegisterView: View {
                 keyboardType: .emailAddress,
                 errorMessage: viewModel.emailError
             )
-            
-            // Password Field
             LuxorSecureField(
                 title: "Password",
                 text: $viewModel.password,
                 placeholder: "Enter your password",
                 errorMessage: viewModel.passwordError
             )
-            
-            // Confirm Password Field
             LuxorSecureField(
                 title: "Confirm Password",
                 text: $viewModel.confirmPassword,
                 placeholder: "Confirm your password",
                 errorMessage: viewModel.confirmPasswordError
             )
-            
-            // Phone Number Section
             HStack(spacing: 12) {
                 LuxorTextField(
                     title: "Country Code",
@@ -222,7 +192,6 @@ struct RegisterView: View {
                     errorMessage: ""
                 )
                 .frame(width: 100)
-                
                 LuxorTextField(
                     title: "Phone Number",
                     text: $viewModel.phoneNumber,
@@ -238,7 +207,7 @@ struct RegisterView: View {
     private var registerButton: some View {
         LuxorButton(
             title: "Create Account",
-            style: .primary,
+            style: LuxorButtonStyle.primary,
             isLoading: viewModel.isLoading
         ) {
             Task {
@@ -247,7 +216,6 @@ struct RegisterView: View {
         }
         .padding(.top, 8)
     }
-    
     // MARK: - Login Link Section
     private var loginLinkSection: some View {
         HStack {
@@ -270,17 +238,15 @@ struct RegisterView: View {
             Text("Choose Verification Method")
                 .font(.luxorTitle2)
                 .foregroundColor(.luxorPrimaryText)
-            
             Text("How would you like to receive your verification code?")
                 .font(.luxorBody)
                 .foregroundColor(.luxorSecondaryText)
                 .multilineTextAlignment(.center)
-            
             VStack(spacing: 16) {
                 ForEach(VerificationMethod.allCases, id: \.self) { method in
                     LuxorButton(
                         title: "Send via \(method.displayName)",
-                        style: .secondary,
+                        style: LuxorButtonStyle.secondary,
                         icon: method.icon
                     ) {
                         Task {
@@ -289,7 +255,6 @@ struct RegisterView: View {
                     }
                 }
             }
-            
             Button("Cancel") {
                 viewModel.showVerificationOptions = false
             }
@@ -330,69 +295,7 @@ struct RegisterView: View {
         .preferredColorScheme(.dark)
 }
 
-// MARK: - RegisterViewModel
-class RegisterViewModel: ObservableObject {
-    @Published var fullName = ""
-    @Published var email = ""
-    @Published var phoneNumber = ""
-    @Published var password = ""
-    @Published var profileImage: UIImage?
-    @Published var isLoading = false
-    @Published var showImagePicker = false
-    
-    var isFormValid: Bool {
-        !fullName.isEmpty &&
-        !email.isEmpty &&
-        !phoneNumber.isEmpty &&
-        !password.isEmpty &&
-        isValidEmail(email) &&
-        isValidFullName(fullName) &&
-        isValidPassword(password)
-    }
-    
-    func register() {
-        guard isFormValid else { return }
-        
-        isLoading = true
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.isLoading = false
-            
-            print("Registration attempted with:")
-            print("Name: \(self.fullName)")
-            print("Email: \(self.email)")
-            print("Phone: \(self.phoneNumber)")
-        }
-    }
-    
-    func showTerms() {
-        
-        print("Show Terms of Service")
-    }
-    
-    func showPrivacyPolicy() {
-        
-        print("Show Privacy Policy")
-    }
-    
-    private func isValidEmail(_ email: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
-        return emailPredicate.evaluate(with: email)
-    }
-    
-    private func isValidFullName(_ name: String) -> Bool {
-        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        let nameComponents = trimmedName.components(separatedBy: .whitespaces).filter { !$0.isEmpty }
-        return nameComponents.count >= 2 && trimmedName.count >= 3
-    }
-    
-    private func isValidPassword(_ password: String) -> Bool {
-        return password.count >= 8 &&
-               password.range(of: "[A-Z]", options: .regularExpression) != nil &&
-               password.range(of: "[!@#$%^&*(),.?\":{}|<>]", options: .regularExpression) != nil
-    }
-}
+
 
 // MARK: - ImagePicker
 struct ImagePicker: UIViewControllerRepresentable {
