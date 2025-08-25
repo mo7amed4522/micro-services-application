@@ -279,7 +279,7 @@ private fun DrawScope.drawEgyptianPattern(center: Offset, radius: Float) {
     }
 }
 
-private data class Particle(
+data class Particle(
     val x: Float,
     val y: Float,
     val size: Float,

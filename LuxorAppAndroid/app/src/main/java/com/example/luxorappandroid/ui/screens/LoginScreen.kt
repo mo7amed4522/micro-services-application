@@ -77,11 +77,11 @@ fun LoginScreen(
     
     // Background using theme-aware colors
     val luxorColors = if (isDarkTheme) LuxorColors.Dark else LuxorColors.Light
-    
+
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(backgroundBrush)
+            .background()
     ) {
         TopAppBar(
             title = { },
@@ -98,7 +98,7 @@ fun LoginScreen(
                 containerColor = androidx.compose.ui.graphics.Color.Transparent
             )
         )
-        
+
         // Main content with iOS-style layout
         Column(
             modifier = Modifier.fillMaxSize()
@@ -118,9 +118,9 @@ fun LoginScreen(
                     animated = true,
                     showParticles = false
                 )
-                
+
                 Spacer(modifier = Modifier.height(24.dp))
-                
+
                 // Welcome text
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -133,7 +133,7 @@ fun LoginScreen(
                         color = luxorColors.textPrimary,
                         textAlign = TextAlign.Center
                     )
-                    
+
                     Text(
                         text = "Sign in to your account",
                         fontSize = if (isTablet) 18.sp else 16.sp,
@@ -143,7 +143,7 @@ fun LoginScreen(
                     )
                 }
             }
-            
+
             // Scrollable form section
             Column(
                 modifier = Modifier
@@ -152,7 +152,7 @@ fun LoginScreen(
                     .padding(horizontal = if (isTablet) 60.dp else 24.dp)
                     .padding(top = 20.dp)
             ) {
-            
+
                 // Login form with iOS-style spacing
                 Column(
                     modifier = Modifier
@@ -164,14 +164,14 @@ fun LoginScreen(
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         LuxorEmailTextField(
                             email = email,
-                            onEmailChange = { 
+                            onEmailChange = {
                                 email = it
                                 emailError = ""
                             },
                             isError = emailError.isNotEmpty(),
                             errorMessage = emailError
                         )
-                        
+
                         if (emailError.isNotEmpty()) {
                             Row {
                                 Text(
@@ -183,19 +183,19 @@ fun LoginScreen(
                             }
                         }
                     }
-                    
+
                     // Password field with error handling
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         LuxorPasswordTextField(
                             password = password,
-                            onPasswordChange = { 
+                            onPasswordChange = {
                                 password = it
                                 passwordError = ""
                             },
                             isError = passwordError.isNotEmpty(),
                             errorMessage = passwordError
                         )
-                        
+
                         if (passwordError.isNotEmpty()) {
                             Row {
                                 Text(
@@ -207,7 +207,7 @@ fun LoginScreen(
                             }
                         }
                     }
-                    
+
                     // Forgot password with iOS-style positioning
                     Row(
                         modifier = Modifier
@@ -223,14 +223,14 @@ fun LoginScreen(
                             modifier = Modifier.clickable { onForgotPasswordClick() }
                         )
                     }
-                    
+
                     // Login button with iOS-style gradient and validation
                     LuxorGradientButton(
                         text = "Sign In",
                         onClick = {
                             // Validate inputs
                             var hasError = false
-                            
+
                             if (email.isBlank()) {
                                 emailError = "Email is required"
                                 hasError = true
@@ -238,7 +238,7 @@ fun LoginScreen(
                                 emailError = "Please enter a valid email"
                                 hasError = true
                             }
-                            
+
                             if (password.isBlank()) {
                                 passwordError = "Password is required"
                                 hasError = true
@@ -246,7 +246,7 @@ fun LoginScreen(
                                 passwordError = "Password must be at least 6 characters"
                                 hasError = true
                             }
-                            
+
                             if (!hasError) {
                                 isLoading = true
                                 // Simulate login process
@@ -259,14 +259,14 @@ fun LoginScreen(
                     )
                 }
             }
-            
+
             Spacer(modifier = Modifier.height(32.dp))
-            
+
             // Social login divider
             SocialLoginDivider(text = "or continue with")
-            
+
             Spacer(modifier = Modifier.height(24.dp))
-            
+
             // Social login buttons
             if (isTablet) {
                 CompactSocialLoginButtons(
@@ -283,9 +283,9 @@ fun LoginScreen(
                     isLoading = isLoading
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(32.dp))
-            
+
             // Create account link
             Row(
                 horizontalArrangement = Arrangement.Center,
@@ -305,7 +305,7 @@ fun LoginScreen(
                     modifier = Modifier.clickable { onCreateAccountClick() }
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(32.dp))
         }
     }
