@@ -25,7 +25,28 @@ type UserServer struct {
 
 func NewUserServer() *UserServer {
 	return &UserServer{
-		db: NewDatabase(),
+		db: func() *Database {
+			db, err := NewDatabase()
+			if err != nil {
+				log.Fatalf("Failed to initialize database: %v", err)
+			}
+			return db
+		}(),
+	}
+}
+func NewUserServerWithRetry(ctx context.Context) (*UserServer, error) {
+	db, err := NewDatabase()
+	if err != nil {
+		return nil, fmt.Errorf("failed to initialize database: %v", err)
+	}
+
+	return &UserServer{
+		db: db,
+	}, nil
+}
+func (s *UserServer) Close() {
+	if s.db != nil {
+		s.db.Close()
 	}
 }
 
@@ -229,6 +250,11 @@ func (s *UserServer) CreateNewUser(ctx context.Context, req *pb.CreateNewUserReq
 			},
 		}, nil
 	}
+	tx, err := s.db.DB.BeginTx(ctx, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to begin transaction: %v", err)
+	}
+	defer tx.Rollback()
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return nil, fmt.Errorf("failed to hash password: %v", err)
@@ -246,7 +272,27 @@ func (s *UserServer) CreateNewUser(ctx context.Context, req *pb.CreateNewUserReq
 		role, core.NullString(req.VerifiyCode), string(hashedPassword), now, now)
 
 	if err != nil {
+		// Check for specific database errors
+		if strings.Contains(err.Error(), "duplicate key") {
+			return &pb.CreateNewUserResponse{
+				StatusCode: 409,
+				Message:    "User already exists",
+				Result: &pb.CreateNewUserResponse_Error{
+					Error: &pb.ErrorDetails{
+						Code:      409,
+						Message:   "User with this email already exists",
+						Details:   []string{"Please use a different email address"},
+						Timestamp: time.Now().Format(time.RFC3339),
+					},
+				},
+			}, nil
+		}
 		return nil, fmt.Errorf("failed to create user: %v", err)
+	}
+
+	// Commit transaction
+	if err = tx.Commit(); err != nil {
+		return nil, fmt.Errorf("failed to commit transaction: %v", err)
 	}
 	user := &pb.User{
 		Id:          userID,

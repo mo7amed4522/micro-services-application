@@ -10,7 +10,7 @@ import FirebaseAuth
 import UIKit
 
 @MainActor
-class GoogleSignInCoordinator: NSObject,ObservableObject {
+class GoogleSignInCoordinator: NSObject, ObservableObject {
     private let grpcClient: GRPCClientManager
     private let authState: AuthState
     
@@ -59,19 +59,27 @@ class GoogleSignInCoordinator: NSObject,ObservableObject {
             )
             
             if response.statusCode == 200 {
-                let user = grpcClient.convertToDomainUser(response.tokens.user)
-                let tokens = grpcClient.convertToDomainAuthTokens(response.tokens) ?? AuthTokens(accessToken: "mock_token", expiresIn: 3600, user: user)
-                 authState.login(user: user, tokens: tokens)
-                 authState.showSuccessToast("Successfully signed in with Google")
+                if case .tokens(let authTokens) = response.result {
+                    let user = grpcClient.convertToDomainUser(authTokens.user)
+                    // Fix: Pass authTokens directly instead of response
+                    if let tokens = grpcClient.convertToDomainAuthTokens(authTokens) {
+                        authState.login(user: user, tokens: tokens)
+                        authState.showSuccessToast("Successfully signed in with Google")
+                    } else {
+                        authState.showErrorToast("Failed to process authentication tokens")
+                    }
+                } else {
+                    authState.showErrorToast("Authentication failed: No tokens received")
+                }
             } else {
                 if case .error(let errorDetails) = response.result {
-                     authState.showErrorToast(errorDetails.message)
-                 } else {
-                     authState.showErrorToast("Authentication failed")
-                 }
+                    authState.showErrorToast(errorDetails.message)
+                } else {
+                    authState.showErrorToast("Authentication failed")
+                }
             }
         } catch {
-             authState.showErrorToast("Google Sign In failed: \(error.localizedDescription)")
+            authState.showErrorToast("Google Sign In failed: \(error.localizedDescription)")
         }
     }
 }

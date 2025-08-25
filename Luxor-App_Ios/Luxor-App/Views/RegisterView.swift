@@ -1,275 +1,333 @@
 import SwiftUI
+import PhotosUI
 
 struct RegisterView: View {
     @StateObject private var viewModel = RegisterViewModel()
-    @EnvironmentObject var themeManager: ThemeManager
-    @EnvironmentObject var languageManager: LanguageManager
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.verticalSizeClass) var verticalSizeClass
-    
-    private var isIPad: Bool {
-        horizontalSizeClass == .regular && verticalSizeClass == .regular
-    }
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 0) {
-                
-                customAppBar
-                
-                ScrollView {
-                    VStack(spacing: 24) {
-                        
-                        profilePhotoSection
-                            .padding(.top, 20)
-                        
-                        
-                        registrationForm
-                            .padding(.horizontal, isIPad ? 60 : 24)
-                        
-                        Spacer(minLength: 40)
-                    }
-                }
-            }
-        }
-        .luxorThemedBackground(themeManager)
-        .navigationBarHidden(true)
-    }
-    
-    @ViewBuilder
-    private var customAppBar: some View {
-        HStack {
-            Button(action: {
-                dismiss()
-            }) {
-                ZStack {
-                    Circle()
-                        .fill(
-                            themeManager.isDarkMode ?
-                            LuxorColors.Dark.cardBackground :
-                            Color.white
-                        )
-                        .frame(width: 44, height: 44)
-                        .shadow(
-                            color: themeManager.isDarkMode ? LuxorColors.Dark.shadow : LuxorColors.Light.shadow,
-                            radius: 8,
-                            x: 0,
-                            y: 2
-                        )
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 24) {
+                    // Header
+                    headerSection
                     
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
+                    // Photo Upload Section
+                    photoUploadSection
+                    
+                    // Form Fields
+                    formFieldsSection
+                    
+                    // Register Button
+                    registerButton
+                    
+                    // Login Link
+                    loginLinkSection
                 }
+                .padding(.horizontal, 24)
+                .padding(.vertical, 16)
             }
-            
-            Spacer()
-            
-            Text(LocalizedStrings.CreateAccount(languageManager.currentLanguage))
-                .font(.system(size: 20, weight: .bold))
-                .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
-            
-            Spacer()
-            
-            
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [LuxorColors.luxorTeal, LuxorColors.luxorGold],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 44, height: 44)
-                    .shadow(
-                        color: LuxorColors.luxorTeal.opacity(0.3),
-                        radius: 8,
-                        x: 0,
-                        y: 2
-                    )
-                
-                Image("logo-nobg")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 32, height: 32)
-                    .clipShape(Circle())
+            .luxorBackground()
+            .navigationBarHidden(true)
+        }
+        .toast(isPresented: $viewModel.showToast, type: viewModel.toastType, message: viewModel.toastMessage)
+        .sheet(isPresented: $viewModel.showVerificationOptions) {
+            verificationOptionsSheet
+        }
+        .overlay {
+            if viewModel.isLoading {
+                loadingOverlay
             }
         }
-        .padding(.horizontal, 20)
-        .padding(.top, 10)
-        .padding(.bottom, 16)
-        .background(
-            (themeManager.isDarkMode ? LuxorColors.Dark.background : LuxorColors.Light.background)
-                .ignoresSafeArea(.all, edges: .top)
-        )
+        .onChange(of: viewModel.selectedPhoto) { newValue in
+            Task {
+                await viewModel.loadSelectedPhoto(newValue)
+            }
+        }
     }
     
-    @ViewBuilder
-    private var profilePhotoSection: some View {
+    // MARK: - Header Section
+    private var headerSection: some View {
+        VStack(spacing: 12) {
+            Image("luxor_logo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 60)
+            
+            Text("Create Account")
+                .font(.luxorTitle)
+                .foregroundColor(.luxorGold)
+            
+            Text("Join the Luxor experience")
+                .font(.luxorBody)
+                .foregroundColor(.luxorSecondaryText)
+        }
+        .padding(.top, 20)
+    }
+    
+    // MARK: - Photo Upload Section with Enhanced Validation
+    private var photoUploadSection: some View {
         VStack(spacing: 16) {
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                themeManager.isDarkMode ? LuxorColors.Dark.cardBackground : Color(UIColor.systemGray6),
-                                themeManager.isDarkMode ? LuxorColors.Dark.inputBackground : Color.white
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 120, height: 120)
-                    .overlay(
-                        Circle()
-                            .stroke(
-                                LinearGradient(
-                                    colors: [LuxorColors.luxorTeal, LuxorColors.luxorGold],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 3
-                            )
-                    )
-                    .shadow(
-                        color: themeManager.isDarkMode ? LuxorColors.Dark.shadow : LuxorColors.Light.shadow,
-                        radius: 12,
-                        x: 0,
-                        y: 6
-                    )
-                
-                if let profileImage = viewModel.profileImage {
-                    Image(uiImage: profileImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 114, height: 114)
-                        .clipShape(Circle())
-                } else {
-                    Image(systemName: "person.fill")
-                        .font(.system(size: 40, weight: .medium))
-                        .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
-                }
-                Button(action: {
-                    viewModel.showImagePicker = true
-                }) {
-                    ZStack {
-                        Circle()
-                            .fill(
-                                LinearGradient(
-                                    colors: [LuxorColors.luxorTeal, LuxorColors.luxorGold],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
+            Text("Profile Photo")
+                .font(.luxorHeadline)
+                .foregroundColor(.luxorPrimaryText)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            PhotosPicker(
+                selection: $viewModel.selectedPhoto,
+                matching: .images,
+                photoLibrary: .shared()
+            ) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.luxorCardBackground)
+                        .frame(height: 120)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(
+                                    viewModel.photoError.isEmpty ? Color.luxorBorder : Color.red,
+                                    lineWidth: viewModel.photoError.isEmpty ? 1 : 2
                                 )
+                        )
+                        .animation(.easeInOut(duration: 0.3), value: viewModel.photoError.isEmpty)
+                    
+                    // Display uploaded user photo or placeholder
+                    if let image = viewModel.profileImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.luxorGold, lineWidth: 3)
                             )
-                            .frame(width: 36, height: 36)
-                            .shadow(
-                                color: LuxorColors.luxorTeal.opacity(0.4),
-                                radius: 8,
-                                x: 0,
-                                y: 2
-                            )
+                            .shadow(color: .luxorGold.opacity(0.3), radius: 8, x: 0, y: 4)
+                            .transition(.scale.combined(with: .opacity))
+                            .animation(.spring(response: 0.6, dampingFraction: 0.8), value: viewModel.profileImage)
+                    } else {
+                        VStack(spacing: 8) {
+                            Image(systemName: "person.crop.circle.fill.badge.plus")
+                                .font(.system(size: 32))
+                                .foregroundColor(.luxorGold)
+                            
+                            Text("Add Profile Photo")
+                                .font(.luxorCaption)
+                                .foregroundColor(.luxorSecondaryText)
+                            
+                            Text("Tap to select from gallery")
+                                .font(.caption2)
+                                .foregroundColor(.luxorSecondaryText.opacity(0.7))
+                        }
+                        .transition(.opacity)
+                    }
+                    
+                    // Loading indicator for photo processing
+                    if viewModel.isLoading && viewModel.selectedPhoto != nil {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.black.opacity(0.4))
+                            .frame(height: 120)
                         
-                        Image(systemName: "camera.fill")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.white)
+                        VStack(spacing: 8) {
+                            ProgressView()
+                                .scaleEffect(1.2)
+                                .tint(.luxorGold)
+                            
+                            Text("Uploading...")
+                                .font(.caption)
+                                .foregroundColor(.white)
+                        }
+                    }
+                    
+                    // Success indicator when photo is uploaded
+                    if viewModel.profileImage != nil && !viewModel.isLoading {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.green)
+                                    .background(Color.white, in: Circle())
+                                    .font(.title2)
+                            }
+                            Spacer()
+                        }
+                        .padding(8)
                     }
                 }
-                .offset(x: 40, y: 42)
             }
             
-            Text(LocalizedStrings.AddProfilePhoto(languageManager.currentLanguage))
-                .font(.system(size: 16, weight: .medium))
-                .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
-        }
-        .onTapGesture {
-            viewModel.showImagePicker = true
+            // Enhanced error message with animation
+            if !viewModel.photoError.isEmpty {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.red)
+                        .font(.caption)
+                    
+                    Text(viewModel.photoError)
+                        .font(.luxorCaption)
+                        .foregroundColor(.red)
+                    
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .transition(.move(edge: .top).combined(with: .opacity))
+                .animation(.easeInOut(duration: 0.3), value: viewModel.photoError)
+            }
         }
     }
     
-    @ViewBuilder
-    private var registrationForm: some View {
-        VStack(spacing: 24) {
-            LuxorFullNameTextField(fullName: $viewModel.fullName)
-                .environmentObject(themeManager)
+    // MARK: - Form Fields Section
+    private var formFieldsSection: some View {
+        VStack(spacing: 20) {
+            // Full Name Field
+            LuxorTextField(
+                title: "Full Name",
+                text: $viewModel.fullName,
+                placeholder: "Enter your full name",
+                errorMessage: viewModel.fullNameError
+            )
             
-            LuxorEmailTextField(email: $viewModel.email)
-                .environmentObject(themeManager)
-            LuxorPhoneTextField(phoneNumber: $viewModel.phoneNumber)
-                .environmentObject(themeManager)
-            LuxorPasswordTextField(password: $viewModel.password)
-                .environmentObject(themeManager)
+            // Email Field
+            LuxorTextField(
+                title: "Email",
+                text: $viewModel.email,
+                placeholder: "Enter your email",
+                keyboardType: .emailAddress,
+                errorMessage: viewModel.emailError
+            )
             
-            Button(action: {
-                viewModel.register()
-            }) {
-                HStack {
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                            .scaleEffect(0.8)
-                    } else {
-                        Text(LocalizedStrings.CreateAccount(languageManager.currentLanguage))
-                            .font(.system(size: 18, weight: .semibold))
-                    }
-                }
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(
-                            LinearGradient(
-                                colors: viewModel.isFormValid ?
-                                    [LuxorColors.luxorTeal, LuxorColors.luxorGold] :
-                                    [Color.gray.opacity(0.5), Color.gray.opacity(0.3)],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
+            // Password Field
+            LuxorSecureField(
+                title: "Password",
+                text: $viewModel.password,
+                placeholder: "Enter your password",
+                errorMessage: viewModel.passwordError
+            )
+            
+            // Confirm Password Field
+            LuxorSecureField(
+                title: "Confirm Password",
+                text: $viewModel.confirmPassword,
+                placeholder: "Confirm your password",
+                errorMessage: viewModel.confirmPasswordError
+            )
+            
+            // Phone Number Section
+            HStack(spacing: 12) {
+                LuxorTextField(
+                    title: "Country Code",
+                    text: $viewModel.countryCode,
+                    placeholder: "+1",
+                    keyboardType: .phonePad,
+                    errorMessage: ""
                 )
-                .disabled(!viewModel.isFormValid || viewModel.isLoading)
-                .scaleEffect(viewModel.isLoading ? 0.95 : 1.0)
-                .animation(.easeInOut(duration: 0.1), value: viewModel.isLoading)
-            }
-            
-            VStack(spacing: 8) {
-                Text(LocalizedStrings.ByCreatingAccount(languageManager.currentLanguage))
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
+                .frame(width: 100)
                 
-                HStack(spacing: 4) {
-                    Button(action: {
-                        viewModel.showTerms()
-                    }) {
-                        Text(LocalizedStrings.TermsOfServices(languageManager.currentLanguage))
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(LuxorColors.luxorTeal)
-                            .underline()
-                    }
-                    
-                    Text(LocalizedStrings.And(languageManager.currentLanguage))
-                        .font(.system(size: 12, weight: .regular))
-                        .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
-                    
-                    Button(action: {
-                        viewModel.showPrivacyPolicy()
-                    }) {
-                        Text(LocalizedStrings.PrivacyAndPolicy(languageManager.currentLanguage))
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(LuxorColors.luxorTeal)
-                            .underline()
-                    }
-                }
+                LuxorTextField(
+                    title: "Phone Number",
+                    text: $viewModel.phoneNumber,
+                    placeholder: "Enter phone number",
+                    keyboardType: .phonePad,
+                    errorMessage: viewModel.phoneError
+                )
             }
-            .padding(.top, 8)
-        }
-        .frame(maxWidth: isIPad ? 500 : .infinity)
-        .sheet(isPresented: $viewModel.showImagePicker) {
-            ImagePicker(image: $viewModel.profileImage)
         }
     }
+    
+    // MARK: - Register Button
+    private var registerButton: some View {
+        LuxorButton(
+            title: "Create Account",
+            style: .primary,
+            isLoading: viewModel.isLoading
+        ) {
+            Task {
+                await viewModel.register()
+            }
+        }
+        .padding(.top, 8)
+    }
+    
+    // MARK: - Login Link Section
+    private var loginLinkSection: some View {
+        HStack {
+            Text("Already have an account?")
+                .font(.luxorBody)
+                .foregroundColor(.luxorSecondaryText)
+            
+            Button("Sign In") {
+                dismiss()
+            }
+            .font(.luxorBodyBold)
+            .foregroundColor(.luxorGold)
+        }
+        .padding(.top, 16)
+    }
+    
+    // MARK: - Verification Options Sheet
+    private var verificationOptionsSheet: some View {
+        VStack(spacing: 24) {
+            Text("Choose Verification Method")
+                .font(.luxorTitle2)
+                .foregroundColor(.luxorPrimaryText)
+            
+            Text("How would you like to receive your verification code?")
+                .font(.luxorBody)
+                .foregroundColor(.luxorSecondaryText)
+                .multilineTextAlignment(.center)
+            
+            VStack(spacing: 16) {
+                ForEach(VerificationMethod.allCases, id: \.self) { method in
+                    LuxorButton(
+                        title: "Send via \(method.displayName)",
+                        style: .secondary,
+                        icon: method.icon
+                    ) {
+                        Task {
+                            await viewModel.sendVerificationCode(via: method)
+                        }
+                    }
+                }
+            }
+            
+            Button("Cancel") {
+                viewModel.showVerificationOptions = false
+            }
+            .font(.luxorBody)
+            .foregroundColor(.luxorSecondaryText)
+            .padding(.top, 16)
+        }
+        .padding(24)
+        .luxorBackground()
+    }
+    
+    // MARK: - Loading Overlay
+    private var loadingOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.3)
+                .ignoresSafeArea()
+            
+            VStack(spacing: 16) {
+                ProgressView()
+                    .scaleEffect(1.5)
+                    .tint(.luxorGold)
+                
+                Text("Creating your account...")
+                    .font(.luxorBody)
+                    .foregroundColor(.luxorPrimaryText)
+            }
+            .padding(32)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.luxorCardBackground)
+            )
+        }
+    }
+}
+
+#Preview {
+    RegisterView()
+        .preferredColorScheme(.dark)
 }
 
 // MARK: - RegisterViewModel

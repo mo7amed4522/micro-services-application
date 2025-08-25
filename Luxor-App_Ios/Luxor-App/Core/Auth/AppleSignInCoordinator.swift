@@ -12,8 +12,15 @@ import SwiftUI
 class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControllerDelegate {
     private var authState: AuthState?
     private var grpcClient: GRPCClientManager?
+    private var loadingCallback: ((Bool) -> Void)?
     
     override init() {
+        super.init()
+    }
+    
+    init(grpcClient: GRPCClientManager, authState: AuthState) {
+        self.grpcClient = grpcClient
+        self.authState = authState
         super.init()
     }
     
@@ -23,10 +30,11 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
     }
     
     func signIn(loadingCallback: @escaping (Bool) -> Void) {
+        self.loadingCallback = loadingCallback
         guard let authState = authState, let grpcClient = grpcClient else {
+            loadingCallback(false)
             return
         }
-        
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
         
@@ -38,25 +46,28 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else {
             authState?.showErrorToast("Failed to get Apple ID credentials")
+            loadingCallback?(false)
             return
         }
         
         guard let identityTokenData = appleIDCredential.identityToken,
               let identityToken = String(data: identityTokenData, encoding: .utf8) else {
             authState?.showErrorToast("Failed to get identity token")
+            loadingCallback?(false)
             return
         }
         
         guard let authorizationCodeData = appleIDCredential.authorizationCode,
               let authorizationCode = String(data: authorizationCodeData, encoding: .utf8) else {
             authState?.showErrorToast("Failed to get authorization code")
+            loadingCallback?(false)
             return
         }
         
         let fullName = formatFullName(from: appleIDCredential.fullName)
         let email = appleIDCredential.email
         
-        loadingCallback(true)
+        loadingCallback?(true)
         authState?.setLoading(true)
         
         Task {
@@ -64,7 +75,7 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
                 guard let grpcClient = grpcClient else {
                     await MainActor.run {
                         authState?.setLoading(false)
-                        loadingCallback(false)
+                        loadingCallback?(false)
                         authState?.showErrorToast("Authentication service not available")
                     }
                     return
@@ -83,7 +94,7 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
             } catch {
                 await MainActor.run {
                     authState?.setLoading(false)
-                    loadingCallback(false)
+                    loadingCallback?(false)
                     authState?.showErrorToast("Apple Sign In failed: \(error.localizedDescription)")
                 }
             }
@@ -91,13 +102,12 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        // Note: loadingCallback is not available in this context, would need to be stored
         authState?.setLoading(false)
+        loadingCallback?(false)
         
         if let authError = error as? ASAuthorizationError {
             switch authError.code {
             case .canceled:
-                // User canceled, don't show error
                 break
             case .failed:
                 authState?.showErrorToast("Apple Sign In failed")
@@ -117,11 +127,11 @@ class AppleSignInCoordinator: NSObject, ObservableObject, ASAuthorizationControl
     
     private func handleAuthenticationResponse(_ response: Auth_SocialAuthResponse) {
         authState?.setLoading(false)
-        // Note: loadingCallback is not available in this context, would need to be stored
+        loadingCallback?(false)
         
         if response.statusCode == 200 {
             if case .tokens(let authTokens) = response.result {
-                let user = grpcClient?.convertToDomainUser(authTokens.user) ?? User(id: "mock", email: "mock@example.com", fullName: "Mock User", role: "user")
+                let user = grpcClient?.convertToDomainUser(authTokens.user) ?? User(id: "mock", fullName: "Mock User", email: "mock@example.com", role: "user")
                 let tokens = grpcClient?.convertToDomainAuthTokens(authTokens) ?? AuthTokens(accessToken: "mock_token", expiresIn: 3600, user: user)
                 
                 authState?.login(user: user, tokens: tokens)

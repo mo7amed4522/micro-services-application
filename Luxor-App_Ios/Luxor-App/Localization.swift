@@ -84,7 +84,14 @@ struct LocalizedStrings {
         case .chinese: return "穿越时空之旅"
         }
     }
-    
+    static func authenticating(_ language: SupportedLanguage) -> String {
+    switch language {
+    case .english: return "Authenticating..."
+    case .arabic: return "جارٍ التحقق..."
+    case .french: return "Authentification..."
+    case .chinese: return "正在验证..."
+    }
+}
     
     static func welcomeDescription(_ language: SupportedLanguage) -> String {
         switch language {
@@ -254,8 +261,6 @@ struct LocalizedStrings {
         case .chinese: return "密码要求"
         }
     }
-
-    // At least one special character
     static func AtLeastOneSpecialCharacter(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "At least one special character"
@@ -264,8 +269,6 @@ struct LocalizedStrings {
         case .chinese: return "至少包含一个特殊字符"
         }
     }
-
-    // At least 8 characters
     static func AtLeastEightCharacters(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "At least 8 characters"
@@ -274,8 +277,6 @@ struct LocalizedStrings {
         case .chinese: return "至少8个字符"
         }
     }
-
-    // At least one capital letter
     static func AtLeastOneCapitalLetter(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "At least one capital letter"
@@ -300,8 +301,6 @@ struct LocalizedStrings {
         case .chinese: return "电子邮件地址"
         }
     }
-
-    // Please enter a valid email address
     static func InvalidEmailMessage(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Please enter a valid email address"
@@ -310,7 +309,6 @@ struct LocalizedStrings {
         case .chinese: return "请输入有效的电子邮件地址"
         }
     }
-    // By creating an account, you agree to our
     static func ByCreatingAccount(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "By creating an account, you agree to our"
@@ -319,8 +317,6 @@ struct LocalizedStrings {
         case .chinese: return "创建账户即表示您同意我们的"
         }
     }
-
-    // and
     static func And(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "and"

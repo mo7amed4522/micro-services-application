@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoadingView: View {
     @State private var isAnimating = false
+    @EnvironmentObject var languageManager: LanguageManager
     
     var body: some View {
         ZStack {
@@ -36,7 +37,7 @@ struct LoadingView: View {
                             value: isAnimating
                         )
                 }
-                Text("Authenticating...")
+                Text(LocalizedStrings.authenticating(languageManager.currentLanguage))
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.primary)
                     .opacity(isAnimating ? 0.7 : 1.0)
@@ -119,10 +120,12 @@ extension View {
         Text("Sample Content")
             .font(.title)
             .padding()
+            .environmentObject(LanguageManager())
         
         Spacer()
     }
     .overlay(
         LoadingView()
     )
+    .environmentObject(LanguageManager())
 }

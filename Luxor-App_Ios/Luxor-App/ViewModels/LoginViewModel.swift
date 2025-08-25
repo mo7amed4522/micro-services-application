@@ -80,22 +80,24 @@ class LoginViewModel: ObservableObject {
         passwordError = nil
     }
     
+    @MainActor
     func updateAuthState(_ newAuthState: AuthState) {
         // Update coordinators when dependencies are available
-        if let grpcClient = DIContainer.shared.grpcClient {
-            self.appleSignInCoordinator = AppleSignInCoordinator(
-                grpcClient: grpcClient,
-                authState: newAuthState
-            )
-            self.googleSignInCoordinator = GoogleSignInCoordinator(
-                grpcClient: grpcClient,
-                authState: newAuthState
-            )
-        }
+        // Fix: Remove optional binding since grpcClient is not optional
+        let grpcClient = DIContainer.shared.grpcClient
+        self.appleSignInCoordinator = AppleSignInCoordinator(
+            grpcClient: grpcClient,
+            authState: newAuthState
+        )
+        self.googleSignInCoordinator = GoogleSignInCoordinator(
+            grpcClient: grpcClient,
+            authState: newAuthState
+        )
     }
     
     // MARK: - Social Authentication Methods
     
+    @MainActor
     func signInWithApple() {
         guard let coordinator = appleSignInCoordinator else {
             authState.showErrorToast("Apple Sign In not available")
@@ -106,6 +108,7 @@ class LoginViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func signInWithGoogle() {
         guard let coordinator = googleSignInCoordinator else {
             authState.showErrorToast("Google Sign In not available")

@@ -8,6 +8,8 @@ service UploadService {
     rpc UploadFile(UploadFileRequest) returns (UploadFileResponse);
     rpc DeleteFile(DeleteFileRequest) returns (DeleteFileResponse);
     rpc GetFileURL(GetFileURLRequest) returns (GetFileURLResponse);
+    rpc GetUserPhotoURL(GetUserPhotoURLRequest) returns (GetUserPhotoURLResponse);
+    rpc UpdateUserPhoto(UpdateUserPhotoRequest) returns (UpdateUserPhotoResponse);
 }
 
 message UploadFileRequest {
@@ -16,6 +18,7 @@ message UploadFileRequest {
     string content_type = 3;
     string user_id = 4;
     FileType file_type = 5;
+    StorageMode storage_mode = 6; // Dev or Production mode
 }
 
 message UploadFileResponse {
@@ -28,11 +31,50 @@ message UploadFileResponse {
 }
 
 message UploadSuccess {
-    string file_url = 1;
-    string file_key = 2;
-    string file_id = 3;
+    string file_url = 1;        // Full URL for accessing the file
+    string file_key = 2;        // Storage key/path
+    string file_id = 3;         // Unique file identifier
     int64 file_size = 4;
     string uploaded_at = 5;
+    string full_url = 6;        // Complete accessible URL
+    StorageLocation location = 7; // Where file is stored
+}
+
+message GetUserPhotoURLRequest {
+    string user_id = 1;
+}
+
+message GetUserPhotoURLResponse {
+    int32 status_code = 1;
+    string message = 2;
+    oneof result {
+        UserPhotoSuccess success = 3;
+        ErrorDetails error = 4;
+    }
+}
+
+message UserPhotoSuccess {
+    string photo_url = 1;       // Full accessible URL
+    string file_key = 2;
+    string uploaded_at = 3;
+    string full_url = 4;        // Complete URL with domain
+}
+
+message UpdateUserPhotoRequest {
+    string user_id = 1;
+    bytes file_data = 2;
+    string file_name = 3;
+    string content_type = 4;
+    StorageMode storage_mode = 5;
+}
+
+message UpdateUserPhotoResponse {
+    int32 status_code = 1;
+    string message = 2;
+    oneof result {
+        UploadSuccess success = 3;
+        ErrorDetails error = 4;
+    }
 }
 
 message DeleteFileRequest {
@@ -71,6 +113,7 @@ message GetFileURLResponse {
 message URLSuccess {
     string signed_url = 1;
     string expires_at = 2;
+    string full_url = 3;        // Complete accessible URL
 }
 
 message ErrorDetails {
@@ -84,4 +127,17 @@ enum FileType {
     UNKNOWN = 0;
     IMAGE = 1;
     VIDEO = 2;
+    DOCUMENT = 3;
+    PROFILE_PHOTO = 4;
+}
+
+enum StorageMode {
+    PRODUCTION = 0;  // Use AWS S3
+    DEVELOPMENT = 1; // Use local folder storage
+}
+
+enum StorageLocation {
+    AWS_S3 = 0;
+    LOCAL_FOLDER = 1;
+    CDN = 2;
 }
