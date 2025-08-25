@@ -218,7 +218,7 @@ struct ForgotPasswordView: View {
             }) {
                 Text("Resend Code")
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(LuxorColors.luxorTeal)
+                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent)
             }
             .disabled(viewModel.isLoading)
         }
@@ -317,7 +317,11 @@ struct ForgotPasswordView: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
             }
-            .historicalButton(themeManager)
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+            .padding(.bottom, 12)
+            
+            .transition(.move(edge: .top).combined(with: .opacity))
         }
     }
     
@@ -337,10 +341,10 @@ struct ForgotPasswordView: View {
             .padding(.vertical, 12)
             .background(
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(viewModel.selectedVerificationType == type ? LuxorColors.luxorTeal : Color.clear)
+                    .fill(viewModel.selectedVerificationType == type ? (themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent) : Color.clear)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(LuxorColors.luxorTeal, lineWidth: 1)
+                            .stroke(themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent, lineWidth: 1)
                     )
             )
         }

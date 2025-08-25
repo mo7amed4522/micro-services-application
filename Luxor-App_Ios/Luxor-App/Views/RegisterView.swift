@@ -1,12 +1,17 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @StateObject private var viewModel = RegisterViewModel()
     @EnvironmentObject var themeManager: ThemeManager
     @EnvironmentObject var languageManager: LanguageManager
+    @EnvironmentObject var authState: AuthState
+    @StateObject private var viewModel: RegisterViewModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
+    
+    init() {
+        self._viewModel = StateObject(wrappedValue: RegisterViewModel())
+    }
     
     private var isIPad: Bool {
         horizontalSizeClass == .regular && verticalSizeClass == .regular
@@ -34,11 +39,16 @@ struct RegisterView: View {
             }
         }
         .luxorThemedBackground(themeManager)
+        .localizedEnvironment(languageManager)
         .navigationBarHidden(true)
+        .onAppear {
+            viewModel.setLanguageManager(languageManager)
+        }
     }
     
     @ViewBuilder
     private var customAppBar: some View {
+       
         HStack {
             Button(action: {
                 dismiss()
@@ -66,7 +76,7 @@ struct RegisterView: View {
             
             Spacer()
             
-            Text("Create Account")
+            Text(LocalizedStrings.CreateAccount(languageManager.currentLanguage))
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
             
@@ -77,14 +87,18 @@ struct RegisterView: View {
                 Circle()
                     .fill(
                         LinearGradient(
-                            colors: [LuxorColors.luxorTeal, LuxorColors.luxorGold],
+                            colors: themeManager.isDarkMode ? 
+                                [LuxorColors.Dark.accent, LuxorColors.pureGold] :
+                                [LuxorColors.Light.accent, LuxorColors.richGold],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
                     .frame(width: 44, height: 44)
                     .shadow(
-                        color: LuxorColors.luxorTeal.opacity(0.3),
+                        color: themeManager.isDarkMode ? 
+                            LuxorColors.Dark.accent.opacity(0.3) :
+                            LuxorColors.Light.accent.opacity(0.3),
                         radius: 8,
                         x: 0,
                         y: 2
@@ -108,6 +122,7 @@ struct RegisterView: View {
     
     @ViewBuilder
     private var profilePhotoSection: some View {
+       
         VStack(spacing: 16) {
             ZStack {
                 Circle()
@@ -126,7 +141,9 @@ struct RegisterView: View {
                         Circle()
                             .stroke(
                                 LinearGradient(
-                                    colors: [LuxorColors.luxorTeal, LuxorColors.luxorGold],
+                                    colors: themeManager.isDarkMode ? 
+                                        [LuxorColors.Dark.accent, LuxorColors.pureGold] :
+                                        [LuxorColors.Light.accent, LuxorColors.richGold],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 ),
@@ -158,14 +175,18 @@ struct RegisterView: View {
                         Circle()
                             .fill(
                                 LinearGradient(
-                                    colors: [LuxorColors.luxorTeal, LuxorColors.luxorGold],
+                                    colors: themeManager.isDarkMode ? 
+                                        [LuxorColors.Dark.accent, LuxorColors.pureGold] :
+                                        [LuxorColors.Light.accent, LuxorColors.richGold],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
                             )
                             .frame(width: 36, height: 36)
                             .shadow(
-                                color: LuxorColors.luxorTeal.opacity(0.4),
+                                color: themeManager.isDarkMode ? 
+                                    LuxorColors.Dark.accent.opacity(0.4) :
+                                    LuxorColors.Light.accent.opacity(0.4),
                                 radius: 8,
                                 x: 0,
                                 y: 2
@@ -179,7 +200,7 @@ struct RegisterView: View {
                 .offset(x: 40, y: 42)
             }
             
-            Text("Add Profile Photo")
+            Text(LocalizedStrings.AddProfilePhoto(languageManager.currentLanguage))
                 .font(.system(size: 16, weight: .medium))
                 .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
         }
@@ -190,6 +211,7 @@ struct RegisterView: View {
     
     @ViewBuilder
     private var registrationForm: some View {
+        
         VStack(spacing: 24) {
             LuxorFullNameTextField(fullName: $viewModel.fullName)
                 .environmentObject(themeManager)
@@ -210,7 +232,7 @@ struct RegisterView: View {
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                             .scaleEffect(0.8)
                     } else {
-                        Text("Create Account")
+                        Text(LocalizedStrings.CreateAccount(languageManager.currentLanguage))
                             .font(.system(size: 18, weight: .semibold))
                     }
                 }
@@ -222,7 +244,9 @@ struct RegisterView: View {
                         .fill(
                             LinearGradient(
                                 colors: viewModel.isFormValid ?
-                                    [LuxorColors.luxorTeal, LuxorColors.luxorGold] :
+                                    (themeManager.isDarkMode ? 
+                                        [LuxorColors.Dark.accent, LuxorColors.pureGold] :
+                                        [LuxorColors.Light.accent, LuxorColors.richGold]) :
                                     [Color.gray.opacity(0.5), Color.gray.opacity(0.3)],
                                 startPoint: .leading,
                                 endPoint: .trailing
@@ -235,30 +259,30 @@ struct RegisterView: View {
             }
             
             VStack(spacing: 8) {
-                Text("By creating an account, you agree to our")
+                Text(LocalizedStrings.ByCreatingAccount(languageManager.currentLanguage))
                     .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
+                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textPrimary : LuxorColors.Light.textPrimary)
                 
                 HStack(spacing: 4) {
                     Button(action: {
                         viewModel.showTerms()
                     }) {
-                        Text("Terms of Service")
+                        Text(LocalizedStrings.TermsOfServices(languageManager.currentLanguage))
                             .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(LuxorColors.luxorTeal)
+                            .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                             .underline()
                     }
                     
-                    Text("and")
+                    Text(LocalizedStrings.And(languageManager.currentLanguage))
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                     
                     Button(action: {
                         viewModel.showPrivacyPolicy()
                     }) {
-                        Text("Privacy Policy")
+                        Text(LocalizedStrings.PrivacyAndPolicy(languageManager.currentLanguage))
                             .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(LuxorColors.luxorTeal)
+                            .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.textSecondary : LuxorColors.Light.textSecondary)
                             .underline()
                     }
                 }
@@ -273,11 +297,10 @@ struct RegisterView: View {
 }
 
 
-
-// MARK: - ImagePicker
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     @Environment(\.dismiss) var dismiss
+   
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
@@ -314,11 +337,11 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
     }
 }
-
 #Preview {
     NavigationStack {
         RegisterView()
-            .environmentObject(ThemeManager())
-            .environmentObject(LanguageManager())
     }
+    .environmentObject(ThemeManager())
+    .environmentObject(LanguageManager())
+    .environmentObject(AuthState())
 }

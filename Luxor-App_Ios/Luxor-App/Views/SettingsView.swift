@@ -52,8 +52,7 @@ struct SettingsView: View {
             darkModeEnabled = themeManager.isDarkMode
         }
     }
-    
-    // MARK: - Header Section
+
     private var headerSection: some View {
         VStack(spacing: 16) {
             ZStack {
@@ -84,8 +83,7 @@ struct SettingsView: View {
         }
         .padding(.vertical, 20)
     }
-    
-    // MARK: - Account Section
+
     private var accountSection: some View {
         SettingsSection(title: LocalizedStrings.settings(languageManager.currentLanguage)) {
             SettingsRow(
@@ -117,8 +115,7 @@ struct SettingsView: View {
             )
         }
     }
-    
-    // MARK: - Preferences Section
+
     private var preferencesSection: some View {
         SettingsSection(title: LocalizedStrings.Preferences(languageManager.currentLanguage)) {
             SettingsToggleRow(
@@ -144,7 +141,6 @@ struct SettingsView: View {
                 isOn: $biometricEnabled
             ) {}
             
-            // Language Picker Row
             LanguagePickerRow(
                 icon: "globe",
                 title: LocalizedStrings.language(languageManager.currentLanguage),
@@ -162,7 +158,6 @@ struct SettingsView: View {
         }
     }
     
-    // MARK: - Privacy & Security Section
     private var privacySecuritySection: some View {
         SettingsSection(title: LocalizedStrings.PrivacySecurity(languageManager.currentLanguage)) {
             SettingsRow(
@@ -196,7 +191,6 @@ struct SettingsView: View {
         }
     }
     
-    // MARK: - App Settings Section
     private var appSettingsSection: some View {
         SettingsSection(title: LocalizedStrings.AppSeetting(languageManager.currentLanguage)) {
             SettingsToggleRow(
@@ -236,7 +230,6 @@ struct SettingsView: View {
         }
     }
     
-    // MARK: - Support Section
     private var supportSection: some View {
         SettingsSection(title: LocalizedStrings.Support(languageManager.currentLanguage)) {
             SettingsRow(
@@ -299,7 +292,6 @@ struct SettingsView: View {
     }
 }
 
-// MARK: - Settings Section Component
 struct SettingsSection<Content: View>: View {
     let title: String
     let content: Content
@@ -341,7 +333,6 @@ struct SettingsSection<Content: View>: View {
     }
 }
 
-// MARK: - Settings Row Component
 struct SettingsRow: View {
     let icon: String
     let title: String
@@ -390,7 +381,6 @@ struct SettingsRow: View {
     }
 }
 
-// MARK: - Settings Toggle Row Component
 struct SettingsToggleRow: View {
     let icon: String
     let title: String
@@ -440,7 +430,6 @@ struct SettingsToggleRow: View {
     }
 }
 
-// MARK: - Settings Picker Row Component
 struct SettingsPickerRow: View {
     let icon: String
     let title: String
@@ -500,7 +489,6 @@ struct SettingsPickerRow: View {
     }
 }
 
-// MARK: - Picker View Component
 struct PickerView: View {
     @Binding var selection: String
     let options: [String]
@@ -551,7 +539,6 @@ struct PickerView: View {
     }
 }
 
-// MARK: - Language Picker Row Component
 struct LanguagePickerRow: View {
     let icon: String
     let title: String
@@ -609,7 +596,6 @@ struct LanguagePickerRow: View {
     }
 }
 
-// MARK: - Language Picker View Component
 struct LanguagePickerView: View {
     @ObservedObject var languageManager: LanguageManager
     @Environment(\.dismiss) var dismiss

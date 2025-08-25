@@ -125,7 +125,7 @@ struct ChatView: View {
                         .font(.title.weight(.bold))
                         .foregroundColor(.white)
                         .padding(15)
-                        .background(LuxorColors.luxorTeal)
+                        .background(themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent)
                         .clipShape(Circle())
                         .shadow(radius: 4)
                 }

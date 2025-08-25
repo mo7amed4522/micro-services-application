@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var themeManager: ThemeManager
+    @EnvironmentObject var languageManager: LanguageManager
     @EnvironmentObject var authState: AuthState
     @State private var showSplash = true
     @State private var hasSeenWelcome = UserDefaults.standard.bool(forKey: "hasSeenWelcome")
@@ -42,4 +43,8 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(ThemeManager())
+        .environmentObject(LanguageManager())
+        .environmentObject(AuthState())
+        .environmentObject(DIContainer.shared)
 }

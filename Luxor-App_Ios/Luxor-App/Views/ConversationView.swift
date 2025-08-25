@@ -70,7 +70,7 @@ struct ConversationView: View {
             }) {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(LuxorColors.luxorTeal)
+                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent)
                     .padding(8)
                     .background(
                         Circle()
@@ -81,12 +81,12 @@ struct ConversationView: View {
             
             ZStack {
                 Circle()
-                    .fill(LuxorColors.luxorTeal.opacity(0.1))
+                    .fill((themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent).opacity(0.1))
                     .frame(width: 40, height: 40)
                 
                 Image(systemName: "person.crop.circle.fill")
                     .font(.system(size: 30))
-                    .foregroundColor(LuxorColors.luxorTeal)
+                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent)
             }
             
             VStack(alignment: .leading, spacing: 2) {
@@ -96,14 +96,14 @@ struct ConversationView: View {
                 
                 Text("Online")
                     .font(.system(size: 12))
-                    .foregroundColor(LuxorColors.luxorTeal)
+                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent)
             }
             
             Spacer()
             Button(action: {}) {
                 Image(systemName: "phone.fill")
                     .font(.system(size: 18))
-                    .foregroundColor(LuxorColors.luxorTeal)
+                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent)
                     .padding(8)
                     .background(
                         Circle()
@@ -115,7 +115,7 @@ struct ConversationView: View {
             Button(action: {}) {
                 Image(systemName: "video.fill")
                     .font(.system(size: 18))
-                    .foregroundColor(LuxorColors.luxorTeal)
+                    .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent)
                     .padding(8)
                     .background(
                         Circle()
@@ -139,7 +139,7 @@ struct ConversationView: View {
                 Button(action: {}) {
                     Image(systemName: "plus")
                         .font(.system(size: 20))
-                        .foregroundColor(LuxorColors.luxorTeal)
+                        .foregroundColor(themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent)
                         .frame(width: 40, height: 40)
                         .background(
                             Circle()
@@ -178,7 +178,7 @@ struct ConversationView: View {
                         .frame(width: 40, height: 40)
                         .background(
                             Circle()
-                                .fill(LuxorColors.luxorTeal)
+                                .fill(themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent)
                                 .shadow(color: themeManager.isDarkMode ? LuxorColors.Dark.shadow : LuxorColors.Light.shadow, radius: 3, x: 0, y: 1)
                         )
                 }
@@ -234,7 +234,7 @@ struct ConversationView: View {
                     .padding(.vertical, 10)
                     .background(
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(LuxorColors.luxorTeal.opacity(0.8))
+                            .fill((themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent).opacity(0.8))
                     )
                     .padding(.horizontal, 16)
                     .padding(.bottom, 80)
@@ -301,7 +301,7 @@ struct MessageBubble: View {
                     .background(
                         RoundedRectangle(cornerRadius: 16)
                             .fill(message.isFromCurrentUser ? 
-                                  LuxorColors.luxorTeal : 
+                                  (themeManager.isDarkMode ? LuxorColors.Dark.accent : LuxorColors.Light.accent) : 
                                   (themeManager.isDarkMode ? LuxorColors.Dark.cardBackground : Color(UIColor.systemGray6)))
                     )
                     .foregroundColor(message.isFromCurrentUser ? 

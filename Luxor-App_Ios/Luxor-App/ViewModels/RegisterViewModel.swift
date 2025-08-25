@@ -29,13 +29,18 @@ class RegisterViewModel: ObservableObject {
     @Published var confirmPasswordError: String?
     @Published var phoneError: String?
     @Published var photoError: String?
-    @EnvironmentObject var languageManager: LanguageManager
     
     private let grpcClient = GRPCClientManager()
+    private var languageManager: LanguageManager?
     private var cancellables = Set<AnyCancellable>()
     
-    init() {
+    init(languageManager: LanguageManager? = nil) {
+        self.languageManager = languageManager
         setupValidation()
+    }
+    
+    func setLanguageManager(_ languageManager: LanguageManager) {
+        self.languageManager = languageManager
     }
     
     private func setupValidation() {
@@ -80,59 +85,63 @@ class RegisterViewModel: ObservableObject {
     
     
     private func validateFullName(_ name: String) {
+        let currentLang = languageManager?.currentLanguage ?? .english
         if name.isEmpty {
-            fullNameError = LocalizedStrings.fullNameRequired(languageManager.currentLanguage)
+            fullNameError = LocalizedStrings.fullNameRequired(currentLang)
         } else if name.count < 2 {
-            fullNameError = LocalizedStrings.fullNameMinLength(languageManager.currentLanguage)
+            fullNameError = LocalizedStrings.fullNameMinLength(currentLang)
         } else {
             fullNameError = nil
         }
     }
     private func validateEmail(_ email: String) {
+        let currentLang = languageManager?.currentLanguage ?? .english
         if email.isEmpty {
-            emailError = LocalizedStrings.emailRequired(languageManager.currentLanguage)
+            emailError = LocalizedStrings.emailRequired(currentLang)
         } else if !isValidEmail(email) {
-            emailError = LocalizedStrings.enterValidEmail(languageManager.currentLanguage)
+            emailError = LocalizedStrings.enterValidEmail(currentLang)
         } else {
             emailError = nil
         }
     }
     private func validatePassword(_ password: String) {
+        let currentLang = languageManager?.currentLanguage ?? .english
         if password.isEmpty {
-            passwordError = LocalizedStrings.passwordRequired(languageManager.currentLanguage)
+            passwordError = LocalizedStrings.passwordRequired(currentLang)
         } else if password.count < 8 {
-            passwordError = LocalizedStrings.passwordRequirements(languageManager.currentLanguage)
+            passwordError = LocalizedStrings.passwordRequirements(currentLang)
         } else if !password.contains(where: { $0.isUppercase }) {
-            passwordError = LocalizedStrings.passwordUppercase(languageManager.currentLanguage)
+            passwordError = LocalizedStrings.passwordUppercase(currentLang)
         } else if !password.contains(where: { $0.isLowercase }) {
-            passwordError = LocalizedStrings.passwordLowercase(languageManager.currentLanguage)
+            passwordError = LocalizedStrings.passwordLowercase(currentLang)
         } else if !password.contains(where: { $0.isNumber }) {
-            passwordError = LocalizedStrings.passwordNumber(languageManager.currentLanguage)
+            passwordError = LocalizedStrings.passwordNumber(currentLang)
         } else {
             passwordError = nil
         }
     }
     private func validateConfirmPassword(_ confirmPassword: String) {
+        let currentLang = languageManager?.currentLanguage ?? .english
         if confirmPassword.isEmpty {
-            confirmPasswordError = LocalizedStrings.confirmPasswordRequired(languageManager.currentLanguage)
+            confirmPasswordError = LocalizedStrings.confirmPasswordRequired(currentLang)
         } else if confirmPassword != password {
-            confirmPasswordError = LocalizedStrings.passwordsDoNotMatch(languageManager.currentLanguage)
+            confirmPasswordError = LocalizedStrings.passwordsDoNotMatch(currentLang)
         } else {
             confirmPasswordError = nil
         }
     }
     private func validatePhone(_ phone: String) {
         if phone.isEmpty {
-            phoneError = LocalizedStrings.phoneNumberRequired(languageManager.currentLanguage)
+            phoneError = LocalizedStrings.phoneNumberRequired(languageManager!.currentLanguage)
         } else if phone.count < 10 {
-            phoneError = LocalizedStrings.phoneNumberRequired(languageManager.currentLanguage)
+            phoneError = LocalizedStrings.phoneNumberRequired(languageManager!.currentLanguage)
         } else {
             phoneError = nil
         }
     }
     private func validatePhoto() {
         if profileImage == nil {
-            photoError = LocalizedStrings.profilePhotoRequired(languageManager.currentLanguage )
+            photoError = LocalizedStrings.profilePhotoRequired(languageManager!.currentLanguage )
         } else {
             photoError = nil
         }
@@ -153,7 +162,8 @@ class RegisterViewModel: ObservableObject {
                 photoError = ""
             }
         } catch {
-            showErrorToast("\(LocalizedStrings.registrationFailed(languageManager.currentLanguage)) \(error.localizedDescription)")
+            let currentLang = languageManager?.currentLanguage ?? .english
+            showErrorToast("\(LocalizedStrings.registrationFailed(currentLang)) \(error.localizedDescription)")
         }
     }
     
@@ -197,10 +207,12 @@ class RegisterViewModel: ObservableObject {
                 photoURL: photoURL
             )
             
-            showToast(message: LocalizedStrings.registrationSuccessful(languageManager.currentLanguage), type: .success)
+            let currentLang = languageManager?.currentLanguage ?? .english
+            showToast(message: LocalizedStrings.registrationSuccessful(currentLang), type: .success)
             
         } catch {
-            showToast(message: "\(LocalizedStrings.registrationFailed(languageManager.currentLanguage)) \(error.localizedDescription)", type: .error)
+            let currentLang = languageManager?.currentLanguage ?? .english
+            showToast(message: "\(LocalizedStrings.registrationFailed(currentLang)) \(error.localizedDescription)", type: .error)
         }
         
         isLoading = false
@@ -227,7 +239,7 @@ class RegisterViewModel: ObservableObject {
         } else if case .error(let errorDetails) = response.result {
             throw RegistrationError.uploadFailed(errorDetails.message)
         } else {
-            throw RegistrationError.uploadFailed(LocalizedStrings.unknownUploadError(languageManager.currentLanguage))
+            throw RegistrationError.uploadFailed(LocalizedStrings.unknownUploadError(languageManager!.currentLanguage))
         }
     }
     private func createUser() async throws {
@@ -239,24 +251,27 @@ class RegisterViewModel: ObservableObject {
             phoneNumber: phoneNumber,
         )
         
+        let currentLang = languageManager?.currentLanguage ?? .english
         if response.statusCode == 200,
            case .user(let user) = response.result {
-            print("\(LocalizedStrings.userCreatedWithID(languageManager.currentLanguage)) \(user.id)")
+            print("\(LocalizedStrings.userCreatedWithID(currentLang)) \(user.id)")
         } else if case .error(let errorDetails) = response.result {
             throw RegistrationError.userCreationFailed(errorDetails.message)
         } else {
-            throw RegistrationError.userCreationFailed(LocalizedStrings.unknownUserCreationError(languageManager.currentLanguage))
+            throw RegistrationError.userCreationFailed(LocalizedStrings.unknownUserCreationError(currentLang))
         }
     }
     private func showSuccessAndVerificationOptions() {
-        showSuccessToast(LocalizedStrings.registrationSuccessfulWithVerification(languageManager.currentLanguage))
+        let currentLang = languageManager?.currentLanguage ?? .english
+        showSuccessToast(LocalizedStrings.registrationSuccessfulWithVerification(currentLang))
         showVerificationOptions = true
     }
     private func handleRegistrationError(_ error: Error) {
         if let registrationError = error as? RegistrationError {
             showErrorToast(registrationError.localizedDescription)
         } else {
-            showErrorToast("\(LocalizedStrings.registrationFailed(languageManager.currentLanguage)) \(error.localizedDescription)")
+            let currentLang = languageManager?.currentLanguage ?? .english
+            showErrorToast("\(LocalizedStrings.registrationFailed(currentLang)) \(error.localizedDescription)")
         }
     }
     private func showSuccessToast(_ message: String) {
@@ -277,12 +292,12 @@ class RegisterViewModel: ObservableObject {
             let response = try await grpcClient.forgetPassword(email: email, type: methodString)
             
             if response.statusCode == 200 {
-                showSuccessToast("\(LocalizedStrings.verificationCodeSentVia(languageManager.currentLanguage))\(method.displayName)")
+                showSuccessToast("\(LocalizedStrings.verificationCodeSentVia(languageManager!.currentLanguage))\(method.displayName)")
             } else {
-                showErrorToast(LocalizedStrings.failedToSendVerificationCode(languageManager.currentLanguage))
+                showErrorToast(LocalizedStrings.failedToSendVerificationCode(languageManager!.currentLanguage))
             }
         } catch {
-            showErrorToast("\(LocalizedStrings.errorSendingVerificationCode(languageManager.currentLanguage)) \(error.localizedDescription)")
+            showErrorToast("\(LocalizedStrings.errorSendingVerificationCode(languageManager!.currentLanguage)) \(error.localizedDescription)")
         }
         
         isLoading = false
