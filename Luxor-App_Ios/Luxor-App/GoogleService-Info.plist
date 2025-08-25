@@ -2,35 +2,33 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>187994437254-vk8rhd8frtp883e9ocqdff8ah0j7qo9d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.187994437254-vk8rhd8frtp883e9ocqdff8ah0j7qo9d</string>
 	<key>API_KEY</key>
-	<string>YOUR_API_KEY_HERE</string>
+	<string>AIzaSyCw63KFQq6CVAxoBBPacu65QF9Qn5wRkKk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>YOUR_GCM_SENDER_ID_HERE</string>
+	<string>187994437254</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.luxor.app</string>
+	<string>com.eng.khaled.Luxor-App</string>
 	<key>PROJECT_ID</key>
-	<string>luxor-app-project</string>
+	<string>my-app-4e7aa</string>
 	<key>STORAGE_BUCKET</key>
-	<string>luxor-app-project.appspot.com</string>
+	<string>my-app-4e7aa.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:YOUR_PROJECT_NUMBER:ios:YOUR_IOS_APP_ID</string>
-	<key>DATABASE_URL</key>
-	<string>https://luxor-app-project-default-rtdb.firebaseio.com</string>
-	<key>CLIENT_ID</key>
-	<string>YOUR_CLIENT_ID_HERE.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.YOUR_REVERSED_CLIENT_ID_HERE</string>
+	<string>1:187994437254:ios:27f2dfff8fe382b9564307</string>
 </dict>
 </plist>
