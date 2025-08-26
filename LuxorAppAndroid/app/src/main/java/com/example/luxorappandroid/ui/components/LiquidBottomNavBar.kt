@@ -38,7 +38,6 @@ data class TabItem(
     val title: String,
     val index: Int
 )
-
 @Composable
 fun LiquidBottomNavBar(
     selectedTab: Int,
@@ -58,7 +57,6 @@ fun LiquidBottomNavBar(
         animationSpec = tween(300, easing = EaseInOut),
         label = "visibility_alpha"
     )
-    
     val visibilityScale by animateFloatAsState(
         targetValue = if (isVisible) 1f else 0.8f,
         animationSpec = spring(
@@ -75,7 +73,6 @@ fun LiquidBottomNavBar(
             .alpha(visibilityAlpha)
             .scale(visibilityScale)
     ) {
-        // Background with blur effect
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -98,8 +95,6 @@ fun LiquidBottomNavBar(
                     spotColor = LuxorColors.pureGold.copy(alpha = 0.2f)
                 )
         )
-        
-        // Animated liquid background
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
@@ -108,8 +103,6 @@ fun LiquidBottomNavBar(
         ) {
             val center = Offset(size.width / 2, size.height / 2)
             val radius = size.width / 4
-            
-            // Animated gradient background
             drawRoundRect(
                 brush = Brush.radialGradient(
                     colors = listOf(
@@ -123,8 +116,6 @@ fun LiquidBottomNavBar(
                 cornerRadius = androidx.compose.ui.geometry.CornerRadius(30.dp.toPx())
             )
         }
-        
-        // Tab buttons
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -143,7 +134,6 @@ fun LiquidBottomNavBar(
         }
     }
 }
-
 @Composable
 fun TabButton(
     tab: TabItem,
@@ -161,7 +151,6 @@ fun TabButton(
         ),
         label = "background_scale"
     )
-    
     val iconScale by animateFloatAsState(
         targetValue = if (isSelected) 0.9f else 1.0f,
         animationSpec = spring(
@@ -170,7 +159,6 @@ fun TabButton(
         ),
         label = "icon_scale"
     )
-    
     val iconAlpha by animateFloatAsState(
         targetValue = if (isSelected && showText) 0.3f else 1.0f,
         animationSpec = spring(
@@ -179,7 +167,6 @@ fun TabButton(
         ),
         label = "icon_alpha"
     )
-    
     val textAlpha by animateFloatAsState(
         targetValue = if (showText) 1.0f else 0.0f,
         animationSpec = spring(
@@ -197,7 +184,6 @@ fun TabButton(
         ),
         label = "text_scale"
     )
-    
     LaunchedEffect(isSelected) {
         if (isSelected) {
             kotlinx.coroutines.delay(150)
@@ -218,7 +204,6 @@ fun TabButton(
             },
         contentAlignment = Alignment.Center
     ) {
-        // Selected background with gradient
         if (isSelected) {
             Box(
                 modifier = Modifier
@@ -244,12 +229,9 @@ fun TabButton(
                     )
             )
         }
-        
-        // Icon and text content
         Box(
             contentAlignment = Alignment.Center
         ) {
-            // Icon
             Icon(
                 imageVector = tab.icon,
                 contentDescription = tab.title,
@@ -259,8 +241,6 @@ fun TabButton(
                     .scale(iconScale)
                     .alpha(iconAlpha)
             )
-            
-            // Text overlay for selected state
             if (isSelected) {
                 Text(
                     text = tab.title,

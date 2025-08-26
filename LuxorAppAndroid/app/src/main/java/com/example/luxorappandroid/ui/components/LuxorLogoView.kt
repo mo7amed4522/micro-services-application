@@ -40,7 +40,6 @@ fun LuxorLogoView(
         ),
         label = "logo_scale"
     )
-    
     val rotationAngle by animateFloatAsState(
         targetValue = if (isAnimating) 360f else 0f,
         animationSpec = infiniteRepeatable(
@@ -49,7 +48,6 @@ fun LuxorLogoView(
         ),
         label = "logo_rotation"
     )
-    
     LaunchedEffect(animated) {
         if (animated) {
             isAnimating = true
@@ -60,7 +58,6 @@ fun LuxorLogoView(
         modifier = modifier.size(size * 1.4f),
         contentAlignment = Alignment.Center
     ) {
-        // Outer glow circle
         Canvas(
             modifier = Modifier
                 .size(size * 1.4f)
