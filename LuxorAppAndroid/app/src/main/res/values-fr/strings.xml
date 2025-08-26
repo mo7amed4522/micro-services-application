@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">Louxor</string>
+    
+    <!-- Welcome Screen -->
+    <string name="welcome_title">Bienvenue à Louxor</string>
+    <string name="next">Suivant</string>
+    <string name="skip">Passer</string>
+    <string name="get_started">Commencer</string>
+    
+    <!-- Authentication -->
+    <string name="login">Connexion</string>
+    <string name="register">S\'inscrire</string>
+    <string name="sign_in">Se connecter</string>
+    <string name="or">OU</string>
+    <string name="forgot_password">Mot de passe oublié ?</string>
+    
+    <!-- Form Fields -->
+    <string name="email">E-mail</string>
+    <string name="password">Mot de passe</string>
+    <string name="confirm_password">Confirmer le mot de passe</string>
+    <string name="full_name">Nom complet</string>
+    <string name="phone_number">Numéro de téléphone</string>
+    
+    <!-- Validation Messages -->
+    <string name="enter_valid_email">Veuillez entrer une adresse e-mail valide</string>
+    <string name="email_required">L\'e-mail est requis</string>
+    <string name="password_required">Le mot de passe est requis</string>
+    <string name="confirm_password_required">Veuillez confirmer votre mot de passe</string>
+    <string name="phone_number_required">Le numéro de téléphone est requis</string>
+    <string name="valid_phone_number_required">Veuillez entrer un numéro de téléphone valide</string>
+    <string name="profile_photo_required">Une photo de profil est requise</string>
+    <string name="invalid_phone_number">Veuillez saisir un numéro de téléphone valide</string>
+    
+    <!-- Password Requirements -->
+    <string name="password_requirements">Exigences du mot de passe</string>
+    <string name="at_least_one_special_character">Au moins un caractère spécial</string>
+    
+    <!-- Success Messages -->
+    <string name="registration_successful">Inscription réussie !</string>
+    
+    <!-- Navigation -->
+    <string name="places">Lieux</string>
+    <string name="search_places">Rechercher des lieux incroyables...</string>
+    <string name="discover">Découvrir</string>
+    <string name="explore">Explorer</string>
+    <string name="all">Tout</string>
+    <string name="temples">Temples</string>
+    
+    <!-- Settings -->
+    <string name="notifications">Notifications</string>
+    <string name="subtitle_notifications">Gérez vos préférences de notification</string>
+    <string name="location_services">Services de localisation</string>
+    <string name="app_settings">Paramètres de l\'application</string>
+    <string name="check_for_updates">Vérifier les mises à jour</string>
+    <string name="terms_of_services">Conditions d\'utilisation</string>
+    <string name="rate_app">Évaluer l\'application</string>
+    <string name="support">Support</string>
+    <string name="help_center">Centre d\'aide</string>
+    <string name="subtitle_help_center">Obtenez de l\'aide et du support</string>
+    <string name="subtitle_rate_app">Évaluez notre application sur le store</string>
+    <string name="share_app">Partager l\'application</string>
+    <string name="privacy_policy">Politique de confidentialité</string>
+    <string name="subtitle_privacy_policy">Lisez notre politique de confidentialité</string>
+    
+    <!-- Apple Sign In Error Messages -->
+    <string name="apple_signin_error_cancelled">Connexion Apple annulée</string>
+    <string name="apple_signin_error_failed">Échec de la connexion Apple</string>
+    <string name="apple_signin_error_invalid_response">Réponse invalide de la connexion Apple</string>
+    <string name="apple_signin_error_not_handled">Erreur de connexion Apple non gérée</string>
+    <string name="apple_signin_error_unknown">Erreur inconnue de la connexion Apple</string>
+    
+    <!-- Additional UI Strings -->
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="dont_have_account">Vous n\'avez pas de compte ? </string>
+    <string name="create_account">Créer un compte</string>
+    <string name="terms_privacy_agreement">En vous connectant, vous acceptez nos Conditions de Service et notre Politique de Confidentialité</string>
+    
+    <!-- Profile and Registration Strings -->
+    <string name="add_profile_photo">Ajouter une photo de profil</string>
+    <string name="choose_profile_picture">Choisissez une photo de profil pour personnaliser votre compte</string>
+    <string name="add_photo">Ajouter une photo</string>
+    <string name="personal_information">Informations personnelles</string>
+</resources>

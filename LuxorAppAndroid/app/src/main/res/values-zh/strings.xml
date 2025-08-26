@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">卢克索</string>
+    
+    <!-- Welcome Screen -->
+    <string name="welcome_title">欢迎来到卢克索</string>
+    <string name="next">下一步</string>
+    <string name="skip">跳过</string>
+    <string name="get_started">开始使用</string>
+    
+    <!-- Authentication -->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="sign_in">登录</string>
+    <string name="or">或</string>
+    <string name="forgot_password">忘记密码？</string>
+    
+    <!-- Form Fields -->
+    <string name="email">邮箱</string>
+    <string name="password">密码</string>
+    <string name="confirm_password">确认密码</string>
+    <string name="full_name">全名</string>
+    
+    <!-- Validation Messages -->
+    <string name="enter_valid_email">请输入有效的电子邮件地址</string>
+    <string name="email_required">需要邮箱</string>
+    <string name="password_required">需要密码</string>
+    <string name="confirm_password_required">请确认您的密码</string>
+    <string name="phone_number_required">需要电话号码</string>
+    <string name="valid_phone_number_required">请输入有效的电话号码</string>
+    <string name="profile_photo_required">需要个人资料照片</string>
+    <string name="invalid_phone_number">请输入有效的电话号码</string>
+    
+    <!-- Password Requirements -->
+    <string name="password_requirements">密码要求</string>
+    <string name="at_least_one_special_character">至少包含一个特殊字符</string>
+    
+    <!-- Success Messages -->
+    <string name="registration_successful">注册成功！</string>
+    
+    <!-- Navigation -->
+    <string name="places">地点</string>
+    <string name="search_places">搜索精彩地点...</string>
+    <string name="discover">发现</string>
+    <string name="explore">探索</string>
+    <string name="all">全部</string>
+    <string name="temples">神庙</string>
+    
+    <!-- Settings -->
+    <string name="notifications">通知</string>
+    <string name="subtitle_notifications">管理您的通知偏好</string>
+    <string name="location_services">位置服务</string>
+    <string name="app_settings">应用设置</string>
+    <string name="check_for_updates">检查更新</string>
+    <string name="terms_of_services">服务条款</string>
+    <string name="rate_app">应用评分</string>
+    <string name="support">支持</string>
+    <string name="help_center">帮助中心</string>
+    <string name="subtitle_help_center">获取帮助和支持</string>
+    <string name="subtitle_rate_app">在商店中为我们的应用评分</string>
+    <string name="share_app">分享应用</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="subtitle_privacy_policy">阅读我们的隐私政策</string>
+    
+    <!-- Apple Sign In Error Messages -->
+    <string name="apple_signin_error_cancelled">Apple 登录已取消</string>
+    <string name="apple_signin_error_failed">Apple 登录失败</string>
+    <string name="apple_signin_error_invalid_response">Apple 登录响应无效</string>
+    <string name="apple_signin_error_not_handled">Apple 登录错误未处理</string>
+    <string name="apple_signin_error_unknown">未知的 Apple 登录错误</string>
+    
+    <!-- Additional UI Strings -->
+     <string name="google">谷歌</string>
+    <string name="facebook">脸书</string>
+    <string name="dont_have_account">没有账户？ </string>
+    <string name="create_account">创建账户</string>
+    <string name="terms_privacy_agreement">登录即表示您同意我们的服务条款和隐私政策</string>
+     
+     <!-- Profile and Registration Strings -->
+     <string name="add_profile_photo">添加头像</string>
+     <string name="choose_profile_picture">选择头像来个性化您的账户</string>
+     <string name="add_photo">添加照片</string>
+     <string name="personal_information">个人信息</string>
+     <string name="phone_number">电话号码</string>
+</resources>
