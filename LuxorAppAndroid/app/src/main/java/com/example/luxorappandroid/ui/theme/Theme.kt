@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.luxorappandroid.ui.theme
 
 import android.app.Activity
@@ -8,10 +10,8 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
@@ -19,8 +19,11 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-// Composition local for accessing current theme colors
-val LocalLuxorColors = staticCompositionLocalOf { LuxorColors.Light }
+val LocalLuxorColors = staticCompositionLocalOf<Any> { LuxorColors.Light }
+
+val LocalLuxorThemeManager = staticCompositionLocalOf<LuxorThemeManager?> {
+    null
+}
 
 private val LuxorDarkColorScheme = darkColorScheme(
     primary = LuxorColors.luxorTeal,
@@ -45,13 +48,13 @@ private val LuxorDarkColorScheme = darkColorScheme(
     inverseSurface = LuxorColors.Light.cardBackground,
     inverseOnSurface = LuxorColors.Light.textPrimary,
     inversePrimary = LuxorColors.luxorTeal,
-    outline = LuxorColors.Dark.inputBorder,
+    outline = LuxorColors.Dark.border,
     outlineVariant = LuxorColors.Dark.border.copy(alpha = 0.2f),
     scrim = Color.Black.copy(alpha = 0.5f),
-    error = LuxorColors.errorRed,
+    error = Color.Red,
     onError = Color.White,
-    errorContainer = LuxorColors.errorRed.copy(alpha = 0.2f),
-    onErrorContainer = LuxorColors.errorRed
+    errorContainer = Color.Red.copy(alpha = 0.2f),
+    onErrorContainer = Color.Red
 )
 
 private val LuxorLightColorScheme = lightColorScheme(
@@ -77,27 +80,28 @@ private val LuxorLightColorScheme = lightColorScheme(
     inverseSurface = LuxorColors.Dark.cardBackground,
     inverseOnSurface = LuxorColors.Dark.textPrimary,
     inversePrimary = LuxorColors.luxorTeal,
-    outline = LuxorColors.Light.inputBorder,
+    outline = LuxorColors.Light.border,
     outlineVariant = LuxorColors.Light.border.copy(alpha = 0.2f),
     scrim = Color.Black.copy(alpha = 0.5f),
-    error = LuxorColors.errorRed,
+    error = Color.Red,
     onError = Color.White,
-    errorContainer = LuxorColors.errorRed.copy(alpha = 0.1f),
-    onErrorContainer = LuxorColors.errorRed
+    errorContainer = Color.Red.copy(alpha = 0.1f),
+    onErrorContainer = Color.Red
 )
 
 @Composable
 fun LuxorAppAndroidTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+ but we prefer our custom theme
+    themeManager: LuxorThemeManager? = null,
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
+    val actualThemeManager = themeManager ?: rememberLuxorThemeManager()
+    val isDarkTheme by actualThemeManager.isDarkMode
+    
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) {
-                // Blend dynamic colors with our custom dark scheme
+            if (isDarkTheme) {
                 val dynamicScheme = dynamicDarkColorScheme(context)
                 LuxorDarkColorScheme.copy(
                     primary = dynamicScheme.primary,
@@ -106,7 +110,6 @@ fun LuxorAppAndroidTheme(
                     secondaryContainer = dynamicScheme.secondaryContainer
                 )
             } else {
-                // Blend dynamic colors with our custom light scheme
                 val dynamicScheme = dynamicLightColorScheme(context)
                 LuxorLightColorScheme.copy(
                     primary = dynamicScheme.primary,
@@ -116,12 +119,10 @@ fun LuxorAppAndroidTheme(
                 )
             }
         }
-        darkTheme -> LuxorDarkColorScheme
+        isDarkTheme -> LuxorDarkColorScheme
         else -> LuxorLightColorScheme
     }
-    
-    // Provide current theme colors through composition local
-    val luxorColors = if (darkTheme) LuxorColors.Dark else LuxorColors.Light
+    val luxorColors = if (isDarkTheme) LuxorColors.Dark else LuxorColors.Light
     
     val view = LocalView.current
     if (!view.isInEditMode) {
@@ -130,8 +131,8 @@ fun LuxorAppAndroidTheme(
             window.statusBarColor = colorScheme.background.toArgb()
             window.navigationBarColor = colorScheme.background.toArgb()
             WindowCompat.getInsetsController(window, view).apply {
-                isAppearanceLightStatusBars = !darkTheme
-                isAppearanceLightNavigationBars = !darkTheme
+                isAppearanceLightStatusBars = !isDarkTheme
+                isAppearanceLightNavigationBars = !isDarkTheme
             }
         }
     }
@@ -140,18 +141,21 @@ fun LuxorAppAndroidTheme(
     SideEffect {
         systemUiController.setSystemBarsColor(
             color = colorScheme.background,
-            darkIcons = !darkTheme
+            darkIcons = !isDarkTheme
         )
         systemUiController.setNavigationBarColor(
             color = colorScheme.background,
-            darkIcons = !darkTheme
+            darkIcons = !isDarkTheme
         )
     }
 
-    CompositionLocalProvider(LocalLuxorColors provides luxorColors) {
+    CompositionLocalProvider(
+        LocalLuxorColors provides luxorColors,
+        LocalLuxorThemeManager provides actualThemeManager
+    ) {
         MaterialTheme(
             colorScheme = colorScheme,
-            // typography = Typography,
+             typography = Typography,
             content = content
         )
     }

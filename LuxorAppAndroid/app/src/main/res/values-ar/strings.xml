@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">الأقصر</string>
+    
+    <!-- Welcome Screen -->
+    <string name="welcome_title">مرحباً بك في الأقصر</string>
+    <string name="next">التالي</string>
+    <string name="skip">تخطي</string>
+    <string name="get_started">ابدأ الآن</string>
+    
+    <!-- Authentication -->
+    <string name="login">تسجيل الدخول</string>
+    <string name="register">إنشاء حساب</string>
+    <string name="sign_in">تسجيل الدخول</string>
+    <string name="or">أو</string>
+    <string name="forgot_password">نسيت كلمة المرور؟</string>
+    
+    <!-- Form Fields -->
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="full_name">الاسم الكامل</string>
+    <string name="phone_number">رقم الهاتف</string>
+    
+    <!-- Validation Messages -->
+    <string name="enter_valid_email">الرجاء إدخال عنوان بريد إلكتروني صالح</string>
+    <string name="email_required">البريد الإلكتروني مطلوب</string>
+    <string name="password_required">كلمة المرور مطلوبة</string>
+    <string name="confirm_password_required">الرجاء تأكيد كلمة المرور</string>
+    <string name="phone_number_required">رقم الهاتف مطلوب</string>
+    <string name="valid_phone_number_required">الرجاء إدخال رقم هاتف صالح</string>
+    <string name="profile_photo_required">صورة الملف الشخصي مطلوبة</string>
+    <string name="invalid_phone_number">يرجى إدخال رقم هاتف صحيح</string>
+    
+    <!-- Password Requirements -->
+    <string name="password_requirements">متطلبات كلمة المرور</string>
+    <string name="at_least_one_special_character">حرف خاص واحد على الأقل</string>
+    
+    <!-- Success Messages -->
+    <string name="registration_successful">تم التسجيل بنجاح!</string>
+    
+    <!-- Navigation -->
+    <string name="places">الأماكن</string>
+    <string name="search_places">ابحث عن أماكن رائعة...</string>
+    <string name="discover">اكتشف</string>
+    <string name="explore">استكشف</string>
+    <string name="all">الكل</string>
+    <string name="temples">المعابد</string>
+    
+    <!-- Settings -->
+    <string name="notifications">الإشعارات</string>
+    <string name="subtitle_notifications">إدارة تفضيلات الإشعارات الخاصة بك</string>
+    <string name="location_services">خدمات الموقع</string>
+    <string name="app_settings">إعدادات التطبيق</string>
+    <string name="check_for_updates">التحقق من التحديثات</string>
+    <string name="terms_of_services">شروط الخدمة</string>
+    <string name="rate_app">تقييم التطبيق</string>
+    <string name="support">الدعم</string>
+    <string name="help_center">مركز المساعدة</string>
+    <string name="subtitle_help_center">احصل على المساعدة والدعم</string>
+    <string name="subtitle_rate_app">قيم تطبيقنا في المتجر</string>
+    <string name="share_app">مشاركة التطبيق</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="subtitle_privacy_policy">اقرأ سياسة الخصوصية الخاصة بنا</string>
+    
+    <!-- Apple Sign In Error Messages -->
+    <string name="apple_signin_error_cancelled">تم إلغاء تسجيل الدخول بـ Apple</string>
+    <string name="apple_signin_error_failed">فشل تسجيل الدخول بـ Apple</string>
+    <string name="apple_signin_error_invalid_response">استجابة غير صالحة من تسجيل الدخول بـ Apple</string>
+    <string name="apple_signin_error_not_handled">خطأ تسجيل الدخول بـ Apple غير معالج</string>
+    <string name="apple_signin_error_unknown">خطأ غير معروف في تسجيل الدخول بـ Apple</string>
+    
+    <!-- Additional UI Strings -->
+     <string name="google">جوجل</string>
+    <string name="facebook">فيسبوك</string>
+    <string name="dont_have_account">ليس لديك حساب؟ </string>
+    <string name="create_account">إنشاء حساب</string>
+    <string name="terms_privacy_agreement">بتسجيل الدخول، فإنك توافق على شروط الخدمة وسياسة الخصوصية الخاصة بنا</string>
+     
+     <!-- Profile and Registration Strings -->
+     <string name="add_profile_photo">إضافة صورة الملف الشخصي</string>
+     <string name="choose_profile_picture">اختر صورة ملف شخصي لتخصيص حسابك</string>
+     <string name="add_photo">إضافة صورة</string>
+     <string name="personal_information">المعلومات الشخصية</string>
+</resources>
