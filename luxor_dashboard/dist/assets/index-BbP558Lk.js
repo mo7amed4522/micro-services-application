@@ -1,0 +1,1 @@
+import{s as r}from"./index-BTA7iyru.js";async function n(t,o){const e=new FormData;e.append("file",t);const a=await r.post("/fileUploadAndDownload/upload",e,o);return a.data.code===0&&a.data.data?a.data.data:Promise.reject(new Error(a.data.message))}export{n as u};
