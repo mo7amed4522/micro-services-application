@@ -38,19 +38,19 @@ object WelcomePages {
                 image = R.drawable.temp4,
                 title = stringResource(R.string.title4),
                 subtitle = stringResource(R.string.subTitle4),
-                description = stringResource(R.string/)
+                description = stringResource(R.string.description4)
             ),
             WelcomePageData(
                 image = R.drawable.temp5,
-                title = "Personalized Tours",
-                subtitle = "Your Perfect Journey",
-                description = "Customize your adventure with flexible itineraries designed to match your interests and schedule."
+                title = stringResource(R.string.title5),
+                subtitle = stringResource(R.string.subTitle5),
+                description = stringResource(R.string.description5)
             ),
             WelcomePageData(
                 image = R.drawable.temp6,
-                title = "Start Your Adventure",
-                subtitle = "Welcome to Luxor",
-                description = "Begin your unforgettable journey through one of the world's greatest open-air museums."
+                title = stringResource(R.string.title6),
+                subtitle = stringResource(R.string.subTitle6),
+                description = stringResource(R.string.description6)
             )
         )
     }

@@ -18,6 +18,13 @@
     <string name="title4">فك الشفرات القديمة</string>>
     <string name="subTitle4">أسرار الهيروغليفية</string>>
     <string name="description4">تعلم قراءة الهيروغليفية وافتح الأسرار المنقوشة على الحجر منذ آلاف السنين.</string>>
+    <string name="title5">الطقوس المقدسة</string>>
+    <string name="subTitle5">رحلة روحية</string>>
+    <string name="description5">افهم المعتقدات الروحية والطقوس المقدسة التي أرشدت حياة المصريين القدماء.</string>>
+    <string name="title6">ابدأ مغامرتك</string>>
+    <string name="subTitle6">رحلتك بانتظارك</string>>
+    <string name="description6">هل أنت مستعد لبدء رحلة لا تُنسى عبر عجائب مصر القديمة؟</string>>
+
     <!-- Authentication -->
     <string name="login">تسجيل الدخول</string>
     <string name="register">إنشاء حساب</string>

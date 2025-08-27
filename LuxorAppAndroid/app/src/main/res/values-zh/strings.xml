@@ -18,6 +18,13 @@
     <string name="title4">破解古代谜团</string>>
     <string name="subTitle4">象形文字的秘密</string>>
     <string name="description4">学习阅读象形文字，解锁数千年前刻在石头上的秘密。</string>>
+    <string name="title5">神圣仪式</string>>
+    <string name="subTitle5">心灵之旅</string>>
+    <string name="description5">了解指导古埃及生活的精神信仰和神圣仪式。</string>>
+    <string name="title6">开始您的冒险</string>>
+    <string name="subTitle6">您的旅程已准备好</string>>
+    <string name="description6">准备好开始一段难忘的古埃及奇观之旅吗？</string>>
+
     <!-- Authentication -->
     <string name="login">登录</string>
     <string name="register">注册</string>

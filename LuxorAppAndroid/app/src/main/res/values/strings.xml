@@ -18,6 +18,14 @@
     <string name="title4">Decode Ancient Mysteries</string>>
     <string name="subTitle4">Hieroglyphic Secrets</string>>
     <string name="description4">Learn to read hieroglyphs and unlock the secrets written in stone thousands of years ago.</string>>
+    <string name="title5">Sacred Rituals</string>>
+    <string name="subTitle5">Spiritual Journey</string>>
+    <string name="description5">Understand the spiritual beliefs and sacred rituals that guided ancient Egyptian life.</string>>
+    <string name="title6">Begin Your Adventure</string>>
+    <string name="subTitle6">Your Journey Awaits</string>>
+    <string name="description6">Ready to embark on an unforgettable journey through the wonders of ancient Egypt?</string>>
+
+
     <!-- Authentication -->
     <string name="login">Login</string>
     <string name="register">Register</string>
