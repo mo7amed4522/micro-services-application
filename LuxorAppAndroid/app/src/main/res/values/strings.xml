@@ -6,7 +6,26 @@
     <string name="next">Next</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get Started</string>
-    
+    <string name="title1">Discover Ancient Wonders</string>
+    <string name="subTitle1">Journey Through History</string>
+    <string name="description1">Explore the magnificent temples and tombs of ancient Egypt with our immersive historical experience.</string>
+    <string name="title2">Uncover Hidden Treasures</string>>
+    <string name="subTitle2">Archaeological Adventures</string>>
+    <string name="description2">Join archaeological expeditions and discover artifacts that tell the story of ancient civilizations.</string>>
+    <string name="title3">Walk Among Pharaohs</string>>
+    <string name="subTitle3">Royal Experiences</string>>
+    <string name="description3">Experience the grandeur of pharaohs and learn about the powerful rulers of ancient Egypt.</string>>
+    <string name="title4">Decode Ancient Mysteries</string>>
+    <string name="subTitle4">Hieroglyphic Secrets</string>>
+    <string name="description4">Learn to read hieroglyphs and unlock the secrets written in stone thousands of years ago.</string>>
+    <string name="title5">Sacred Rituals</string>>
+    <string name="subTitle5">Spiritual Journey</string>>
+    <string name="description5">Understand the spiritual beliefs and sacred rituals that guided ancient Egyptian life.</string>>
+    <string name="title6">Begin Your Adventure</string>>
+    <string name="subTitle6">Your Journey Awaits</string>>
+    <string name="description6">Ready to embark on an unforgettable journey through the wonders of ancient Egypt?</string>>
+
+
     <!-- Authentication -->
     <string name="login">Login</string>
     <string name="register">Register</string>
@@ -40,7 +59,7 @@
     
     <!-- Navigation -->
     <string name="places">Places</string>
-    <string name="search_places">Search amazing places...</string>
+    <string name="search_places">Search amazing places…</string>
     <string name="discover">Discover</string>
     <string name="explore">Explore</string>
     <string name="all">All</string>

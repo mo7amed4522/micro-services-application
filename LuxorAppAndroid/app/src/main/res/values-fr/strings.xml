@@ -6,7 +6,25 @@
     <string name="next">Suivant</string>
     <string name="skip">Passer</string>
     <string name="get_started">Commencer</string>
-    
+    <string name="title1">Découvrez les merveilles anciennes</string>
+    <string name="subTitle1">Voyage à travers la histoire</string>
+    <string name="description1">Explorez les magnifiques temples et tombes de la Égypte ancienne grâce à notre expérience historique immersive.</string>
+    <string name="title2">Découvrez des trésors cachés</string>>
+    <string name="subTitle2">Aventures archéologiques</string>>
+    <string name="description2">Participez à des expéditions archéologiques et découvrez des artefacts racontant la histoire des civilisations anciennes.</string>>
+    <string name="title3">Marchez parmi les pharaons</string>>
+    <string name="subTitle3">Expériences royales</string>>
+    <string name="description3">Vivez la grandeur des pharaons et découvrez les puissants dirigeants de le Égypte ancienne.</string>>
+    <string name="title4">Décodez les mystères anciens</string>>
+    <string name="subTitle4">Secrets hiéroglyphiques</string>>
+    <string name="description4">Apprenez à lire les hiéroglyphes et découvrez les secrets gravés dans la pierre il y a des milliers da années.</string>>
+    <string name="title5">Rituels sacrés</string>>
+    <string name="subTitle5">Voyage spirituel</string>>
+    <string name="description5">Comprenez les croyances spirituelles et les rituels sacrés qui guidaient la vie dans la Égypte ancienne.</string>>
+    <string name="title6">Commencez votre aventure</string>>
+    <string name="subTitle6">Votre voyage vous attend</string>>
+    <string name="description6">Prêt à entreprendre un voyage inoubliable à travers les merveilles de la Égypte ancienne ?</string>>
+
     <!-- Authentication -->
     <string name="login">Connexion</string>
     <string name="register">S\'inscrire</string>

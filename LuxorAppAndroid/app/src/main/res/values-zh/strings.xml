@@ -6,7 +6,25 @@
     <string name="next">下一步</string>
     <string name="skip">跳过</string>
     <string name="get_started">开始使用</string>
-    
+    <string name="title1">探索古代奇观</string>
+    <string name="subTitle1">穿越历史的旅程</string>
+    <string name="description1">通过我们的沉浸式历史体验，探索古埃及宏伟的神庙和墓葬。</string>
+    <string name="title2">发现隐藏的宝藏</string>>
+    <string name="subTitle2">考古探险</string>>
+    <string name="description2">加入考古探险，发现讲述古代文明故事的文物。</string>>
+    <string name="title3">与法老同行</string>>
+    <string name="subTitle3">皇家体验</string>>
+    <string name="description3">体验法老的宏伟，并了解古埃及的强大统治者。</string>>
+    <string name="title4">破解古代谜团</string>>
+    <string name="subTitle4">象形文字的秘密</string>>
+    <string name="description4">学习阅读象形文字，解锁数千年前刻在石头上的秘密。</string>>
+    <string name="title5">神圣仪式</string>>
+    <string name="subTitle5">心灵之旅</string>>
+    <string name="description5">了解指导古埃及生活的精神信仰和神圣仪式。</string>>
+    <string name="title6">开始您的冒险</string>>
+    <string name="subTitle6">您的旅程已准备好</string>>
+    <string name="description6">准备好开始一段难忘的古埃及奇观之旅吗？</string>>
+
     <!-- Authentication -->
     <string name="login">登录</string>
     <string name="register">注册</string>
