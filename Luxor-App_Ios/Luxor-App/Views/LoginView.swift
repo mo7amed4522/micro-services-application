@@ -8,10 +8,14 @@ struct LoginView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
-    @StateObject private var viewModel = LoginViewModel(
-        authUseCase: DIContainer.shared.authUseCase,
-        authState: AuthState()
-    )
+    @StateObject private var viewModel: LoginViewModel
+    
+    init() {
+        self._viewModel = StateObject(wrappedValue: LoginViewModel(
+            authUseCase: DIContainer.shared.authUseCase,
+            authState: AuthState()
+        ))
+    }
     
     private var isIPad: Bool {
         horizontalSizeClass == .regular && verticalSizeClass == .regular

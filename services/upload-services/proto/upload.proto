@@ -18,7 +18,7 @@ message UploadFileRequest {
     string content_type = 3;
     string user_id = 4;
     FileType file_type = 5;
-    StorageMode storage_mode = 6; // Dev or Production mode
+    StorageMode storage_mode = 6; 
 }
 
 message UploadFileResponse {

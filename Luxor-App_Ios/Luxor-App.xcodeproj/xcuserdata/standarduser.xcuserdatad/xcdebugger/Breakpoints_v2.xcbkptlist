@@ -18,6 +18,36 @@
             endingLineNumber = "5"
             landmarkName = "LanguageManager"
             landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "D6A3B26C-4736-4591-AF5A-B01B4592B282 - d435fa7ca7651d49"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Luxor_App.LanguageManager.deinit"
+                  moduleName = "Luxor-App.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/standarduser/project/micro-services-application/Luxor-App_Ios/Luxor-App/Localization.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "D6A3B26C-4736-4591-AF5A-B01B4592B282 - d4acd9c59612a428"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Luxor_App.LanguageManager.__deallocating_deinit"
+                  moduleName = "Luxor-App.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/standarduser/project/micro-services-application/Luxor-App_Ios/Luxor-App/Localization.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

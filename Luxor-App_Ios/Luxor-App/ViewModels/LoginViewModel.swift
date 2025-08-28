@@ -10,7 +10,7 @@ class LoginViewModel: ObservableObject {
     @EnvironmentObject var languageManager: LanguageManager
     
     private let authUseCase: AuthUseCase
-    private let authState: AuthState
+    private var authState: AuthState
     private var cancellables = Set<AnyCancellable>()
     
   
@@ -83,6 +83,7 @@ class LoginViewModel: ObservableObject {
     
     @MainActor
     func updateAuthState(_ newAuthState: AuthState) {
+        self.authState = newAuthState
         let grpcClient = DIContainer.shared.grpcClient
         self.appleSignInCoordinator = AppleSignInCoordinator(
             grpcClient: grpcClient,
