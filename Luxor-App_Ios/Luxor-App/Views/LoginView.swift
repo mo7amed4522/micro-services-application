@@ -12,8 +12,7 @@ struct LoginView: View {
     
     init() {
         self._viewModel = StateObject(wrappedValue: LoginViewModel(
-            authUseCase: DIContainer.shared.authUseCase,
-            authState: AuthState()
+            authUseCase: DIContainer.shared.authUseCase
         ))
     }
     

@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseCore
 import FirebaseAnalytics
 import FirebaseMessaging
+import FirebaseInAppMessaging
 import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
@@ -17,7 +18,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 
         FirebaseApp.configure()
-
+        
+        // Configure Firebase In-App Messaging with Analytics
+        InAppMessaging.inAppMessaging().messageDisplaySuppressed = false
+        
         UNUserNotificationCenter.current().delegate = self
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
@@ -83,13 +87,11 @@ struct Luxor_AppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
                 .environmentObject(themeManager)
                 .environmentObject(languageManager)
                 .environmentObject(authState)
                 .environmentObject(diContainer)
-                .withToast()
-                .withLoading()
                 .onAppear {
                     diContainer.setAuthState(authState)
                 }
