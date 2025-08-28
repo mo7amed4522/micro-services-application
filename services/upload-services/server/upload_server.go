@@ -4,9 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"io/ioutil"  // Add this
+	"io/ioutil"
 	"log"
-	"os"         // Add this
+	"os"
 	"path/filepath"
 	"strings"
 	"time"
@@ -81,7 +81,7 @@ func (s *UploadServer) UploadFile(ctx context.Context, req *pb.UploadFileRequest
 	fileID := uuid.New().String()
 	fileExt := filepath.Ext(req.FileName)
 	fileKey := fmt.Sprintf("%s/%s/%s%s", req.UserId, getFileTypeString(req.FileType), fileID, fileExt)
-	
+
 	var fileURL string
 	var storageLocation pb.StorageLocation
 	var err error
@@ -402,19 +402,15 @@ func (s *UploadServer) GetUserPhotoURL(ctx context.Context, req *pb.GetUserPhoto
 		StatusCode: 200,
 		Message:    "User photo retrieved successfully",
 		Result: &pb.GetUserPhotoURLResponse_Success{
-			Success: &pb.GetUserPhotoURLResponse_Success{
-				Success: &pb.UserPhotoSuccess{
-					PhotoUrl:  fileURL,
-					FileKey:   fileKey,
-					UploadedAt: uploadedAt,
-					FullUrl:   fileURL, // Same as photo_url for now
-				},
+			Success: &pb.UserPhotoSuccess{
+				PhotoUrl:   fileURL,
+				FileKey:    fileKey,
+				UploadedAt: uploadedAt,
+				FullUrl:    fileURL,
 			},
 		},
 	}, nil
 }
-
-// UpdateUserPhoto updates or uploads a new profile photo for the user
 func (s *UploadServer) UpdateUserPhoto(ctx context.Context, req *pb.UpdateUserPhotoRequest) (*pb.UpdateUserPhotoResponse, error) {
 	if req.UserId == "" {
 		return &pb.UpdateUserPhotoResponse{
@@ -445,8 +441,6 @@ func (s *UploadServer) UpdateUserPhoto(ctx context.Context, req *pb.UpdateUserPh
 			},
 		}, nil
 	}
-
-	// Validate image type
 	if !isValidFileType(req.ContentType, pb.FileType_IMAGE) {
 		return &pb.UpdateUserPhotoResponse{
 			StatusCode: 400,
@@ -461,15 +455,11 @@ func (s *UploadServer) UpdateUserPhoto(ctx context.Context, req *pb.UpdateUserPh
 			},
 		}, nil
 	}
-
-	// Mark existing profile photo as deleted
 	updateQuery := `UPDATE uploads SET deleted_at = $1 WHERE user_id = $2 AND file_type = 'profile_photo' AND deleted_at IS NULL`
 	_, err := s.db.db.Exec(updateQuery, time.Now(), req.UserId)
 	if err != nil {
 		log.Printf("Failed to mark old profile photo as deleted: %v", err)
 	}
-
-	// Upload new profile photo
 	fileID := uuid.New().String()
 	fileExt := filepath.Ext(req.FileName)
 	fileKey := fmt.Sprintf("%s/profile_photo/%s%s", req.UserId, fileID, fileExt)
@@ -477,13 +467,10 @@ func (s *UploadServer) UpdateUserPhoto(ctx context.Context, req *pb.UpdateUserPh
 	var fileURL string
 	var storageLocation pb.StorageLocation
 
-	// Handle storage mode
 	if req.StorageMode == pb.StorageMode_DEVELOPMENT {
-		// Development mode - use local storage
 		fileURL, err = s.saveToLocalStorage(req.FileData, fileKey, req.ContentType)
 		storageLocation = pb.StorageLocation_LOCAL_FOLDER
 	} else {
-		// Production mode - use S3
 		fileURL, err = s.s3Client.UploadFile(req.FileData, fileKey, req.ContentType)
 		storageLocation = pb.StorageLocation_AWS_S3
 	}
@@ -551,35 +538,25 @@ func (s *UploadServer) UpdateUserPhoto(ctx context.Context, req *pb.UpdateUserPh
 	}, nil
 }
 
-// saveToLocalStorage saves file to local development storage
 func (s *UploadServer) saveToLocalStorage(fileData []byte, fileKey, contentType string) (string, error) {
-	// Create uploads directory if it doesn't exist
 	uploadDir := "./uploads"
 	if err := os.MkdirAll(uploadDir, 0755); err != nil {
 		return "", fmt.Errorf("failed to create upload directory: %v", err)
 	}
-
-	// Create subdirectories based on file key
 	filePath := filepath.Join(uploadDir, fileKey)
 	dir := filepath.Dir(filePath)
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		return "", fmt.Errorf("failed to create file directory: %v", err)
 	}
-
-	// Write file
 	if err := ioutil.WriteFile(filePath, fileData, 0644); err != nil {
 		return "", fmt.Errorf("failed to write file: %v", err)
 	}
-
-	// Return local URL
 	baseURL := os.Getenv("DEV_BASE_URL")
 	if baseURL == "" {
 		baseURL = "http://localhost:8080"
 	}
 	return fmt.Sprintf("%s/uploads/%s", baseURL, fileKey), nil
 }
-
-// deleteFromLocalStorage removes file from local development storage
 func (s *UploadServer) deleteFromLocalStorage(fileKey string) error {
 	filePath := filepath.Join("./uploads", fileKey)
 	return os.Remove(filePath)

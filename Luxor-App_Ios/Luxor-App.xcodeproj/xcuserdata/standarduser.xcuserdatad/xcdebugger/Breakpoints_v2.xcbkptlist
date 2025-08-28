@@ -8,7 +8,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D6A3B26C-4736-4591-AF5A-B01B4592B282"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Luxor-App/Localization.swift"
@@ -24,7 +24,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "49E0D244-5C3C-42AE-A75A-E98886E30C55"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Luxor-App/Localization.swift"
@@ -40,7 +40,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A2398DFF-E7DC-414F-99DE-E8B78D58EF6B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Luxor-App/Localization.swift"
@@ -56,7 +56,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "120414DB-DA96-4D0B-85D9-31A38EEF66B4"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Luxor-App/Localization.swift"
@@ -72,7 +72,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "DC1D9C93-A60C-43DD-B7FC-61DE8C90BA6F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Luxor-App/Localization.swift"
@@ -176,7 +176,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "496"
             endingLineNumber = "496"
-            landmarkName = "password(_:)"
+            landmarkName = "sms(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -192,7 +192,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "504"
             endingLineNumber = "504"
-            landmarkName = "fullName(_:)"
+            landmarkName = "whatsapp(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -200,7 +200,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "1FF60B02-19FE-4057-8A11-4118D3212C5C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Luxor-App/Localization.swift"
@@ -216,7 +216,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "429A3F6F-A25C-4890-92E1-808EB9FA24F7"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Luxor-App/Localization.swift"
@@ -240,7 +240,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "512"
             endingLineNumber = "512"
-            landmarkName = "phoneNumber(_:)"
+            landmarkName = "password(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -256,7 +256,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "520"
             endingLineNumber = "520"
-            landmarkName = "forgotPassword(_:)"
+            landmarkName = "fullName(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -272,7 +272,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "528"
             endingLineNumber = "528"
-            landmarkName = "home(_:)"
+            landmarkName = "phoneNumber(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -288,7 +288,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "536"
             endingLineNumber = "536"
-            landmarkName = "title1(_:)"
+            landmarkName = "forgotPassword(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -304,7 +304,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "544"
             endingLineNumber = "544"
-            landmarkName = "loginSuccessful(_:)"
+            landmarkName = "home(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -320,7 +320,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "552"
             endingLineNumber = "552"
-            landmarkName = "CreateAccount(_:)"
+            landmarkName = "title1(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -336,7 +336,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "560"
             endingLineNumber = "560"
-            landmarkName = "successfullySignedInWithGoogle(_:)"
+            landmarkName = "loginSuccessful(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -352,7 +352,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "569"
             endingLineNumber = "569"
-            landmarkName = "failedToProcessAuthTokens(_:)"
+            landmarkName = "CreateAccount(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -368,7 +368,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "577"
             endingLineNumber = "577"
-            landmarkName = "AddProfilePhoto(_:)"
+            landmarkName = "successfullySignedInWithGoogle(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -384,7 +384,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "585"
             endingLineNumber = "585"
-            landmarkName = "SignInToYourAccount(_:)"
+            landmarkName = "failedToProcessAuthTokens(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -400,7 +400,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "593"
             endingLineNumber = "593"
-            landmarkName = "failedToGetAppleIDCredentials(_:)"
+            landmarkName = "AddProfilePhoto(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -416,7 +416,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "602"
             endingLineNumber = "602"
-            landmarkName = "failedToGetIdentityToken(_:)"
+            landmarkName = "SignInToYourAccount(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -432,7 +432,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "611"
             endingLineNumber = "611"
-            landmarkName = "failedToGetAuthorizationCode(_:)"
+            landmarkName = "failedToGetAppleIDCredentials(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -448,7 +448,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "620"
             endingLineNumber = "620"
-            landmarkName = "authServiceNotAvailable(_:)"
+            landmarkName = "failedToGetIdentityToken(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -464,7 +464,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "629"
             endingLineNumber = "629"
-            landmarkName = "appleSignInFailed(_:)"
+            landmarkName = "failedToGetAuthorizationCode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -480,7 +480,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "638"
             endingLineNumber = "638"
-            landmarkName = "invalidResponseFromApple(_:)"
+            landmarkName = "authServiceNotAvailable(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -496,7 +496,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "647"
             endingLineNumber = "647"
-            landmarkName = "appleSignInNotHandled(_:)"
+            landmarkName = "appleSignInFailed(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -512,7 +512,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "656"
             endingLineNumber = "656"
-            landmarkName = "unknownAppleSignInError(_:)"
+            landmarkName = "invalidResponseFromApple(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -528,7 +528,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "670"
             endingLineNumber = "670"
-            landmarkName = "successfullySignedInWithApple(_:)"
+            landmarkName = "appleSignInNotHandled(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -544,7 +544,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "665"
             endingLineNumber = "665"
-            landmarkName = "successfullySignedInWithApple(_:)"
+            landmarkName = "appleSignInNotHandled(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -560,7 +560,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "674"
             endingLineNumber = "674"
-            landmarkName = "authFailedNoTokens(_:)"
+            landmarkName = "unknownAppleSignInError(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -576,7 +576,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "683"
             endingLineNumber = "683"
-            landmarkName = "authFailed(_:)"
+            landmarkName = "successfullySignedInWithApple(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -592,7 +592,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "692"
             endingLineNumber = "692"
-            landmarkName = "SignIn(_:)"
+            landmarkName = "authFailedNoTokens(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -608,7 +608,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "701"
             endingLineNumber = "701"
-            landmarkName = "OR(_:)"
+            landmarkName = "authFailed(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -624,7 +624,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "709"
             endingLineNumber = "709"
-            landmarkName = "PasswordRequirements(_:)"
+            landmarkName = "SignIn(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -640,7 +640,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "717"
             endingLineNumber = "717"
-            landmarkName = "AtLeastOneSpecialCharacter(_:)"
+            landmarkName = "OR(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -656,7 +656,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1423"
             endingLineNumber = "1423"
-            landmarkName = "Support(_:)"
+            landmarkName = "passwordTooShort(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -672,8 +672,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1433"
             endingLineNumber = "1433"
-            landmarkName = "View"
-            landmarkType = "21">
+            landmarkName = "invalidPhoneNumber(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -688,8 +688,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1438"
             endingLineNumber = "1438"
-            landmarkName = "String"
-            landmarkType = "21">
+            landmarkName = "invalidPhoneNumber(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -704,7 +704,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1415"
             endingLineNumber = "1415"
-            landmarkName = "invalidPhoneNumber(_:)"
+            landmarkName = "invalidEmail(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -720,7 +720,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1406"
             endingLineNumber = "1406"
-            landmarkName = "passwordTooShort(_:)"
+            landmarkName = "SubTitleShareApp(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -736,7 +736,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1397"
             endingLineNumber = "1397"
-            landmarkName = "invalidEmail(_:)"
+            landmarkName = "ShareApp(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -752,7 +752,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1389"
             endingLineNumber = "1389"
-            landmarkName = "SubTitleShareApp(_:)"
+            landmarkName = "SubTitleRateApp(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -768,7 +768,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1381"
             endingLineNumber = "1381"
-            landmarkName = "ShareApp(_:)"
+            landmarkName = "RateApp(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -784,7 +784,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1373"
             endingLineNumber = "1373"
-            landmarkName = "SubTitleRateApp(_:)"
+            landmarkName = "SubTitleHelpCenter(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -800,7 +800,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1365"
             endingLineNumber = "1365"
-            landmarkName = "RateApp(_:)"
+            landmarkName = "HelpCenter(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -816,7 +816,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1357"
             endingLineNumber = "1357"
-            landmarkName = "SubTitleHelpCenter(_:)"
+            landmarkName = "SubTitlePrivacyAndPolicy(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -832,7 +832,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1349"
             endingLineNumber = "1349"
-            landmarkName = "HelpCenter(_:)"
+            landmarkName = "PrivacyAndPolicy(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -848,7 +848,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1341"
             endingLineNumber = "1341"
-            landmarkName = "SubTitlePrivacyAndPolicy(_:)"
+            landmarkName = "SubTitleTermsOfServices(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -864,7 +864,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1333"
             endingLineNumber = "1333"
-            landmarkName = "PrivacyAndPolicy(_:)"
+            landmarkName = "TermsOfServices(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -880,7 +880,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1325"
             endingLineNumber = "1325"
-            landmarkName = "SubTitleTermsOfServices(_:)"
+            landmarkName = "SubTitleCheckForUpdate(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -896,7 +896,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1317"
             endingLineNumber = "1317"
-            landmarkName = "TermsOfServices(_:)"
+            landmarkName = "CheckForUpdate(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -912,7 +912,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1309"
             endingLineNumber = "1309"
-            landmarkName = "SubTitleCheckForUpdate(_:)"
+            landmarkName = "SubTitleDataSaver(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -928,7 +928,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1301"
             endingLineNumber = "1301"
-            landmarkName = "CheckForUpdate(_:)"
+            landmarkName = "DataSaver(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -944,7 +944,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1293"
             endingLineNumber = "1293"
-            landmarkName = "SubTitleDataSaver(_:)"
+            landmarkName = "SubTitleAutoPlayVideos(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -960,7 +960,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1285"
             endingLineNumber = "1285"
-            landmarkName = "DataSaver(_:)"
+            landmarkName = "AutoPlayVideos(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -976,7 +976,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1277"
             endingLineNumber = "1277"
-            landmarkName = "SubTitleAutoPlayVideos(_:)"
+            landmarkName = "AppSeetting(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -992,7 +992,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1269"
             endingLineNumber = "1269"
-            landmarkName = "AutoPlayVideos(_:)"
+            landmarkName = "SubTitleDeleteAccount(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1008,7 +1008,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1261"
             endingLineNumber = "1261"
-            landmarkName = "AppSeetting(_:)"
+            landmarkName = "DeleteAccount(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1024,7 +1024,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1253"
             endingLineNumber = "1253"
-            landmarkName = "SubTitleDeleteAccount(_:)"
+            landmarkName = "SubTitleAccountPrivacy(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1040,7 +1040,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1245"
             endingLineNumber = "1245"
-            landmarkName = "DeleteAccount(_:)"
+            landmarkName = "AccountPrivacy(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1056,7 +1056,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1237"
             endingLineNumber = "1237"
-            landmarkName = "SubTitleAccountPrivacy(_:)"
+            landmarkName = "SubTitleChangePassword(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1072,7 +1072,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1229"
             endingLineNumber = "1229"
-            landmarkName = "AccountPrivacy(_:)"
+            landmarkName = "ChangePassword(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1088,7 +1088,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1221"
             endingLineNumber = "1221"
-            landmarkName = "SubTitleChangePassword(_:)"
+            landmarkName = "SubtitleTwoFactorAuthentication(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1104,7 +1104,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1213"
             endingLineNumber = "1213"
-            landmarkName = "ChangePassword(_:)"
+            landmarkName = "TwoFactorAuthentication(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1120,7 +1120,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1205"
             endingLineNumber = "1205"
-            landmarkName = "SubtitleTwoFactorAuthentication(_:)"
+            landmarkName = "PrivacySecurity(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1136,7 +1136,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1197"
             endingLineNumber = "1197"
-            landmarkName = "TwoFactorAuthentication(_:)"
+            landmarkName = "SubTitleCurrency(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1152,7 +1152,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1189"
             endingLineNumber = "1189"
-            landmarkName = "PrivacySecurity(_:)"
+            landmarkName = "Currency(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1168,7 +1168,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1181"
             endingLineNumber = "1181"
-            landmarkName = "SubTitleCurrency(_:)"
+            landmarkName = "SubTitleBiometricLogin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1184,7 +1184,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1173"
             endingLineNumber = "1173"
-            landmarkName = "Currency(_:)"
+            landmarkName = "BiometricLogin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1200,7 +1200,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1165"
             endingLineNumber = "1165"
-            landmarkName = "SubTitleBiometricLogin(_:)"
+            landmarkName = "SubTitleLocationServices(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1216,7 +1216,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1157"
             endingLineNumber = "1157"
-            landmarkName = "BiometricLogin(_:)"
+            landmarkName = "LocationServices(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1232,7 +1232,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1149"
             endingLineNumber = "1149"
-            landmarkName = "SubTitleLocationServices(_:)"
+            landmarkName = "Preferences(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1248,7 +1248,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1141"
             endingLineNumber = "1141"
-            landmarkName = "LocationServices(_:)"
+            landmarkName = "logout(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1264,7 +1264,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1133"
             endingLineNumber = "1133"
-            landmarkName = "Preferences(_:)"
+            landmarkName = "SubTitlePaymentMethod(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1280,7 +1280,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1124"
             endingLineNumber = "1124"
-            landmarkName = "logout(_:)"
+            landmarkName = "PaymentMethod(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1296,7 +1296,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1115"
             endingLineNumber = "1115"
-            landmarkName = "SubTitlePaymentMethod(_:)"
+            landmarkName = "SubTitleNotifications(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1312,7 +1312,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1107"
             endingLineNumber = "1107"
-            landmarkName = "PaymentMethod(_:)"
+            landmarkName = "notifications(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1328,7 +1328,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1099"
             endingLineNumber = "1099"
-            landmarkName = "SubTitleNotifications(_:)"
+            landmarkName = "SubTitlePrivacy(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1344,7 +1344,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1091"
             endingLineNumber = "1091"
-            landmarkName = "notifications(_:)"
+            landmarkName = "Privacy(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1360,7 +1360,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1083"
             endingLineNumber = "1083"
-            landmarkName = "SubTitlePrivacy(_:)"
+            landmarkName = "SubtitleEditProfile(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1376,7 +1376,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1075"
             endingLineNumber = "1075"
-            landmarkName = "Privacy(_:)"
+            landmarkName = "EditProfile(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1392,7 +1392,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1067"
             endingLineNumber = "1067"
-            landmarkName = "SubtitleEditProfile(_:)"
+            landmarkName = "SubTitledarkMode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1408,7 +1408,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1059"
             endingLineNumber = "1059"
-            landmarkName = "EditProfile(_:)"
+            landmarkName = "darkMode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1424,7 +1424,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1051"
             endingLineNumber = "1051"
-            landmarkName = "SubTitledarkMode(_:)"
+            landmarkName = "SubTitlelanguage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1440,7 +1440,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1043"
             endingLineNumber = "1043"
-            landmarkName = "darkMode(_:)"
+            landmarkName = "language(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1456,7 +1456,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1035"
             endingLineNumber = "1035"
-            landmarkName = "SubTitlelanguage(_:)"
+            landmarkName = "museums(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1472,7 +1472,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1027"
             endingLineNumber = "1027"
-            landmarkName = "language(_:)"
+            landmarkName = "tombs(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1488,7 +1488,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1019"
             endingLineNumber = "1019"
-            landmarkName = "museums(_:)"
+            landmarkName = "temples(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1504,7 +1504,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1010"
             endingLineNumber = "1010"
-            landmarkName = "tombs(_:)"
+            landmarkName = "all(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1520,7 +1520,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1001"
             endingLineNumber = "1001"
-            landmarkName = "temples(_:)"
+            landmarkName = "explore(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1536,7 +1536,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "992"
             endingLineNumber = "992"
-            landmarkName = "all(_:)"
+            landmarkName = "discover(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1552,7 +1552,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "984"
             endingLineNumber = "984"
-            landmarkName = "explore(_:)"
+            landmarkName = "searchPlaces(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1568,7 +1568,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "976"
             endingLineNumber = "976"
-            landmarkName = "discover(_:)"
+            landmarkName = "settings(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1584,7 +1584,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "968"
             endingLineNumber = "968"
-            landmarkName = "searchPlaces(_:)"
+            landmarkName = "chat(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1600,7 +1600,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "960"
             endingLineNumber = "960"
-            landmarkName = "settings(_:)"
+            landmarkName = "places(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1616,7 +1616,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "951"
             endingLineNumber = "951"
-            landmarkName = "chat(_:)"
+            landmarkName = "Next(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1632,7 +1632,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "942"
             endingLineNumber = "942"
-            landmarkName = "places(_:)"
+            landmarkName = "GetStart(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1648,7 +1648,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "934"
             endingLineNumber = "934"
-            landmarkName = "Next(_:)"
+            landmarkName = "Skip(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1664,7 +1664,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "925"
             endingLineNumber = "925"
-            landmarkName = "GetStart(_:)"
+            landmarkName = "description6(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1680,7 +1680,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "917"
             endingLineNumber = "917"
-            landmarkName = "Skip(_:)"
+            landmarkName = "subtitle6(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1696,7 +1696,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "909"
             endingLineNumber = "909"
-            landmarkName = "description6(_:)"
+            landmarkName = "title6(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1712,7 +1712,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "893"
             endingLineNumber = "893"
-            landmarkName = "title6(_:)"
+            landmarkName = "subtitle5(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1728,7 +1728,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "885"
             endingLineNumber = "885"
-            landmarkName = "description5(_:)"
+            landmarkName = "title5(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1744,7 +1744,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "877"
             endingLineNumber = "877"
-            landmarkName = "subtitle5(_:)"
+            landmarkName = "description4(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1760,7 +1760,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "869"
             endingLineNumber = "869"
-            landmarkName = "title5(_:)"
+            landmarkName = "subtitle4(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1776,7 +1776,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "853"
             endingLineNumber = "853"
-            landmarkName = "subtitle4(_:)"
+            landmarkName = "description3(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1792,7 +1792,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "861"
             endingLineNumber = "861"
-            landmarkName = "description4(_:)"
+            landmarkName = "title4(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1808,7 +1808,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "845"
             endingLineNumber = "845"
-            landmarkName = "title4(_:)"
+            landmarkName = "subtitle3(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1824,7 +1824,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "837"
             endingLineNumber = "837"
-            landmarkName = "description3(_:)"
+            landmarkName = "title3(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1840,7 +1840,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "829"
             endingLineNumber = "829"
-            landmarkName = "subtitle3(_:)"
+            landmarkName = "description2(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1856,7 +1856,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "821"
             endingLineNumber = "821"
-            landmarkName = "title3(_:)"
+            landmarkName = "subtitle2(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1872,7 +1872,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "813"
             endingLineNumber = "813"
-            landmarkName = "description2(_:)"
+            landmarkName = "title2(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1888,7 +1888,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "805"
             endingLineNumber = "805"
-            landmarkName = "subtitle2(_:)"
+            landmarkName = "description1(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1904,7 +1904,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "797"
             endingLineNumber = "797"
-            landmarkName = "title2(_:)"
+            landmarkName = "subtitle1(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1920,7 +1920,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "789"
             endingLineNumber = "789"
-            landmarkName = "description1(_:)"
+            landmarkName = "And(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1936,7 +1936,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "781"
             endingLineNumber = "781"
-            landmarkName = "subtitle1(_:)"
+            landmarkName = "ByCreatingAccount(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1952,7 +1952,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "773"
             endingLineNumber = "773"
-            landmarkName = "And(_:)"
+            landmarkName = "InvalidEmailMessage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1968,7 +1968,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "765"
             endingLineNumber = "765"
-            landmarkName = "ByCreatingAccount(_:)"
+            landmarkName = "EmailAddress(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1984,7 +1984,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "757"
             endingLineNumber = "757"
-            landmarkName = "InvalidEmailMessage(_:)"
+            landmarkName = "FullNameValidationMessage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2000,7 +2000,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "749"
             endingLineNumber = "749"
-            landmarkName = "EmailAddress(_:)"
+            landmarkName = "AtLeastOneCapitalLetter(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2016,7 +2016,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "741"
             endingLineNumber = "741"
-            landmarkName = "FullNameValidationMessage(_:)"
+            landmarkName = "AtLeastEightCharacters(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2032,7 +2032,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "733"
             endingLineNumber = "733"
-            landmarkName = "AtLeastOneCapitalLetter(_:)"
+            landmarkName = "AtLeastOneSpecialCharacter(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2048,7 +2048,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "725"
             endingLineNumber = "725"
-            landmarkName = "AtLeastEightCharacters(_:)"
+            landmarkName = "PasswordRequirements(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2064,7 +2064,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "901"
             endingLineNumber = "901"
-            landmarkName = "subtitle6(_:)"
+            landmarkName = "description5(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2072,7 +2072,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "5BD7DC96-82BD-49FE-8E29-42E7B2A887BB"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Luxor-App/Localization.swift"

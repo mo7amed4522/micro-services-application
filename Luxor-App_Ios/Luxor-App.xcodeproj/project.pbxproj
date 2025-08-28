@@ -11,9 +11,6 @@
 		547B741C2E5988D9007FC831 /* GRPCCore in Frameworks */ = {isa = PBXBuildFile; productRef = 547B741B2E5988D9007FC831 /* GRPCCore */; };
 		547B741E2E5988D9007FC831 /* GRPCInProcessTransport in Frameworks */ = {isa = PBXBuildFile; productRef = 547B741D2E5988D9007FC831 /* GRPCInProcessTransport */; };
 		547B741F2E5988D9007FC831 /* GRPCProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 547B74212E5988D9007FC831 /* GRPCProtobuf */; };
-		54872A3B2E59943700D29989 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		54872A3D2E59943700D29989 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		54872A3F2E59943700D29989 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		54872AA62E599A3E00D29989 /* GRPCNIOTransportHTTP2 in Frameworks */ = {isa = PBXBuildFile; productRef = 54872AA52E599A3E00D29989 /* GRPCNIOTransportHTTP2 */; };
 		54872AA82E599A3E00D29989 /* GRPCNIOTransportHTTP2Posix in Frameworks */ = {isa = PBXBuildFile; productRef = 54872AA72E599A3E00D29989 /* GRPCNIOTransportHTTP2Posix */; };
 		54872AAA2E599A3E00D29989 /* GRPCNIOTransportHTTP2TransportServices in Frameworks */ = {isa = PBXBuildFile; productRef = 54872AA92E599A3E00D29989 /* GRPCNIOTransportHTTP2TransportServices */; };
@@ -111,7 +108,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54872A3B2E59943700D29989 /* (null) in Frameworks */,
 				548DBF262E59F47F002C8DBF /* FirebaseAuthCombine-Community in Frameworks */,
 				548DBF3E2E59F47F002C8DBF /* FirebasePerformance in Frameworks */,
 				547B741A2E5988D9007FC831 /* GRPCCodeGen in Frameworks */,
@@ -121,7 +117,6 @@
 				548DBF242E59F47F002C8DBF /* FirebaseAuth in Frameworks */,
 				548DBF1A2E59F47F002C8DBF /* FirebaseAnalytics in Frameworks */,
 				547B741C2E5988D9007FC831 /* GRPCCore in Frameworks */,
-				54872A3D2E59943700D29989 /* (null) in Frameworks */,
 				548DBF282E59F47F002C8DBF /* FirebaseCore in Frameworks */,
 				54872AA82E599A3E00D29989 /* GRPCNIOTransportHTTP2Posix in Frameworks */,
 				548DBF402E59F47F002C8DBF /* FirebaseRemoteConfig in Frameworks */,
@@ -142,7 +137,6 @@
 				548DBF2A2E59F47F002C8DBF /* FirebaseCrashlytics in Frameworks */,
 				548DBF202E59F47F002C8DBF /* FirebaseAppCheck in Frameworks */,
 				548DBF3C2E59F47F002C8DBF /* FirebaseMessaging in Frameworks */,
-				54872A3F2E59943700D29989 /* (null) in Frameworks */,
 				548DBF3A2E59F47F002C8DBF /* FirebaseMLModelDownloader in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,14 +526,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Luxor-App/Luxor-App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_FirebaseAppDelegateProxyEnabled = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to camera to take profile photos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to photo library to select profile photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = "remote-notification";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -561,14 +558,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Luxor-App/Luxor-App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_FirebaseAppDelegateProxyEnabled = NO;
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs access to camera to take profile photos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs access to photo library to select profile photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UIBackgroundModes = "remote-notification";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -594,7 +594,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eng.khaled.Luxor-AppTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eng.khaled.Luxor-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -612,7 +612,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eng.khaled.Luxor-AppTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eng.khaled.Luxor-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -628,7 +628,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eng.khaled.Luxor-AppUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eng.khaled.Luxor-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -644,7 +644,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eng.khaled.Luxor-AppUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eng.khaled.Luxor-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;

@@ -10,16 +10,15 @@ class LoginViewModel: ObservableObject {
     @EnvironmentObject var languageManager: LanguageManager
     
     private let authUseCase: AuthUseCase
-    private let authState: AuthState
+    private var authState: AuthState?
     private var cancellables = Set<AnyCancellable>()
     
   
     @Published var appleSignInCoordinator: AppleSignInCoordinator?
     @Published var googleSignInCoordinator: GoogleSignInCoordinator?
     
-    init(authUseCase: AuthUseCase, authState: AuthState) {
+    init(authUseCase: AuthUseCase) {
         self.authUseCase = authUseCase
-        self.authState = authState
     }
     
     var isFormValid: Bool {
@@ -49,26 +48,26 @@ class LoginViewModel: ObservableObject {
         validateFields()
         
         guard isFormValid else {
-            authState.showErrorToast(LocalizedStrings.fillAllFieldsCorrectly(languageManager.currentLanguage))
+            authState?.showErrorToast(LocalizedStrings.fillAllFieldsCorrectly(languageManager.currentLanguage))
             return
         }
-        authState.setLoading(true)
+        authState?.setLoading(true)
         authUseCase.login(email: email, password: password)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
                 guard let self = self else { return }
                 
-                self.authState.setLoading(false)
+                self.authState?.setLoading(false)
                 
                 if result.isSuccess {
                     if let user = result.user, let tokens = result.tokens {
-                        self.authState.login(user: user, tokens: tokens)
-                        self.authState.showSuccessToast("Welcome back, \(user.fullName)!")
+                        self.authState?.login(user: user, tokens: tokens)
+                        self.authState?.showSuccessToast("Welcome back, \(user.fullName)!")
                         self.clearForm()
                     }
                 } else {
                     let errorMsg = result.errorMessage ?? "Login failed. Please try again."
-                    self.authState.showErrorToast(errorMsg)
+                    self.authState?.showErrorToast(errorMsg)
                 }
             }
             .store(in: &cancellables)
@@ -83,6 +82,7 @@ class LoginViewModel: ObservableObject {
     
     @MainActor
     func updateAuthState(_ newAuthState: AuthState) {
+        self.authState = newAuthState
         let grpcClient = DIContainer.shared.grpcClient
         self.appleSignInCoordinator = AppleSignInCoordinator(
             grpcClient: grpcClient,
@@ -97,7 +97,7 @@ class LoginViewModel: ObservableObject {
     @MainActor
     func signInWithApple() {
         guard let coordinator = appleSignInCoordinator else {
-            authState.showErrorToast(LocalizedStrings.appleSignInFailed(languageManager.currentLanguage))
+            authState?.showErrorToast(LocalizedStrings.appleSignInFailed(languageManager.currentLanguage))
             return
         }
         coordinator.signIn { [weak self] isLoading in
@@ -108,7 +108,7 @@ class LoginViewModel: ObservableObject {
     @MainActor
     func signInWithGoogle() {
         guard let coordinator = googleSignInCoordinator else {
-            authState.showErrorToast(LocalizedStrings.googleSignInNotAvailable(languageManager.currentLanguage))
+            authState?.showErrorToast(LocalizedStrings.googleSignInNotAvailable(languageManager.currentLanguage))
             return
         }
         coordinator.signIn { [weak self] isLoading in

@@ -44,7 +44,7 @@ func NewS3Client() (*S3Client, error) {
 			Credentials: credentials.NewStaticCredentials(
 				accessKey,
 				secretKey,
-				"", // token
+				"",
 			),
 		})
 	} else {
