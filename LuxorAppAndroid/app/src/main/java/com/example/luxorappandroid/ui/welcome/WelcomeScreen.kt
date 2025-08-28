@@ -42,7 +42,7 @@ fun WelcomeScreen(
     val pagerState = rememberPagerState(pageCount = { pages.size })
     val scope = rememberCoroutineScope()
     var showContent by remember { mutableStateOf(false) }
-    var backgroundScale by remember { mutableStateOf(1.0f) }
+    var backgroundScale by remember { mutableFloatStateOf(1.0f) }
     
     LaunchedEffect(Unit) {
         showContent = true
@@ -64,12 +64,9 @@ fun WelcomeScreen(
             WelcomePage(
                 pageData = pages[page],
                 pageIndex = page,
-                totalPages = pages.size,
                 backgroundScale = backgroundScale
             )
         }
-        
-        // Skip button (top right)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,7 +79,6 @@ fun WelcomeScreen(
                 animationSpec = spring(dampingRatio = 0.8f, stiffness = 600f),
                 label = "skipAlpha"
             )
-            
             Button(
                 onClick = onSkipClick,
                 colors = ButtonDefaults.buttonColors(
@@ -101,8 +97,6 @@ fun WelcomeScreen(
                 )
             }
         }
-        
-        // Bottom controls
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -110,13 +104,11 @@ fun WelcomeScreen(
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Page indicators
             val indicatorAlpha by animateFloatAsState(
                 targetValue = if (showContent) 1f else 0f,
                 animationSpec = spring(dampingRatio = 0.8f, stiffness = 600f),
                 label = "indicatorAlpha"
             )
-            
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier
@@ -130,7 +122,6 @@ fun WelcomeScreen(
                         animationSpec = spring(dampingRatio = 0.6f, stiffness = 400f),
                         label = "indicatorWidth"
                     )
-                    
                     Box(
                         modifier = Modifier
                             .size(width = animatedWidth.dp, height = animatedWidth.dp)
@@ -142,16 +133,12 @@ fun WelcomeScreen(
                     )
                 }
             }
-            
-            // Next/Get Started button
             val buttonAlpha by animateFloatAsState(
                 targetValue = if (showContent) 1f else 0f,
                 animationSpec = spring(dampingRatio = 0.8f, stiffness = 600f),
                 label = "buttonAlpha"
             )
-            
             var isAnimating by remember { mutableStateOf(false) }
-            
             Button(
                 onClick = {
                     isAnimating = true
@@ -213,12 +200,11 @@ fun WelcomeScreen(
 fun WelcomePage(
     pageData: WelcomePageData,
     pageIndex: Int,
-    totalPages: Int,
     backgroundScale: Float = 1.0f
 ) {
     val configuration = LocalConfiguration.current
-    val screenHeight = configuration.screenHeightDp.dp
-    val screenWidth = configuration.screenWidthDp.dp
+    configuration.screenHeightDp.dp
+    configuration.screenWidthDp.dp
     
     var showContent by remember { mutableStateOf(false) }
     
@@ -231,7 +217,6 @@ fun WelcomePage(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        // Full-screen background image
         Image(
             painter = painterResource(id = pageData.image),
             contentDescription = null,
@@ -244,8 +229,6 @@ fun WelcomePage(
                 },
             contentScale = ContentScale.Crop
         )
-        
-        // Dark overlay for better text readability
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -261,14 +244,10 @@ fun WelcomePage(
                     )
                 )
         )
-        
-        // Animated particles effect
         AnimatedParticles(
             modifier = Modifier.fillMaxSize(),
             particleCount = 20
         )
-        
-        // Content overlay
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -306,9 +285,7 @@ fun WelcomePage(
                     fontSize = 32.sp,
                     lineHeight = 38.sp
                 )
-                
                 Spacer(modifier = Modifier.height(16.dp))
-                
                 Text(
                     text = pageData.subtitle,
                     style = MaterialTheme.typography.titleLarge,
@@ -318,9 +295,7 @@ fun WelcomePage(
                     fontSize = 20.sp,
                     lineHeight = 26.sp
                 )
-                
                 Spacer(modifier = Modifier.height(20.dp))
-                
                 Text(
                     text = pageData.description,
                     style = MaterialTheme.typography.bodyLarge,
@@ -351,21 +326,17 @@ fun AnimatedParticles(
             )
         }
     }
-    
-    var animationTime by remember { mutableStateOf(0f) }
-    
+    var animationTime by remember { mutableFloatStateOf(0f) }
     LaunchedEffect(Unit) {
         while (true) {
-            animationTime += 0.016f // ~60fps
+            animationTime += 0.016f
             kotlinx.coroutines.delay(16)
         }
     }
-    
     Canvas(modifier = modifier) {
         particles.forEach { particle ->
             val currentY = (particle.y + animationTime * particle.speed) % 1f
             val currentX = particle.x + sin(animationTime * 2f + particle.y * 10f) * 0.1f
-            
             drawCircle(
                 color = LuxorColors.pureGold.copy(alpha = particle.alpha),
                 radius = particle.size,
