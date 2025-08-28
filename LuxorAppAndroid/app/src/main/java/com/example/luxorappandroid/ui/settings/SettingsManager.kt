@@ -11,9 +11,7 @@ class SettingsManager(private val context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences("luxor_settings", Context.MODE_PRIVATE)
     
 
-    private val _isDarkMode = mutableStateOf(prefs.getBoolean("isDarkMode", false))
-    val isDarkMode: State<Boolean> = _isDarkMode
-    
+
 
     private val _selectedLanguage = mutableStateOf(prefs.getString("selectedLanguage", "English") ?: "English")
     val selectedLanguage: State<String> = _selectedLanguage
@@ -29,18 +27,7 @@ class SettingsManager(private val context: Context) {
 
     private val _locationEnabled = mutableStateOf(prefs.getBoolean("locationEnabled", true))
     val locationEnabled: State<Boolean> = _locationEnabled
-    
-    fun toggleTheme() {
-        val newValue = !_isDarkMode.value
-        _isDarkMode.value = newValue
-        prefs.edit { putBoolean("isDarkMode", newValue) }
-    }
-    
-    fun setDarkMode(enabled: Boolean) {
-        _isDarkMode.value = enabled
-        prefs.edit { putBoolean("isDarkMode", enabled) }
-    }
-    
+
     fun setLanguage(language: String) {
         _selectedLanguage.value = language
         prefs.edit { putString("selectedLanguage", language) }
@@ -80,15 +67,7 @@ class SettingsManager(private val context: Context) {
     companion object {
         val supportedLanguages = listOf("English", "Arabic", "French", "Chinese")
         val supportedCurrencies = listOf("USD", "EUR", "EGP", "GBP")
-        
-        fun getLanguageCode(language: String): String {
-            return when (language) {
-                "Arabic" -> "ar"
-                "French" -> "fr"
-                "Chinese" -> "zh"
-                else -> "en"
-            }
-        }
+
     }
 }
 
