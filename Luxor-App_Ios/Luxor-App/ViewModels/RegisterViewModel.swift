@@ -221,7 +221,8 @@ class RegisterViewModel: ObservableObject {
     private func uploadProfilePhoto() async throws {
         guard let image = profileImage,
               let imageData = image.jpegData(compressionQuality: 0.8) else {
-            throw RegistrationError.invalidPhoto
+            let currentLang = languageManager?.currentLanguage ?? .english
+            throw RegistrationError.invalidPhoto(currentLang)
         }
         let fileName = "profile_\(UUID().uuidString).jpg"
         let tempUserId = UUID().uuidString
@@ -237,9 +238,11 @@ class RegisterViewModel: ObservableObject {
             uploadedPhotoURL = uploadSuccess.fileURL
             isPhotoUploaded = true
         } else if case .error(let errorDetails) = response.result {
-            throw RegistrationError.uploadFailed(errorDetails.message)
+            let currentLang = languageManager?.currentLanguage ?? .english
+            throw RegistrationError.uploadFailed(errorDetails.message, currentLang)
         } else {
-            throw RegistrationError.uploadFailed(LocalizedStrings.unknownUploadError(languageManager!.currentLanguage))
+            let currentLang = languageManager?.currentLanguage ?? .english
+            throw RegistrationError.uploadFailed(LocalizedStrings.unknownUploadError(currentLang), currentLang)
         }
     }
     private func createUser() async throws {
@@ -256,9 +259,9 @@ class RegisterViewModel: ObservableObject {
            case .user(let user) = response.result {
             print("\(LocalizedStrings.userCreatedWithID(currentLang)) \(user.id)")
         } else if case .error(let errorDetails) = response.result {
-            throw RegistrationError.userCreationFailed(errorDetails.message)
+            throw RegistrationError.userCreationFailed(errorDetails.message, currentLang)
         } else {
-            throw RegistrationError.userCreationFailed(LocalizedStrings.unknownUserCreationError(currentLang))
+            throw RegistrationError.userCreationFailed(LocalizedStrings.unknownUserCreationError(currentLang), currentLang)
         }
     }
     private func showSuccessAndVerificationOptions() {
@@ -359,21 +362,21 @@ class RegisterViewModel: ObservableObject {
 }
 
 enum RegistrationError: LocalizedError {
-    case invalidPhoto
-    case uploadFailed(String)
-    case userCreationFailed(String)
-    case invalidUserResponse
+    case invalidPhoto(SupportedLanguage)
+    case uploadFailed(String, SupportedLanguage)
+    case userCreationFailed(String, SupportedLanguage)
+    case invalidUserResponse(SupportedLanguage)
     
     var errorDescription: String? {
         switch self {
-        case .invalidPhoto:
-            return "Invalid photo selected"
-        case .uploadFailed(let message):
-            return "Photo upload failed: \(message)"
-        case .userCreationFailed(let message):
-            return "User creation failed: \(message)"
-        case .invalidUserResponse:
-            return "Invalid user response from server"
+        case .invalidPhoto(let language):
+            return LocalizedStrings.invalidPhotoSelected(language)
+        case .uploadFailed(let message, let language):
+            return "\(LocalizedStrings.photoUploadFailed(language)) \(message)"
+        case .userCreationFailed(let message, let language):
+            return "\(LocalizedStrings.userCreationFailed(language)) \(message)"
+        case .invalidUserResponse(let language):
+            return LocalizedStrings.invalidUserResponse(language)
         }
     }
 }
@@ -382,11 +385,11 @@ enum VerificationMethod: String, CaseIterable {
     case sms = "sms"
     case whatsapp = "whatsapp"
     
-    var displayName: String {
+    func displayName(_ language: SupportedLanguage) -> String {
         switch self {
-        case .email: return "Email"
-        case .sms: return "SMS"
-        case .whatsapp: return "WhatsApp"
+        case .email: return LocalizedStrings.email(language)
+        case .sms: return LocalizedStrings.sms(language)
+        case .whatsapp: return LocalizedStrings.whatsapp(language)
         }
     }
     

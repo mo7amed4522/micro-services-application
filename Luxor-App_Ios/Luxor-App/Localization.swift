@@ -493,6 +493,22 @@ struct LocalizedStrings {
         case .chinese: return "邮箱"
         }
     }
+    static func sms(_ language: SupportedLanguage) -> String {
+        switch language {
+        case .english: return "SMS"
+        case .arabic: return "رسالة نصية"
+        case .french: return "SMS"
+        case .chinese: return "短信"
+        }
+    }
+    static func whatsapp(_ language: SupportedLanguage) -> String {
+        switch language {
+        case .english: return "WhatsApp"
+        case .arabic: return "واتساب"
+        case .french: return "WhatsApp"
+        case .chinese: return "WhatsApp"
+        }
+    }
     static func password(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Password"
