@@ -56,12 +56,7 @@ struct LoginView: View {
                 }
                 .padding(.top, 60)
                 .padding(.bottom, 32)
-                .background(
-                    (themeManager.isDarkMode
-                        ? LuxorColors.Dark.background
-                        : LuxorColors.Light.background)
-                        .ignoresSafeArea(.all, edges: .top)
-                )
+            
                 ScrollView {
                     VStack(spacing: 24) {
                         loginForm

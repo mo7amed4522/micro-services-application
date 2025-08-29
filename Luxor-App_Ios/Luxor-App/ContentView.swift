@@ -17,6 +17,7 @@ struct ContentView: View {
     )
 
     var body: some View {
+        
         Group {
             if showSplash {
                 SplashScreenView {
@@ -36,6 +37,7 @@ struct ContentView: View {
                 }
             } else if authState.isAuthenticated {
                 MainTabView()
+               
             } else {
                 LoginView()
             }

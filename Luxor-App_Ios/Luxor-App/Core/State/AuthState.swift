@@ -5,9 +5,9 @@
 //  Created by Assistant on $(date)
 //
 
+import Combine
 import Foundation
 import SwiftUI
-import Combine
 
 class AuthState: ObservableObject {
     @Published var isAuthenticated: Bool = false
@@ -18,13 +18,13 @@ class AuthState: ObservableObject {
     @Published var showToast: Bool = false
     @Published var toastMessage: String = ""
     @Published var toastType: ToastType = .success
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
+
     init() {
         loadStoredAuthData()
     }
-    
+
     func login(user: User, tokens: AuthTokens) {
         DispatchQueue.main.async {
             self.currentUser = user
@@ -33,7 +33,7 @@ class AuthState: ObservableObject {
             self.saveAuthData(user: user, token: tokens.accessToken)
         }
     }
-    
+
     func logout() {
         DispatchQueue.main.async {
             self.currentUser = nil
@@ -42,19 +42,19 @@ class AuthState: ObservableObject {
             self.clearStoredAuthData()
         }
     }
-    
+
     func setLoading(_ loading: Bool) {
         DispatchQueue.main.async {
             self.isLoading = loading
         }
     }
-    
+
     func setError(_ message: String?) {
         DispatchQueue.main.async {
             self.errorMessage = message
         }
     }
-    
+
     func showSuccessToast(_ message: String) {
         DispatchQueue.main.async {
             self.toastMessage = message
@@ -62,7 +62,7 @@ class AuthState: ObservableObject {
             self.showToast = true
         }
     }
-    
+
     func showErrorToast(_ message: String) {
         DispatchQueue.main.async {
             self.toastMessage = message
@@ -70,30 +70,31 @@ class AuthState: ObservableObject {
             self.showToast = true
         }
     }
-    
+
     func hideToast() {
         DispatchQueue.main.async {
             self.showToast = false
         }
     }
-    
+
     private func saveAuthData(user: User, token: String) {
         UserDefaults.standard.set(token, forKey: "access_token")
         if let userData = try? JSONEncoder().encode(user) {
             UserDefaults.standard.set(userData, forKey: "user_data")
         }
     }
-    
+
     private func loadStoredAuthData() {
         if let token = UserDefaults.standard.string(forKey: "access_token"),
-           let userData = UserDefaults.standard.data(forKey: "user_data"),
-           let user = try? JSONDecoder().decode(User.self, from: userData) {
+            let userData = UserDefaults.standard.data(forKey: "user_data"),
+            let user = try? JSONDecoder().decode(User.self, from: userData)
+        {
             self.accessToken = token
             self.currentUser = user
             self.isAuthenticated = true
         }
     }
-    
+
     private func clearStoredAuthData() {
         UserDefaults.standard.removeObject(forKey: "access_token")
         UserDefaults.standard.removeObject(forKey: "user_data")
@@ -104,7 +105,7 @@ enum ToastType {
     case success
     case error
     case info
-    
+
     var color: Color {
         switch self {
         case .success:
@@ -115,7 +116,7 @@ enum ToastType {
             return .blue
         }
     }
-    
+
     var icon: String {
         switch self {
         case .success:
