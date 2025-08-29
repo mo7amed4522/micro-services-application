@@ -11,24 +11,24 @@ struct ToastView: View {
     let message: String
     let type: ToastType
     let onDismiss: () -> Void
-    
+
     @State private var offset: CGFloat = 100
     @State private var opacity: Double = 0
     @EnvironmentObject var languageManager: LanguageManager
-    
+
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: type.icon)
                 .foregroundColor(.white)
                 .font(.system(size: 16, weight: .semibold))
-            
+
             Text(message)
                 .foregroundColor(.white)
                 .font(.system(size: 14, weight: .medium))
                 .multilineTextAlignment(.leading)
-            
+
             Spacer()
-            
+
             Button(action: dismissToast) {
                 Image(systemName: "xmark")
                     .foregroundColor(.white.opacity(0.8))
@@ -55,20 +55,24 @@ struct ToastView: View {
             }
         }
     }
-    
+
     private func showToast() {
-        withAnimation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0)) {
+        withAnimation(
+            .spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0)
+        ) {
             offset = 0
             opacity = 1
         }
     }
-    
+
     private func dismissToast() {
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8, blendDuration: 0)) {
+        withAnimation(
+            .spring(response: 0.4, dampingFraction: 0.8, blendDuration: 0)
+        ) {
             offset = 100
             opacity = 0
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             onDismiss()
         }
@@ -77,13 +81,13 @@ struct ToastView: View {
 
 struct ToastModifier: ViewModifier {
     @EnvironmentObject var authState: AuthState
-    
+
     func body(content: Content) -> some View {
         content
             .overlay(
                 VStack {
                     Spacer()
-                    
+
                     if authState.showToast {
                         ToastView(
                             message: authState.toastMessage,
@@ -109,7 +113,7 @@ extension View {
 #Preview {
     VStack {
         Spacer()
-        
+
         ToastView(
             message: "Login successful! Welcome back.",
             type: ToastType.success
@@ -121,5 +125,5 @@ extension View {
     }
     .background(Color.gray.opacity(0.1))
     .environmentObject(LanguageManager())
-    
+
 }

@@ -1,20 +1,26 @@
-import SwiftUI
 import Foundation
+import SwiftUI
 
-// MARK: - Language Manager
 class LanguageManager: ObservableObject {
     @Published var currentLanguage: SupportedLanguage = .english {
         didSet {
-            UserDefaults.standard.set(currentLanguage.rawValue, forKey: "selectedLanguage")
+            UserDefaults.standard.set(
+                currentLanguage.rawValue,
+                forKey: "selectedLanguage"
+            )
         }
     }
-    
+
     init() {
-        if let savedLanguage = UserDefaults.standard.string(forKey: "selectedLanguage"),
-           let language = SupportedLanguage(rawValue: savedLanguage) {
+        if let savedLanguage = UserDefaults.standard.string(
+            forKey: "selectedLanguage"
+        ),
+            let language = SupportedLanguage(rawValue: savedLanguage)
+        {
             self.currentLanguage = language
         } else {
-            let systemLanguage = Locale.current.language.languageCode?.identifier ?? "en"
+            let systemLanguage =
+                Locale.current.language.languageCode?.identifier ?? "en"
             switch systemLanguage {
             case "ar":
                 self.currentLanguage = .arabic
@@ -27,7 +33,7 @@ class LanguageManager: ObservableObject {
             }
         }
     }
-    
+
     func changeLanguage(to language: SupportedLanguage) {
         currentLanguage = language
     }
@@ -38,7 +44,7 @@ enum SupportedLanguage: String, CaseIterable {
     case arabic = "ar"
     case french = "fr"
     case chinese = "zh"
-    
+
     var displayName: String {
         switch self {
         case .english: return "English"
@@ -47,7 +53,7 @@ enum SupportedLanguage: String, CaseIterable {
         case .chinese: return "中文"
         }
     }
-    
+
     var flag: String {
         switch self {
         case .english: return "🇺🇸"
@@ -56,7 +62,7 @@ enum SupportedLanguage: String, CaseIterable {
         case .chinese: return "🇨🇳"
         }
     }
-    
+
     var isRTL: Bool {
         return self == .arabic
     }
@@ -71,7 +77,7 @@ struct LocalizedStrings {
         case .chinese: return "欢迎来到卢克索"
         }
     }
-    
+
     static func welcomeSubtitle(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Journey Through Time"
@@ -81,24 +87,29 @@ struct LocalizedStrings {
         }
     }
     static func authenticating(_ language: SupportedLanguage) -> String {
-    switch language {
-    case .english: return "Authenticating..."
-    case .arabic: return "جارٍ التحقق..."
-    case .french: return "Authentification..."
-    case .chinese: return "正在验证..."
+        switch language {
+        case .english: return "Authenticating..."
+        case .arabic: return "جارٍ التحقق..."
+        case .french: return "Authentification..."
+        case .chinese: return "正在验证..."
+        }
     }
-}
-    
+
     static func welcomeDescription(_ language: SupportedLanguage) -> String {
         switch language {
-        case .english: return "Discover the ancient wonders and timeless beauty of Luxor, where history comes alive."
-        case .arabic: return "اكتشف عجائب الأقصر القديمة وجمالها الخالد، حيث يحيا التاريخ."
-        case .french: return "Découvrez les merveilles antiques et la beauté intemporelle de Louxor, où l'histoire prend vie."
+        case .english:
+            return
+                "Discover the ancient wonders and timeless beauty of Luxor, where history comes alive."
+        case .arabic:
+            return
+                "اكتشف عجائب الأقصر القديمة وجمالها الخالد، حيث يحيا التاريخ."
+        case .french:
+            return
+                "Découvrez les merveilles antiques et la beauté intemporelle de Louxor, où l'histoire prend vie."
         case .chinese: return "探索卢克索的古代奇迹和永恒之美，在这里历史重现生机。"
         }
     }
-    
-    
+
     static func next(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Next"
@@ -108,13 +119,13 @@ struct LocalizedStrings {
         }
     }
     static func enterValidEmail(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Please enter a valid email address"
-            case .arabic: return "الرجاء إدخال عنوان بريد إلكتروني صالح"
-            case .french: return "Veuillez entrer une adresse e-mail valide"
-            case .chinese: return "请输入有效的电子邮件地址"
-            }
+        switch language {
+        case .english: return "Please enter a valid email address"
+        case .arabic: return "الرجاء إدخال عنوان بريد إلكتروني صالح"
+        case .french: return "Veuillez entrer une adresse e-mail valide"
+        case .chinese: return "请输入有效的电子邮件地址"
         }
+    }
     static func invalidPhotoSelected(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Invalid photo selected"
@@ -123,7 +134,7 @@ struct LocalizedStrings {
         case .chinese: return "已选择无效的照片"
         }
     }
-    
+
     static func photoUploadFailed(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Photo upload failed:"
@@ -132,7 +143,7 @@ struct LocalizedStrings {
         case .chinese: return "照片上传失败："
         }
     }
-    
+
     static func userCreationFailed(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "User creation failed:"
@@ -141,7 +152,7 @@ struct LocalizedStrings {
         case .chinese: return "用户创建失败："
         }
     }
-    
+
     static func invalidUserResponse(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Invalid user response from server"
@@ -150,7 +161,7 @@ struct LocalizedStrings {
         case .chinese: return "服务器返回无效的用户响应"
         }
     }
-    
+
     static func fullNameRequired(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Full name is required"
@@ -159,16 +170,17 @@ struct LocalizedStrings {
         case .chinese: return "需要填写全名"
         }
     }
-    
+
     static func fullNameMinLength(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Full name must be at least 2 characters"
         case .arabic: return "يجب أن يتكون الاسم الكامل من حرفين على الأقل"
-        case .french: return "Le nom complet doit comporter au moins 2 caractères"
+        case .french:
+            return "Le nom complet doit comporter au moins 2 caractères"
         case .chinese: return "全名至少需要2个字符"
         }
     }
-    
+
     static func emailRequired(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Email is required"
@@ -177,7 +189,7 @@ struct LocalizedStrings {
         case .chinese: return "需要邮箱"
         }
     }
-    
+
     static func validEmailRequired(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Please enter a valid email address"
@@ -186,7 +198,7 @@ struct LocalizedStrings {
         case .chinese: return "请输入有效的电子邮件地址"
         }
     }
-    
+
     static func passwordRequired(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Password is required"
@@ -195,25 +207,31 @@ struct LocalizedStrings {
         case .chinese: return "需要密码"
         }
     }
-    
+
     static func passwordUppercase(_ language: SupportedLanguage) -> String {
         switch language {
-        case .english: return "Password must contain at least one uppercase letter"
-        case .arabic: return "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل"
-        case .french: return "Le mot de passe doit contenir au moins une lettre majuscule"
+        case .english:
+            return "Password must contain at least one uppercase letter"
+        case .arabic:
+            return "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل"
+        case .french:
+            return "Le mot de passe doit contenir au moins une lettre majuscule"
         case .chinese: return "密码必须至少包含一个大写字母"
         }
     }
-    
+
     static func passwordLowercase(_ language: SupportedLanguage) -> String {
         switch language {
-        case .english: return "Password must contain at least one lowercase letter"
-        case .arabic: return "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل"
-        case .french: return "Le mot de passe doit contenir au moins une lettre minuscule"
+        case .english:
+            return "Password must contain at least one lowercase letter"
+        case .arabic:
+            return "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل"
+        case .french:
+            return "Le mot de passe doit contenir au moins une lettre minuscule"
         case .chinese: return "密码必须至少包含一个小写字母"
         }
     }
-    
+
     static func passwordNumber(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Password must contain at least one number"
@@ -222,8 +240,9 @@ struct LocalizedStrings {
         case .chinese: return "密码必须至少包含一个数字"
         }
     }
-    
-    static func confirmPasswordRequired(_ language: SupportedLanguage) -> String {
+
+    static func confirmPasswordRequired(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "Please confirm your password"
         case .arabic: return "الرجاء تأكيد كلمة المرور"
@@ -231,7 +250,7 @@ struct LocalizedStrings {
         case .chinese: return "请确认您的密码"
         }
     }
-    
+
     static func passwordsDoNotMatch(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Passwords do not match"
@@ -240,7 +259,7 @@ struct LocalizedStrings {
         case .chinese: return "密码不匹配"
         }
     }
-    
+
     static func phoneNumberRequired(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Phone number is required"
@@ -249,8 +268,10 @@ struct LocalizedStrings {
         case .chinese: return "需要电话号码"
         }
     }
-    
-    static func validPhoneNumberRequired(_ language: SupportedLanguage) -> String {
+
+    static func validPhoneNumberRequired(_ language: SupportedLanguage)
+        -> String
+    {
         switch language {
         case .english: return "Please enter a valid phone number"
         case .arabic: return "الرجاء إدخال رقم هاتف صالح"
@@ -258,7 +279,7 @@ struct LocalizedStrings {
         case .chinese: return "请输入有效的电话号码"
         }
     }
-    
+
     static func profilePhotoRequired(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Profile photo is required"
@@ -267,7 +288,7 @@ struct LocalizedStrings {
         case .chinese: return "需要个人资料照片"
         }
     }
-    
+
     static func failedToLoadPhoto(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Failed to load selected photo:"
@@ -276,8 +297,9 @@ struct LocalizedStrings {
         case .chinese: return "无法加载所选照片："
         }
     }
-    
-    static func registrationSuccessful(_ language: SupportedLanguage) -> String {
+
+    static func registrationSuccessful(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "Registration successful!"
         case .arabic: return "تم التسجيل بنجاح!"
@@ -285,16 +307,20 @@ struct LocalizedStrings {
         case .chinese: return "注册成功！"
         }
     }
-    
-    static func registrationSuccessfulWithVerification(_ language: SupportedLanguage) -> String {
+
+    static func registrationSuccessfulWithVerification(
+        _ language: SupportedLanguage
+    ) -> String {
         switch language {
-        case .english: return "Registration successful! Please verify your account."
+        case .english:
+            return "Registration successful! Please verify your account."
         case .arabic: return "تم التسجيل بنجاح! يرجى التحقق من حسابك."
-        case .french: return "Inscription réussie ! Veuillez vérifier votre compte."
+        case .french:
+            return "Inscription réussie ! Veuillez vérifier votre compte."
         case .chinese: return "注册成功！请验证您的账户。"
         }
     }
-    
+
     static func registrationFailed(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Registration failed:"
@@ -303,8 +329,9 @@ struct LocalizedStrings {
         case .chinese: return "注册失败："
         }
     }
-    
-    static func verificationCodeSentVia(_ language: SupportedLanguage) -> String {
+
+    static func verificationCodeSentVia(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "Verification code sent via"
         case .arabic: return "تم إرسال رمز التحقق عبر"
@@ -312,8 +339,10 @@ struct LocalizedStrings {
         case .chinese: return "验证码已发送至"
         }
     }
-    
-    static func failedToSendVerificationCode(_ language: SupportedLanguage) -> String {
+
+    static func failedToSendVerificationCode(_ language: SupportedLanguage)
+        -> String
+    {
         switch language {
         case .english: return "Failed to send verification code"
         case .arabic: return "فشل إرسال رمز التحقق"
@@ -321,8 +350,10 @@ struct LocalizedStrings {
         case .chinese: return "发送验证码失败"
         }
     }
-    
-    static func errorSendingVerificationCode(_ language: SupportedLanguage) -> String {
+
+    static func errorSendingVerificationCode(_ language: SupportedLanguage)
+        -> String
+    {
         switch language {
         case .english: return "Error sending verification code:"
         case .arabic: return "خطأ في إرسال رمز التحقق:"
@@ -330,7 +361,7 @@ struct LocalizedStrings {
         case .chinese: return "发送验证码时出错："
         }
     }
-    
+
     static func unknownUploadError(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Unknown upload error"
@@ -339,7 +370,7 @@ struct LocalizedStrings {
         case .chinese: return "未知上传错误"
         }
     }
-    
+
     static func userCreatedWithID(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "User created with ID:"
@@ -348,33 +379,41 @@ struct LocalizedStrings {
         case .chinese: return "用户已创建，ID："
         }
     }
-    
-    static func unknownUserCreationError(_ language: SupportedLanguage) -> String {
+
+    static func unknownUserCreationError(_ language: SupportedLanguage)
+        -> String
+    {
         switch language {
         case .english: return "Unknown user creation error"
         case .arabic: return "خطأ غير معروف في إنشاء المستخدم"
-        case .french: return "Erreur inconnue lors de la création de l'utilisateur"
+        case .french:
+            return "Erreur inconnue lors de la création de l'utilisateur"
         case .chinese: return "未知的用户创建错误"
         }
     }
     static func enterVerificationCode(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Please enter the verification code"
-            case .arabic: return "الرجاء إدخال رمز التحقق"
-            case .french: return "Veuillez entrer le code de vérification"
-            case .chinese: return "请输入验证码"
-            }
+        switch language {
+        case .english: return "Please enter the verification code"
+        case .arabic: return "الرجاء إدخال رمز التحقق"
+        case .french: return "Veuillez entrer le code de vérification"
+        case .chinese: return "请输入验证码"
         }
-        
-    static func verificationCodeLength(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Verification code must be at least 4 characters"
-            case .arabic: return "يجب أن يتكون رمز التحقق من 4 أحرف على الأقل"
-            case .french: return "Le code de vérification doit comporter au moins 4 caractères"
-            case .chinese: return "验证码必须至少包含4个字符"
-            }
+    }
+
+    static func verificationCodeLength(_ language: SupportedLanguage) -> String
+    {
+        switch language {
+        case .english: return "Verification code must be at least 4 characters"
+        case .arabic: return "يجب أن يتكون رمز التحقق من 4 أحرف على الأقل"
+        case .french:
+            return
+                "Le code de vérification doit comporter au moins 4 caractères"
+        case .chinese: return "验证码必须至少包含4个字符"
         }
-    static func googleSignInNotAvailable(_ language: SupportedLanguage) -> String {
+    }
+    static func googleSignInNotAvailable(_ language: SupportedLanguage)
+        -> String
+    {
         switch language {
         case .english: return "Google Sign In not available"
         case .arabic: return "تسجيل الدخول عبر جوجل غير متاح"
@@ -382,7 +421,8 @@ struct LocalizedStrings {
         case .chinese: return "Google 登录不可用"
         }
     }
-    static func fillAllFieldsCorrectly(_ language: SupportedLanguage) -> String {
+    static func fillAllFieldsCorrectly(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "Please fill in all fields correctly"
         case .arabic: return "الرجاء تعبئة جميع الحقول بشكل صحيح"
@@ -391,7 +431,8 @@ struct LocalizedStrings {
         }
     }
 
-    static func appleSignInNotAvailable(_ language: SupportedLanguage) -> String {
+    static func appleSignInNotAvailable(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "Apple Sign In not available"
         case .arabic: return "تسجيل الدخول عبر أبل غير متاح"
@@ -400,58 +441,65 @@ struct LocalizedStrings {
         }
     }
     static func passwordRequirements(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Password must be at least 8 characters with uppercase, and special character"
-            case .arabic: return "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل مع حرف كبير ورمز خاص"
-            case .french: return "Le mot de passe doit contenir au moins 8 caractères, une majuscule et un caractère spécial"
-            case .chinese: return "密码必须至少8个字符，包含大写字母和特殊字符"
-            }
+        switch language {
+        case .english:
+            return
+                "Password must be at least 8 characters with uppercase, and special character"
+        case .arabic:
+            return
+                "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل مع حرف كبير ورمز خاص"
+        case .french:
+            return
+                "Le mot de passe doit contenir au moins 8 caractères, une majuscule et un caractère spécial"
+        case .chinese: return "密码必须至少8个字符，包含大写字母和特殊字符"
         }
-                
+    }
+
     static func failedToSendCode(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Failed to send verification code"
-            case .arabic: return "فشل إرسال رمز التحقق"
-            case .french: return "Échec de l'envoi du code de vérification"
-            case .chinese: return "发送验证码失败"
-            }
+        switch language {
+        case .english: return "Failed to send verification code"
+        case .arabic: return "فشل إرسال رمز التحقق"
+        case .french: return "Échec de l'envoi du code de vérification"
+        case .chinese: return "发送验证码失败"
         }
-        
-    static func invalidVerificationCode(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Invalid verification code"
-            case .arabic: return "رمز التحقق غير صحيح"
-            case .french: return "Code de vérification invalide"
-            case .chinese: return "验证码无效"
-            }
+    }
+
+    static func invalidVerificationCode(_ language: SupportedLanguage) -> String
+    {
+        switch language {
+        case .english: return "Invalid verification code"
+        case .arabic: return "رمز التحقق غير صحيح"
+        case .french: return "Code de vérification invalide"
+        case .chinese: return "验证码无效"
         }
-        
+    }
+
     static func passwordResetSuccess(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Password reset successfully!"
-            case .arabic: return "تم إعادة تعيين كلمة المرور بنجاح!"
-            case .french: return "Mot de passe réinitialisé avec succès !"
-            case .chinese: return "密码重置成功！"
-            }
+        switch language {
+        case .english: return "Password reset successfully!"
+        case .arabic: return "تم إعادة تعيين كلمة المرور بنجاح!"
+        case .french: return "Mot de passe réinitialisé avec succès !"
+        case .chinese: return "密码重置成功！"
         }
-        
+    }
+
     static func failedToResetPassword(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Failed to reset password"
-            case .arabic: return "فشل إعادة تعيين كلمة المرور"
-            case .french: return "Échec de la réinitialisation du mot de passe"
-            case .chinese: return "密码重置失败"
-            }
+        switch language {
+        case .english: return "Failed to reset password"
+        case .arabic: return "فشل إعادة تعيين كلمة المرور"
+        case .french: return "Échec de la réinitialisation du mot de passe"
+        case .chinese: return "密码重置失败"
         }
-        
+    }
+
     static func emailLabel(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "email"
-            case .arabic: return "البريد الإلكتروني"
-            case .french: return "e-mail"
-            case .chinese: return "邮箱"
-            }
+        switch language {
+        case .english: return "email"
+        case .arabic: return "البريد الإلكتروني"
+        case .french: return "e-mail"
+        case .chinese: return "邮箱"
         }
+    }
     static func skip(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Skip"
@@ -460,7 +508,7 @@ struct LocalizedStrings {
         case .chinese: return "跳过"
         }
     }
-    
+
     static func getStarted(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Get Started"
@@ -550,13 +598,13 @@ struct LocalizedStrings {
         }
     }
     static func title1(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Discover Ancient Wonders"
-            case .arabic: return "اكتشف العجائب القديمة"
-            case .french: return "Découvrez les merveilles anciennes"
-            case .chinese: return "探索古代奇观"
-            }
+        switch language {
+        case .english: return "Discover Ancient Wonders"
+        case .arabic: return "اكتشف العجائب القديمة"
+        case .french: return "Découvrez les merveilles anciennes"
+        case .chinese: return "探索古代奇观"
         }
+    }
     static func loginSuccessful(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Login successful! Welcome back."
@@ -573,23 +621,27 @@ struct LocalizedStrings {
         case .chinese: return "创建账户"
         }
     }
-    static func successfullySignedInWithGoogle(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Successfully signed in with Google"
-            case .arabic: return "تم تسجيل الدخول باستخدام Google بنجاح"
-            case .french: return "Connecté avec succès via Google"
-            case .chinese: return "已成功通过 Google 登录"
-            }
+    static func successfullySignedInWithGoogle(_ language: SupportedLanguage)
+        -> String
+    {
+        switch language {
+        case .english: return "Successfully signed in with Google"
+        case .arabic: return "تم تسجيل الدخول باستخدام Google بنجاح"
+        case .french: return "Connecté avec succès via Google"
+        case .chinese: return "已成功通过 Google 登录"
         }
-        
-     static func failedToProcessAuthTokens(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Failed to process authentication tokens"
-            case .arabic: return "فشل في معالجة رموز المصادقة"
-            case .french: return "Échec du traitement des jetons d'authentification"
-            case .chinese: return "无法处理认证令牌"
-            }
+    }
+
+    static func failedToProcessAuthTokens(_ language: SupportedLanguage)
+        -> String
+    {
+        switch language {
+        case .english: return "Failed to process authentication tokens"
+        case .arabic: return "فشل في معالجة رموز المصادقة"
+        case .french: return "Échec du traitement des jetons d'authentification"
+        case .chinese: return "无法处理认证令牌"
         }
+    }
     static func AddProfilePhoto(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Add Profile Photo"
@@ -606,104 +658,116 @@ struct LocalizedStrings {
         case .chinese: return "登录到您的账户"
         }
     }
-    static func failedToGetAppleIDCredentials(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Failed to get Apple ID credentials"
-            case .arabic: return "فشل في الحصول على بيانات اعتماد معرّف Apple"
-            case .french: return "Échec de l'obtention des identifiants Apple ID"
-            case .chinese: return "无法获取 Apple ID 凭据"
-            }
+    static func failedToGetAppleIDCredentials(_ language: SupportedLanguage)
+        -> String
+    {
+        switch language {
+        case .english: return "Failed to get Apple ID credentials"
+        case .arabic: return "فشل في الحصول على بيانات اعتماد معرّف Apple"
+        case .french: return "Échec de l'obtention des identifiants Apple ID"
+        case .chinese: return "无法获取 Apple ID 凭据"
         }
-        
-        static func failedToGetIdentityToken(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Failed to get identity token"
-            case .arabic: return "فشل في الحصول على رمز الهوية"
-            case .french: return "Échec de l'obtention du jeton d'identité"
-            case .chinese: return "无法获取身份令牌"
-            }
+    }
+
+    static func failedToGetIdentityToken(_ language: SupportedLanguage)
+        -> String
+    {
+        switch language {
+        case .english: return "Failed to get identity token"
+        case .arabic: return "فشل في الحصول على رمز الهوية"
+        case .french: return "Échec de l'obtention du jeton d'identité"
+        case .chinese: return "无法获取身份令牌"
         }
-        
-        static func failedToGetAuthorizationCode(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Failed to get authorization code"
-            case .arabic: return "فشل في الحصول على رمز التفويض"
-            case .french: return "Échec de l'obtention du code d'autorisation"
-            case .chinese: return "无法获取授权代码"
-            }
+    }
+
+    static func failedToGetAuthorizationCode(_ language: SupportedLanguage)
+        -> String
+    {
+        switch language {
+        case .english: return "Failed to get authorization code"
+        case .arabic: return "فشل في الحصول على رمز التفويض"
+        case .french: return "Échec de l'obtention du code d'autorisation"
+        case .chinese: return "无法获取授权代码"
         }
-        
-        static func authServiceNotAvailable(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Authentication service not available"
-            case .arabic: return "خدمة المصادقة غير متاحة"
-            case .french: return "Service d'authentification non disponible"
-            case .chinese: return "认证服务不可用"
-            }
+    }
+
+    static func authServiceNotAvailable(_ language: SupportedLanguage) -> String
+    {
+        switch language {
+        case .english: return "Authentication service not available"
+        case .arabic: return "خدمة المصادقة غير متاحة"
+        case .french: return "Service d'authentification non disponible"
+        case .chinese: return "认证服务不可用"
         }
-        
-        static func appleSignInFailed(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Apple Sign In failed"
-            case .arabic: return "فشل تسجيل الدخول باستخدام Apple"
-            case .french: return "La connexion avec Apple a échoué"
-            case .chinese: return "Apple 登录失败"
-            }
+    }
+
+    static func appleSignInFailed(_ language: SupportedLanguage) -> String {
+        switch language {
+        case .english: return "Apple Sign In failed"
+        case .arabic: return "فشل تسجيل الدخول باستخدام Apple"
+        case .french: return "La connexion avec Apple a échoué"
+        case .chinese: return "Apple 登录失败"
         }
-        
-        static func invalidResponseFromApple(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Invalid response from Apple"
-            case .arabic: return "استجابة غير صالحة من Apple"
-            case .french: return "Réponse invalide d'Apple"
-            case .chinese: return "来自 Apple 的响应无效"
-            }
+    }
+
+    static func invalidResponseFromApple(_ language: SupportedLanguage)
+        -> String
+    {
+        switch language {
+        case .english: return "Invalid response from Apple"
+        case .arabic: return "استجابة غير صالحة من Apple"
+        case .french: return "Réponse invalide d'Apple"
+        case .chinese: return "来自 Apple 的响应无效"
         }
-        
-        static func appleSignInNotHandled(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Apple Sign In not handled"
-            case .arabic: return "لم يتم التعامل مع تسجيل الدخول باستخدام Apple"
-            case .french: return "Connexion Apple non gérée"
-            case .chinese: return "未处理 Apple 登录"
-            }
+    }
+
+    static func appleSignInNotHandled(_ language: SupportedLanguage) -> String {
+        switch language {
+        case .english: return "Apple Sign In not handled"
+        case .arabic: return "لم يتم التعامل مع تسجيل الدخول باستخدام Apple"
+        case .french: return "Connexion Apple non gérée"
+        case .chinese: return "未处理 Apple 登录"
         }
-        
-        static func unknownAppleSignInError(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Unknown Apple Sign In error"
-            case .arabic: return "خطأ غير معروف في تسجيل الدخول باستخدام Apple"
-            case .french: return "Erreur inconnue de connexion Apple"
-            case .chinese: return "未知的 Apple 登录错误"
-            }
+    }
+
+    static func unknownAppleSignInError(_ language: SupportedLanguage) -> String
+    {
+        switch language {
+        case .english: return "Unknown Apple Sign In error"
+        case .arabic: return "خطأ غير معروف في تسجيل الدخول باستخدام Apple"
+        case .french: return "Erreur inconnue de connexion Apple"
+        case .chinese: return "未知的 Apple 登录错误"
         }
-        
-        static func successfullySignedInWithApple(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Successfully signed in with Apple"
-            case .arabic: return "تم تسجيل الدخول باستخدام Apple بنجاح"
-            case .french: return "Connecté avec succès via Apple"
-            case .chinese: return "已成功通过 Apple 登录"
-            }
+    }
+
+    static func successfullySignedInWithApple(_ language: SupportedLanguage)
+        -> String
+    {
+        switch language {
+        case .english: return "Successfully signed in with Apple"
+        case .arabic: return "تم تسجيل الدخول باستخدام Apple بنجاح"
+        case .french: return "Connecté avec succès via Apple"
+        case .chinese: return "已成功通过 Apple 登录"
         }
-        
-        static func authFailedNoTokens(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Authentication failed: No tokens received"
-            case .arabic: return "فشلت المصادقة: لم يتم استلام أي رموز"
-            case .french: return "Échec de l'authentification : Aucun jeton reçu"
-            case .chinese: return "认证失败：未收到令牌"
-            }
+    }
+
+    static func authFailedNoTokens(_ language: SupportedLanguage) -> String {
+        switch language {
+        case .english: return "Authentication failed: No tokens received"
+        case .arabic: return "فشلت المصادقة: لم يتم استلام أي رموز"
+        case .french: return "Échec de l'authentification : Aucun jeton reçu"
+        case .chinese: return "认证失败：未收到令牌"
         }
-        
-        static func authFailed(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Authentication failed"
-            case .arabic: return "فشلت المصادقة"
-            case .french: return "Échec de l'authentification"
-            case .chinese: return "认证失败"
-            }
+    }
+
+    static func authFailed(_ language: SupportedLanguage) -> String {
+        switch language {
+        case .english: return "Authentication failed"
+        case .arabic: return "فشلت المصادقة"
+        case .french: return "Échec de l'authentification"
+        case .chinese: return "认证失败"
         }
+    }
 
     static func SignIn(_ language: SupportedLanguage) -> String {
         switch language {
@@ -730,7 +794,9 @@ struct LocalizedStrings {
         case .chinese: return "密码要求"
         }
     }
-    static func AtLeastOneSpecialCharacter(_ language: SupportedLanguage) -> String {
+    static func AtLeastOneSpecialCharacter(_ language: SupportedLanguage)
+        -> String
+    {
         switch language {
         case .english: return "At least one special character"
         case .arabic: return "حرف خاص واحد على الأقل"
@@ -738,7 +804,8 @@ struct LocalizedStrings {
         case .chinese: return "至少包含一个特殊字符"
         }
     }
-    static func AtLeastEightCharacters(_ language: SupportedLanguage) -> String {
+    static func AtLeastEightCharacters(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "At least 8 characters"
         case .arabic: return "ثمانية أحرف على الأقل"
@@ -746,7 +813,8 @@ struct LocalizedStrings {
         case .chinese: return "至少8个字符"
         }
     }
-    static func AtLeastOneCapitalLetter(_ language: SupportedLanguage) -> String {
+    static func AtLeastOneCapitalLetter(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "At least one capital letter"
         case .arabic: return "حرف كبير واحد على الأقل"
@@ -754,11 +822,14 @@ struct LocalizedStrings {
         case .chinese: return "至少包含一个大写字母"
         }
     }
-    static func FullNameValidationMessage(_ language: SupportedLanguage) -> String {
+    static func FullNameValidationMessage(_ language: SupportedLanguage)
+        -> String
+    {
         switch language {
         case .english: return "Please enter your full name (at least 2 words)"
         case .arabic: return "يرجى إدخال اسمك الكامل (كلمتان على الأقل)"
-        case .french: return "Veuillez entrer votre nom complet (au moins 2 mots)"
+        case .french:
+            return "Veuillez entrer votre nom complet (au moins 2 mots)"
         case .chinese: return "请输入您的全名（至少两个单词）"
         }
     }
@@ -795,147 +866,181 @@ struct LocalizedStrings {
         }
     }
     static func subtitle1(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Journey Through History"
-            case .arabic: return "رحلة عبر التاريخ"
-            case .french: return "Voyage à travers l'histoire"
-            case .chinese: return "穿越历史的旅程"
-            }
+        switch language {
+        case .english: return "Journey Through History"
+        case .arabic: return "رحلة عبر التاريخ"
+        case .french: return "Voyage à travers l'histoire"
+        case .chinese: return "穿越历史的旅程"
         }
+    }
     static func description1(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Explore the magnificent temples and tombs of ancient Egypt with our immersive historical experience."
-            case .arabic: return "استكشف المعابد والمقابر الرائعة لمصر القديمة من خلال تجربتنا التاريخية الغامرة."
-            case .french: return "Explorez les magnifiques temples et tombes de l'Égypte ancienne grâce à notre expérience historique immersive."
-            case .chinese: return "通过我们的沉浸式历史体验，探索古埃及宏伟的神庙和墓葬。"
-            }
+        switch language {
+        case .english:
+            return
+                "Explore the magnificent temples and tombs of ancient Egypt with our immersive historical experience."
+        case .arabic:
+            return
+                "استكشف المعابد والمقابر الرائعة لمصر القديمة من خلال تجربتنا التاريخية الغامرة."
+        case .french:
+            return
+                "Explorez les magnifiques temples et tombes de l'Égypte ancienne grâce à notre expérience historique immersive."
+        case .chinese: return "通过我们的沉浸式历史体验，探索古埃及宏伟的神庙和墓葬。"
         }
+    }
     static func title2(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Uncover Hidden Treasures"
-            case .arabic: return "اكشف الكنوز المخفية"
-            case .french: return "Découvrez des trésors cachés"
-            case .chinese: return "发现隐藏的宝藏"
-            }
+        switch language {
+        case .english: return "Uncover Hidden Treasures"
+        case .arabic: return "اكشف الكنوز المخفية"
+        case .french: return "Découvrez des trésors cachés"
+        case .chinese: return "发现隐藏的宝藏"
         }
+    }
     static func subtitle2(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Archaeological Adventures"
-            case .arabic: return "مغامرات أثرية"
-            case .french: return "Aventures archéologiques"
-            case .chinese: return "考古探险"
-            }
+        switch language {
+        case .english: return "Archaeological Adventures"
+        case .arabic: return "مغامرات أثرية"
+        case .french: return "Aventures archéologiques"
+        case .chinese: return "考古探险"
         }
+    }
     static func description2(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Join archaeological expeditions and discover artifacts that tell the story of ancient civilizations."
-            case .arabic: return "انضم إلى بعثات أثرية واكتشف القطع الأثرية التي تروي قصة الحضارات القديمة."
-            case .french: return "Participez à des expéditions archéologiques et découvrez des artefacts racontant l'histoire des civilisations anciennes."
-            case .chinese: return "加入考古探险，发现讲述古代文明故事的文物。"
-            }
+        switch language {
+        case .english:
+            return
+                "Join archaeological expeditions and discover artifacts that tell the story of ancient civilizations."
+        case .arabic:
+            return
+                "انضم إلى بعثات أثرية واكتشف القطع الأثرية التي تروي قصة الحضارات القديمة."
+        case .french:
+            return
+                "Participez à des expéditions archéologiques et découvrez des artefacts racontant l'histoire des civilisations anciennes."
+        case .chinese: return "加入考古探险，发现讲述古代文明故事的文物。"
         }
+    }
     static func title3(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Walk Among Pharaohs"
-            case .arabic: return "امشِ بين الفراعنة"
-            case .french: return "Marchez parmi les pharaons"
-            case .chinese: return "与法老同行"
-            }
+        switch language {
+        case .english: return "Walk Among Pharaohs"
+        case .arabic: return "امشِ بين الفراعنة"
+        case .french: return "Marchez parmi les pharaons"
+        case .chinese: return "与法老同行"
         }
+    }
     static func subtitle3(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Royal Experiences"
-            case .arabic: return "تجارب ملكية"
-            case .french: return "Expériences royales"
-            case .chinese: return "皇家体验"
-            }
+        switch language {
+        case .english: return "Royal Experiences"
+        case .arabic: return "تجارب ملكية"
+        case .french: return "Expériences royales"
+        case .chinese: return "皇家体验"
         }
+    }
     static func description3(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Experience the grandeur of pharaohs and learn about the powerful rulers of ancient Egypt."
-            case .arabic: return "اختبر عظمة الفراعنة وتعرف على الحكام الأقوياء لمصر القديمة."
-            case .french: return "Vivez la grandeur des pharaons et découvrez les puissants dirigeants de l'Égypte ancienne."
-            case .chinese: return "体验法老的宏伟，并了解古埃及的强大统治者。"
-            }
+        switch language {
+        case .english:
+            return
+                "Experience the grandeur of pharaohs and learn about the powerful rulers of ancient Egypt."
+        case .arabic:
+            return "اختبر عظمة الفراعنة وتعرف على الحكام الأقوياء لمصر القديمة."
+        case .french:
+            return
+                "Vivez la grandeur des pharaons et découvrez les puissants dirigeants de l'Égypte ancienne."
+        case .chinese: return "体验法老的宏伟，并了解古埃及的强大统治者。"
         }
+    }
     static func title4(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Decode Ancient Mysteries"
-            case .arabic: return "فك الشفرات القديمة"
-            case .french: return "Décodez les mystères anciens"
-            case .chinese: return "破解古代谜团"
-            }
+        switch language {
+        case .english: return "Decode Ancient Mysteries"
+        case .arabic: return "فك الشفرات القديمة"
+        case .french: return "Décodez les mystères anciens"
+        case .chinese: return "破解古代谜团"
         }
+    }
     static func subtitle4(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Hieroglyphic Secrets"
-            case .arabic: return "أسرار الهيروغليفية"
-            case .french: return "Secrets hiéroglyphiques"
-            case .chinese: return "象形文字的秘密"
-            }
+        switch language {
+        case .english: return "Hieroglyphic Secrets"
+        case .arabic: return "أسرار الهيروغليفية"
+        case .french: return "Secrets hiéroglyphiques"
+        case .chinese: return "象形文字的秘密"
         }
+    }
     static func description4(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Learn to read hieroglyphs and unlock the secrets written in stone thousands of years ago."
-            case .arabic: return "تعلم قراءة الهيروغليفية وافتح الأسرار المنقوشة على الحجر منذ آلاف السنين."
-            case .french: return "Apprenez à lire les hiéroglyphes et découvrez les secrets gravés dans la pierre il y a des milliers d'années."
-            case .chinese: return "学习阅读象形文字，解锁数千年前刻在石头上的秘密。"
-            }
+        switch language {
+        case .english:
+            return
+                "Learn to read hieroglyphs and unlock the secrets written in stone thousands of years ago."
+        case .arabic:
+            return
+                "تعلم قراءة الهيروغليفية وافتح الأسرار المنقوشة على الحجر منذ آلاف السنين."
+        case .french:
+            return
+                "Apprenez à lire les hiéroglyphes et découvrez les secrets gravés dans la pierre il y a des milliers d'années."
+        case .chinese: return "学习阅读象形文字，解锁数千年前刻在石头上的秘密。"
         }
+    }
     static func title5(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Sacred Rituals"
-            case .arabic: return "الطقوس المقدسة"
-            case .french: return "Rituels sacrés"
-            case .chinese: return "神圣仪式"
-            }
+        switch language {
+        case .english: return "Sacred Rituals"
+        case .arabic: return "الطقوس المقدسة"
+        case .french: return "Rituels sacrés"
+        case .chinese: return "神圣仪式"
         }
+    }
     static func subtitle5(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Spiritual Journey"
-            case .arabic: return "رحلة روحية"
-            case .french: return "Voyage spirituel"
-            case .chinese: return "心灵之旅"
-            }
+        switch language {
+        case .english: return "Spiritual Journey"
+        case .arabic: return "رحلة روحية"
+        case .french: return "Voyage spirituel"
+        case .chinese: return "心灵之旅"
         }
+    }
     static func description5(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Understand the spiritual beliefs and sacred rituals that guided ancient Egyptian life."
-            case .arabic: return "افهم المعتقدات الروحية والطقوس المقدسة التي أرشدت حياة المصريين القدماء."
-            case .french: return "Comprenez les croyances spirituelles et les rituels sacrés qui guidaient la vie dans l'Égypte ancienne."
-            case .chinese: return "了解指导古埃及生活的精神信仰和神圣仪式。"
-            }
+        switch language {
+        case .english:
+            return
+                "Understand the spiritual beliefs and sacred rituals that guided ancient Egyptian life."
+        case .arabic:
+            return
+                "افهم المعتقدات الروحية والطقوس المقدسة التي أرشدت حياة المصريين القدماء."
+        case .french:
+            return
+                "Comprenez les croyances spirituelles et les rituels sacrés qui guidaient la vie dans l'Égypte ancienne."
+        case .chinese: return "了解指导古埃及生活的精神信仰和神圣仪式。"
         }
+    }
     static func title6(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Begin Your Adventure"
-            case .arabic: return "ابدأ مغامرتك"
-            case .french: return "Commencez votre aventure"
-            case .chinese: return "开始您的冒险"
-            }
+        switch language {
+        case .english: return "Begin Your Adventure"
+        case .arabic: return "ابدأ مغامرتك"
+        case .french: return "Commencez votre aventure"
+        case .chinese: return "开始您的冒险"
         }
+    }
     static func subtitle6(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Your Journey Awaits"
-            case .arabic: return "رحلتك بانتظارك"
-            case .french: return "Votre voyage vous attend"
-            case .chinese: return "您的旅程已准备好"
-            }
+        switch language {
+        case .english: return "Your Journey Awaits"
+        case .arabic: return "رحلتك بانتظارك"
+        case .french: return "Votre voyage vous attend"
+        case .chinese: return "您的旅程已准备好"
         }
+    }
     static func description6(_ language: SupportedLanguage) -> String {
-            switch language {
-            case .english: return "Ready to embark on an unforgettable journey through the wonders of ancient Egypt?"
-            case .arabic: return "هل أنت مستعد لبدء رحلة لا تُنسى عبر عجائب مصر القديمة؟"
-            case .french: return "Prêt à entreprendre un voyage inoubliable à travers les merveilles de l'Égypte ancienne ?"
-            case .chinese: return "准备好开始一段难忘的古埃及奇观之旅吗？"
-            }
+        switch language {
+        case .english:
+            return
+                "Ready to embark on an unforgettable journey through the wonders of ancient Egypt?"
+        case .arabic:
+            return "هل أنت مستعد لبدء رحلة لا تُنسى عبر عجائب مصر القديمة؟"
+        case .french:
+            return
+                "Prêt à entreprendre un voyage inoubliable à travers les merveilles de l'Égypte ancienne ?"
+        case .chinese: return "准备好开始一段难忘的古埃及奇观之旅吗？"
         }
+    }
     static func Skip(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Skip"
         case .arabic: return "تخطي"
         case .french: return "Passer"
-        case .chinese: return  "跳过"
+        case .chinese: return "跳过"
         }
     }
     static func GetStart(_ language: SupportedLanguage) -> String {
@@ -963,7 +1068,7 @@ struct LocalizedStrings {
         case .chinese: return "地点"
         }
     }
-    
+
     static func chat(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Chat"
@@ -972,7 +1077,7 @@ struct LocalizedStrings {
         case .chinese: return "聊天"
         }
     }
-    
+
     static func settings(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Settings"
@@ -1013,7 +1118,7 @@ struct LocalizedStrings {
         case .chinese: return "全部"
         }
     }
-    
+
     static func temples(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Temples"
@@ -1022,7 +1127,7 @@ struct LocalizedStrings {
         case .chinese: return "神庙"
         }
     }
-    
+
     static func tombs(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Tombs"
@@ -1031,7 +1136,7 @@ struct LocalizedStrings {
         case .chinese: return "陵墓"
         }
     }
-    
+
     static func museums(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Museums"
@@ -1131,12 +1236,12 @@ struct LocalizedStrings {
     static func SubTitlePaymentMethod(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Manage your payment options"
-        case .arabic: return  "إدارة خيارات الدفع الخاصة بك"
+        case .arabic: return "إدارة خيارات الدفع الخاصة بك"
         case .french: return "Gérez vos options de paiement"
         case .chinese: return "管理您的付款选项"
         }
     }
-    
+
     static func logout(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Logout"
@@ -1145,7 +1250,7 @@ struct LocalizedStrings {
         case .chinese: return "退出登录"
         }
     }
-    
+
     static func Preferences(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Preferences"
@@ -1162,10 +1267,12 @@ struct LocalizedStrings {
         case .chinese: return "位置服务"
         }
     }
-    static func SubTitleLocationServices(_ language: SupportedLanguage) -> String {
+    static func SubTitleLocationServices(_ language: SupportedLanguage)
+        -> String
+    {
         switch language {
         case .english: return "Allow access to your location"
-        case .arabic: return  "السماح بالوصول إلى موقعك"
+        case .arabic: return "السماح بالوصول إلى موقعك"
         case .french: return "Autoriser l'accès à votre position"
         case .chinese: return "允许访问您的位置"
         }
@@ -1178,7 +1285,8 @@ struct LocalizedStrings {
         case .chinese: return "生物识别登录"
         }
     }
-    static func SubTitleBiometricLogin(_ language: SupportedLanguage) -> String {
+    static func SubTitleBiometricLogin(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "Use Face ID or Touch ID to sign in"
         case .arabic: return "استخدم بصمة الوجه أو بصمة الإصبع لتسجيل الدخول"
@@ -1210,7 +1318,8 @@ struct LocalizedStrings {
         case .chinese: return "隐私与安全"
         }
     }
-    static func TwoFactorAuthentication(_ language: SupportedLanguage) -> String {
+    static func TwoFactorAuthentication(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "Two-Factor Authentication"
         case .arabic: return "المصادقة الثنائية"
@@ -1218,7 +1327,9 @@ struct LocalizedStrings {
         case .chinese: return "双重认证"
         }
     }
-    static func SubtitleTwoFactorAuthentication(_ language: SupportedLanguage) -> String {
+    static func SubtitleTwoFactorAuthentication(_ language: SupportedLanguage)
+        -> String
+    {
         switch language {
         case .english: return "Add an extra layer of security"
         case .arabic: return "أضف طبقة إضافية من الأمان"
@@ -1234,9 +1345,10 @@ struct LocalizedStrings {
         case .chinese: return "更改密码"
         }
     }
-    static func SubTitleChangePassword(_ language: SupportedLanguage) -> String {
+    static func SubTitleChangePassword(_ language: SupportedLanguage) -> String
+    {
         switch language {
-        case .english: return  "Update your account password"
+        case .english: return "Update your account password"
         case .arabic: return "قم بتحديث كلمة مرور حسابك"
         case .french: return "Mettez à jour le mot de passe de votre compte"
         case .chinese: return "更新您的账户密码"
@@ -1250,9 +1362,10 @@ struct LocalizedStrings {
         case .chinese: return "账户隐私"
         }
     }
-    static func SubTitleAccountPrivacy(_ language: SupportedLanguage) -> String {
+    static func SubTitleAccountPrivacy(_ language: SupportedLanguage) -> String
+    {
         switch language {
-        case .english: return  "Control who can see your profile"
+        case .english: return "Control who can see your profile"
         case .arabic: return "تحكم بمن يمكنه رؤية ملفك الشخصي"
         case .french: return "Contrôlez qui peut voir votre profil"
         case .chinese: return "控制谁可以查看您的个人资料"
@@ -1268,13 +1381,13 @@ struct LocalizedStrings {
     }
     static func SubTitleDeleteAccount(_ language: SupportedLanguage) -> String {
         switch language {
-        case .english: return  "Permanently delete your account"
+        case .english: return "Permanently delete your account"
         case .arabic: return "حذف حسابك بشكل دائم"
         case .french: return "Supprimez définitivement votre compte"
         case .chinese: return "永久删除您的账户"
         }
     }
-     static func AppSeetting(_ language: SupportedLanguage) -> String {
+    static func AppSeetting(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "App Settings"
         case .arabic: return "إعدادات التطبيق"
@@ -1290,7 +1403,8 @@ struct LocalizedStrings {
         case .chinese: return "自动播放视频"
         }
     }
-    static func SubTitleAutoPlayVideos(_ language: SupportedLanguage) -> String {
+    static func SubTitleAutoPlayVideos(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "Automatically play videos in feed"
         case .arabic: return "تشغيل الفيديوهات تلقائيًا في الخلاصة"
@@ -1303,7 +1417,7 @@ struct LocalizedStrings {
         case .english: return "Data Saver"
         case .arabic: return "توفير البيانات"
         case .french: return "Économie de données"
-        case .chinese: return"数据节省"
+        case .chinese: return "数据节省"
         }
     }
     static func SubTitleDataSaver(_ language: SupportedLanguage) -> String {
@@ -1322,10 +1436,11 @@ struct LocalizedStrings {
         case .chinese: return "检查更新"
         }
     }
-    static func SubTitleCheckForUpdate(_ language: SupportedLanguage) -> String {
+    static func SubTitleCheckForUpdate(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "Current version: 1.0.0"
-        case .arabic: return  "الإصدار الحالي: 1.0.0"
+        case .arabic: return "الإصدار الحالي: 1.0.0"
         case .french: return "Version actuelle : 1.0.0"
         case .chinese: return "当前版本：1.0.0"
         }
@@ -1338,7 +1453,8 @@ struct LocalizedStrings {
         case .chinese: return "服务条款"
         }
     }
-    static func SubTitleTermsOfServices(_ language: SupportedLanguage) -> String {
+    static func SubTitleTermsOfServices(_ language: SupportedLanguage) -> String
+    {
         switch language {
         case .english: return "Read our terms and conditions"
         case .arabic: return "اقرأ شروطنا وأحكامنا"
@@ -1354,7 +1470,9 @@ struct LocalizedStrings {
         case .chinese: return "隐私政策"
         }
     }
-    static func SubTitlePrivacyAndPolicy(_ language: SupportedLanguage) -> String {
+    static func SubTitlePrivacyAndPolicy(_ language: SupportedLanguage)
+        -> String
+    {
         switch language {
         case .english: return "Learn about data collection"
         case .arabic: return "تعرف على جمع البيانات"
@@ -1389,7 +1507,7 @@ struct LocalizedStrings {
     static func SubTitleRateApp(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Share your feedback"
-        case .arabic: return  "شارك رأيك"
+        case .arabic: return "شارك رأيك"
         case .french: return "Partagez vos commentaires"
         case .chinese: return "分享您的反馈"
         }
@@ -1406,7 +1524,7 @@ struct LocalizedStrings {
         switch language {
         case .english: return "Tell friends about Luxor"
         case .arabic: return "أخبر أصدقائك عن الاقصر"
-        case .french: return  "Parlez de Luxor à vos amis"
+        case .french: return "Parlez de Luxor à vos amis"
         case .chinese: return "告诉朋友关于 Luxor"
         }
     }
@@ -1418,16 +1536,17 @@ struct LocalizedStrings {
         case .chinese: return "请输入有效的邮箱地址"
         }
     }
-    
+
     static func passwordTooShort(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Password must be at least 8 characters"
         case .arabic: return "يجب أن تكون كلمة المرور 8 أحرف على الأقل"
-        case .french: return "Le mot de passe doit contenir au moins 8 caractères"
+        case .french:
+            return "Le mot de passe doit contenir au moins 8 caractères"
         case .chinese: return "密码至少需要8个字符"
         }
     }
-    
+
     static func invalidPhoneNumber(_ language: SupportedLanguage) -> String {
         switch language {
         case .english: return "Please enter a valid phone number"
@@ -1444,11 +1563,14 @@ struct LocalizedStrings {
         case .chinese: return "支持"
         }
     }
-    
+
 }
 extension View {
     func localizedEnvironment(_ languageManager: LanguageManager) -> some View {
-        self.environment(\.layoutDirection, languageManager.currentLanguage.isRTL ? .rightToLeft : .leftToRight)
+        self.environment(
+            \.layoutDirection,
+            languageManager.currentLanguage.isRTL ? .rightToLeft : .leftToRight
+        )
     }
 }
 extension String {

@@ -200,7 +200,7 @@ struct LuxorLogoView: View {
                 theme.isDarkMode = true
                 return theme
             }())
-            .background(Color.black)
+           //.background(Color.black)
     }
     .padding()
 }

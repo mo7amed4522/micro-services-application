@@ -10,7 +10,7 @@ import SwiftUI
 struct LoadingView: View {
     @State private var isAnimating = false
     @EnvironmentObject var languageManager: LanguageManager
-    
+
     var body: some View {
         ZStack {
             Color.black.opacity(0.3)
@@ -33,18 +33,24 @@ struct LoadingView: View {
                         .frame(width: 60, height: 60)
                         .rotationEffect(.degrees(isAnimating ? 360 : 0))
                         .animation(
-                            .linear(duration: 1.5).repeatForever(autoreverses: false),
+                            .linear(duration: 1.5).repeatForever(
+                                autoreverses: false
+                            ),
                             value: isAnimating
                         )
                 }
-                Text(LocalizedStrings.authenticating(languageManager.currentLanguage))
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(.primary)
-                    .opacity(isAnimating ? 0.7 : 1.0)
-                    .animation(
-                        .easeInOut(duration: 1.0).repeatForever(autoreverses: true),
-                        value: isAnimating
+                Text(
+                    LocalizedStrings.authenticating(
+                        languageManager.currentLanguage
                     )
+                )
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.primary)
+                .opacity(isAnimating ? 0.7 : 1.0)
+                .animation(
+                    .easeInOut(duration: 1.0).repeatForever(autoreverses: true),
+                    value: isAnimating
+                )
             }
             .padding(30)
             .background(
@@ -62,7 +68,7 @@ struct LoadingView: View {
 struct PulsingCircleLoadingView: View {
     @State private var scale: CGFloat = 0.8
     @State private var opacity: Double = 0.6
-    
+
     var body: some View {
         ZStack {
             ForEach(0..<3) { index in
@@ -79,8 +85,8 @@ struct PulsingCircleLoadingView: View {
                     .opacity(opacity)
                     .animation(
                         .easeInOut(duration: 1.0)
-                        .repeatForever(autoreverses: true)
-                        .delay(Double(index) * 0.2),
+                            .repeatForever(autoreverses: true)
+                            .delay(Double(index) * 0.2),
                         value: scale
                     )
                     .offset(x: CGFloat(index - 1) * 30)
@@ -95,7 +101,7 @@ struct PulsingCircleLoadingView: View {
 
 struct LoadingModifier: ViewModifier {
     @EnvironmentObject var authState: AuthState
-    
+
     func body(content: Content) -> some View {
         content
             .overlay(
@@ -121,7 +127,7 @@ extension View {
             .font(.title)
             .padding()
             .environmentObject(LanguageManager())
-        
+
         Spacer()
     }
     .overlay(

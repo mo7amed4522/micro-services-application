@@ -30,6 +30,7 @@ struct MainTabView: View {
                 VStack(spacing: 0) {
                     if isAppBarVisible && !isInDetailView && selectedTab == 0 {
                         appBarView
+                        
                     }
                     TabView(selection: $selectedTab) {
 
@@ -41,7 +42,7 @@ struct MainTabView: View {
                             isScrolling: $isScrolling
                         )
                         .tag(0)
-                        
+                            
                         PlacesView(
                             isNavBarVisible: $isNavBarVisible,
                             isAppBarVisible: $isAppBarVisible,
@@ -91,8 +92,7 @@ struct MainTabView: View {
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarBackButtonHidden(true)
     }
-    
-    // MARK: - App Bar with Floating Effect
+
     private var appBarView: some View {
         HStack {
             Text("Luxor")
@@ -143,6 +143,7 @@ struct MainTabView: View {
         }
     }
 }
+    
 
 #Preview {
     MainTabView()

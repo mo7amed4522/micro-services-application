@@ -47,6 +47,7 @@ class AuthRepository: AuthRepositoryProtocol {
                             )
                         )
                         let result = AuthResult.success(user: domainTokens.user, tokens: domainTokens)
+                        print(response.user)
                         promise(.success(result))
                     } else {
                         let errorMessage = true ? response.error.message : response.message
