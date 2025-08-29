@@ -14,8 +14,8 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "5"
-            endingLineNumber = "5"
+            startingLineNumber = "4"
+            endingLineNumber = "4"
             landmarkName = "LanguageManager"
             landmarkType = "3">
          </BreakpointContent>
@@ -30,9 +30,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "welcomeSubtitle(_:)"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "welcomeTitle(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,9 +46,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "authenticating(_:)"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "welcomeSubtitle(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -62,9 +62,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "welcomeDescription(_:)"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "authenticating(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -78,9 +78,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "next(_:)"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "welcomeDescription(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -94,9 +94,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "455"
-            endingLineNumber = "455"
-            landmarkName = "skip(_:)"
+            startingLineNumber = "454"
+            endingLineNumber = "454"
+            landmarkName = "passwordRequirements(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -110,9 +110,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "464"
-            endingLineNumber = "464"
-            landmarkName = "getStarted(_:)"
+            startingLineNumber = "463"
+            endingLineNumber = "463"
+            landmarkName = "failedToSendCode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -126,9 +126,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "472"
-            endingLineNumber = "472"
-            landmarkName = "login(_:)"
+            startingLineNumber = "471"
+            endingLineNumber = "471"
+            landmarkName = "invalidVerificationCode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -142,9 +142,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "480"
-            endingLineNumber = "480"
-            landmarkName = "register(_:)"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
+            landmarkName = "passwordResetSuccess(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -158,9 +158,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "488"
-            endingLineNumber = "488"
-            landmarkName = "email(_:)"
+            startingLineNumber = "487"
+            endingLineNumber = "487"
+            landmarkName = "failedToResetPassword(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -174,9 +174,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "496"
-            endingLineNumber = "496"
-            landmarkName = "sms(_:)"
+            startingLineNumber = "495"
+            endingLineNumber = "495"
+            landmarkName = "emailLabel(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -190,9 +190,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "504"
-            endingLineNumber = "504"
-            landmarkName = "whatsapp(_:)"
+            startingLineNumber = "503"
+            endingLineNumber = "503"
+            landmarkName = "skip(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -206,10 +206,10 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "welcomeTitle(_:)"
-            landmarkType = "7">
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "SupportedLanguage"
+            landmarkType = "13">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -222,10 +222,10 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "LocalizedStrings"
-            landmarkType = "14">
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "flag"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -238,10 +238,10 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "512"
-            endingLineNumber = "512"
-            landmarkName = "password(_:)"
-            landmarkType = "7">
+            startingLineNumber = "511"
+            endingLineNumber = "511"
+            landmarkName = "LocalizedStrings"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -254,9 +254,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "520"
-            endingLineNumber = "520"
-            landmarkName = "fullName(_:)"
+            startingLineNumber = "519"
+            endingLineNumber = "519"
+            landmarkName = "getStarted(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -270,9 +270,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "528"
-            endingLineNumber = "528"
-            landmarkName = "phoneNumber(_:)"
+            startingLineNumber = "527"
+            endingLineNumber = "527"
+            landmarkName = "login(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -286,9 +286,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
-            landmarkName = "forgotPassword(_:)"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
+            landmarkName = "register(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -302,9 +302,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
-            landmarkName = "home(_:)"
+            startingLineNumber = "543"
+            endingLineNumber = "543"
+            landmarkName = "email(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -318,9 +318,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "552"
-            endingLineNumber = "552"
-            landmarkName = "title1(_:)"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
+            landmarkName = "sms(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -334,9 +334,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "560"
-            endingLineNumber = "560"
-            landmarkName = "loginSuccessful(_:)"
+            startingLineNumber = "559"
+            endingLineNumber = "559"
+            landmarkName = "whatsapp(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -350,9 +350,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
-            landmarkName = "CreateAccount(_:)"
+            startingLineNumber = "568"
+            endingLineNumber = "568"
+            landmarkName = "fullName(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -366,9 +366,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "577"
-            endingLineNumber = "577"
-            landmarkName = "successfullySignedInWithGoogle(_:)"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
+            landmarkName = "phoneNumber(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -382,9 +382,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "585"
-            endingLineNumber = "585"
-            landmarkName = "failedToProcessAuthTokens(_:)"
+            startingLineNumber = "584"
+            endingLineNumber = "584"
+            landmarkName = "forgotPassword(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -398,9 +398,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "593"
-            endingLineNumber = "593"
-            landmarkName = "AddProfilePhoto(_:)"
+            startingLineNumber = "592"
+            endingLineNumber = "592"
+            landmarkName = "home(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -414,9 +414,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "602"
-            endingLineNumber = "602"
-            landmarkName = "SignInToYourAccount(_:)"
+            startingLineNumber = "601"
+            endingLineNumber = "601"
+            landmarkName = "title1(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -430,9 +430,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "611"
-            endingLineNumber = "611"
-            landmarkName = "failedToGetAppleIDCredentials(_:)"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
+            landmarkName = "loginSuccessful(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -446,9 +446,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "620"
-            endingLineNumber = "620"
-            landmarkName = "failedToGetIdentityToken(_:)"
+            startingLineNumber = "619"
+            endingLineNumber = "619"
+            landmarkName = "CreateAccount(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -462,9 +462,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "629"
-            endingLineNumber = "629"
-            landmarkName = "failedToGetAuthorizationCode(_:)"
+            startingLineNumber = "628"
+            endingLineNumber = "628"
+            landmarkName = "successfullySignedInWithGoogle(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -478,9 +478,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "638"
-            endingLineNumber = "638"
-            landmarkName = "authServiceNotAvailable(_:)"
+            startingLineNumber = "637"
+            endingLineNumber = "637"
+            landmarkName = "failedToProcessAuthTokens(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -494,9 +494,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "647"
-            endingLineNumber = "647"
-            landmarkName = "appleSignInFailed(_:)"
+            startingLineNumber = "646"
+            endingLineNumber = "646"
+            landmarkName = "AddProfilePhoto(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -510,9 +510,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "656"
-            endingLineNumber = "656"
-            landmarkName = "invalidResponseFromApple(_:)"
+            startingLineNumber = "655"
+            endingLineNumber = "655"
+            landmarkName = "SignInToYourAccount(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -526,9 +526,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "670"
-            endingLineNumber = "670"
-            landmarkName = "appleSignInNotHandled(_:)"
+            startingLineNumber = "669"
+            endingLineNumber = "669"
+            landmarkName = "failedToGetAppleIDCredentials(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -542,9 +542,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "665"
-            endingLineNumber = "665"
-            landmarkName = "appleSignInNotHandled(_:)"
+            startingLineNumber = "664"
+            endingLineNumber = "664"
+            landmarkName = "failedToGetAppleIDCredentials(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -558,9 +558,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "674"
-            endingLineNumber = "674"
-            landmarkName = "unknownAppleSignInError(_:)"
+            startingLineNumber = "673"
+            endingLineNumber = "673"
+            landmarkName = "failedToGetIdentityToken(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -574,10 +574,10 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "683"
-            endingLineNumber = "683"
-            landmarkName = "successfullySignedInWithApple(_:)"
-            landmarkType = "7">
+            startingLineNumber = "682"
+            endingLineNumber = "682"
+            landmarkName = "LocalizedStrings"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -590,9 +590,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "692"
-            endingLineNumber = "692"
-            landmarkName = "authFailedNoTokens(_:)"
+            startingLineNumber = "691"
+            endingLineNumber = "691"
+            landmarkName = "failedToGetAuthorizationCode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -606,9 +606,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "701"
-            endingLineNumber = "701"
-            landmarkName = "authFailed(_:)"
+            startingLineNumber = "700"
+            endingLineNumber = "700"
+            landmarkName = "authServiceNotAvailable(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -622,9 +622,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "709"
-            endingLineNumber = "709"
-            landmarkName = "SignIn(_:)"
+            startingLineNumber = "708"
+            endingLineNumber = "708"
+            landmarkName = "appleSignInFailed(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -638,9 +638,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "717"
-            endingLineNumber = "717"
-            landmarkName = "OR(_:)"
+            startingLineNumber = "716"
+            endingLineNumber = "716"
+            landmarkName = "invalidResponseFromApple(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -654,9 +654,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1423"
-            endingLineNumber = "1423"
-            landmarkName = "passwordTooShort(_:)"
+            startingLineNumber = "1422"
+            endingLineNumber = "1422"
+            landmarkName = "DataSaver(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -670,9 +670,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1433"
-            endingLineNumber = "1433"
-            landmarkName = "invalidPhoneNumber(_:)"
+            startingLineNumber = "1432"
+            endingLineNumber = "1432"
+            landmarkName = "CheckForUpdate(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -686,9 +686,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1438"
-            endingLineNumber = "1438"
-            landmarkName = "invalidPhoneNumber(_:)"
+            startingLineNumber = "1437"
+            endingLineNumber = "1437"
+            landmarkName = "CheckForUpdate(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -702,9 +702,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1415"
-            endingLineNumber = "1415"
-            landmarkName = "invalidEmail(_:)"
+            startingLineNumber = "1414"
+            endingLineNumber = "1414"
+            landmarkName = "SubTitleAutoPlayVideos(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -718,9 +718,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1406"
-            endingLineNumber = "1406"
-            landmarkName = "SubTitleShareApp(_:)"
+            startingLineNumber = "1405"
+            endingLineNumber = "1405"
+            landmarkName = "AutoPlayVideos(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -734,9 +734,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1397"
-            endingLineNumber = "1397"
-            landmarkName = "ShareApp(_:)"
+            startingLineNumber = "1396"
+            endingLineNumber = "1396"
+            landmarkName = "AppSeetting(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -750,9 +750,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1389"
-            endingLineNumber = "1389"
-            landmarkName = "SubTitleRateApp(_:)"
+            startingLineNumber = "1388"
+            endingLineNumber = "1388"
+            landmarkName = "SubTitleDeleteAccount(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -766,9 +766,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1381"
-            endingLineNumber = "1381"
-            landmarkName = "RateApp(_:)"
+            startingLineNumber = "1380"
+            endingLineNumber = "1380"
+            landmarkName = "DeleteAccount(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -782,9 +782,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1373"
-            endingLineNumber = "1373"
-            landmarkName = "SubTitleHelpCenter(_:)"
+            startingLineNumber = "1372"
+            endingLineNumber = "1372"
+            landmarkName = "SubTitleAccountPrivacy(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -798,9 +798,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1365"
-            endingLineNumber = "1365"
-            landmarkName = "HelpCenter(_:)"
+            startingLineNumber = "1364"
+            endingLineNumber = "1364"
+            landmarkName = "AccountPrivacy(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -814,9 +814,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1357"
-            endingLineNumber = "1357"
-            landmarkName = "SubTitlePrivacyAndPolicy(_:)"
+            startingLineNumber = "1356"
+            endingLineNumber = "1356"
+            landmarkName = "SubTitleChangePassword(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -830,9 +830,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1349"
-            endingLineNumber = "1349"
-            landmarkName = "PrivacyAndPolicy(_:)"
+            startingLineNumber = "1348"
+            endingLineNumber = "1348"
+            landmarkName = "SubTitleChangePassword(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -846,9 +846,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1341"
-            endingLineNumber = "1341"
-            landmarkName = "SubTitleTermsOfServices(_:)"
+            startingLineNumber = "1340"
+            endingLineNumber = "1340"
+            landmarkName = "ChangePassword(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -862,9 +862,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1333"
-            endingLineNumber = "1333"
-            landmarkName = "TermsOfServices(_:)"
+            startingLineNumber = "1332"
+            endingLineNumber = "1332"
+            landmarkName = "SubtitleTwoFactorAuthentication(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -878,9 +878,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1325"
-            endingLineNumber = "1325"
-            landmarkName = "SubTitleCheckForUpdate(_:)"
+            startingLineNumber = "1324"
+            endingLineNumber = "1324"
+            landmarkName = "TwoFactorAuthentication(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -894,9 +894,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1317"
-            endingLineNumber = "1317"
-            landmarkName = "CheckForUpdate(_:)"
+            startingLineNumber = "1316"
+            endingLineNumber = "1316"
+            landmarkName = "PrivacySecurity(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -910,9 +910,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1309"
-            endingLineNumber = "1309"
-            landmarkName = "SubTitleDataSaver(_:)"
+            startingLineNumber = "1308"
+            endingLineNumber = "1308"
+            landmarkName = "SubTitleCurrency(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -926,9 +926,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1301"
-            endingLineNumber = "1301"
-            landmarkName = "DataSaver(_:)"
+            startingLineNumber = "1300"
+            endingLineNumber = "1300"
+            landmarkName = "Currency(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -942,9 +942,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1293"
-            endingLineNumber = "1293"
-            landmarkName = "SubTitleAutoPlayVideos(_:)"
+            startingLineNumber = "1292"
+            endingLineNumber = "1292"
+            landmarkName = "SubTitleBiometricLogin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -958,9 +958,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1285"
-            endingLineNumber = "1285"
-            landmarkName = "AutoPlayVideos(_:)"
+            startingLineNumber = "1284"
+            endingLineNumber = "1284"
+            landmarkName = "BiometricLogin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -974,9 +974,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1277"
-            endingLineNumber = "1277"
-            landmarkName = "AppSeetting(_:)"
+            startingLineNumber = "1276"
+            endingLineNumber = "1276"
+            landmarkName = "SubTitleLocationServices(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -990,9 +990,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1269"
-            endingLineNumber = "1269"
-            landmarkName = "SubTitleDeleteAccount(_:)"
+            startingLineNumber = "1268"
+            endingLineNumber = "1268"
+            landmarkName = "LocationServices(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1006,9 +1006,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1261"
-            endingLineNumber = "1261"
-            landmarkName = "DeleteAccount(_:)"
+            startingLineNumber = "1260"
+            endingLineNumber = "1260"
+            landmarkName = "Preferences(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1022,9 +1022,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1253"
-            endingLineNumber = "1253"
-            landmarkName = "SubTitleAccountPrivacy(_:)"
+            startingLineNumber = "1252"
+            endingLineNumber = "1252"
+            landmarkName = "logout(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1038,10 +1038,10 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1245"
-            endingLineNumber = "1245"
-            landmarkName = "AccountPrivacy(_:)"
-            landmarkType = "7">
+            startingLineNumber = "1244"
+            endingLineNumber = "1244"
+            landmarkName = "LocalizedStrings"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1054,9 +1054,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1237"
-            endingLineNumber = "1237"
-            landmarkName = "SubTitleChangePassword(_:)"
+            startingLineNumber = "1236"
+            endingLineNumber = "1236"
+            landmarkName = "SubTitlePaymentMethod(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1070,9 +1070,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1229"
-            endingLineNumber = "1229"
-            landmarkName = "ChangePassword(_:)"
+            startingLineNumber = "1228"
+            endingLineNumber = "1228"
+            landmarkName = "PaymentMethod(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1086,9 +1086,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1221"
-            endingLineNumber = "1221"
-            landmarkName = "SubtitleTwoFactorAuthentication(_:)"
+            startingLineNumber = "1220"
+            endingLineNumber = "1220"
+            landmarkName = "SubTitleNotifications(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1102,9 +1102,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1213"
-            endingLineNumber = "1213"
-            landmarkName = "TwoFactorAuthentication(_:)"
+            startingLineNumber = "1212"
+            endingLineNumber = "1212"
+            landmarkName = "notifications(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1118,9 +1118,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1205"
-            endingLineNumber = "1205"
-            landmarkName = "PrivacySecurity(_:)"
+            startingLineNumber = "1204"
+            endingLineNumber = "1204"
+            landmarkName = "SubTitlePrivacy(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1134,9 +1134,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1197"
-            endingLineNumber = "1197"
-            landmarkName = "SubTitleCurrency(_:)"
+            startingLineNumber = "1196"
+            endingLineNumber = "1196"
+            landmarkName = "Privacy(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1150,9 +1150,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1189"
-            endingLineNumber = "1189"
-            landmarkName = "Currency(_:)"
+            startingLineNumber = "1188"
+            endingLineNumber = "1188"
+            landmarkName = "SubtitleEditProfile(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1166,9 +1166,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1181"
-            endingLineNumber = "1181"
-            landmarkName = "SubTitleBiometricLogin(_:)"
+            startingLineNumber = "1180"
+            endingLineNumber = "1180"
+            landmarkName = "EditProfile(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1182,9 +1182,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1173"
-            endingLineNumber = "1173"
-            landmarkName = "BiometricLogin(_:)"
+            startingLineNumber = "1172"
+            endingLineNumber = "1172"
+            landmarkName = "SubTitledarkMode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1198,9 +1198,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1165"
-            endingLineNumber = "1165"
-            landmarkName = "SubTitleLocationServices(_:)"
+            startingLineNumber = "1164"
+            endingLineNumber = "1164"
+            landmarkName = "darkMode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1214,9 +1214,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1157"
-            endingLineNumber = "1157"
-            landmarkName = "LocationServices(_:)"
+            startingLineNumber = "1156"
+            endingLineNumber = "1156"
+            landmarkName = "SubTitlelanguage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1230,9 +1230,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1149"
-            endingLineNumber = "1149"
-            landmarkName = "Preferences(_:)"
+            startingLineNumber = "1148"
+            endingLineNumber = "1148"
+            landmarkName = "language(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1246,9 +1246,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1141"
-            endingLineNumber = "1141"
-            landmarkName = "logout(_:)"
+            startingLineNumber = "1140"
+            endingLineNumber = "1140"
+            landmarkName = "museums(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1262,9 +1262,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1133"
-            endingLineNumber = "1133"
-            landmarkName = "SubTitlePaymentMethod(_:)"
+            startingLineNumber = "1132"
+            endingLineNumber = "1132"
+            landmarkName = "tombs(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1278,9 +1278,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1124"
-            endingLineNumber = "1124"
-            landmarkName = "PaymentMethod(_:)"
+            startingLineNumber = "1123"
+            endingLineNumber = "1123"
+            landmarkName = "temples(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1294,9 +1294,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1115"
-            endingLineNumber = "1115"
-            landmarkName = "SubTitleNotifications(_:)"
+            startingLineNumber = "1114"
+            endingLineNumber = "1114"
+            landmarkName = "all(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1310,9 +1310,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1107"
-            endingLineNumber = "1107"
-            landmarkName = "notifications(_:)"
+            startingLineNumber = "1106"
+            endingLineNumber = "1106"
+            landmarkName = "explore(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1326,9 +1326,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1099"
-            endingLineNumber = "1099"
-            landmarkName = "SubTitlePrivacy(_:)"
+            startingLineNumber = "1098"
+            endingLineNumber = "1098"
+            landmarkName = "discover(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1342,9 +1342,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1091"
-            endingLineNumber = "1091"
-            landmarkName = "Privacy(_:)"
+            startingLineNumber = "1090"
+            endingLineNumber = "1090"
+            landmarkName = "searchPlaces(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1358,9 +1358,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1083"
-            endingLineNumber = "1083"
-            landmarkName = "SubtitleEditProfile(_:)"
+            startingLineNumber = "1082"
+            endingLineNumber = "1082"
+            landmarkName = "settings(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1374,9 +1374,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1075"
-            endingLineNumber = "1075"
-            landmarkName = "EditProfile(_:)"
+            startingLineNumber = "1074"
+            endingLineNumber = "1074"
+            landmarkName = "chat(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1390,9 +1390,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1067"
-            endingLineNumber = "1067"
-            landmarkName = "SubTitledarkMode(_:)"
+            startingLineNumber = "1066"
+            endingLineNumber = "1066"
+            landmarkName = "places(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1406,9 +1406,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1059"
-            endingLineNumber = "1059"
-            landmarkName = "darkMode(_:)"
+            startingLineNumber = "1058"
+            endingLineNumber = "1058"
+            landmarkName = "Next(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1422,9 +1422,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1051"
-            endingLineNumber = "1051"
-            landmarkName = "SubTitlelanguage(_:)"
+            startingLineNumber = "1050"
+            endingLineNumber = "1050"
+            landmarkName = "GetStart(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1438,9 +1438,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1043"
-            endingLineNumber = "1043"
-            landmarkName = "language(_:)"
+            startingLineNumber = "1042"
+            endingLineNumber = "1042"
+            landmarkName = "Skip(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1454,9 +1454,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1035"
-            endingLineNumber = "1035"
-            landmarkName = "museums(_:)"
+            startingLineNumber = "1034"
+            endingLineNumber = "1034"
+            landmarkName = "description6(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1470,9 +1470,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1027"
-            endingLineNumber = "1027"
-            landmarkName = "tombs(_:)"
+            startingLineNumber = "1026"
+            endingLineNumber = "1026"
+            landmarkName = "description6(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1486,9 +1486,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1019"
-            endingLineNumber = "1019"
-            landmarkName = "temples(_:)"
+            startingLineNumber = "1018"
+            endingLineNumber = "1018"
+            landmarkName = "subtitle6(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1502,9 +1502,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1010"
-            endingLineNumber = "1010"
-            landmarkName = "all(_:)"
+            startingLineNumber = "1009"
+            endingLineNumber = "1009"
+            landmarkName = "title6(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1518,9 +1518,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1001"
-            endingLineNumber = "1001"
-            landmarkName = "explore(_:)"
+            startingLineNumber = "1000"
+            endingLineNumber = "1000"
+            landmarkName = "description5(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1534,9 +1534,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "992"
-            endingLineNumber = "992"
-            landmarkName = "discover(_:)"
+            startingLineNumber = "991"
+            endingLineNumber = "991"
+            landmarkName = "subtitle5(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1550,9 +1550,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "984"
-            endingLineNumber = "984"
-            landmarkName = "searchPlaces(_:)"
+            startingLineNumber = "983"
+            endingLineNumber = "983"
+            landmarkName = "title5(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1566,9 +1566,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "976"
-            endingLineNumber = "976"
-            landmarkName = "settings(_:)"
+            startingLineNumber = "975"
+            endingLineNumber = "975"
+            landmarkName = "description4(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1582,9 +1582,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "968"
-            endingLineNumber = "968"
-            landmarkName = "chat(_:)"
+            startingLineNumber = "967"
+            endingLineNumber = "967"
+            landmarkName = "description4(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1598,9 +1598,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "960"
-            endingLineNumber = "960"
-            landmarkName = "places(_:)"
+            startingLineNumber = "959"
+            endingLineNumber = "959"
+            landmarkName = "subtitle4(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1614,9 +1614,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "951"
-            endingLineNumber = "951"
-            landmarkName = "Next(_:)"
+            startingLineNumber = "950"
+            endingLineNumber = "950"
+            landmarkName = "title4(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1630,9 +1630,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "942"
-            endingLineNumber = "942"
-            landmarkName = "GetStart(_:)"
+            startingLineNumber = "941"
+            endingLineNumber = "941"
+            landmarkName = "description3(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1646,9 +1646,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "934"
-            endingLineNumber = "934"
-            landmarkName = "Skip(_:)"
+            startingLineNumber = "933"
+            endingLineNumber = "933"
+            landmarkName = "subtitle3(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1662,9 +1662,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "925"
-            endingLineNumber = "925"
-            landmarkName = "description6(_:)"
+            startingLineNumber = "924"
+            endingLineNumber = "924"
+            landmarkName = "title3(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1678,9 +1678,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "917"
-            endingLineNumber = "917"
-            landmarkName = "subtitle6(_:)"
+            startingLineNumber = "916"
+            endingLineNumber = "916"
+            landmarkName = "description2(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1694,9 +1694,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "909"
-            endingLineNumber = "909"
-            landmarkName = "title6(_:)"
+            startingLineNumber = "908"
+            endingLineNumber = "908"
+            landmarkName = "description2(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1710,9 +1710,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "893"
-            endingLineNumber = "893"
-            landmarkName = "subtitle5(_:)"
+            startingLineNumber = "892"
+            endingLineNumber = "892"
+            landmarkName = "title2(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1726,9 +1726,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "885"
-            endingLineNumber = "885"
-            landmarkName = "title5(_:)"
+            startingLineNumber = "884"
+            endingLineNumber = "884"
+            landmarkName = "description1(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1742,9 +1742,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "877"
-            endingLineNumber = "877"
-            landmarkName = "description4(_:)"
+            startingLineNumber = "876"
+            endingLineNumber = "876"
+            landmarkName = "description1(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1758,9 +1758,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "869"
-            endingLineNumber = "869"
-            landmarkName = "subtitle4(_:)"
+            startingLineNumber = "868"
+            endingLineNumber = "868"
+            landmarkName = "subtitle1(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1774,9 +1774,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "853"
-            endingLineNumber = "853"
-            landmarkName = "description3(_:)"
+            startingLineNumber = "852"
+            endingLineNumber = "852"
+            landmarkName = "ByCreatingAccount(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1790,9 +1790,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "861"
-            endingLineNumber = "861"
-            landmarkName = "title4(_:)"
+            startingLineNumber = "860"
+            endingLineNumber = "860"
+            landmarkName = "And(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1806,9 +1806,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "845"
-            endingLineNumber = "845"
-            landmarkName = "subtitle3(_:)"
+            startingLineNumber = "844"
+            endingLineNumber = "844"
+            landmarkName = "InvalidEmailMessage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1822,9 +1822,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "837"
-            endingLineNumber = "837"
-            landmarkName = "title3(_:)"
+            startingLineNumber = "836"
+            endingLineNumber = "836"
+            landmarkName = "EmailAddress(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1838,9 +1838,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "829"
-            endingLineNumber = "829"
-            landmarkName = "description2(_:)"
+            startingLineNumber = "828"
+            endingLineNumber = "828"
+            landmarkName = "FullNameValidationMessage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1854,9 +1854,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "821"
-            endingLineNumber = "821"
-            landmarkName = "subtitle2(_:)"
+            startingLineNumber = "820"
+            endingLineNumber = "820"
+            landmarkName = "AtLeastOneCapitalLetter(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1870,9 +1870,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "813"
-            endingLineNumber = "813"
-            landmarkName = "title2(_:)"
+            startingLineNumber = "812"
+            endingLineNumber = "812"
+            landmarkName = "AtLeastEightCharacters(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1886,9 +1886,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "805"
-            endingLineNumber = "805"
-            landmarkName = "description1(_:)"
+            startingLineNumber = "804"
+            endingLineNumber = "804"
+            landmarkName = "AtLeastOneSpecialCharacter(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1902,9 +1902,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "797"
-            endingLineNumber = "797"
-            landmarkName = "subtitle1(_:)"
+            startingLineNumber = "796"
+            endingLineNumber = "796"
+            landmarkName = "PasswordRequirements(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1918,9 +1918,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "789"
-            endingLineNumber = "789"
-            landmarkName = "And(_:)"
+            startingLineNumber = "788"
+            endingLineNumber = "788"
+            landmarkName = "OR(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1934,10 +1934,10 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "781"
-            endingLineNumber = "781"
-            landmarkName = "ByCreatingAccount(_:)"
-            landmarkType = "7">
+            startingLineNumber = "780"
+            endingLineNumber = "780"
+            landmarkName = "LocalizedStrings"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1950,9 +1950,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "773"
-            endingLineNumber = "773"
-            landmarkName = "InvalidEmailMessage(_:)"
+            startingLineNumber = "772"
+            endingLineNumber = "772"
+            landmarkName = "SignIn(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1966,9 +1966,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "765"
-            endingLineNumber = "765"
-            landmarkName = "EmailAddress(_:)"
+            startingLineNumber = "764"
+            endingLineNumber = "764"
+            landmarkName = "authFailed(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1982,9 +1982,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "757"
-            endingLineNumber = "757"
-            landmarkName = "FullNameValidationMessage(_:)"
+            startingLineNumber = "756"
+            endingLineNumber = "756"
+            landmarkName = "authFailedNoTokens(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1998,9 +1998,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "749"
-            endingLineNumber = "749"
-            landmarkName = "AtLeastOneCapitalLetter(_:)"
+            startingLineNumber = "748"
+            endingLineNumber = "748"
+            landmarkName = "successfullySignedInWithApple(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2014,9 +2014,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "741"
-            endingLineNumber = "741"
-            landmarkName = "AtLeastEightCharacters(_:)"
+            startingLineNumber = "740"
+            endingLineNumber = "740"
+            landmarkName = "unknownAppleSignInError(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2030,10 +2030,10 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "733"
-            endingLineNumber = "733"
-            landmarkName = "AtLeastOneSpecialCharacter(_:)"
-            landmarkType = "7">
+            startingLineNumber = "732"
+            endingLineNumber = "732"
+            landmarkName = "LocalizedStrings"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2046,9 +2046,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "725"
-            endingLineNumber = "725"
-            landmarkName = "PasswordRequirements(_:)"
+            startingLineNumber = "724"
+            endingLineNumber = "724"
+            landmarkName = "appleSignInNotHandled(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2062,9 +2062,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "901"
-            endingLineNumber = "901"
-            landmarkName = "description5(_:)"
+            startingLineNumber = "900"
+            endingLineNumber = "900"
+            landmarkName = "subtitle2(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2072,16 +2072,16 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "5BD7DC96-82BD-49FE-8E29-42E7B2A887BB"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "SupportedLanguage"
-            landmarkType = "13">
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "init()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2094,9 +2094,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "enterValidEmail(_:)"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "welcomeDescription(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2110,9 +2110,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
-            landmarkName = "enterVerificationCode(_:)"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
+            landmarkName = "errorSendingVerificationCode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2126,9 +2126,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "369"
-            endingLineNumber = "369"
-            landmarkName = "verificationCodeLength(_:)"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
+            landmarkName = "unknownUploadError(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2142,9 +2142,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
-            landmarkName = "passwordRequirements(_:)"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
+            landmarkName = "enterVerificationCode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2158,9 +2158,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "411"
-            endingLineNumber = "411"
-            landmarkName = "failedToSendCode(_:)"
+            startingLineNumber = "410"
+            endingLineNumber = "410"
+            landmarkName = "verificationCodeLength(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2174,9 +2174,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "420"
-            endingLineNumber = "420"
-            landmarkName = "invalidVerificationCode(_:)"
+            startingLineNumber = "419"
+            endingLineNumber = "419"
+            landmarkName = "googleSignInNotAvailable(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2190,9 +2190,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
-            landmarkName = "passwordResetSuccess(_:)"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
+            landmarkName = "fillAllFieldsCorrectly(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2206,9 +2206,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "438"
-            endingLineNumber = "438"
-            landmarkName = "failedToResetPassword(_:)"
+            startingLineNumber = "437"
+            endingLineNumber = "437"
+            landmarkName = "appleSignInNotAvailable(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2222,9 +2222,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "447"
-            endingLineNumber = "447"
-            landmarkName = "emailLabel(_:)"
+            startingLineNumber = "446"
+            endingLineNumber = "446"
+            landmarkName = "passwordRequirements(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2238,9 +2238,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
-            landmarkName = "fillAllFieldsCorrectly(_:)"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
+            landmarkName = "unknownUserCreationError(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2254,9 +2254,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "394"
-            endingLineNumber = "394"
-            landmarkName = "appleSignInNotAvailable(_:)"
+            startingLineNumber = "393"
+            endingLineNumber = "393"
+            landmarkName = "unknownUserCreationError(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2270,9 +2270,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
-            landmarkName = "googleSignInNotAvailable(_:)"
+            startingLineNumber = "376"
+            endingLineNumber = "376"
+            landmarkName = "userCreatedWithID(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2286,9 +2286,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "invalidPhotoSelected(_:)"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "next(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2302,9 +2302,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "photoUploadFailed(_:)"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "enterValidEmail(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2318,9 +2318,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "userCreationFailed(_:)"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "invalidPhotoSelected(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2334,9 +2334,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "invalidUserResponse(_:)"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "photoUploadFailed(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2350,9 +2350,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "fullNameRequired(_:)"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "userCreationFailed(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2366,9 +2366,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "fullNameMinLength(_:)"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "invalidUserResponse(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2382,9 +2382,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "emailRequired(_:)"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "fullNameRequired(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2398,9 +2398,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "validEmailRequired(_:)"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "fullNameMinLength(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2414,9 +2414,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
-            landmarkName = "passwordRequired(_:)"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "emailRequired(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2430,9 +2430,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "passwordUppercase(_:)"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "validEmailRequired(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2446,9 +2446,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "passwordLowercase(_:)"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "passwordRequired(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2462,9 +2462,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
-            landmarkName = "passwordNumber(_:)"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "passwordUppercase(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2478,9 +2478,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
-            landmarkName = "confirmPasswordRequired(_:)"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "passwordLowercase(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2494,10 +2494,10 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "passwordsDoNotMatch(_:)"
-            landmarkType = "7">
+            startingLineNumber = "234"
+            endingLineNumber = "234"
+            landmarkName = "LocalizedStrings"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2510,10 +2510,10 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "phoneNumberRequired(_:)"
-            landmarkType = "7">
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "LocalizedStrings"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2526,9 +2526,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
-            landmarkName = "validPhoneNumberRequired(_:)"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
+            landmarkName = "confirmPasswordRequired(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2542,9 +2542,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
-            landmarkName = "profilePhotoRequired(_:)"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "passwordsDoNotMatch(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2558,9 +2558,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
-            landmarkName = "failedToLoadPhoto(_:)"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
+            landmarkName = "phoneNumberRequired(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2574,9 +2574,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
-            landmarkName = "registrationSuccessful(_:)"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "validPhoneNumberRequired(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2590,9 +2590,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
-            landmarkName = "registrationSuccessfulWithVerification(_:)"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "profilePhotoRequired(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2606,9 +2606,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
-            landmarkName = "registrationFailed(_:)"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
+            landmarkName = "failedToLoadPhoto(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2622,9 +2622,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
-            landmarkName = "verificationCodeSentVia(_:)"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
+            landmarkName = "registrationSuccessful(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2638,9 +2638,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
-            landmarkName = "failedToSendVerificationCode(_:)"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
+            landmarkName = "registrationSuccessfulWithVerification(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2654,9 +2654,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
-            landmarkName = "errorSendingVerificationCode(_:)"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
+            landmarkName = "registrationFailed(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2670,9 +2670,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
-            landmarkName = "unknownUploadError(_:)"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
+            landmarkName = "verificationCodeSentVia(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2686,10 +2686,10 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
-            landmarkName = "userCreatedWithID(_:)"
-            landmarkType = "7">
+            startingLineNumber = "342"
+            endingLineNumber = "342"
+            landmarkName = "LocalizedStrings"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2702,9 +2702,9 @@
             filePath = "Luxor-App/Localization.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
-            landmarkName = "unknownUserCreationError(_:)"
+            startingLineNumber = "351"
+            endingLineNumber = "351"
+            landmarkName = "failedToSendVerificationCode(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

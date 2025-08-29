@@ -12,8 +12,10 @@ struct ContentView: View {
     @EnvironmentObject var languageManager: LanguageManager
     @EnvironmentObject var authState: AuthState
     @State private var showSplash = true
-    @State private var hasSeenWelcome = UserDefaults.standard.bool(forKey: "hasSeenWelcome")
-    
+    @State private var hasSeenWelcome = UserDefaults.standard.bool(
+        forKey: "hasSeenWelcome"
+    )
+
     var body: some View {
         Group {
             if showSplash {
@@ -26,7 +28,10 @@ struct ContentView: View {
                 WelcomeContainerView {
                     withAnimation(.easeInOut(duration: 0.5)) {
                         hasSeenWelcome = true
-                        UserDefaults.standard.set(true, forKey: "hasSeenWelcome")
+                        UserDefaults.standard.set(
+                            true,
+                            forKey: "hasSeenWelcome"
+                        )
                     }
                 }
             } else if authState.isAuthenticated {
